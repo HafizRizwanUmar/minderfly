@@ -1,0 +1,208 @@
+.bento-section {
+    padding: var(--spacing-xl) 0;
+    position: relative;
+}
+
+.bento-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    margin-bottom: var(--spacing-lg);
+    align-items: center;
+}
+
+.bento-title {
+    font-size: clamp(3rem, 7vw, 6rem);
+    line-height: 0.95;
+    text-transform: lowercase;
+    letter-spacing: -0.04em;
+}
+
+.bento-stats-grid {
+    display: grid;
+    gap: 2rem;
+}
+
+.stat-card {
+    padding: 2.5rem;
+    border-radius: var(--radius-lg);
+    transition: all var(--transition-base);
+}
+
+.stat-row {
+    display: flex;
+    gap: 3rem;
+}
+
+.stat-item {
+    margin-bottom: 0;
+}
+
+.big-number {
+    font-size: 3.5rem;
+    font-family: var(--font-heading);
+    font-weight: 800;
+    display: block;
+    line-height: 1;
+    letter-spacing: -0.03em;
+}
+
+.stat-item p {
+    color: var(--color-text-secondary);
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    text-transform: lowercase;
+}
+
+.budget-amount {
+    font-size: 4.5rem;
+    font-family: var(--font-heading);
+    font-weight: 800;
+    line-height: 1;
+    margin: 1rem 0;
+    letter-spacing: -0.03em;
+}
+
+.services-header {
+    margin: var(--spacing-xl) 0 var(--spacing-lg);
+    text-align: center;
+}
+
+.services-header h2 {
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    line-height: 1.1;
+    text-transform: lowercase;
+    letter-spacing: -0.03em;
+}
+
+.bento-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: var(--spacing-md);
+}
+
+.bento-card {
+    padding: 3rem;
+    border-radius: var(--radius-xl);
+    position: relative;
+    overflow: hidden;
+    transition: all var(--transition-slow);
+    text-decoration: none;
+    color: var(--color-text-primary);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 400px;
+}
+
+.bento-card.col-span-2 {
+    grid-column: span 2;
+}
+
+.bento-card.col-span-1 {
+    grid-column: span 1;
+}
+
+.bento-card.solid {
+    background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-dark) 100%);
+    box-shadow: var(--shadow-md);
+}
+
+.bento-card.solid:hover {
+    box-shadow: var(--shadow-glow);
+}
+
+.card-number {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    font-size: 5rem;
+    font-family: var(--font-heading);
+    font-weight: 800;
+    opacity: 0.1;
+    line-height: 1;
+    letter-spacing: -0.05em;
+}
+
+.card-icon {
+    font-size: 3rem;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.bento-card.glass .card-icon {
+    color: var(--color-accent);
+}
+
+.bento-card.solid .card-icon {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.card-title {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    font-weight: 800;
+    text-transform: lowercase;
+    letter-spacing: -0.02em;
+}
+
+.card-subtitle {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    opacity: 0.8;
+    font-family: var(--font-body);
+}
+
+.card-description {
+    color: var(--color-text-secondary);
+    margin-bottom: 2rem;
+    font-size: 1rem;
+    line-height: 1.6;
+    max-width: 80%;
+}
+
+.bento-card.solid .card-description {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.card-stats {
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: auto;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.bento-card.solid .card-stats {
+    border-top-color: rgba(255, 255, 255, 0.3);
+}
+
+.card-review {
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: var(--radius-md);
+    border-left: 4px solid var(--color-accent);
+}
+
+@media (max-width: 1024px) {
+    .bento-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .bento-card.col-span-2 {
+        grid-column: span 1;
+    }
+
+    .bento-header {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+}
