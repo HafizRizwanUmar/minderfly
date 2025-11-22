@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Helmet } from 'react-helmet-async';
+import SEOHead from '../components/SEOHead';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FaArrowRight, FaClock, FaUser, FaTag } from 'react-icons/fa';
@@ -13,29 +13,43 @@ const ArticlesPage = () => {
         window.scrollTo(0, 0);
     }, []);
 
+    // Structured data for blog
+    const structuredData = {
+        "@context": "https://schema.org",
+        "@type": "Blog",
+        "name": "Minderfly Blog - Web Development & Design Insights",
+        "description": "Expert articles on web development, MERN stack, Flutter, React, Node.js, and modern development practices",
+        "url": "https://minderfly.com/articles",
+        "publisher": {
+            "@type": "Organization",
+            "name": "Minderfly",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://minderfly.com/logo.png"
+            }
+        },
+        "blogPost": articlesData.map(article => ({
+            "@type": "BlogPosting",
+            "headline": article.title,
+            "description": article.excerpt,
+            "datePublished": article.date,
+            "author": {
+                "@type": "Person",
+                "name": article.author
+            },
+            "url": `https://minderfly.com/articles/${article.slug}`
+        }))
+    };
+
     return (
         <>
-            <Helmet>
-                <title>Articles & Insights - Minderfly | Web Development & Design Blog</title>
-                <meta name="description" content="Explore expert articles on web development, React, UI/UX design, and modern development practices. Stay updated with the latest trends and best practices." />
-                <meta name="keywords" content="web development blog, React tutorials, UI/UX design, JavaScript articles, frontend development" />
-
-                {/* Open Graph / Facebook */}
-                <meta property="og:type" content="website" />
-                <meta property="og:url" content="https://minderfly.com/articles" />
-                <meta property="og:title" content="Articles & Insights - Minderfly" />
-                <meta property="og:description" content="Expert articles on web development, design, and modern development practices." />
-                <meta property="og:image" content="https://minderfly.com/og-image.jpg" />
-
-                {/* Twitter */}
-                <meta property="twitter:card" content="summary_large_image" />
-                <meta property="twitter:url" content="https://minderfly.com/articles" />
-                <meta property="twitter:title" content="Articles & Insights - Minderfly" />
-                <meta property="twitter:description" content="Expert articles on web development, design, and modern development practices." />
-                <meta property="twitter:image" content="https://minderfly.com/og-image.jpg" />
-
-                <link rel="canonical" href="https://minderfly.com/articles" />
-            </Helmet>
+            <SEOHead
+                title="Articles & Insights - Web Development Blog"
+                description="Explore expert articles on web development, MERN stack, Flutter, React, Node.js, UI/UX design, and modern development practices. Stay updated with the latest trends, tutorials, and best practices from Minderfly."
+                keywords="web development blog, MERN stack tutorials, Flutter articles, React tutorials, Node.js guides, JavaScript articles, frontend development, backend development, UI/UX design, programming blog, software development insights"
+                canonical="https://minderfly.com/articles"
+                schema={structuredData}
+            />
 
             <Navbar />
 
