@@ -30,7 +30,7 @@ Staying ahead of these trends isn't just about using the latest tools—it's abo
         date: '2024-11-20',
         readTime: '5 min read',
         category: 'Web Development',
-        image: '/article-images/web-dev-trends.jpg',
+        image: 'https://images.unsplash.com/photo-1457305237443-44c3d5a30b89?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8d2ViJTIwZGV2ZWxvcG1lbnR8ZW58MHx8MHx8fDA%3D',
         tags: ['Web Development', 'AI', 'Performance', 'Trends']
     },
     {
@@ -62,7 +62,7 @@ Use React DevTools Profiler to identify bottlenecks and measure the impact of yo
         date: '2024-11-18',
         readTime: '8 min read',
         category: 'React',
-        image: '/article-images/react-performance.jpg',
+        image: 'https://images.unsplash.com/photo-1633356122102-3fe601e05bd2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cmVhY3R8ZW58MHx8MHx8fDA%3D',
         tags: ['React', 'Performance', 'Optimization', 'JavaScript']
     },
     {
@@ -101,7 +101,7 @@ These principles aren't theoretical—they directly impact user satisfaction and
         date: '2024-11-15',
         readTime: '6 min read',
         category: 'Design',
-        image: '/article-images/ui-ux-principles.jpg',
+        image: 'https://images.unsplash.com/photo-1621111848501-8d3634f82336?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8dWklMjB1eHxlbnwwfHwwfHx8MA%3D%3D',
         tags: ['UI/UX', 'Design', 'Frontend', 'Accessibility']
     },
     {
@@ -136,7 +136,7 @@ Implement comprehensive monitoring to catch issues before they impact users.
         date: '2024-11-12',
         readTime: '10 min read',
         category: 'Backend',
-        image: '/article-images/nodejs-scalable.jpg',
+        image: 'https://images.unsplash.com/photo-1653387300291-bfa1eeb90e16?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bm9kZSUyMGpzfGVufDB8fDB8fHww',
         tags: ['Node.js', 'Backend', 'Scalability', 'Architecture']
     },
     {
@@ -177,8 +177,389 @@ Absolutely! Grid and Flexbox work great together. Use Grid for the overall layou
         date: '2024-11-10',
         readTime: '7 min read',
         category: 'CSS',
-        image: '/article-images/grid-vs-flexbox.jpg',
+        image: 'https://images.unsplash.com/photo-1610018556010-6a11691bc905?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzB8fGNzc3xlbnwwfHwwfHx8MA%3D%3D',
         tags: ['CSS', 'Flexbox', 'Grid', 'Frontend']
+    },
+    {
+        id: 6,
+        slug: 'top-10-ai-tools-for-students',
+        title: 'Top 10 AI Tools for Students',
+        excerpt: 'Discover the best AI tools that can help students improve their productivity, study smarter, and ace their exams.',
+        content: `
+# Top 10 AI Tools for Students
+
+Artificial Intelligence is revolutionizing education. It's not just about generating text; it's about personalized learning, efficient research, and smarter study habits. Here are the top 10 AI tools that every student should know about in 2025.
+
+## 1. ChatGPT (The All-Rounder)
+**Best for:** Brainstorming, explaining complex concepts, and coding help.
+ChatGPT remains the king of versatility. Use it to summarize long articles, generate quiz questions from your notes, or explain quantum physics like you're five.
+*   **Pro Tip:** Use custom instructions to set it as a "Tutor" persona.
+
+## 2. Grammarly (Writing Assistant)
+**Best for:** Grammar, tone, and clarity.
+Don't submit an essay without running it through Grammarly. It goes beyond spell check to offer suggestions on tone and sentence structure.
+
+## 3. Otter.ai (Lecture Notes)
+**Best for:** Recording and transcribing lectures.
+Never miss a detail again. Otter.ai records audio and automatically transcribes it. It can even identify different speakers and extract key takeaways.
+
+## 4. Quizlet (Study Sets)
+**Best for:** Memorization and active recall.
+Quizlet's AI features can turn your notes into flashcards instantly. Their "Learn" mode uses spaced repetition to ensure you remember facts long-term.
+
+## 5. Notion AI (Organization)
+**Best for:** Note-taking and project management.
+Notion is already a student favorite. With AI, it can summarize your messy notes, generate to-do lists from project descriptions, and even draft emails to professors.
+
+## 6. Canva (Visuals)
+**Best for:** Presentations and infographics.
+Stop using boring PowerPoint templates. Canva's Magic Design tools can generate entire presentation decks from a simple text prompt.
+
+## 7. WolframAlpha (Math & Science)
+**Best for:** Solving complex equations.
+Unlike LLMs which can hallucinate math, WolframAlpha is a computational engine. It gives you step-by-step solutions to calculus, algebra, and chemistry problems.
+
+## 8. Socratic by Google (Homework Help)
+**Best for:** Quick answers and visual explanations.
+Stuck on a problem? Snap a photo of it. Socratic finds the best online resources, videos, and step-by-step guides to help you understand the concept.
+
+## 9. Mendeley (Research)
+**Best for:** Citation management.
+Writing a thesis? Mendeley organizes your research papers and automatically generates citations in any format (APA, MLA, Chicago, etc.).
+
+## 10. Gemini (Google Integration)
+**Best for:** Research within Google Workspace.
+If you use Google Docs and Drive, Gemini is seamless. It can pull information from your Drive files to answer questions and draft content directly in Docs.
+
+## Conclusion
+Leveraging these tools isn't cheating; it's working smarter. By automating the tedious parts of studying, you free up time to actually understand the material.
+        `,
+        author: 'Hafiz Rizwan Umar',
+        date: '2025-11-23',
+        readTime: '8 min read',
+        category: 'Education',
+        image: 'https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&w=1200&q=80',
+        tags: ['AI', 'Students', 'Productivity', 'Education']
+    },
+    {
+        id: 7,
+        slug: 'build-startup-website-under-50',
+        title: 'How to Build a Startup Website Under $50',
+        excerpt: 'Learn how to launch a professional startup website on a budget using affordable hosting, free themes, and essential tools.',
+        content: `
+# How to Build a Startup Website Under $50
+
+Launching a startup is expensive, but your website doesn't have to be. You can build a professional, high-converting site for less than the cost of a nice dinner. Here is the blueprint.
+
+## The Budget Breakdown
+*   **Domain:** $10 - $12 / year
+*   **Hosting:** $0 - $30 / year
+*   **Software (CMS):** $0
+*   **Theme/Design:** $0
+*   **Total:** **$10 - $42**
+
+## Step 1: The Domain ($10-$12)
+This is the one thing you usually can't get for free (unless you want a subdomain).
+*   **Where to buy:** Namecheap, Google Domains, or Porkbun.
+*   **Tip:** Avoid "premium" domains. Stick to standard .com, .io, or .co.
+
+## Step 2: Hosting (The Secret to Saving)
+You don't need expensive managed hosting for a simple startup site.
+*   **Static Sites (Free):** If your site is HTML/CSS/JS or built with Next.js/React, use **Netlify** or **Vercel**. They have generous free tiers that include SSL.
+*   **WordPress ($30/yr):** If you need a CMS, look for shared hosting deals from providers like Hostinger or Namecheap (often ~$2.50/mo for the first year).
+
+## Step 3: The Platform
+*   **For Landing Pages:** Use **Carrd**. It's free for basic sites and only $19/year for pro features (custom domain). It's incredibly easy to use.
+*   **For Blogs/Content:** Use **WordPress**. It powers 40% of the web for a reason.
+*   **For Custom Apps:** Use **React/Next.js** hosted on Vercel.
+
+## Step 4: Design for Free
+*   **Themes:** Use "Astra" or "GeneratePress" for WordPress. They are fast, free, and customizable.
+*   **Graphics:** Use **Canva** to create logos and banners.
+*   **Stock Photos:** Use **Unsplash** or **Pexels** for high-quality, royalty-free images.
+*   **Illustrations:** Use **undraw.co** for open-source illustrations.
+
+## Step 5: Essential Free Tools
+*   **Analytics:** Google Analytics 4 (Free).
+*   **SEO:** Yoast SEO (Free WordPress plugin).
+*   **Email Marketing:** Mailchimp (Free up to 500 contacts).
+
+## Conclusion
+A limited budget is not a barrier; it's a constraint that forces creativity. Your first version doesn't need to be perfect; it just needs to be live.
+        `,
+        author: 'Hafiz Rizwan Umar',
+        date: '2025-11-23',
+        readTime: '6 min read',
+        category: 'Startups',
+        image: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80',
+        tags: ['Startup', 'Website', 'Budget', 'Web Development']
+    },
+    {
+        id: 8,
+        slug: 'best-chrome-extensions-productivity',
+        title: 'Best Chrome Extensions for Productivity',
+        excerpt: 'Boost your workflow with these essential Chrome extensions designed to save time and enhance focus.',
+        content: `
+# Best Chrome Extensions for Productivity
+
+Your browser is your operating system. Optimizing it can save you hours every week. Here is a curated list of extensions that actually make a difference.
+
+## Focus & Discipline
+### 1. StayFocusd
+**What it does:** Limits the time you spend on time-wasting websites.
+**Why use it:** We all have that urge to check Twitter "just for a second." StayFocusd acts as your willpower when you run out.
+
+### 2. Momentum
+**What it does:** Replaces your new tab page with a personal dashboard.
+**Why use it:** It reminds you of your main focus for the day every time you open a tab, preventing you from getting distracted.
+
+## Writing & Communication
+### 3. Grammarly
+**What it does:** Real-time grammar and spell checking.
+**Why use it:** It saves you from embarrassing typos in emails and Slack messages.
+
+### 4. Loom
+**What it does:** Screen recording made simple.
+**Why use it:** Stop writing long emails explaining how to do something. Record a 30-second Loom video instead. It's faster and clearer.
+
+## Organization & Tools
+### 5. OneTab
+**What it does:** Converts all your open tabs into a list.
+**Why use it:** Saves up to 95% of memory and declutters your workspace. Great for saving a research session for later.
+
+### 6. LastPass / 1Password
+**What it does:** Password management.
+**Why use it:** Security and speed. Never type a password or fill out a form manually again.
+
+### 7. Todoist
+**What it does:** Task management in your browser.
+**Why use it:** Quickly add tasks as they come to mind without leaving your current page.
+
+## Hidden Gems
+*   **Dark Reader:** Forces dark mode on every website. Your eyes will thank you.
+*   **GoFullPage:** Takes a screenshot of an entire webpage, not just the visible area.
+*   **Wappalyzer:** Shows you the technology stack of any website you visit (great for developers).
+
+## Conclusion
+Productivity isn't about doing more; it's about removing friction. These tools remove the friction from your digital life.
+        `,
+        author: 'Ammara Lohani',
+        date: '2025-11-23',
+        readTime: '5 min read',
+        category: 'Productivity',
+        image: 'https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?auto=format&fit=crop&w=1200&q=80',
+        tags: ['Chrome Extensions', 'Productivity', 'Tools']
+    },
+    {
+        id: 9,
+        slug: 'flutter-vs-react-native-beginners',
+        title: 'Flutter vs React Native – Which Is Better for Beginners?',
+        excerpt: 'A detailed comparison of Flutter and React Native to help beginner developers choose the right mobile development framework.',
+        content: `
+# Flutter vs React Native: A Beginner's Guide
+
+The battle for cross-platform dominance continues. If you're a beginner looking to build mobile apps in 2025, which one should you choose?
+
+## The Contenders
+
+### React Native (Meta)
+*   **Language:** JavaScript / TypeScript
+*   **Philosophy:** "Learn once, write anywhere."
+*   **Rendering:** Uses native components wrapped in JS.
+
+### Flutter (Google)
+*   **Language:** Dart
+*   **Philosophy:** "UI Toolkit for building beautiful apps."
+*   **Rendering:** Renders its own UI using the Skia graphics engine (like a game engine).
+
+## Comparison Matrix
+
+| Feature | React Native | Flutter |
+| :--- | :--- | :--- |
+| **Learning Curve** | Easier (if you know JS) | Steeper (need to learn Dart) |
+| **Performance** | Good (Near Native) | Excellent (Consistent 60fps) |
+| **UI Consistency** | Relies on OS components | Pixel-perfect on all screens |
+| **Hot Reload** | Yes | Yes (Stateful Hot Reload) |
+| **Community** | Massive | Rapidly Growing |
+
+## Why Choose React Native?
+1.  **You already know Web Development:** If you know React, you're 80% there.
+2.  **Job Market:** There are currently more jobs for React Native developers.
+3.  **Over-the-air Updates:** You can push JS updates without going through the App Store review process (using tools like CodePush).
+
+## Why Choose Flutter?
+1.  **Design Freedom:** You want your app to look exactly the same on iOS and Android.
+2.  **Performance:** You're building a complex, animation-heavy app.
+3.  **Documentation:** Google's documentation for Flutter is world-class.
+
+## The Verdict for Beginners
+*   **Choose React Native if:** You want a job quickly and already have some JavaScript knowledge.
+*   **Choose Flutter if:** You want to build a highly polished, custom UI and are willing to learn a new language (Dart is easy!).
+
+Both frameworks are excellent choices. The best one is the one you actually start building with.
+        `,
+        author: 'Hafiz Rizwan Umar',
+        date: '2025-11-23',
+        readTime: '8 min read',
+        category: 'Mobile Development',
+        image: 'https://images.unsplash.com/photo-1567581935884-3349723552ca?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8bW9iaWxlfGVufDB8fDB8fHww',
+        tags: ['Flutter', 'React Native', 'Mobile Dev', 'Comparison']
+    },
+    {
+        id: 10,
+        slug: 'earning-from-digital-products-2025',
+        title: 'How to Start Earning from Digital Products in 2025',
+        excerpt: 'A step-by-step guide to creating and selling digital products like eBooks, courses, and templates in the coming year.',
+        content: `
+# How to Start Earning from Digital Products in 2025
+
+The digital product economy is booming. Unlike physical products, digital goods have zero shipping costs, zero inventory, and 100% profit margins (after creation). Here is how to get your slice of the pie.
+
+## Step 1: Identify Your "Unfair Advantage"
+What do you know better than the average person?
+*   **Skills:** Coding, design, writing, Excel, cooking?
+*   **Experience:** Did you pass a difficult exam? Lose weight? Build a garden?
+*   **Resources:** Do you have a list of contacts or a collection of tools?
+
+## Step 2: Choose Your Product Type
+
+### 1. Templates (High Demand)
+People love shortcuts.
+*   **Notion Templates:** Life planners, student dashboards.
+*   **Canva Templates:** Instagram posts, resumes.
+*   **Code Snippets:** UI kits, boilerplate code.
+
+### 2. Educational Content
+*   **eBooks:** Deep dive into a specific topic.
+*   **Mini-Courses:** 1-hour video workshop solving a specific problem.
+
+### 3. Assets
+*   **Stock Photos/Video:** If you're a photographer.
+*   **Digital Art:** Procreate brushes, textures, icons.
+
+## Step 3: Build It (MVP)
+Don't spend months. Spend a weekend.
+*   Use **Canva** for design.
+*   Use **Notion** for writing.
+*   Use **OBS Studio** for recording.
+
+## Step 4: Where to Sell?
+
+| Platform | Pros | Cons |
+| :--- | :--- | :--- |
+| **Gumroad** | Easiest to start, handles taxes | Higher fees (10%) |
+| **Etsy** | Huge built-in traffic | Competitive, listing fees |
+| **Lemon Squeezy** | Great for SaaS/Software | Newer platform |
+| **Your Own Site** | 100% Control | You need to bring traffic |
+
+## Step 5: The Marketing Strategy
+You can't just build it and wait.
+1.  **Build in Public:** Share your creation process on Twitter/LinkedIn.
+2.  **Give Free Value:** Offer a free "Lead Magnet" (e.g., a checklist) to get email addresses.
+3.  **Launch:** Create hype before you release.
+
+## Conclusion
+The best time to start was yesterday. The second best time is now. Pick a small problem, solve it with a digital file, and put it up for sale.
+        `,
+        author: 'Ammara Lohani',
+        date: '2025-11-23',
+        readTime: '7 min read',
+        category: 'Digital Marketing',
+        image: 'https://plus.unsplash.com/premium_photo-1683262038148-2ac280407276?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fGRpZ2l0YWwlMjBtYXJrZXRpbmd8ZW58MHx8MHx8fDA%3D',
+        tags: ['Digital Products', 'Passive Income', 'E-commerce']
+    },
+    {
+        id: 11,
+        slug: 'how-adsense-works-beginner-guide',
+        title: 'How AdSense Actually Works (Beginner Guide)',
+        excerpt: 'Understand the mechanics of Google AdSense, from approval to getting paid, in this comprehensive guide for beginners.',
+        content: `
+# How AdSense Actually Works
+
+Google AdSense is the internet's default monetization layer. It connects publishers (you) with advertisers (businesses). But how does the money actually flow?
+
+## The Ecosystem
+1.  **Advertisers** use **Google Ads** to bid on keywords (e.g., "best running shoes").
+2.  **Publishers** (you) place **AdSense** code on your website.
+3.  **Google** acts as the middleman, displaying the highest bidder's ad on your site and taking a cut (usually 32%).
+
+## How You Get Paid
+There are two main models:
+*   **CPC (Cost Per Click):** You get paid when a user clicks an ad. Prices range from $0.01 to $50+ per click depending on the niche (Insurance/Finance pays most).
+*   **CPM (Cost Per Mille):** You get paid per 1,000 views. This is more common for video or brand awareness ads.
+
+## The Approval Process (The Hard Part)
+Getting approved in 2025 is stricter than before.
+*   **Content:** You need 20-30 high-quality, original articles. No AI-generated spam.
+*   **Pages:** You MUST have About, Contact, and Privacy Policy pages.
+*   **Design:** A clean, mobile-friendly site structure.
+
+## Maximizing Revenue (RPM)
+**RPM** = Revenue Per Mille (1,000 visitors). To increase it:
+1.  **Niche Selection:** Finance, Tech, and Health pay more than Gaming or Entertainment.
+2.  **Ad Placement:** Ads "Above the fold" (visible without scrolling) perform better.
+3.  **Traffic Source:** US/UK/Canada traffic pays significantly more than Tier 3 countries.
+
+## Common Pitfalls
+*   **Clicking your own ads:** Instant ban. Never do it.
+*   **Invalid Traffic:** Buying cheap bot traffic will get you banned.
+*   **Ad Clutter:** Too many ads ruin user experience and hurt SEO.
+
+## Conclusion
+AdSense is a long game. It's not a get-rich-quick scheme, but a reliable way to monetize traffic once you have built a solid audience.
+        `,
+        author: 'Hafiz Rizwan Umar',
+        date: '2025-11-23',
+        readTime: '6 min read',
+        category: 'Monetization',
+        image: 'https://plus.unsplash.com/premium_photo-1679397743724-b94e80b89005?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8YWRzJTIwbW9uZXl8ZW58MHx8MHx8fDA%3D',
+        tags: ['AdSense', 'Monetization', 'Blogging', 'Google']
+    },
+    {
+        id: 12,
+        slug: 'best-qr-code-generator-software',
+        title: 'Best QR Code Generator Software for Designers & Businesses',
+        excerpt: 'Explore top QR code generators, including the Nishan QR Code Generator on Microsoft Store, offering lifetime access and daily free codes.',
+        content: `
+# Best QR Code Generator Software
+
+In a touch-free world, QR codes have made a massive comeback. They are the bridge between the physical and digital worlds. But not all generators are created equal.
+
+## What Makes a "Good" Generator?
+*   **Customization:** Can you change colors, add logos, and change the dot pattern?
+*   **Vector Formats:** Do they export in SVG/EPS for print?
+*   **Tracking:** Can you see how many people scanned it?
+*   **No Expiration:** Do the codes work forever? (Many free ones stop working after a trial).
+
+## Top Recommendation: Nishan QR Code Generator
+For Windows users, especially designers and small businesses, the **Nishan QR Code Generator** on the Microsoft Store is a hidden gem.
+
+### Why We Recommend It:
+1.  **Lifetime Access:** Unlike web services that charge monthly subscriptions ($10-$30/mo), this is a one-time purchase or free-to-use app.
+2.  **Daily Free Generation:** It offers a generous free tier allowing daily generations without watermarks.
+3.  **Designer Focused:** It provides advanced customization options that designers need—custom eyes, patterns, and logo integration.
+4.  **Privacy First:** As a desktop app, it processes data locally where possible, which is better for security.
+
+[**Download Nishan QR Code Generator on Microsoft Store**](https://apps.microsoft.com/detail/9njf5mhwhhps?hl=en-US&gl=BD)
+
+## Creative Ways to Use QR Codes
+*   **Business Cards:** Link directly to your LinkedIn or vCard.
+*   **Wifi Access:** Let guests scan to join your Wifi network (no password typing!).
+*   **Product Packaging:** Link to a "How-to" video or user manual.
+*   **Events:** Scan for tickets or event maps.
+
+## Security Warning
+Always check the URL a QR code points to before entering sensitive information. "Quishing" (QR Phishing) is a real threat.
+
+## Conclusion
+Whether you are a restaurant owner needing a digital menu or a designer making a brochure, having a reliable tool like Nishan QR Code Generator in your toolkit is essential.
+        `,
+        author: 'Hafiz Rizwan Umar',
+        date: '2025-11-23',
+        readTime: '5 min read',
+        category: 'Tools',
+        image: 'https://images.unsplash.com/photo-1550482781-48d477e61c72?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cXIlMjBjb2RlfGVufDB8fDB8fHww',
+        tags: ['QR Code', 'Software', 'Tools', 'Microsoft Store']
     }
 ];
 

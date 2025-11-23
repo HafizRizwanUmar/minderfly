@@ -17,7 +17,7 @@ const Team = () => {
             location: 'BASED IN PAKISTAN',
             image: teamMemberImg,
             social: {
-                linkedin: 'https://www.linkedin.com/in/hafiz-rizwan-umar',
+                linkedin: 'https://www.linkedin.com/in/hafizrizwanumar',
                 github: 'https://github.com/hafizrizwanumar'
             }
         },

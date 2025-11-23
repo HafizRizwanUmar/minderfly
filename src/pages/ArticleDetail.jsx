@@ -7,6 +7,8 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { getArticleBySlug, getRelatedArticles } from '../data/articles';
 import './ArticleDetail.css';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 const ArticleDetail = () => {
     const { slug } = useParams();
@@ -20,6 +22,8 @@ const ArticleDetail = () => {
     if (!article) {
         return <Navigate to="/articles" replace />;
     }
+
+
 
     return (
         <>
@@ -146,10 +150,16 @@ const ArticleDetail = () => {
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.7 }}
                     >
-                        <div className="thumbnail-placeholder">
-                            <span>{article.category}</span>
-                        </div>
+                        {article.image ? (
+                            <img src={article.image} alt={article.title} className="article-image" />
+                        ) : (
+                            <div className="thumbnail-placeholder">
+                                <span>{article.category}</span>
+                            </div>
+                        )}
                     </motion.div>
+
+
 
                     {/* Article Content */}
                     <motion.div
@@ -159,19 +169,16 @@ const ArticleDetail = () => {
                         transition={{ duration: 0.8, delay: 0.2 }}
                     >
                         <div className="markdown-content">
-                            {article.content.split('\n').map((line, idx) => {
-                                if (line.startsWith('# ')) {
-                                    return <h1 key={idx}>{line.substring(2)}</h1>;
-                                } else if (line.startsWith('## ')) {
-                                    return <h2 key={idx}>{line.substring(3)}</h2>;
-                                } else if (line.startsWith('### ')) {
-                                    return <h3 key={idx}>{line.substring(4)}</h3>;
-                                } else if (line.trim() === '') {
-                                    return <br key={idx} />;
-                                } else {
-                                    return <p key={idx}>{line}</p>;
-                                }
-                            })}
+                            <ReactMarkdown
+                                remarkPlugins={[remarkGfm]}
+                                components={{
+                                    img: ({ node, ...props }) => <img {...props} className="article-content-image" />,
+                                    a: ({ node, ...props }) => <a {...props} target="_blank" rel="noopener noreferrer" />,
+                                    table: ({ node, ...props }) => <div className="table-container"><table {...props} /></div>
+                                }}
+                            >
+                                {article.content}
+                            </ReactMarkdown>
                         </div>
                     </motion.div>
 
