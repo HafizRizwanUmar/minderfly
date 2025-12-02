@@ -7,6 +7,8 @@ import WorkPage from './pages/WorkPage';
 import TeamPage from './pages/TeamPage';
 import ArticlesPage from './pages/ArticlesPage';
 import ArticleDetail from './pages/ArticleDetail';
+import StorePage from './pages/StorePage';
+import NishanProduct from './pages/products/NishanProduct';
 import { initGA, logPageView } from './utils/analytics';
 import './App.css';
 
@@ -40,6 +42,8 @@ function App() {
           <Route path="/team" element={<TeamPage />} />
           <Route path="/articles" element={<ArticlesPage />} />
           <Route path="/articles/:slug" element={<ArticleDetail />} />
+          <Route path="/store" element={<StorePage />} />
+          <Route path="/store/nishan-qr-generator" element={<NishanProduct />} />
         </Routes>
       </Router>
     </HelmetProvider>

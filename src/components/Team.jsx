@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FaChevronLeft, FaChevronRight, FaLinkedin, FaGithub } from 'react-icons/fa';
 import './Team.css';
 import teamMemberImg from '../assets/team-member.png';
+import teamMemberImg1 from '../assets/team-member1.png';
 
 const Team = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -19,6 +20,19 @@ const Team = () => {
             social: {
                 linkedin: 'https://www.linkedin.com/in/hafizrizwanumar',
                 github: 'https://github.com/hafizrizwanumar'
+            }
+        },
+        {
+            id: 2,
+            name: 'AMMARA LOHANI',
+            firstName: 'AMMARA',
+            lastName: 'LOHANI',
+            role: 'UI/UX DESIGNER',
+            location: 'BASED IN PAKISTAN',
+            image: teamMemberImg1, // Placeholder
+            social: {
+                linkedin: '#',
+                github: '#'
             }
         },
     ];

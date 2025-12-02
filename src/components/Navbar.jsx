@@ -27,6 +27,7 @@ const Navbar = () => {
         { name: 'home', path: '/', hash: null },
         { name: 'services', path: '/services', hash: null },
         { name: 'work', path: '/work', hash: null },
+        { name: 'store', path: '/store', hash: null },
         { name: 'team', path: '/team', hash: null },
         { name: 'articles', path: '/articles', hash: null }
     ];

@@ -7,6 +7,7 @@ import Footer from '../components/Footer';
 import WorkShowcase from '../components/WorkShowcase';
 import Team from '../components/Team';
 import Services from '../components/Services';
+import StorePreview from '../components/StorePreview';
 
 const Home = () => {
     useEffect(() => {
@@ -103,6 +104,7 @@ const Home = () => {
                 <WorkShowcase />
                 <Team />
                 <Services />
+                <StorePreview />
                 <Footer />
             </div>
         </>
