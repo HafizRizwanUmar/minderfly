@@ -164,7 +164,7 @@ const Hero = () => {
                     <div className="tech-desc-container">
                         <p className="tech-desc">
                             We transform ideas into digital reality. 
-                            Whether it's a <strong>SaaS platform</strong>, a <strong>custom extension</strong>, 
+                            Whether it's a <strong>saas platform</strong>, a <strong>custom extension</strong>, 
                             or a <strong>mobile app</strong>, we engineer the code that drives your startup forward.
                         </p>
                         <div className="tech-stack-list">
