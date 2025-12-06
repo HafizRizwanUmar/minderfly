@@ -8,6 +8,7 @@ import WorkShowcase from '../components/WorkShowcase';
 import Team from '../components/Team';
 import Services from '../components/Services';
 import StorePreview from '../components/StorePreview';
+import OffersSection from '../components/OffersSection';
 
 const Home = () => {
     useEffect(() => {
@@ -101,6 +102,7 @@ const Home = () => {
             <div className="app">
                 <Navbar />
                 <Hero />
+                <OffersSection />
                 <WorkShowcase />
                 <Team />
                 <Services />

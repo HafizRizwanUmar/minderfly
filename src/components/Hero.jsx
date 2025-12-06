@@ -1,6 +1,6 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef, useEffect, useState } from 'react';
-import MagneticButton from './MagneticButton'; 
+import MagneticButton from './MagneticButton';
 import './Hero.css';
 
 // Optimized Network Component
@@ -13,12 +13,12 @@ const NetworkBackground = () => {
         const canvas = canvasRef.current;
         const ctx = canvas.getContext('2d');
         let animationFrameId;
-        
+
         // Configuration - Adjusted for Startup Performance
         const nodeCount = isMobile ? 25 : 60; // Fewer nodes on mobile
         const connectionDistance = isMobile ? 100 : 150;
         // Tech symbols relevant to Minderfly
-        const labels = ['{ }', '</>', 'JS', 'dart', '01']; 
+        const labels = ['{ }', '</>', 'JS', 'dart', '01'];
 
         let nodes = [];
 
@@ -34,7 +34,7 @@ const NetworkBackground = () => {
                 this.vx = (Math.random() - 0.5) * 0.3; // Slower, more elegant movement
                 this.vy = (Math.random() - 0.5) * 0.3;
                 this.label = labels[Math.floor(Math.random() * labels.length)];
-                this.size = Math.random() * 8 + 8; 
+                this.size = Math.random() * 8 + 8;
             }
 
             update() {
@@ -58,7 +58,7 @@ const NetworkBackground = () => {
 
         const animate = () => {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
+
             // Draw Connections first (behind text)
             ctx.lineWidth = 0.5;
             ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
@@ -66,7 +66,7 @@ const NetworkBackground = () => {
             for (let i = 0; i < nodes.length; i++) {
                 let nodeA = nodes[i];
                 nodeA.update(); // Update position inside loop to save cycles
-                
+
                 for (let j = i + 1; j < nodes.length; j++) {
                     let nodeB = nodes[j];
                     const dx = nodeA.x - nodeB.x;
@@ -114,7 +114,7 @@ const Hero = () => {
             <div className="tech-bg">
                 <div className="scanlines"></div>
                 <NetworkBackground />
-                
+
                 {/* Watermark adjusted for Minderfly Branding */}
                 <motion.div className="bg-watermark" style={{ y: yBgText }}>
                     <span>MINDER</span>
@@ -123,9 +123,9 @@ const Hero = () => {
             </div>
 
             <div className="hero-grid container">
-                
+
                 {/* 1. PAVE */}
-                <motion.div 
+                <motion.div
                     className="grid-item area-pave"
                     initial={{ opacity: 0, y: 40 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -135,7 +135,7 @@ const Hero = () => {
                 </motion.div>
 
                 {/* 2. YOUR */}
-                <motion.div 
+                <motion.div
                     className="grid-item area-your"
                     initial={{ opacity: 0, x: 40 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -145,7 +145,7 @@ const Hero = () => {
                 </motion.div>
 
                 {/* 3. PATH */}
-                <motion.div 
+                <motion.div
                     className="grid-item area-path"
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -155,7 +155,7 @@ const Hero = () => {
                 </motion.div>
 
                 {/* 4. DESCRIPTION & DATA */}
-                <motion.div 
+                <motion.div
                     className="grid-item area-desc"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -163,8 +163,8 @@ const Hero = () => {
                 >
                     <div className="tech-desc-container">
                         <p className="tech-desc">
-                            We transform ideas into digital reality. 
-                            Whether it's a <strong>saas platform</strong>, a <strong>custom extension</strong>, 
+                            We transform ideas into digital reality.
+                            Whether it's a <strong>saas platform</strong>, a <strong>custom extension</strong>,
                             or a <strong>mobile app</strong>, we engineer the code that drives your startup forward.
                         </p>
                         <div className="tech-stack-list">
@@ -177,14 +177,17 @@ const Hero = () => {
                 </motion.div>
 
                 {/* 5. CTA */}
-                <motion.div 
+                <motion.div
                     className="grid-item area-cta"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.8 }}
                 >
                     <div className="wireframe-btn-wrapper">
-                        <MagneticButton className="btn-wireframe">
+                        <MagneticButton
+                            className="btn-wireframe"
+                            href="https://wa.me/923449233424?text=Hi%2C%20I%20want%20to%20start%20a%20project."
+                        >
                             Start Project
                         </MagneticButton>
                         <div className="connector-line"></div>
