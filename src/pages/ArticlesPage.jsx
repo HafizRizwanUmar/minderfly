@@ -80,9 +80,8 @@ const ArticlesPage = () => {
                                 >
                                     <Link to={`/articles/${article.slug}`} className="article-card-link">
                                         <div className="article-card-image">
-                                            <div className="article-image-placeholder">
-                                                <span className="article-category-badge">{article.category}</span>
-                                            </div>
+                                            <img src={article.image} alt={article.title} />
+                                            <span className="article-category-badge">{article.category}</span>
                                         </div>
 
                                         <div className="article-card-content">

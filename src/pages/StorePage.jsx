@@ -17,8 +17,16 @@ const StorePage = () => {
             icon: <FaWindows className="product-icon" />,
             link: '/store/nishan-qr-generator',
             color: '#0078D7' // Windows Blue-ish
+        },
+        {
+            id: 'flutter-web-emulator',
+            name: 'Flutter Web Emulator',
+            description: 'Run, debug, and test Flutter Web apps directly inside VS Code. Zero context switching.',
+            price: 'Free',
+            icon: <FaWindows className="product-icon" />, // Using Windows icon as it's a VS Code extension (Microsoft)
+            link: '/store/flutter-web-emulator',
+            color: '#007ACC' // VS Code Blue
         }
-        // Future products can be added here
     ];
 
     return (

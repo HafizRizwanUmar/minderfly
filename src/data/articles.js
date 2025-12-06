@@ -560,6 +560,587 @@ Whether you are a restaurant owner needing a digital menu or a designer making a
         category: 'Tools',
         image: 'https://images.unsplash.com/photo-1550482781-48d477e61c72?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cXIlMjBjb2RlfGVufDB8fDB8fHww',
         tags: ['QR Code', 'Software', 'Tools', 'Microsoft Store']
+    },
+    {
+        id: 13,
+        slug: 'run-flutter-apps-inside-vs-code',
+        title: 'How to Run Flutter Apps Inside VS Code (The Easy Way)',
+        excerpt: 'Stop switching windows! Learn how to run your Flutter Web apps directly inside VS Code using the Flutter Web Emulator extension.',
+        content: `
+# How to Run Flutter Apps Inside VS Code (The Easy Way)
+
+As Flutter developers, we spend half our lives Alt-Tabbing. You write code in VS Code, then switch to Chrome to see the changes. Then back to VS Code. Then back to Chrome.
+
+It breaks your flow. It wastes time. And frankly, it's annoying.
+
+But what if you could run your Flutter app **inside** VS Code?
+
+## Introducing: Flutter Web Emulator
+
+I built a VS Code extension specifically to solve this problem. It allows you to run, debug, and test your Flutter Web applications without ever leaving your editor.
+
+[**Download Flutter Web Emulator for VS Code**](https://marketplace.visualstudio.com/items?itemName=HafizRizwanUmar.flutter-web-emulator)
+
+## Why You Need This
+
+### 1. Zero Context Switching
+Your code is on the left. Your app is on the right. You can see your changes instantly without losing focus.
+
+### 2. Mobile & Tablet Simulation
+The emulator isn't just a browser tab. It simulates different device sizes (iPhone, iPad, Pixel) so you can test responsiveness while you code.
+
+### 3. Hot Reload Compatible
+It works perfectly with Flutter's Hot Reload. Save your file, and the emulator updates instantly.
+
+## How to Set It Up (Takes 30 Seconds)
+
+### Step 1: Install the Extension
+Go to the VS Code Marketplace and search for **"Flutter Web Emulator"** by Hafiz Rizwan Umar. Or just [click here](https://marketplace.visualstudio.com/items?itemName=HafizRizwanUmar.flutter-web-emulator).
+
+### Step 2: Launch Your App
+Run your Flutter app as you normally would:
+\`\`\`bash
+flutter run -d web-server --web-port 8080
+\`\`\`
+*Note: You can use any port, but make sure to note it down.*
+
+### Step 3: Open the Emulator
+1.  Press \`Ctrl+Shift+P\` (or \`Cmd+Shift+P\` on Mac).
+2.  Type **"Flutter Web Emulator: Launch"**.
+3.  Enter your local URL (e.g., \`http://localhost:8080\`).
+
+Boom! Your app is now running inside VS Code.
+
+## Pro Tips
+
+*   **Dock it to the Side:** Drag the emulator tab to the right split-pane to have your code and app side-by-side.
+*   **Use it for UI Tweaking:** This is perfect for "pixel pushing"—when you're trying to get that padding or color just right.
+
+## Conclusion
+
+Productivity is about removing friction. By keeping your development environment contained within a single window, you stay in the "zone" longer. Give it a try and let me know what you think!
+        `,
+        author: 'Hafiz Rizwan Umar',
+        date: '2025-12-06',
+        readTime: '4 min read',
+        category: 'Flutter',
+        image: 'https://images.unsplash.com/photo-1628277613967-6abca504d0ac?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Zmx1dHRlcnxlbnwwfHwwfHx8MA%3D%3D',
+        tags: ['Flutter', 'VS Code', 'Productivity', 'Tools']
+    },
+    {
+        id: 14,
+        slug: 'complete-flutter-guide-beginners-2025',
+        title: 'The Complete Flutter Guide for Beginners (2025)',
+        excerpt: 'Everything you need to know about Flutter - from installation to publishing your first app. A comprehensive tutorial covering widgets, state management, APIs, and best practices.',
+        content: `
+# The Complete Flutter Guide for Beginners (2025)
+
+Flutter has revolutionized mobile app development. If you're looking to build beautiful, high-performance applications for iOS, Android, Web, and Desktop from a single codebase, you're in the right place.
+
+## What is Flutter?
+
+**Flutter** is an open-source UI software development kit created by **Google**. Released in May 2017 and reaching version 1.0 in December 2018, Flutter allows developers to build natively compiled applications for mobile, web, and desktop from a single codebase.
+
+### Why Did Google Create Flutter?
+
+Google wanted to solve a fundamental problem: **fragmentation**. Before Flutter, developers had to:
+- Write apps twice (once for iOS in Swift, once for Android in Kotlin/Java)
+- Maintain two separate codebases
+- Hire specialists for each platform
+
+Flutter changed this by introducing a **single language (Dart)** and a **unified framework** that compiles to native code for all platforms.
+
+### Why Companies Use Flutter
+
+Major companies like **Alibaba**, **BMW**, **eBay**, **Google Pay**, and **Nubank** use Flutter because:
+
+1. **Faster Development**: Hot Reload lets you see changes instantly
+2. **Cost Effective**: One team, one codebase = lower costs
+3. **Beautiful UI**: Customizable widgets that look native on any platform
+4. **Performance**: Compiles to native ARM code (60fps guaranteed)
+5. **Growing Community**: Backed by Google with massive community support
+
+## Advantages & Disadvantages of Flutter
+
+### Advantages ✅
+
+- **Single Codebase**: Write once, deploy everywhere
+- **Hot Reload**: See changes in milliseconds
+- **Rich Widget Library**: Pre-built Material and Cupertino widgets
+- **Great Performance**: No JavaScript bridge (unlike React Native)
+- **Excellent Documentation**: Google's docs are top-tier
+- **Strong Typing**: Dart catches errors at compile time
+
+### Disadvantages ❌
+
+- **App Size**: Flutter apps are larger (~4-6 MB minimum)
+- **Learning Curve**: Dart is not as popular as JavaScript
+- **Limited Libraries**: Fewer third-party packages than React Native
+- **iOS File Size**: Larger than native Swift apps
+
+## How Flutter Works
+
+Flutter is unique. Unlike other frameworks that use a **bridge** to communicate with native code, Flutter **renders its own UI** using the **Skia Graphics Engine** (the same engine used in Chrome).
+
+### The Widget Tree
+
+Everything in Flutter is a **Widget**. Your entire UI is a tree of widgets.
+
+### The Rendering Engine
+
+1. You write **Dart code** with widgets
+2. Flutter **compiles** it to native ARM code
+3. The **Skia engine** draws pixels directly to the screen
+4. Result: 60fps performance (or 120fps on capable devices)
+
+### The Dart Language
+
+Dart is:
+- **Object-Oriented**: Everything is an object
+- **Strongly Typed**: Type safety prevents bugs
+- **Compiled**: Compiles to native code (fast!)
+- **Easy to Learn**: If you know JavaScript or Java, you'll pick it up quickly
+
+---
+
+# Complete Tutorial: How to Use Flutter
+
+## 1. Installing Flutter
+
+### Windows
+
+1. Download the Flutter SDK from [flutter.dev](https://flutter.dev)
+2. Extract the zip file to \`C:\\src\\flutter\`
+3. Add Flutter to your PATH:
+   - Search "Environment Variables"
+   - Edit PATH and add \`C:\\src\\flutter\\bin\`
+4. Run in CMD:
+\`\`\`bash
+flutter doctor
+\`\`\`
+
+### macOS
+
+\`\`\`bash
+# Install using Homebrew
+brew install flutter
+
+# Or download manually and add to PATH
+export PATH="$PATH:\`pwd\`/flutter/bin"
+\`\`\`
+
+### Linux
+
+\`\`\`bash
+sudo snap install flutter --classic
+flutter doctor
+\`\`\`
+
+## 2. Setting Up Your IDE
+
+### VS Code (Recommended for Beginners)
+
+1. Install VS Code
+2. Install the **Flutter Extension**
+3. Install the **Dart Extension**
+4. Run \`flutter doctor\` to verify setup
+
+### Android Studio
+
+1. Download Android Studio
+2. Install Flutter and Dart plugins
+3. Configure Android SDK
+
+### Xcode (macOS only - for iOS development)
+
+\`\`\`bash
+sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer
+sudo xcodebuild -runFirstLaunch
+\`\`\`
+
+## 3. Creating Your First Project
+
+\`\`\`bash
+flutter create my_first_app
+cd my_first_app
+flutter run
+\`\`\`
+
+You'll see a demo counter app!
+
+## 4. Understanding the Folder Structure
+
+\`\`\`
+my_first_app/
+├── android/          # Android-specific files
+├── ios/              # iOS-specific files
+├── lib/              # YOUR DART CODE GOES HERE
+│   └── main.dart     # Entry point
+├── test/             # Unit tests
+├── pubspec.yaml      # Dependencies (like package.json)
+└── README.md
+\`\`\`
+
+**Key File: \`lib/main.dart\`**
+
+This is where your app starts.
+
+## 5. Understanding Widgets
+
+### StatelessWidget
+
+A widget that doesn't change.
+
+\`\`\`dart
+class MyText extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Text('Hello World');
+  }
+}
+\`\`\`
+
+### StatefulWidget
+
+A widget that can change over time.
+
+\`\`\`dart
+class Counter extends StatefulWidget {
+  @override
+  _CounterState createState() => _CounterState();
+}
+
+class _CounterState extends State<Counter> {
+  int count = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text('Count: \$count'),
+        ElevatedButton(
+          onPressed: () {
+            setState(() {
+              count++;
+            });
+          },
+          child: Text('Increment'),
+        ),
+      ],
+    );
+  }
+}
+\`\`\`
+
+## 6. Layout Widgets
+
+### Column (Vertical)
+
+\`\`\`dart
+Column(
+  children: [
+    Text('Item 1'),
+    Text('Item 2'),
+    Text('Item 3'),
+  ],
+)
+\`\`\`
+
+### Row (Horizontal)
+
+\`\`\`dart
+Row(
+  children: [
+    Icon(Icons.star),
+    Text('5.0'),
+  ],
+)
+\`\`\`
+
+### Container (The Swiss Army Knife)
+
+\`\`\`dart
+Container(
+  padding: EdgeInsets.all(16),
+  margin: EdgeInsets.symmetric(horizontal: 20),
+  decoration: BoxDecoration(
+    color: Colors.blue,
+    borderRadius: BorderRadius.circular(12),
+  ),
+  child: Text('Styled Box'),
+)
+\`\`\`
+
+## 7. Navigation & Routing
+
+\`\`\`dart
+// Navigate to a new screen
+Navigator.push(
+  context,
+  MaterialPageRoute(builder: (context) => SecondScreen()),
+);
+
+// Go back
+Navigator.pop(context);
+\`\`\`
+
+## 8. Forms & Validation
+
+\`\`\`dart
+final _formKey = GlobalKey<FormState>();
+
+Form(
+  key: _formKey,
+  child: Column(
+    children: [
+      TextFormField(
+        decoration: InputDecoration(labelText: 'Email'),
+        validator: (value) {
+          if (value == null || !value.contains('@')) {
+            return 'Invalid email';
+          }
+          return null;
+        },
+      ),
+      ElevatedButton(
+        onPressed: () {
+          if (_formKey.currentState!.validate()) {
+            // Process data
+          }
+        },
+        child: Text('Submit'),
+      ),
+    ],
+  ),
+)
+\`\`\`
+
+## 9. State Management
+
+### setState (Built-in)
+
+Good for simple apps.
+
+### Provider (Recommended for Beginners)
+
+\`\`\`dart
+// Install: flutter pub add provider
+
+// 1. Create a ChangeNotifier
+class Counter extends ChangeNotifier {
+  int count = 0;
+  
+  void increment() {
+    count++;
+    notifyListeners();
+  }
+}
+
+// 2. Provide it
+ChangeNotifierProvider(
+  create: (context) => Counter(),
+  child: MyApp(),
+)
+
+// 3. Consume it
+Consumer<Counter>(
+  builder: (context, counter, child) {
+    return Text('\${counter.count}');
+  },
+)
+\`\`\`
+
+### Other Options
+
+- **Riverpod**: Modern alternative to Provider
+- **BLoC**: For complex apps
+- **GetX**: All-in-one solution
+
+## 10. Working with APIs
+
+\`\`\`dart
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+Future<void> fetchData() async {
+  final response = await http.get(
+    Uri.parse('https://jsonplaceholder.typicode.com/posts/1'),
+  );
+  
+  if (response.statusCode == 200) {
+    final data = jsonDecode(response.body);
+    print(data['title']);
+  }
+}
+\`\`\`
+
+## 11. Handling Assets
+
+### pubspec.yaml
+
+\`\`\`yaml
+flutter:
+  assets:
+    - assets/images/
+    - assets/icons/
+  fonts:
+    - family: Poppins
+      fonts:
+        - asset: fonts/Poppins-Regular.ttf
+\`\`\`
+
+### Using Images
+
+\`\`\`dart
+Image.asset('assets/images/logo.png')
+Image.network('https://example.com/image.jpg')
+\`\`\`
+
+## 12. Responsive Design
+
+\`\`\`dart
+LayoutBuilder(
+  builder: (context, constraints) {
+    if (constraints.maxWidth > 600) {
+      return DesktopLayout();
+    } else {
+      return MobileLayout();
+    }
+  },
+)
+\`\`\`
+
+## 13. Best Practices
+
+1. **Use \`const\` widgets** when possible (better performance)
+2. **Extract widgets** into separate classes
+3. **Follow naming conventions**: \`lowerCamelCase\` for variables, \`UpperCamelCase\` for classes
+4. **Use async/await** for asynchronous code
+5. **Handle null safety** properly
+
+## 14. Publishing Your App
+
+### Android (Google Play Store)
+
+1. Generate a keystore
+2. Update \`android/app/build.gradle\`
+3. Run \`flutter build appbundle\`
+4. Upload to Google Play Console
+
+### iOS (App Store)
+
+1. Open Xcode
+2. Configure signing
+3. Run \`flutter build ios\`
+4. Archive and upload via Xcode
+
+---
+
+# Best Sources to Learn Flutter
+
+## Official Documentation
+
+**[Flutter.dev](https://flutter.dev)** - The official documentation is phenomenal. Start here.
+
+## YouTube Channels
+
+1. **Flutter** (Official) - Official tutorials and announcements
+2. **The Net Ninja** - Excellent beginner-friendly series
+3. **Traversy Media** - Full crash courses
+4. **Fireship** - Quick, advanced topics
+5. **Reso Coder** - Clean architecture and best practices
+6. **Marcus Ng** - UI tutorials and design patterns
+
+## Paid & Free Courses
+
+### Free
+- **Flutter Crash Course** by Traversy Media (YouTube)
+- **Flutter Course for Beginners** by freeCodeCamp
+- **Flutter Widget of the Week** (Official Flutter YouTube)
+
+### Paid
+- **The Complete Flutter Development Bootcamp** (Udemy) - by Angela Yu
+- **Flutter & Dart - The Complete Guide** (Udemy) - by Maximilian Schwarzmüller
+- **Flutter Firebase & DDD** (Reso Coder's Patreon)
+
+## GitHub Repositories
+
+- **[flutter/flutter](https://github.com/flutter/flutter)** - The official repo
+- **[flutter/samples](https://github.com/flutter/samples)** - Official example apps
+- **[Best-Flutter-UI-Templates](https://github.com/mitesh77/Best-Flutter-UI-Templates)**
+- **[FlutterExampleApps](https://github.com/iampawan/FlutterExampleApps)**
+
+## Communities
+
+- **[r/FlutterDev](https://reddit.com/r/FlutterDev)** - Active subreddit
+- **Flutter Community on Discord**
+- **Stack Overflow** - Tag: \`flutter\`
+- **Twitter** - Follow @FlutterDev
+
+## Roadmap to Master Flutter
+
+### Month 1: Basics
+- Install Flutter
+- Learn Dart fundamentals
+- Build 3 simple apps (Calculator, Todo List, Weather App)
+
+### Month 2: Intermediate
+- Master state management (Provider)
+- Learn navigation and routing
+- Work with APIs
+- Build a full CRUD app
+
+### Month 3: Advanced
+- Firebase integration
+- Animations
+- Custom widgets
+- Publish your first app
+
+### Month 4+: Specialization
+- Choose a path: BLoC, Riverpod, or GetX
+- Learn testing (Unit, Widget, Integration)
+- Explore advanced topics (Platform Channels, Custom Rendering)
+
+---
+
+# Conclusion
+
+## Why Flutter is the Best Framework for Beginners
+
+1. **One Language, Multiple Platforms**: Less to learn, more you can build
+2. **Instant Feedback**: Hot Reload makes learning fun
+3. **Strong Community**: Millions of developers ready to help
+4. **Google Backing**: Flutter is here to stay
+5. **Career Ready**: Companies are actively hiring Flutter developers
+
+## Career Opportunities
+
+- **Freelancing**: High demand on Upwork, Fiverr, and Freelancer
+- **Startups**: Most new startups prefer Flutter for MVP development
+- **Agencies**: Digital agencies need Flutter devs for client projects
+- **Remote Jobs**: Flutter is perfect for remote work
+- **Salary**: Flutter developers earn competitive salaries ($70k-$120k USD)
+
+## Tips for Staying Updated
+
+1. **Follow @FlutterDev on Twitter**
+2. **Subscribe to Flutter YouTube channel**
+3. **Read Flutter Medium blog**
+4. **Attend Flutter meetups and conferences**
+5. **Build projects weekly** (consistency is key)
+
+> **"The best time to start learning Flutter was yesterday. The second best time is now."**
+
+Start building today. Your first app won't be perfect, but it will teach you more than any tutorial ever could.
+
+Happy Fluttering! 🚀
+        `,
+        author: 'Hafiz Rizwan Umar',
+        date: '2025-12-06',
+        readTime: '25 min read',
+        category: 'Flutter',
+        image: 'https://images.unsplash.com/photo-1618761714954-0b8cd0026356?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8Zmx1dHRlcnxlbnwwfHwwfHx8MA%3D%3D',
+        tags: ['Flutter', 'Mobile Development', 'Tutorial', 'Dart', 'Beginner Guide']
     }
 ];
 
