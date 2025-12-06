@@ -2,10 +2,26 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { FaWindows, FaQrcode, FaInfinity, FaBolt, FaCheck } from 'react-icons/fa';
+import { QRCodeCanvas } from 'qrcode.react';
+import { FaWindows, FaQrcode, FaInfinity, FaBolt, FaCheck, FaDownload } from 'react-icons/fa';
 import './NishanProduct.css';
 
 const NishanProduct = () => {
+    const [qrValue, setQrValue] = React.useState('https://minderfly.com');
+
+    const downloadQR = () => {
+        const canvas = document.querySelector('#qr-gen canvas');
+        const pngUrl = canvas
+            .toDataURL('image/png')
+            .replace('image/png', 'image/octet-stream');
+        let downloadLink = document.createElement('a');
+        downloadLink.href = pngUrl;
+        downloadLink.download = 'nishan-qr-demo.png';
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+    };
+
     const features = [
         {
             icon: <FaQrcode />,
@@ -121,6 +137,52 @@ const NishanProduct = () => {
                                 </motion.div>
                             ))}
                         </div>
+                    </div>
+                </section>
+
+                {/* QR Code Generator Demo Section */}
+                <section className="nishan-demo-section">
+                    <div className="nishan-container">
+                        <motion.div
+                            className="demo-wrapper"
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                        >
+                            <div className="demo-header">
+                                <span className="nishan-badge">Try It Now</span>
+                                <h2>Instant <span className="nishan-accent">Preview</span></h2>
+                                <p>Type below to generate a QR code instantly.</p>
+                            </div>
+
+                            <div className="demo-interface">
+                                <div className="demo-input-group">
+                                    <input
+                                        type="text"
+                                        value={qrValue}
+                                        onChange={(e) => setQrValue(e.target.value)}
+                                        placeholder="Enter text or URL here..."
+                                        className="nishan-input"
+                                    />
+                                </div>
+
+                                <div className="demo-output">
+                                    <div className="qr-canvas-container" id="qr-gen">
+                                        <QRCodeCanvas
+                                            value={qrValue || "https://minderfly.com"}
+                                            size={200}
+                                            level={"H"}
+                                            includeMargin={true}
+                                            bgColor={"#ffffff"}
+                                            fgColor={"#000000"}
+                                        />
+                                    </div>
+                                    <button onClick={downloadQR} className="btn-nishan-secondary">
+                                        <FaDownload /> Download PNG
+                                    </button>
+                                </div>
+                            </div>
+                        </motion.div>
                     </div>
                 </section>
 
