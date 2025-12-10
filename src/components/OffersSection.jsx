@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaGlobe, FaMobileAlt, FaChrome, FaPalette, FaCheck, FaArrowRight } from 'react-icons/fa';
 import './OffersSection.css';
 
 const OffersSection = () => {
+    const [hoveredId, setHoveredId] = useState(null);
+
     const offers = [
         {
             id: 1,
             title: 'Professional Website',
             price: '$100',
+            description: 'Perfect for individuals and small businesses ready to go online.',
             icon: <FaGlobe />,
             features: [
                 '5 Page Responsive Website',
@@ -18,12 +21,14 @@ const OffersSection = () => {
                 'Social Media Links',
                 '1 Month Support'
             ],
-            link: 'https://wa.me/923449233424?text=Hi%2C%20I%20am%20interested%20in%20the%20Professional%20Website%20offer%20for%20%24100.'
+            link: 'https://wa.me/923449233424?text=Hi%2C%20I%20am%20interested%20in%20the%20Professional%20Website%20offer%20for%20%24100.',
+            isPopular: false
         },
         {
             id: 2,
             title: 'Mobile Application',
             price: '$100',
+            description: 'For startups looking to launch a native mobile experience.',
             icon: <FaMobileAlt />,
             features: [
                 'Flutter App (iOS & Android)',
@@ -33,12 +38,14 @@ const OffersSection = () => {
                 'Splash Screen & Icon',
                 'App Store Submission Guide'
             ],
-            link: 'https://wa.me/923449233424?text=Hi%2C%20I%20am%20interested%20in%20the%20Mobile%20Application%20offer%20for%20%24100.'
+            link: 'https://wa.me/923449233424?text=Hi%2C%20I%20am%20interested%20in%20the%20Mobile%20Application%20offer%20for%20%24100.',
+            isPopular: true
         },
         {
             id: 3,
             title: 'Chrome Extension',
             price: '$50',
+            description: 'automate tasks and enhance your browser experience.',
             icon: <FaChrome />,
             features: [
                 'Custom Popup & Options',
@@ -48,12 +55,14 @@ const OffersSection = () => {
                 'Source Code Included',
                 'Web Store Publishing Guide'
             ],
-            link: 'https://wa.me/923449233424?text=Hi%2C%20I%20am%20interested%20in%20the%20Chrome%20Extension%20offer%20for%20%2450.'
+            link: 'https://wa.me/923449233424?text=Hi%2C%20I%20am%20interested%20in%20the%20Chrome%20Extension%20offer%20for%20%2450.',
+            isPopular: false
         },
         {
             id: 4,
             title: 'Chrome Theme',
             price: '$10',
+            description: 'Personalize your browser with a custom branded theme.',
             icon: <FaPalette />,
             features: [
                 'Custom Color Palette',
@@ -63,7 +72,8 @@ const OffersSection = () => {
                 'Lifetime Updates',
                 'Instant Delivery'
             ],
-            link: 'https://wa.me/923449233424?text=Hi%2C%20I%20am%20interested%20in%20the%20Chrome%20Theme%20offer%20for%20%2410.'
+            link: 'https://wa.me/923449233424?text=Hi%2C%20I%20am%20interested%20in%20the%20Chrome%20Theme%20offer%20for%20%2410.',
+            isPopular: false
         }
     ];
 
@@ -82,13 +92,12 @@ const OffersSection = () => {
         visible: {
             opacity: 1,
             y: 0,
-            transition: { duration: 0.6, ease: "easeOut" }
+            transition: { duration: 0.5, ease: "easeOut" }
         }
     };
 
     return (
         <section className="offers-section">
-            <div className="offers-bg-glow"></div>
             <div className="container">
                 <motion.div
                     className="offers-header"
@@ -97,8 +106,8 @@ const OffersSection = () => {
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
                 >
-                    <h2>Exclusive <span className="gradient-text">Offers</span></h2>
-                    <p className="section-subtitle">Premium services at unbeatable prices. Limited time only.</p>
+                    <h2>Executive <span className="gradient-text">Offers</span></h2>
+                    <p className="section-subtitle">Premium solutions tailored to your needs.</p>
                 </motion.div>
 
                 <motion.div
@@ -109,25 +118,42 @@ const OffersSection = () => {
                     viewport={{ once: true }}
                 >
                     {offers.map((offer) => (
-                        <motion.div key={offer.id} className="offer-card" variants={itemVariants}>
-                            <div className="offer-icon-wrapper">
-                                {offer.icon}
+                        <motion.div
+                            key={offer.id}
+                            className={`offer-card ${offer.isPopular ? 'popular' : ''}`}
+                            variants={itemVariants}
+                            onMouseEnter={() => setHoveredId(offer.id)}
+                            onMouseLeave={() => setHoveredId(null)}
+                        >
+                            <div className="card-content">
+                                <div className="card-header">
+                                    <h3 className="offer-title">{offer.title}</h3>
+                                    {offer.isPopular && <span className="popular-badge">Best Value</span>}
+                                </div>
+                                <div className="offer-price-wrapper">
+                                    <span className="currency">$</span>
+                                    <span className="amount">{offer.price.replace('$', '')}</span>
+                                    <span className="period">/Project</span>
+                                </div>
+                                <p className="offer-description">{offer.description}</p>
+
+                                <div className="divider"></div>
+
+                                <ul className="offer-features">
+                                    {offer.features.map((feature, index) => (
+                                        <li key={index}>
+                                            <div className="check-icon">
+                                                <FaCheck />
+                                            </div>
+                                            <span>{feature}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+
+                                <a href={offer.link} className={`btn btn-offer ${offer.isPopular ? 'btn-primary' : 'btn-outline'}`}>
+                                    Get Started
+                                </a>
                             </div>
-                            <h3 className="offer-title">{offer.title}</h3>
-                            <div className="offer-price">
-                                {offer.price} <span>/ project</span>
-                            </div>
-                            <ul className="offer-features">
-                                {offer.features.map((feature, index) => (
-                                    <li key={index}>
-                                        <FaCheck className="feature-icon" />
-                                        {feature}
-                                    </li>
-                                ))}
-                            </ul>
-                            <a href={offer.link} className="btn-offer">
-                                Get Started <FaArrowRight />
-                            </a>
                         </motion.div>
                     ))}
                 </motion.div>

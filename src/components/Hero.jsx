@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef, useEffect, useState } from 'react';
 import MagneticButton from './MagneticButton';
+import { FaArrowRight } from 'react-icons/fa';
 import './Hero.css';
 
 // Optimized Network Component
@@ -188,7 +189,7 @@ const Hero = () => {
                             className="btn-wireframe"
                             href="https://wa.me/923449233424?text=Hi%2C%20I%20want%20to%20start%20a%20project."
                         >
-                            Start Project
+                            Start Project <FaArrowRight style={{ marginLeft: '8px' }} />
                         </MagneticButton>
                         <div className="connector-line"></div>
                     </div>
