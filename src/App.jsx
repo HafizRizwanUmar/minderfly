@@ -10,6 +10,7 @@ import ArticleDetail from './pages/ArticleDetail';
 import StorePage from './pages/StorePage';
 import NishanProduct from './pages/products/NishanProduct';
 import FlutterWebEmulatorProduct from './pages/products/FlutterWebEmulatorProduct';
+import AntigravitySession from './pages/AntigravitySession';
 import { initGA, logPageView } from './utils/analytics';
 import './App.css';
 
@@ -46,6 +47,7 @@ function App() {
           <Route path="/store" element={<StorePage />} />
           <Route path="/store/nishan-qr-generator" element={<NishanProduct />} />
           <Route path="/store/flutter-web-emulator" element={<FlutterWebEmulatorProduct />} />
+          <Route path="/antigravity-masterclass" element={<AntigravitySession />} />
         </Routes>
       </Router>
     </HelmetProvider>
