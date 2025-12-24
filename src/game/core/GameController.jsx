@@ -95,6 +95,7 @@ const GameLogic = () => {
                     onStart={actions.startGame}
                     onSettings={() => actions.setScreen('SETTINGS')}
                     highScore={state.highScore}
+                    coins={state.coins}
                     onLeaderboard={() => actions.setScreen('LEADERBOARD')}
                 />;
             case 'COUNTDOWN':
@@ -121,12 +122,22 @@ const GameLogic = () => {
             case 'GAME_OVER':
                 return <GameOverScreen
                     score={score}
+                    coinsEarned={state.lastCoinsEarned || 0}
+                    totalCoins={state.coins}
                     onReplay={() => {
-                        // Logic to restart
                         actions.startGame();
                     }}
                     onHome={() => actions.setScreen('HOME')}
-                    onClaimReward={() => console.log('Show Ad')}
+                    onRevive={() => {
+                        if (state.coins >= 100) {
+                            actions.spendCoins(100);
+                            actions.reviveGame();
+                        }
+                    }}
+                    onClaimReward={() => {
+                        console.log('Ad Watch Trigger');
+                        actions.addCoins(50); // Mock Ad Reward
+                    }}
                 />;
             case 'LEADERBOARD':
                 return <LeaderboardScreen onClose={() => actions.setScreen('HOME')} />;
@@ -135,7 +146,10 @@ const GameLogic = () => {
             case 'DAILY_REWARD':
                 return <DailyRewardScreen
                     onClose={() => actions.setScreen('HOME')}
-                    onClaim={handleAdReward}
+                    onClaim={(double) => {
+                        actions.addCoins(double ? 1000 : 500);
+                        actions.setScreen('HOME');
+                    }}
                 />;
             default:
                 return <HomeScreen onStart={actions.startGame} />;

@@ -1,7 +1,9 @@
 import React from 'react';
 import '../styles/game.css';
 
-const GameOverScreen = ({ score, onReplay, onHome, onClaimReward }) => {
+const GameOverScreen = ({ score, coinsEarned, totalCoins, onRevive, onReplay, onHome, onClaimReward }) => {
+    const canRevive = totalCoins >= 100;
+
     return (
         <div className="mf-game-root">
             <div className="mf-bg-decor">
@@ -22,28 +24,42 @@ const GameOverScreen = ({ score, onReplay, onHome, onClaimReward }) => {
                             Round Complete
                         </h2>
 
-                        {/* New Best Badge */}
-                        <div className="flex items-center gap-2 mb-8 bg-white/5 px-3 py-1 rounded-full border border-white/5">
-                            <span className="material-symbols-outlined text-primary text-sm">trending_up</span>
-                            <span className="text-primary text-xs font-bold uppercase tracking-widest">New Personal Best!</span>
-                        </div>
-
                         <div className="flex flex-col items-center w-full mb-8">
                             <span className="mf-text-label mb-2">Total Score</span>
-                            <span className="text-6xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-primary/50 tracking-tighter drop-shadow-2xl tabular-nums mb-6">
+                            <span className="text-6xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-primary/50 tracking-tighter drop-shadow-2xl tabular-nums mb-4">
                                 {score.toLocaleString()}
                             </span>
 
-                            <div className="grid grid-cols-2 gap-4 w-full">
-                                <div className="bg-black/50 border border-white/5 rounded-2xl p-3 flex flex-col items-center">
-                                    <span className="mf-text-label mb-1">Accuracy</span>
-                                    <span className="text-lg font-bold text-white">94%</span>
-                                </div>
-                                <div className="bg-black/50 border border-white/5 rounded-2xl p-3 flex flex-col items-center">
-                                    <span className="mf-text-label mb-1">Streak</span>
+                            {/* Coins Earned Badge */}
+                            <div className="flex items-center gap-2 bg-yellow-500/10 px-4 py-1.5 rounded-full border border-yellow-500/20 mb-4">
+                                <span className="text-xl">🪙</span>
+                                <span className="text-yellow-400 font-bold tracking-wide">+{coinsEarned} Coins Earned</span>
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-4 w-full mt-4">
+                                <button
+                                    onClick={canRevive ? onRevive : null}
+                                    disabled={!canRevive}
+                                    className={`relative overflow-hidden rounded-2xl p-4 flex flex-col items-center justify-center border transition-all ${canRevive
+                                            ? 'bg-blue-600/20 border-blue-500 hover:bg-blue-600/30 cursor-pointer shadow-[0_0_20px_rgba(37,99,235,0.3)]'
+                                            : 'bg-white/5 border-white/5 opacity-50 cursor-not-allowed'
+                                        }`}
+                                >
+                                    <div className="flex items-center gap-1 mb-1">
+                                        <span className="material-symbols-outlined text-white">history</span>
+                                        <span className="font-bold text-white uppercase text-sm">Revive</span>
+                                    </div>
+                                    <div className="text-xs text-slate-300 font-mono bg-black/40 px-2 py-0.5 rounded flex items-center gap-1">
+                                        <span>-100</span> <span>🪙</span>
+                                    </div>
+                                    {!canRevive && <span className="absolute inset-0 flex items-center justify-center bg-black/60 text-[10px] font-bold uppercase tracking-widest text-white">Not Enough</span>}
+                                </button>
+
+                                <div className="bg-black/50 border border-white/5 rounded-2xl p-4 flex flex-col items-center justify-center">
+                                    <span className="mf-text-label mb-1">Total Balance</span>
                                     <div className="flex items-center gap-1">
-                                        <span className="text-lg font-bold text-white">42</span>
-                                        <span className="material-symbols-outlined text-base text-orange-500">local_fire_department</span>
+                                        <span className="text-xl">🪙</span>
+                                        <span className="text-lg font-bold text-white tabular-nums">{totalCoins}</span>
                                     </div>
                                 </div>
                             </div>
@@ -64,7 +80,7 @@ const GameOverScreen = ({ score, onReplay, onHome, onClaimReward }) => {
                                 className="mf-game-btn bg-gradient-to-r from-purple-500/10 to-blue-500/10 hover:from-purple-500/20 hover:to-blue-500/20 border border-white/10 hover:border-white/20 text-slate-300 hover:text-white rounded-xl h-12 text-sm"
                             >
                                 <span className="material-symbols-outlined text-yellow-400">stars</span>
-                                CLAIM BONUS REWARD
+                                CLAIM BONUS (+50 COINS)
                             </button>
 
                             <button

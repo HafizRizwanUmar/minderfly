@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../styles/game.css';
 
-const HomeScreen = ({ onStart, onSettings, highScore, onLeaderboard }) => {
+const HomeScreen = ({ onStart, onSettings, highScore, coins, onLeaderboard }) => {
   const [showHowToPlay, setShowHowToPlay] = useState(false);
 
   return (
@@ -15,25 +15,47 @@ const HomeScreen = ({ onStart, onSettings, highScore, onLeaderboard }) => {
       </div>
 
       <header className="mf-game-header w-full max-w-7xl mx-auto flex justify-between px-4 mt-2">
-        {/* Top Left: Home / Website Button */}
-        <button
-          onClick={() => window.location.href = '/'}
-          className="mf-game-btn-icon group bg-white/5 border-white/10 hover:bg-white/10 hover:border-white/20"
-          aria-label="Back to Website"
-          title="Go to Website"
-        >
-          <span className="text-2xl filter drop-shadow-lg group-hover:scale-110 transition-transform">🏠</span>
-        </button>
+        <div className="flex items-center gap-3">
+          {/* Home / Website Button */}
+          <button
+            onClick={() => window.location.href = '/'}
+            className="mf-game-btn-icon group bg-white/5 border-white/10 hover:bg-white/10 hover:border-white/20"
+            aria-label="Back to Website"
+            title="Go to Website"
+          >
+            <span className="text-2xl filter drop-shadow-lg group-hover:scale-110 transition-transform">🏠</span>
+          </button>
 
-        {/* Top Right: Settings Button */}
-        <button
-          onClick={onSettings}
-          className="mf-game-btn-icon group bg-white/5 border-white/10 hover:bg-white/10 hover:border-white/20"
-          aria-label="Settings"
-          title="Settings"
-        >
-          <span className="text-2xl filter drop-shadow-lg group-hover:rotate-90 transition-transform duration-500">⚙️</span>
-        </button>
+          {/* Dashboard / Leaderboard Button */}
+          <button
+            onClick={onLeaderboard}
+            className="mf-game-btn-icon group bg-white/5 border-white/10 hover:bg-white/10 hover:border-white/20"
+            aria-label="Dashboard"
+            title="Leaderboard"
+          >
+            <span className="text-2xl filter drop-shadow-lg group-hover:scale-110 transition-transform">📊</span>
+          </button>
+        </div>
+
+        <div className="flex items-center gap-3">
+          {/* Coin Display */}
+          <div className="flex items-center gap-2 px-4 py-2 bg-black/40 border border-white/10 rounded-full backdrop-blur-md shadow-inner">
+            <span className="text-xl filter drop-shadow-md">🪙</span>
+            <span className="text-white font-bold font-mono tracking-wider tabular-nums">
+              {(coins || 0).toLocaleString()}
+            </span>
+          </div>
+
+          {/* Top Right: Settings Button */}
+          <button
+            onClick={onSettings}
+            className="mf-game-btn-icon group bg-white/5 border-white/10 hover:bg-white/10 hover:border-white/20"
+            aria-label="Settings"
+            title="Settings"
+          >
+            <span className="text-2xl filter drop-shadow-lg group-hover:rotate-90 transition-transform duration-500">⚙️</span>
+          </button>
+        </div>
       </header>
 
       <main className="relative z-10 flex flex-1 flex-col items-center justify-center px-4 w-full max-w-5xl mx-auto text-center">
@@ -46,7 +68,7 @@ const HomeScreen = ({ onStart, onSettings, highScore, onLeaderboard }) => {
         </div>
 
         {/* Primary Stats Card (Real High Score) */}
-        <div className="mb-14 group cursor-default">
+        <div className="mb-20 group cursor-default">
           <div className="relative px-12 py-6 rounded-[2.5rem] bg-[#121212]/80 backdrop-blur-md border border-white/5 shadow-2xl transition-all duration-300 group-hover:border-primary/30 group-hover:bg-[#151515]">
             <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#1a1a1a] text-[10px] font-bold text-slate-500 uppercase tracking-widest px-3 py-1 rounded-full border border-white/5">
               Personal Record
@@ -60,17 +82,6 @@ const HomeScreen = ({ onStart, onSettings, highScore, onLeaderboard }) => {
               </span>
             </div>
           </div>
-        </div>
-
-        {/* Dashboard / Leaderboard Button */}
-        <div className="mb-12">
-          <button
-            onClick={onLeaderboard}
-            className="flex items-center gap-3 px-6 py-3 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 hover:border-primary/30 transition-all group"
-          >
-            <span className="text-2xl filter drop-shadow-lg group-hover:scale-110 transition-transform">📊</span>
-            <span className="text-sm font-bold text-slate-300 group-hover:text-white uppercase tracking-wider">Dashboard</span>
-          </button>
         </div>
 
         {/* Main Play Button */}
