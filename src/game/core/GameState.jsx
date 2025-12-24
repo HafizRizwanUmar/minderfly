@@ -19,6 +19,8 @@ const getInitialState = () => {
         timeLeft: 60,
         gameActive: false,
         difficulty: 1,
+        combo: 0,
+        multiplier: 1,
     };
 };
 
@@ -37,6 +39,9 @@ const ACTION_TYPES = {
     SPEND_COINS: 'SPEND_COINS',
     ADD_COINS: 'ADD_COINS',
     REVIVE_GAME: 'REVIVE_GAME',
+    INCREMENT_COMBO: 'INCREMENT_COMBO',
+    RESET_COMBO: 'RESET_COMBO',
+    PENALIZE: 'PENALIZE',
 };
 
 // Reducer
@@ -51,7 +56,9 @@ const gameReducer = (state, action) => {
                 currentScreen: 'COUNTDOWN',
                 score: 0,
                 timeLeft: 60,
-                gameActive: true
+                gameActive: true,
+                combo: 0,
+                multiplier: 1,
             };
 
         case ACTION_TYPES.PAUSE_GAME:
@@ -97,8 +104,39 @@ const gameReducer = (state, action) => {
             localStorage.setItem('minderfly_coins', totalCoins.toString());
             return { ...state, coins: totalCoins };
 
+        case ACTION_TYPES.INCREMENT_COMBO:
+            const newCombo = state.combo + 1;
+            let multiplier = 1;
+            if (newCombo >= 10) multiplier = 2;
+            else if (newCombo >= 5) multiplier = 1.5;
+
+            return {
+                ...state,
+                combo: newCombo,
+                multiplier
+            };
+
+        case ACTION_TYPES.RESET_COMBO:
+            return {
+                ...state,
+                combo: 0,
+                multiplier: 1
+            };
+
+        case ACTION_TYPES.PENALIZE:
+            // Deduct time (e.g. 2s) and reset combo
+            const penaltyTime = Math.max(0, state.timeLeft - action.payload);
+            return {
+                ...state,
+                timeLeft: penaltyTime,
+                combo: 0,
+                multiplier: 1
+            };
+
         case ACTION_TYPES.UPDATE_SCORE:
-            return { ...state, score: state.score + action.payload };
+            // Score = Base Points * Multiplier
+            const pointsToAdd = Math.floor(action.payload * state.multiplier);
+            return { ...state, score: state.score + pointsToAdd };
 
         case ACTION_TYPES.TICK_TIMER:
             return { ...state, timeLeft: state.timeLeft - 1 };
@@ -139,7 +177,10 @@ export const GameProvider = ({ children }) => {
                 tickTimer,
                 spendCoins,
                 addCoins,
-                reviveGame
+                reviveGame,
+                incrementCombo: () => dispatch({ type: ACTION_TYPES.INCREMENT_COMBO }),
+                resetCombo: () => dispatch({ type: ACTION_TYPES.RESET_COMBO }),
+                penalize: (seconds) => dispatch({ type: ACTION_TYPES.PENALIZE, payload: seconds })
             }
         }}>
             {children}
