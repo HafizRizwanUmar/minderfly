@@ -133,6 +133,7 @@ const Footer = () => {
                         <a href="#work">Work</a>
                         <a href="#team">Team</a>
                         <a href="/articles">Articles</a>
+                        <a href="/game">Play Neon Rush</a>
                         <a href="/antigravity-masterclass" className="highlight-accent">Masterclass</a>
                     </div>
                     <p className="copyright">&copy; 2024 Minderfly. Crafted with passion.</p>

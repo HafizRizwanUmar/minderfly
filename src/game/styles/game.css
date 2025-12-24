@@ -1,0 +1,403 @@
+/* Game Theme Variables - Aligned with Minderfly */
+:root {
+  --primary: #bcd848;
+  --primary-hover: #95ad36;
+  --background-light: #0a0a0a;
+  --background-dark: #050505;
+  --surface: rgba(255, 255, 255, 0.03);
+  --text-white: #FFFFFF;
+  --text-slate-400: #888888;
+  --text-slate-500: #E0E0E0;
+  --text-dark: #000000;
+
+  --font-display: 'Syne', sans-serif;
+  --font-body: 'Manrope', sans-serif;
+
+  --shadow-neon: 0 0 20px -5px rgba(188, 216, 72, 0.4);
+  --shadow-neon-hover: 0 0 30px -5px rgba(188, 216, 72, 0.6);
+  --shadow-neon-intense: 0 0 50px 10px rgba(188, 216, 72, 0.3);
+  --shadow-inner-light: inset 0 1px 1px 0 rgba(255, 255, 255, 0.05);
+
+  --radius-default: 1rem;
+  --radius-lg: 1.5rem;
+  --radius-xl: 3rem;
+  --radius-full: 9999px;
+
+  --glass-border: 1px solid rgba(255, 255, 255, 0.08);
+  --glass-bg: rgba(20, 20, 20, 0.6);
+  --glass-backdrop: blur(20px);
+}
+
+/* Base Resets */
+.mf-game-root {
+  font-family: var(--font-display);
+  background-color: var(--background-dark);
+  color: var(--text-white);
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+/* Utility Animations */
+@keyframes pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.8;
+    transform: scale(0.95);
+  }
+}
+
+@keyframes pulse-slow {
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.8;
+    transform: scale(0.95);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin-reverse {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes countdown-pop {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes glow-pulse {
+
+  0%,
+  100% {
+    box-shadow: 0 0 20px -5px rgba(188, 216, 72, 0.4);
+  }
+
+  50% {
+    box-shadow: 0 0 35px 5px rgba(188, 216, 72, 0.6);
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-spin-slow {
+  animation: spin 10s linear infinite;
+}
+
+.animate-spin-reverse {
+  animation: spin-reverse 7s linear infinite;
+}
+
+.animate-countdown-pop {
+  animation: countdown-pop 0.5s ease-out forwards;
+}
+
+.animate-glow-pulse {
+  animation: glow-pulse 1.5s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Backgrounds */
+.mf-bg-decor {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.mf-bg-blob-primary {
+  position: absolute;
+  top: -20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 800px;
+  height: 800px;
+  background-color: rgba(188, 216, 72, 0.08);
+  border-radius: 9999px;
+  filter: blur(120px);
+}
+
+.mf-bg-blob-secondary {
+  position: absolute;
+  bottom: -20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 600px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 9999px;
+  filter: blur(100px);
+}
+
+.mf-bg-grid-pattern {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.03) 0%, transparent 70%);
+  opacity: 0.3;
+}
+
+.mf-overlay-noise {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 50;
+  mix-blend-mode: overlay;
+  opacity: 0.2;
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZmZmIi8+CjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IiMwMDAiLz4KPC9zdmc+');
+}
+
+/* Components */
+.mf-game-header {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem;
+}
+
+/* Buttons */
+.mf-game-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: var(--radius-full);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+.mf-game-btn-icon {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 12px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  color: var(--text-slate-400);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.mf-game-btn-icon:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--text-white);
+  border-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.mf-game-btn-primary {
+  background-color: var(--primary);
+  color: var(--text-dark);
+  height: 3.5rem;
+  width: 100%;
+  font-size: 1rem;
+  text-transform: uppercase;
+  font-family: var(--font-body);
+  letter-spacing: 0.1em;
+  font-weight: 800;
+  box-shadow: 0 4px 20px rgba(188, 216, 72, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mf-game-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(188, 216, 72, 0.4);
+  background-color: #d4e87a;
+}
+
+.mf-game-btn-primary:active {
+  transform: scale(0.98);
+}
+
+.mf-game-title {
+  font-size: 3.5rem;
+  line-height: 0.9;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .mf-game-title {
+    font-size: 6rem;
+  }
+}
+
+.mf-game-title span:first-child {
+  color: var(--text-white);
+  text-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+}
+
+.mf-game-title span:last-child {
+  background: linear-gradient(135deg, #bcd848 0%, #ffffff 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Tile Grid */
+.mf-tile-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  width: 100%;
+  max-width: 500px;
+  aspect-ratio: 1 / 1;
+}
+
+.mf-tile {
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  /* Consistent border */
+  border-radius: 16px;
+  transition: all 0.15s cubic-bezier(0.22, 1, 0.36, 1);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.mf-tile:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.mf-tile:active {
+  transform: scale(0.96);
+}
+
+.mf-tile-active {
+  background-color: var(--primary) !important;
+  border-color: rgba(255, 255, 255, 0.8) !important;
+  box-shadow: 0 0 40px rgba(188, 216, 72, 0.4);
+  transform: scale(1.02);
+  z-index: 10;
+  animation: glow-pulse 1.5s ease-in-out infinite;
+}
+
+/* Modals & Cards */
+.mf-game-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(5, 5, 5, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 1rem;
+}
+
+.mf-game-modal {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  background: rgba(18, 18, 18, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 32px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Typography Utilities */
+.mf-text-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-slate-400);
+  font-family: var(--font-body);
+}
+
+.mf-text-value {
+  font-size: 2.5rem;
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  color: var(--text-white);
+  line-height: 1;
+}
+
+/* Custom Scrollbar */
+.mf-custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.mf-custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.mf-custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.mf-custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}

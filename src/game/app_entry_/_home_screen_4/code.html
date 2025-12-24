@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Neon Rush - Pause Screen</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#256af4",
+                        "background-light": "#f5f6f8",
+                        "background-dark": "#101622",
+                        "surface": "#1a2233",
+                    },
+                    fontFamily: {
+                        "display": ["Be Vietnam Pro", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" },
+                    boxShadow: {
+                        "neon": "0 0 20px -5px rgba(37, 106, 244, 0.5)",
+                        "neon-intense": "0 0 50px 10px rgba(37, 106, 244, 0.4)",
+                        "inner-light": "inset 0 2px 4px 0 rgba(255, 255, 255, 0.05)",
+                    },
+                    keyframes: {
+                        pulse: {
+                            '0%, 100%': { opacity: '1', transform: 'scale(1)' },
+                            '50%': { opacity: '0.8', transform: 'scale(0.95)' },
+                        },
+                        glow: {
+                            '0%, 100%': { boxShadow: '0 0 20px -5px rgba(37, 106, 244, 0.5)' },
+                            '50%': { boxShadow: '0 0 35px 5px rgba(37, 106, 244, 0.7)' },
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'glow-pulse': 'glow 1.5s ease-in-out infinite',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            touch-action: manipulation;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        .tile-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            width: 100%;
+            max-width: 800px;
+            aspect-ratio: 1 / 1;
+        }
+        .tile-active {
+            background-color: #256af4;
+            border-color: #5b8ff9;
+            box-shadow: 0 0 40px rgba(37, 106, 244, 0.6);
+            transform: scale(1.02);
+        }
+    </style>
+</head>
+<body class="bg-background-dark font-display text-white antialiased overflow-hidden h-screen w-screen flex flex-col relative">
+<div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+<div class="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] animate-pulse-slow"></div>
+<div class="absolute bottom-1/4 right-1/4 translate-x-1/2 translate-y-1/2 w-[500px] h-[500px] bg-purple-600/5 rounded-full blur-[100px] animate-pulse-slow"></div>
+<div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white/5 to-transparent opacity-30"></div>
+</div>
+<div class="fixed inset-0 z-[100] flex items-center justify-center bg-background-dark/60 backdrop-blur-md transition-all duration-300">
+<div class="relative w-full max-w-sm mx-6">
+<div class="absolute -inset-1 bg-gradient-to-b from-primary/50 to-purple-600/50 rounded-[2.5rem] blur opacity-25"></div>
+<div class="relative bg-surface border border-white/10 rounded-[2rem] p-8 md:p-10 shadow-2xl flex flex-col items-center text-center">
+<div class="w-20 h-20 rounded-full bg-white/5 flex items-center justify-center mb-6 border border-white/10 shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)]">
+<span class="material-symbols-outlined text-4xl text-primary drop-shadow-[0_0_10px_rgba(37,106,244,0.8)]">pause</span>
+</div>
+<h2 class="text-3xl font-black text-white tracking-wider uppercase mb-2 drop-shadow-lg">Game Paused</h2>
+<p class="text-slate-400 text-sm font-medium mb-8 uppercase tracking-widest">Ready to continue?</p>
+<div class="flex flex-col gap-4 w-full">
+<button class="group w-full py-4 bg-primary hover:bg-blue-600 text-white font-bold rounded-xl text-lg tracking-wider transition-all shadow-neon hover:shadow-neon-intense active:scale-[0.98] flex items-center justify-center gap-2">
+<span class="material-symbols-outlined group-hover:animate-pulse">play_arrow</span>
+                        RESUME
+                    </button>
+<button class="group w-full py-4 bg-transparent hover:bg-white/5 border border-white/10 text-slate-400 hover:text-white font-bold rounded-xl text-lg tracking-wider transition-all active:scale-[0.98] flex items-center justify-center gap-2">
+<span class="material-symbols-outlined group-hover:rotate-90 transition-transform">close</span>
+                        QUIT
+                    </button>
+</div>
+</div>
+</div>
+</div>
+<header class="relative z-20 w-full px-8 py-6 flex justify-between items-start">
+<div class="flex flex-col items-start gap-1">
+<span class="text-xs md:text-sm font-bold tracking-[0.2em] text-slate-500 uppercase">Score</span>
+<div class="flex items-baseline gap-2">
+<span class="text-4xl md:text-5xl font-black text-white tabular-nums tracking-tighter drop-shadow-lg">1,240</span>
+<span class="text-sm font-bold text-emerald-400 animate-pulse">+100</span>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span class="text-xs md:text-sm font-bold tracking-[0.2em] text-slate-500 uppercase">Time Left</span>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-3xl animate-pulse">timer</span>
+<span class="text-4xl md:text-5xl font-black text-white tabular-nums tracking-tighter drop-shadow-lg">00:45</span>
+</div>
+<div class="w-32 h-1.5 bg-slate-800 rounded-full overflow-hidden mt-1">
+<div class="h-full bg-primary w-[75%] shadow-[0_0_10px_rgba(37,106,244,0.8)]"></div>
+</div>
+</div>
+</header>
+<main class="flex-1 relative z-10 flex items-center justify-center p-4 md:p-8">
+<div class="tile-grid">
+<div class="relative bg-surface border border-white/5 rounded-2xl md:rounded-3xl hover:border-white/20 transition-all duration-100 active:scale-95 cursor-pointer shadow-inner-light"></div>
+<div class="relative bg-surface border border-white/5 rounded-2xl md:rounded-3xl hover:border-white/20 transition-all duration-100 active:scale-95 cursor-pointer shadow-inner-light"></div>
+<div class="relative bg-surface border border-white/5 rounded-2xl md:rounded-3xl hover:border-white/20 transition-all duration-100 active:scale-95 cursor-pointer shadow-inner-light"></div>
+<div class="relative bg-surface border border-white/5 rounded-2xl md:rounded-3xl hover:border-white/20 transition-all duration-100 active:scale-95 cursor-pointer shadow-inner-light"></div>
+<div class="relative bg-surface border border-white/5 rounded-2xl md:rounded-3xl hover:border-white/20 transition-all duration-100 active:scale-95 cursor-pointer shadow-inner-light"></div>
+<div class="relative tile-active rounded-2xl md:rounded-3xl cursor-pointer animate-glow-pulse z-10">
+<div class="absolute inset-0 bg-white/10 rounded-2xl md:rounded-3xl"></div>
+<div class="absolute inset-2 border-2 border-white/30 rounded-[1.2rem] md:rounded-[1.7rem] opacity-50"></div>
+</div>
+<div class="relative bg-surface border border-white/5 rounded-2xl md:rounded-3xl hover:border-white/20 transition-all duration-100 active:scale-95 cursor-pointer shadow-inner-light"></div>
+<div class="relative bg-surface border border-white/5 rounded-2xl md:rounded-3xl hover:border-white/20 transition-all duration-100 active:scale-95 cursor-pointer shadow-inner-light"></div>
+<div class="relative bg-surface border border-white/5 rounded-2xl md:rounded-3xl hover:border-white/20 transition-all duration-100 active:scale-95 cursor-pointer shadow-inner-light"></div>
+<div class="relative bg-surface border border-white/5 rounded-2xl md:rounded-3xl hover:border-white/20 transition-all duration-100 active:scale-95 cursor-pointer shadow-inner-light"></div>
+<div class="relative bg-surface border border-white/5 rounded-2xl md:rounded-3xl hover:border-white/20 transition-all duration-100 active:scale-95 cursor-pointer shadow-inner-light"></div>
+<div class="relative bg-surface border border-white/5 rounded-2xl md:rounded-3xl hover:border-white/20 transition-all duration-100 active:scale-95 cursor-pointer shadow-inner-light"></div>
+<div class="relative bg-surface border border-white/5 rounded-2xl md:rounded-3xl hover:border-white/20 transition-all duration-100 active:scale-95 cursor-pointer shadow-inner-light"></div>
+<div class="relative bg-surface border border-white/5 rounded-2xl md:rounded-3xl hover:border-white/20 transition-all duration-100 active:scale-95 cursor-pointer shadow-inner-light"></div>
+<div class="relative bg-surface border border-white/5 rounded-2xl md:rounded-3xl hover:border-white/20 transition-all duration-100 active:scale-95 cursor-pointer shadow-inner-light"></div>
+<div class="relative bg-surface border border-white/5 rounded-2xl md:rounded-3xl hover:border-white/20 transition-all duration-100 active:scale-95 cursor-pointer shadow-inner-light"></div>
+</div>
+</main>
+<div class="fixed inset-0 pointer-events-none z-50 mix-blend-overlay opacity-20 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZmZmIi8+CjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IiMwMDAiLz4KPC9zdmc+')]"></div>
+
+</body></html>

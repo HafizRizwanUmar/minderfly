@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Neon Rush - Countdown</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#256af4",
+                        "background-light": "#f5f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Be Vietnam Pro", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" },
+                    boxShadow: {
+                        "neon": "0 0 20px -5px rgba(37, 106, 244, 0.5)",
+                        "neon-intense": "0 0 50px 10px rgba(37, 106, 244, 0.3)",
+                    },
+                    keyframes: {
+                        pulse: {
+                            '0%, 100%': { opacity: '1', transform: 'scale(1)' },
+                            '50%': { opacity: '0.8', transform: 'scale(0.95)' },
+                        },
+                        countdown: {
+                            '0%': { transform: 'scale(0.5)', opacity: '0' },
+                            '50%': { transform: 'scale(1.2)', opacity: '1' },
+                            '100%': { transform: 'scale(1)', opacity: '1' },
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'countdown-pop': 'countdown 0.5s ease-out forwards',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #101622;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #222f49;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #314368;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-white antialiased overflow-hidden selection:bg-primary/30">
+<div class="relative flex h-screen w-full flex-col overflow-hidden items-center justify-center">
+<div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[120px] animate-pulse-slow"></div>
+<div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white/5 to-transparent opacity-20"></div>
+</div>
+<main class="relative z-10 flex flex-col items-center justify-center w-full max-w-4xl mx-auto text-center p-6">
+<div class="relative flex items-center justify-center mb-12">
+<div class="absolute inset-0 rounded-full border border-primary/20 scale-[2.5]"></div>
+<div class="absolute inset-0 rounded-full border border-dashed border-white/10 scale-[3.2] animate-[spin_10s_linear_infinite]"></div>
+<div class="relative z-20">
+<h1 class="text-[12rem] md:text-[16rem] leading-none font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-primary/50 drop-shadow-2xl animate-countdown-pop select-none shadow-neon-intense">
+                        3
+                    </h1>
+</div>
+<div class="absolute z-10 w-64 h-64 bg-primary/30 blur-[80px] rounded-full"></div>
+</div>
+<div class="space-y-4 max-w-lg mx-auto">
+<h2 class="text-2xl md:text-3xl font-bold text-white tracking-tight">
+                    Get Ready!
+                </h2>
+<p class="text-slate-400 text-lg md:text-xl font-medium">
+                    Tap the glowing circles as fast as you can.
+                </p>
+</div>
+<div class="mt-16 w-64 h-1.5 bg-white/10 rounded-full overflow-hidden">
+<div class="h-full bg-primary w-full origin-left animate-[width_3s_linear]"></div>
+</div>
+<div class="absolute bottom-12 left-0 right-0 text-center">
+<p class="text-sm text-slate-500 uppercase tracking-widest font-semibold flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-lg">vibration</span>
+                    Haptic feedback enabled
+                </p>
+</div>
+</main>
+</div>
+
+</body></html>
