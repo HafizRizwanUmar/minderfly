@@ -1,132 +1,151 @@
-import { useEffect } from 'react';
-import SEOHead from '../components/SEOHead';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { FaArrowRight, FaClock, FaUser, FaTag } from 'react-icons/fa';
+import { FaSearch, FaArrowRight, FaRegClock } from 'react-icons/fa';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { articlesData } from '../data/articles';
 import './ArticlesPage.css';
 
 const ArticlesPage = () => {
+    const [activeCategory, setActiveCategory] = useState('ALL TOPICS');
+    const [searchTerm, setSearchTerm] = useState('');
+
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
 
-    // Structured data for blog
-    const structuredData = {
-        "@context": "https://schema.org",
-        "@type": "Blog",
-        "name": "Minderfly Blog - Web Development & Design Insights",
-        "description": "Expert articles on web development, MERN stack, Flutter, React, Node.js, and modern development practices",
-        "url": "https://minderfly.com/articles",
-        "publisher": {
-            "@type": "Organization",
-            "name": "Minderfly",
-            "logo": {
-                "@type": "ImageObject",
-                "url": "https://minderfly.com/logo.png"
-            }
-        },
-        "blogPost": articlesData.map(article => ({
-            "@type": "BlogPosting",
-            "headline": article.title,
-            "description": article.excerpt,
-            "datePublished": article.date,
-            "author": {
-                "@type": "Person",
-                "name": article.author
-            },
-            "url": `https://minderfly.com/articles/${article.slug}`
-        }))
-    };
+    const categories = ['ALL TOPICS', 'TECHNOLOGY', 'SOFTWARE DEVELOPMENT', 'SOCIETY', 'PROGRAMMING', 'AI'];
+
+    // Hero Article (Use the first one or a specific featured one)
+    const heroArticle = articlesData[0];
+
+    // Sidebar Featured Posts (Next 3)
+    const featuredPosts = articlesData.slice(1, 4);
 
     return (
         <>
-            <SEOHead
-                title="Articles & Insights - Web Development Blog"
-                description="Explore expert articles on web development, MERN stack, Flutter, React, Node.js, UI/UX design, and modern development practices. Stay updated with the latest trends, tutorials, and best practices from Minderfly."
-                keywords="web development blog, MERN stack tutorials, Flutter articles, React tutorials, Node.js guides, JavaScript articles, frontend development, backend development, UI/UX design, programming blog, software development insights"
-                canonical="https://minderfly.com/articles"
-                schema={structuredData}
-            />
-
             <Navbar />
 
-            <section className="articles-page">
+            <section className="news-portal-section">
                 <div className="container">
-                    <motion.div
-                        className="articles-header"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6 }}
-                    >
-                        <h1>Articles & <span className="highlight">Insights</span></h1>
-                        <p className="articles-subtitle">
-                            Exploring the latest trends in web development, design, and technology
-                        </p>
-                    </motion.div>
 
-                    <div className="articles-scroll-container">
-                        <div className="articles-grid">
-                            {articlesData.map((article, index) => (
-                                <motion.article
-                                    key={article.id}
-                                    className="article-card"
-                                    initial={{ opacity: 0, y: 30 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                                    whileHover={{ y: -8 }}
+                    {/* Top Navigation & Search */}
+                    <div className="news-top-bar">
+                        <div className="news-categories">
+                            {categories.map(cat => (
+                                <button
+                                    key={cat}
+                                    className={`category-pill ${activeCategory === cat ? 'active' : ''}`}
+                                    onClick={() => setActiveCategory(cat)}
                                 >
-                                    <Link to={`/articles/${article.slug}`} className="article-card-link">
-                                        <div className="article-card-image">
-                                            <img src={article.image} alt={article.title} />
-                                            <span className="article-category-badge">{article.category}</span>
-                                        </div>
-
-                                        <div className="article-card-content">
-                                            <div className="article-meta">
-                                                <span className="article-date">
-                                                    <FaClock /> {new Date(article.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
-                                                </span>
-                                                <span className="article-read-time">
-                                                    {article.readTime}
-                                                </span>
-                                            </div>
-
-                                            <h2 className="article-title">{article.title}</h2>
-                                            <p className="article-excerpt">{article.excerpt}</p>
-
-                                            <div className="article-footer">
-                                                <div className="article-author">
-                                                    <FaUser />
-                                                    <span>{article.author}</span>
-                                                </div>
-                                                <div className="article-read-more">
-                                                    Read More <FaArrowRight />
-                                                </div>
-                                            </div>
-
-                                            <div className="article-tags">
-                                                {article.tags.slice(0, 3).map((tag, idx) => (
-                                                    <span key={idx} className="article-tag">
-                                                        <FaTag /> {tag}
-                                                    </span>
-                                                ))}
-                                            </div>
-                                        </div>
-
-                                        <div className="article-card-glow"></div>
-                                    </Link>
-                                </motion.article>
+                                    {cat}
+                                </button>
                             ))}
+                            <button className="category-arrow"><FaArrowRight /></button>
+                        </div>
+
+                        <div className="news-search-bar">
+                            <div className="search-input-wrapper">
+                                <FaSearch className="search-icon" />
+                                <input
+                                    type="text"
+                                    placeholder="Search by Articles or Categories"
+                                    value={searchTerm}
+                                    onChange={(e) => setSearchTerm(e.target.value)}
+                                />
+                            </div>
+                            <button className="btn-search">SEARCH</button>
                         </div>
                     </div>
 
-                    <div className="articles-scroll-hint">
-                        <span>Scroll to explore all articles</span>
-                        <FaArrowRight className="scroll-arrow-hint" />
+                    <h1 className="section-heading">ALL TOPICS</h1>
+
+                    {/* Main Grid Layout */}
+                    <div className="news-grid-layout">
+
+                        {/* Main Content Column */}
+                        <div className="news-main-column">
+                            <Link to={`/articles/${heroArticle.slug}`} className="news-hero-card">
+                                <div className="hero-image-bg" style={{ backgroundImage: `url(${heroArticle.image})` }}>
+                                    <div className="hero-overlay"></div>
+                                </div>
+                                <div className="hero-content">
+                                    <div className="hero-meta">
+                                        <span className="hero-date">{heroArticle.date}</span>
+                                        <span className="dot-separator">•</span>
+                                        <span className="hero-read-time">{heroArticle.readTime}</span>
+                                        <span className="dot-separator">•</span>
+                                        <span className="hero-tag">{heroArticle.category}</span>
+                                    </div>
+                                    <h2 className="hero-title">{heroArticle.title}</h2>
+                                    <p className="hero-excerpt">{heroArticle.excerpt}</p>
+                                </div>
+                                <div className="hero-indicator"></div>
+                            </Link>
+
+                            {/* Remaining Articles List */}
+                            <div className="news-feed-list">
+                                {articlesData.slice(1).map((article) => (
+                                    <Link to={`/articles/${article.slug}`} key={article.id} className="feed-article-card">
+                                        <div className="feed-article-image">
+                                            <img src={article.image} alt={article.title} />
+                                        </div>
+                                        <div className="feed-article-content">
+                                            <div className="feed-meta">
+                                                <span className="feed-category">{article.category}</span>
+                                                <span className="dot-separator">•</span>
+                                                <span className="feed-date">{article.date}</span>
+                                            </div>
+                                            <h3 className="feed-title">{article.title}</h3>
+                                            <p className="feed-excerpt">{article.excerpt}</p>
+                                            <div className="feed-footer">
+                                                <span className="read-more">Read Article <FaArrowRight /></span>
+                                            </div>
+                                        </div>
+                                    </Link>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Sidebar Column */}
+                        <div className="news-sidebar">
+
+                            {/* Newsletter Widget */}
+                            <div className="newsletter-widget">
+                                <h3>SUBSCRIBE TO OUR NEWSLETTER</h3>
+                                <p>Stay informed about the latest project launches, insights, and updates.</p>
+                                <div className="newsletter-form">
+                                    <input type="email" placeholder="Enter your email" />
+                                    <button>SUBSCRIBE</button>
+                                </div>
+                            </div>
+
+                            {/* Featured Posts List */}
+                            <div className="featured-posts-widget">
+                                <h3>FEATURED POSTS</h3>
+                                <div className="featured-list">
+                                    {featuredPosts.map((post) => (
+                                        <Link to={`/articles/${post.slug}`} key={post.id} className="featured-list-item">
+                                            <div className="featured-thumb">
+                                                <img src={post.image} alt={post.title} />
+                                            </div>
+                                            <div className="featured-info">
+                                                <h4>{post.title}</h4>
+                                                <div className="featured-meta">
+                                                    <span>{post.date}</span>
+                                                    <span>•</span>
+                                                    <span>{post.readTime}</span>
+                                                </div>
+                                            </div>
+                                        </Link>
+                                    ))}
+                                </div>
+                            </div>
+
+                        </div>
+
                     </div>
+
                 </div>
             </section>
 

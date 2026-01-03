@@ -1,0 +1,134 @@
+/* Dark theme for article section */
+.article-section {
+    background-color: #000000;
+    padding: var(--spacing-xl) 0;
+    position: relative;
+    overflow: hidden;
+    color: #ffffff;
+}
+
+.article-header {
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.article-header .subtitle {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 0.5rem;
+}
+
+.article-header .title {
+    font-family: 'Playfair Display', serif;
+    /* Or system serif if font not available */
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 400;
+    font-style: italic;
+    letter-spacing: -0.02em;
+    margin: 0;
+}
+
+/* Make sure we have a serif font fallback */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400;1,600&display=swap');
+
+.article-header .title {
+    font-family: 'Playfair Display', 'Times New Roman', serif;
+}
+
+
+.article-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+}
+
+@media (max-width: 768px) {
+    .article-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.article-card-home {
+    position: relative;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: #000;
+    /* fall back */
+}
+
+.article-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.image-wrapper {
+    position: relative;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    aspect-ratio: 4/3;
+    margin-bottom: 1.5rem;
+}
+
+.image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.article-card-home:hover .image-wrapper img {
+    transform: scale(1.05);
+}
+
+.article-card-home .content {
+    text-align: center;
+    padding: 0 1rem;
+}
+
+.article-card-home .author {
+    display: block;
+    font-size: 0.75rem;
+    color: #888;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+}
+
+.article-card-home h3 {
+    font-family: var(--font-body);
+    font-size: 1.5rem;
+    line-height: 1.3;
+    font-weight: 500;
+    margin: 0;
+}
+
+/* Button */
+.article-footer-home {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.btn-neon {
+    display: inline-block;
+    padding: 0.75rem 2rem;
+    border: 1px solid var(--color-accent);
+    color: #fff;
+    border-radius: 50px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    background: transparent;
+}
+
+.btn-neon:hover {
+    background: var(--color-accent);
+    color: #000;
+    box-shadow: 0 0 20px rgba(188, 216, 72, 0.4);
+}

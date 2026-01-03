@@ -1,128 +1,240 @@
 .store-preview-section {
-    padding: 100px 0;
-    background: linear-gradient(180deg, var(--color-bg-primary) 0%, rgba(188, 216, 72, 0.05) 100%);
+    padding: var(--spacing-xl) 0;
+    background-color: var(--color-bg-primary);
+    overflow: hidden;
 }
 
-.store-preview-header {
+.store-header {
     text-align: center;
-    margin-bottom: 60px;
+    margin-bottom: 4rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.store-preview-header h2 {
-    font-size: 3rem;
+.store-header h2 {
+    font-size: clamp(3rem, 6vw, 4.5rem);
+    line-height: 1.1;
     margin-bottom: 1rem;
-    font-family: var(--font-heading);
 }
 
-.store-preview-header p {
+.store-header h2 em {
+    font-family: 'Times New Roman', serif;
+    font-style: italic;
+    font-weight: 400;
+}
+
+.store-header p {
     color: var(--color-text-secondary);
     font-size: 1.2rem;
-    font-family: var(--font-body);
+    margin-bottom: 2rem;
 }
 
-.store-featured-card {
-    background: var(--color-bg-card);
-    border: 1px solid var(--border-light);
-    border-radius: 30px;
-    padding: 60px;
-    display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
-    gap: 60px;
-    align-items: center;
-    overflow: hidden;
-    position: relative;
-    backdrop-filter: blur(10px);
-}
-
-.featured-badge {
+.btn-case-study {
     display: inline-block;
-    padding: 6px 14px;
-    background: rgba(188, 216, 72, 0.2);
+    padding: 0.8rem 2rem;
+    border: 1px solid var(--color-accent);
     color: var(--color-accent);
     border-radius: 50px;
+    text-decoration: none;
     font-size: 0.9rem;
-    font-weight: 600;
-    margin-bottom: 20px;
-    border: 1px solid var(--color-accent);
+    transition: all 0.3s ease;
 }
 
-.featured-content h3 {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-    background: linear-gradient(135deg, #fff 0%, #a5a5a5 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-family: var(--font-heading);
+.btn-case-study:hover {
+    background: var(--color-accent);
+    color: #000;
 }
 
-.featured-content p {
-    color: var(--color-text-secondary);
-    font-size: 1.1rem;
-    line-height: 1.6;
-    margin-bottom: 40px;
-    max-width: 500px;
-}
-
-.featured-actions {
+.store-carousel {
     display: flex;
-    gap: 20px;
-    align-items: center;
+    overflow-x: auto;
+    gap: 2rem;
+    padding-bottom: 2rem;
+    /* Space for scrollbar if visible, currently hidden via global css usually */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
 
-.featured-visual {
-    position: relative;
+.store-carousel::-webkit-scrollbar {
+    display: none;
+}
+
+.store-product-group {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 300px;
+    gap: 1.5rem;
+    flex: 0 0 auto;
+    width: 100%;
+    /* Or fixed width if you want carousel behavior on desktop too, for now full width rows */
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-.visual-icon {
-    font-size: 8rem;
-    color: var(--color-accent);
-    z-index: 2;
-    filter: drop-shadow(0 0 30px rgba(188, 216, 72, 0.5));
-    animation: float 6s ease-in-out infinite;
+/* On desktop, maybe show one product group at a time or stack them? 
+   The request implies "show two cards... same for all products", implying a list of these groups.
+   Let's make them stack vertically for the main page flow, or carousel if horizontal.
+   The implementation below makes them STACK Vertically (standard section flow), 
+   which is better for "landing page" unless specifically a slider component.
+   
+   WAIT: Layout "horizontal scroll" was mentioned in my plan. 
+   But "landing page show like this" usually implies a section. 
+   Let's do horizontal scroll for multiple products so it doesn't take unlimited height.
+*/
+
+.store-carousel {
+    display: flex;
+    overflow-x: auto;
+    gap: 2rem;
+    padding-bottom: 2rem;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
 }
 
-.visual-bg {
-    position: absolute;
-    width: 300px;
-    height: 300px;
-    background: radial-gradient(circle, rgba(188, 216, 72, 0.2) 0%, rgba(0, 0, 0, 0) 70%);
-    z-index: 1;
-}
-
-@keyframes float {
-
-    0%,
-    100% {
-        transform: translateY(0);
-    }
-
-    50% {
-        transform: translateY(-20px);
-    }
+.store-product-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    min-width: 100%;
+    /* Ensure it takes full width of container */
+    scroll-snap-align: center;
+    /* Snap to center of the viewport */
+    scroll-margin-inline: 2rem;
+    /* Optional: adds margin for snapping */
 }
 
 @media (max-width: 900px) {
-    .store-featured-card {
+    .store-product-group {
         grid-template-columns: 1fr;
-        text-align: center;
-        padding: 40px;
+        min-width: 90vw;
+        /* Slightly smaller on mobile to show hint of next? or just full width */
     }
+}
 
-    .featured-content p {
-        margin: 0 auto 40px;
-    }
+.store-card {
+    border-radius: 30px;
+    overflow: hidden;
+    position: relative;
+    height: 500px;
+    /* Fixed height for consistency */
+}
 
-    .featured-actions {
-        justify-content: center;
-    }
+/* Stats Card Styling */
+.stats-card {
+    background: #0a0a0a;
+    /* Dark Card */
+    border: 1px solid var(--accent-color, var(--color-accent));
+    /* Dynamic border color */
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-    .featured-visual {
-        height: 200px;
-        margin-top: 40px;
-    }
+.stats-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.card-top {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.product-badge {
+    border: 1px solid #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    margin-bottom: 2rem;
+    display: inline-block;
+    border-radius: 50%;
+    /* Circle badge if just icon, but text badge here */
+    border-radius: 50px;
+}
+
+.stats-card h3 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.stats-card p {
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+}
+
+.learn-more-link {
+    color: #fff;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+    margin-top: auto;
+}
+
+.learn-more-link:hover {
+    gap: 1rem;
+}
+
+.card-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 2rem;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+}
+
+/* Image Card Styling */
+.image-card {
+    background: #111;
+}
+
+.image-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s ease;
+}
+
+.image-card:hover img {
+    transform: scale(1.05);
+}
+
+.image-overlay {
+    position: absolute;
+    bottom: 2rem;
+    left: 2rem;
+}
+
+.image-badge {
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    font-size: 0.9rem;
 }

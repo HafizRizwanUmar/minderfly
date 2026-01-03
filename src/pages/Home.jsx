@@ -10,6 +10,7 @@ import Services from '../components/Services';
 import StorePreview from '../components/StorePreview';
 import OffersSection from '../components/OffersSection';
 import TestimonialsSection from '../components/TestimonialsSection';
+import ArticleSection from '../components/ArticleSection';
 
 const Home = () => {
     useEffect(() => {
@@ -109,6 +110,7 @@ const Home = () => {
                 <Team />
                 <Services />
                 <StorePreview />
+                <ArticleSection />
                 <Footer />
             </div>
         </>

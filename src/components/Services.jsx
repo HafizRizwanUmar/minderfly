@@ -1,84 +1,81 @@
-import { motion } from 'framer-motion';
-import { FaChrome, FaCode, FaMobileAlt, FaLaptopCode, FaPalette } from 'react-icons/fa';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { FaArrowRight } from 'react-icons/fa';
 import './Services.css';
 
 const Services = () => {
+    const [hoveredIndex, setHoveredIndex] = useState(null);
+
     const services = [
         {
-            icon: <FaPalette />,
-            number: '01',
+            id: '01',
             title: 'Chrome Theme Building',
-            description: 'Custom aesthetics for your browser experience.',
-            type: 'glass',
-            colSpan: 1
+            description: 'Custom aesthetics and personalized browser experiences.',
+            image: 'https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&q=80&w=600'
         },
         {
-            icon: <FaChrome />,
-            number: '02',
+            id: '02',
             title: 'Chrome Extension Building',
-            description: 'Powerful tools to enhance browser functionality.',
-            type: 'solid',
-            colSpan: 2
+            description: 'Powerful tools to enhance browser productivity and functionality.',
+            image: 'https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&q=80&w=600'
         },
         {
-            icon: <FaMobileAlt />,
-            number: '03',
-            title: 'Flutter Desktop Application',
-            description: 'Cross-platform desktop apps with native performance.',
-            type: 'glass',
-            colSpan: 2
+            id: '03',
+            title: 'Flutter Desktop Apps',
+            description: 'Cross-platform native performance for desktop environments.',
+            image: 'https://images.unsplash.com/photo-1628277613967-6abca504d0ac?auto=format&fit=crop&q=80&w=600'
         },
         {
-            icon: <FaCode />,
-            number: '04',
-            title: 'VS Code Extension Building',
-            description: 'Developer tools to boost productivity.',
-            type: 'solid',
-            colSpan: 1
+            id: '04',
+            title: 'VS Code Extensions',
+            description: 'Custom developer tools to boost your coding workflow.',
+            image: 'https://images.unsplash.com/photo-1618401471353-b74afee0adb4?auto=format&fit=crop&q=80&w=600'
         },
         {
-            icon: <FaLaptopCode />,
-            number: '05',
-            title: 'MERN Stack Website',
-            description: 'Full-stack web solutions for modern businesses.',
-            type: 'glass',
-            colSpan: 3
+            id: '05',
+            title: 'MERN Stack Development',
+            description: 'Full-stack web solutions for scalable modern businesses.',
+            image: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&q=80&w=600'
         }
     ];
 
     return (
-        <section className="services-section" id="services">
+        <section className="services-section-list" id="services">
             <div className="container">
-                <motion.div
-                    className="services-header"
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
-                >
-                    <h2>
-                        our <span className="gradient-text">services</span>
-                        <br />
-                        expertise
-                    </h2>
-                </motion.div>
+                <div className="services-header-list">
+                    <h2>What we do <em>best.</em></h2>
+                </div>
 
-                <div className="services-grid">
+                <div className="services-list-container">
                     {services.map((service, index) => (
-                        <motion.div
-                            key={index}
-                            className={`service-card ${service.type} col-span-${service.colSpan}`}
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: index * 0.1, duration: 0.6 }}
-                            whileHover={{ scale: 1.02, y: -5 }}
+                        <div
+                            key={service.id}
+                            className={`service-item ${hoveredIndex === index ? 'active' : ''}`}
+                            onMouseEnter={() => setHoveredIndex(index)}
+                            onMouseLeave={() => setHoveredIndex(null)}
                         >
-                            <span className="card-number">{service.number}</span>
-                            <div className="card-icon">{service.icon}</div>
-                            <h3 className="card-title">{service.title}</h3>
-                            <p className="card-description">{service.description}</p>
-                        </motion.div>
+                            <div className="service-info">
+                                <span className="service-number">{service.id}</span>
+                                <h3 className="service-title">{service.title}</h3>
+                            </div>
+
+                            <div className="service-content-wrapper">
+                                <AnimatePresence>
+                                    {hoveredIndex === index && (
+                                        <motion.div
+                                            className="service-preview-image"
+                                            initial={{ opacity: 0, scale: 0.9, x: -20 }}
+                                            animate={{ opacity: 1, scale: 1, x: 0 }}
+                                            exit={{ opacity: 0, scale: 0.9, x: -20 }}
+                                            transition={{ duration: 0.3 }}
+                                        >
+                                            <img src={service.image} alt={service.title} />
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                                <p className="service-description">{service.description}</p>
+                            </div>
+                        </div>
                     ))}
                 </div>
             </div>
