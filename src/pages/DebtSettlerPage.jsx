@@ -57,7 +57,8 @@ const DebtSettlerPage = () => {
 
                             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                                 <a
-                                    href="#"
+                                    href="/mobile app/debtsettler.apk"
+                                    download="debtsettler.apk"
                                     className="group relative inline-flex items-center gap-3 px-8 py-4 bg-indigo-600 hover:bg-indigo-700 rounded-full transition-all duration-300 shadow-lg shadow-indigo-600/25 hover:shadow-indigo-600/40 transform hover:-translate-y-1"
                                 >
                                     <FaMobileAlt className="text-2xl" />

@@ -2,50 +2,79 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { FaWindows, FaArrowRight, FaMobileAlt, FaSearch } from 'react-icons/fa';
+import { FaWindows, FaArrowRight, FaMobileAlt, FaSearch, FaStar, FaDownload } from 'react-icons/fa';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import './StorePage.css';
 
 const StorePage = () => {
+    const [activeCategory, setActiveCategory] = useState('All');
     const [hoveredProduct, setHoveredProduct] = useState(null);
+
+    const categories = ['All', 'Productivity', 'Finance', 'Development', 'Utilities'];
 
     const products = [
         {
             id: 'debt-settler',
             name: 'Debt Settler',
-            description: 'The ultimate free application to manage shared expenses and settle debts. No hidden fees.',
+            description: 'The ultimate free application to manage shared expenses and settle debts with friends. No hidden fees, just seamless financial harmony.',
             price: 'Free',
-            icon: <FaMobileAlt className="text-2xl" />,
+            icon: <FaMobileAlt className="text-3xl" />,
             link: '/store/debt-settler',
-            color: '#8B5CF6', // Violet
+            color: '#8B5CF6',
+            category: 'Finance',
             featured: true,
+            rating: 4.9,
+            downloads: '10k+',
             image: "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?q=80&w=2671&auto=format&fit=crop"
         },
         {
             id: 'nishan-qr',
             name: 'Nishan QR Generator',
-            description: 'Generate unlimited QR codes with a sleek, modern interface. The ultimate QR solution for Windows.',
+            description: 'Generate unlimited custom QR codes with a sleek, modern interface. The professional choice for Windows users.',
             price: 'Free / $5',
-            icon: <FaWindows className="text-2xl" />,
+            icon: <FaWindows className="text-3xl" />,
             link: '/store/nishan-qr-generator',
-            color: '#0078D7', // Windows Blue
-            featured: false
+            color: '#0078D7',
+            category: 'Utilities',
+            featured: false,
+            rating: 4.8,
+            downloads: '5k+'
         },
         {
             id: 'flutter-web-emulator',
             name: 'Flutter Web Emulator',
-            description: 'Run, debug, and test Flutter Web apps directly inside VS Code. Zero context switching.',
+            description: 'Run, debug, and test Flutter Web apps directly inside VS Code. Eliminate context switching and boost productivity.',
             price: 'Free',
-            icon: <FaWindows className="text-2xl" />,
+            icon: <FaWindows className="text-3xl" />,
             link: '/store/flutter-web-emulator',
-            color: '#007ACC', // VS Code Blue
-            featured: false
+            color: '#007ACC',
+            category: 'Development',
+            featured: false,
+            rating: 4.7,
+            downloads: '2k+'
         }
     ];
 
     const featuredProduct = products.find(p => p.featured);
-    const otherProducts = products.filter(p => !p.featured);
+    const filteredProducts = activeCategory === 'All'
+        ? products
+        : products.filter(p => p.category === activeCategory);
+
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.1
+            }
+        }
+    };
+
+    const itemVariants = {
+        hidden: { opacity: 0, y: 20 },
+        visible: { opacity: 1, y: 0 }
+    };
 
     return (
         <>
@@ -56,138 +85,186 @@ const StorePage = () => {
 
             <Navbar />
 
-            <div className="min-h-screen bg-[#202020] text-white pt-24 pb-20 selection:bg-[#0078D7] selection:text-white font-['Segoe_UI',_sans-serif]">
+            <div className="min-h-screen bg-[#1a1a1a] text-white pt-24 pb-20 font-['Segoe_UI',_sans-serif] selection:bg-[#0078D7] selection:text-white">
 
-                {/* Hero / Spotlight Section */}
-                <div className="container mx-auto px-6 mb-16">
+                {/* Background Ambient Glow */}
+                <div className="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
+                    <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-purple-900/20 blur-[120px] rounded-full" />
+                    <div className="absolute top-[20%] right-[-10%] w-[30%] h-[30%] bg-blue-900/10 blur-[100px] rounded-full" />
+                </div>
+
+                <div className="relative z-10 container mx-auto px-6">
+
+                    {/* Hero Section */}
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.98 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }} // Fluent easing
-                        className="relative w-full h-[500px] rounded-xl overflow-hidden shadow-2xl group cursor-pointer"
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                        className="mb-20"
                     >
-                        {/* Background Image with Overlay */}
-                        <div
-                            className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                            style={{ backgroundImage: `url(${featuredProduct.image})` }}
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+                        <div className="relative w-full h-[550px] rounded-2xl overflow-hidden shadow-2xl group border border-white/5">
+                            {/* Background Image */}
+                            <div
+                                className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 group-hover:scale-105"
+                                style={{ backgroundImage: `url(${featuredProduct.image})` }}
+                            />
 
-                        {/* Content */}
-                        <div className="absolute bottom-0 left-0 p-10 md:p-14 w-full md:w-2/3 lg:w-1/2">
-                            <motion.span
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.2 }}
-                                className="inline-block px-3 py-1 mb-4 text-xs font-bold tracking-wider uppercase bg-[#FFB900] text-black rounded-sm"
-                            >
-                                Spotlight
-                            </motion.span>
-                            <motion.h1
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.3 }}
-                                className="text-4xl md:text-5xl font-bold mb-4 leading-tight"
-                            >
-                                {featuredProduct.name}
-                            </motion.h1>
-                            <motion.p
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.4 }}
-                                className="text-lg text-gray-200 mb-8 leading-relaxed"
-                            >
-                                {featuredProduct.description}
-                            </motion.p>
+                            {/* Gradient Overlay - darker at bottom/left for text readability */}
+                            <div className="absolute inset-0 bg-gradient-to-tr from-black/95 via-black/50 to-transparent" />
 
-                            <motion.div
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.5 }}
-                            >
-                                <Link
-                                    to={featuredProduct.link}
-                                    className="inline-flex items-center px-8 py-3 bg-[#0078D7] hover:bg-[#006cc1] text-white font-semibold rounded-[4px] transition-all transform hover:scale-[1.02] active:scale-[0.98]"
+                            {/* Glossy sheen effect */}
+                            <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+
+                            <div className="absolute bottom-0 left-0 p-8 md:p-16 w-full md:w-2/3 lg:w-1/2">
+                                <motion.div
+                                    initial={{ opacity: 0, x: -20 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: 0.3 }}
+                                    className="flex items-center gap-3 mb-6"
                                 >
-                                    Get it now
-                                </Link>
-                            </motion.div>
+                                    <span className="px-3 py-1 text-xs font-bold tracking-wider uppercase bg-[#FFB900] text-black rounded shadow-[0_0_15px_rgba(255,185,0,0.4)]">
+                                        Spotlight
+                                    </span>
+                                    <span className="px-3 py-1 text-xs font-bold tracking-wider uppercase bg-white/10 backdrop-blur-md border border-white/10 rounded">
+                                        Editors' Choice
+                                    </span>
+                                </motion.div>
+
+                                <motion.h1
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.4 }}
+                                    className="text-5xl md:text-6xl font-bold mb-6 leading-tight tracking-tight drop-shadow-lg"
+                                >
+                                    {featuredProduct.name}
+                                </motion.h1>
+
+                                <motion.p
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.5 }}
+                                    className="text-lg md:text-xl text-gray-200 mb-10 leading-relaxed font-light"
+                                >
+                                    {featuredProduct.description}
+                                </motion.p>
+
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.6 }}
+                                    className="flex items-center gap-4"
+                                >
+                                    <Link
+                                        to={featuredProduct.link}
+                                        className="px-8 py-4 bg-[#0078D7] hover:bg-[#006cc1] text-white font-semibold rounded-lg shadow-[0_4px_20px_rgba(0,120,215,0.4)] hover:shadow-[0_6px_25px_rgba(0,120,215,0.6)] transition-all transform hover:-translate-y-0.5 active:scale-95 flex items-center gap-2"
+                                    >
+                                        <FaDownload /> Get it Now
+                                    </Link>
+                                    <button className="px-8 py-4 bg-white/5 hover:bg-white/10 backdrop-blur-md text-white font-semibold rounded-lg border border-white/10 transition-all">
+                                        Learn More
+                                    </button>
+                                </motion.div>
+                            </div>
                         </div>
                     </motion.div>
-                </div>
 
-                {/* Filter / Category Bar (Visual only for now) */}
-                <div className="container mx-auto px-6 mb-10 flex items-center justify-between">
-                    <h2 className="text-2xl font-semibold">Top Free Apps</h2>
-                    <div className="hidden md:flex items-center gap-4 text-sm font-medium text-gray-400">
-                        <span className="text-white cursor-pointer hover:underline">All</span>
-                        <span className="cursor-pointer hover:text-white transition-colors">Productivity</span>
-                        <span className="cursor-pointer hover:text-white transition-colors">Finance</span>
-                        <span className="cursor-pointer hover:text-white transition-colors">Development</span>
+                    {/* Category Filter */}
+                    <div className="mb-12 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                        <h2 className="text-3xl font-bold flex items-center gap-3">
+                            Top Apps <span className="text-sm font-normal text-gray-400 bg-white/5 px-3 py-1 rounded-full">{filteredProducts.length}</span>
+                        </h2>
+
+                        <div className="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0 scrollbar-hide">
+                            {categories.map(category => (
+                                <button
+                                    key={category}
+                                    onClick={() => setActiveCategory(category)}
+                                    className={`px-5 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap ${activeCategory === category
+                                            ? 'bg-white text-black shadow-[0_0_15px_rgba(255,255,255,0.3)]'
+                                            : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white'
+                                        }`}
+                                >
+                                    {category}
+                                </button>
+                            ))}
+                        </div>
                     </div>
-                </div>
 
-                {/* Products Grid */}
-                <div className="container mx-auto px-6">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                        {/* Include the featured product in the grid as well, or just the others? User said "link it inside store" - usually store has all items in grid too. Let's show all items including the spotlight one for completeness, or just the others if the list is long. Since list is short, let's show ALL products in the grid for easy access. */}
-                        {products.map((product, index) => (
-                            <motion.div
-                                key={product.id}
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.4, delay: index * 0.1 }}
-                                onMouseEnter={() => setHoveredProduct(product.id)}
-                                onMouseLeave={() => setHoveredProduct(null)}
-                                className="group relative bg-[#2D2D2D] hover:bg-[#323232] rounded-lg p-6 transition-all duration-200 border border-transparent hover:border-[#ffffff1a] hover:shadow-xl"
-                            >
-                                <div className="flex flex-col h-full justify-between">
-                                    <div>
-                                        <div
-                                            className="w-16 h-16 rounded-lg flex items-center justify-center mb-6 text-3xl transition-transform duration-300 group-hover:scale-110"
-                                            style={{ backgroundColor: `${product.color}20`, color: product.color }}
-                                        >
-                                            {product.icon}
+                    {/* Products Grid */}
+                    <motion.div
+                        variants={containerVariants}
+                        initial="hidden"
+                        animate="visible"
+                        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+                    >
+                        <AnimatePresence>
+                            {filteredProducts.map((product) => (
+                                <motion.div
+                                    key={product.id}
+                                    variants={itemVariants}
+                                    layout
+                                    onMouseEnter={() => setHoveredProduct(product.id)}
+                                    onMouseLeave={() => setHoveredProduct(null)}
+                                    className="group relative bg-[#252525] rounded-xl p-6 border border-white/5 hover:border-white/20 transition-all duration-300 hover:shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:-translate-y-1"
+                                >
+                                    {/* Hover Reveal Gradient */}
+                                    <div
+                                        className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                                        style={{
+                                            background: `radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255,255,255,0.06), transparent 40%)`
+                                        }}
+                                    />
+
+                                    <div className="flex flex-col h-full relative z-10">
+                                        <div className="flex justify-between items-start mb-6">
+                                            <div
+                                                className="w-16 h-16 rounded-xl flex items-center justify-center text-3xl shadow-lg transition-transform duration-300 group-hover:scale-110"
+                                                style={{ backgroundColor: `${product.color}20`, color: product.color }}
+                                            >
+                                                {product.icon}
+                                            </div>
+                                            {product.featured && (
+                                                <span className="bg-[#FFB900]/20 text-[#FFB900] text-[10px] font-bold px-2 py-1 rounded border border-[#FFB900]/30">
+                                                    FEATURED
+                                                </span>
+                                            )}
                                         </div>
 
-                                        <h3 className="text-xl font-bold mb-2 group-hover:text-[#0078D7] transition-colors">
+                                        <h3 className="text-xl font-bold mb-2 group-hover:text-white transition-colors text-gray-100">
                                             {product.name}
                                         </h3>
 
-                                        <div className="flex items-center gap-2 mb-4">
-                                            <span className="bg-[#ffffff1a] text-xs px-2 py-1 rounded text-gray-300">
-                                                App
+                                        <div className="flex items-center gap-3 mb-4 text-xs text-gray-400">
+                                            <span className="flex items-center gap-1 text-[#FFB900]">
+                                                {product.rating} <FaStar />
                                             </span>
-                                            <span className="text-xs text-gray-400">
-                                                Minderfly
-                                            </span>
+                                            <span className="w-1 h-1 bg-gray-600 rounded-full" />
+                                            <span>{product.downloads} Downloads</span>
                                         </div>
 
                                         <p className="text-sm text-gray-400 leading-relaxed mb-6 line-clamp-3">
                                             {product.description}
                                         </p>
+
+                                        <div className="mt-auto pt-4 border-t border-white/5 flex items-center justify-between">
+                                            <span className="font-semibold text-sm text-gray-200">
+                                                {product.price}
+                                            </span>
+
+                                            <Link
+                                                to={product.link}
+                                                className="px-4 py-2 bg-white/10 hover:bg-[#0078D7] hover:text-white text-gray-200 text-sm font-medium rounded transition-colors"
+                                            >
+                                                View Details
+                                            </Link>
+                                        </div>
                                     </div>
+                                </motion.div>
+                            ))}
+                        </AnimatePresence>
+                    </motion.div>
 
-                                    <div className="flex items-center justify-between mt-auto">
-                                        <span className="font-semibold text-sm">
-                                            {product.price}
-                                        </span>
-
-                                        <Link
-                                            to={product.link}
-                                            className="px-6 py-2 bg-[#ffffff1a] hover:bg-[#0078D7] text-white text-sm font-medium rounded-[4px] transition-colors"
-                                        >
-                                            View
-                                        </Link>
-                                    </div>
-                                </div>
-
-                                {/* Tilt/Glow effect on hover could go here, but keeping it clean for MS style */}
-                            </motion.div>
-                        ))}
-                    </div>
                 </div>
-
             </div>
 
             <Footer />
