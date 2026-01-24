@@ -1,11 +1,11 @@
 // Article data structure
 export const articlesData = [
-    {
-        id: 1,
-        slug: 'modern-web-development-trends-2024',
-        title: 'Modern Web Development Trends in 2024',
-        excerpt: 'Explore the latest trends shaping the future of web development, from AI integration to progressive web apps.',
-        content: `
+  {
+    id: 1,
+    slug: 'modern-web-development-trends-2024',
+    title: 'Modern Web Development Trends in 2024',
+    excerpt: 'Explore the latest trends shaping the future of web development, from AI integration to progressive web apps.',
+    content: `
 # Modern Web Development Trends in 2024
 
 The web development landscape continues to evolve at a rapid pace. In 2024, we're seeing several key trends that are reshaping how we build and deploy web applications.
@@ -26,51 +26,121 @@ Edge computing is changing how we think about server-side rendering and data pro
 
 Staying ahead of these trends isn't just about using the latest tools—it's about understanding the problems they solve and applying them thoughtfully to create better user experiences.
         `,
-        author: 'Hafiz Rizwan Umar',
-        date: '2024-11-20',
-        readTime: '5 min read',
-        category: 'Web Development',
-        image: 'https://images.unsplash.com/photo-1457305237443-44c3d5a30b89?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8d2ViJTIwZGV2ZWxvcG1lbnR8ZW58MHx8MHx8fDA%3D',
-        tags: ['Web Development', 'AI', 'Performance', 'Trends']
-    },
-    {
-        id: 2,
-        slug: 'mastering-react-performance-optimization',
-        title: 'Mastering React Performance Optimization',
-        excerpt: 'Learn advanced techniques to optimize your React applications for better performance and user experience.',
-        content: `
+    author: 'Hafiz Rizwan Umar',
+    date: '2024-11-20',
+    readTime: '5 min read',
+    category: 'Web Development',
+    image: 'https://images.unsplash.com/photo-1457305237443-44c3d5a30b89?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8d2ViJTIwZGV2ZWxvcG1lbnR8ZW58MHx8MHx8fDA%3D',
+    tags: ['Web Development', 'AI', 'Performance', 'Trends']
+  },
+  {
+    id: 2,
+    slug: 'mastering-react-performance-optimization',
+    title: 'Mastering React Performance Optimization',
+    excerpt: 'Learn advanced techniques to optimize your React applications for better performance and user experience.',
+    content: `
 # Mastering React Performance Optimization
 
-React applications can become sluggish if not optimized properly. This guide covers essential techniques to keep your app running smoothly.
+React applications can become sluggish if not optimized properly. This guide covers essential techniques to keep your app running smoothly, ensuring a seamless user experience even as your application grows in complexity.
 
 ## Understanding React Rendering
 
-Before optimizing, it's crucial to understand how React renders components and when re-renders occur.
+Before optimizing, it's crucial to understand how React renders components. React keeps a virtual DOM in memory. When state or props change, it creates a new virtual DOM tree and compares it with the previous one (diffing). Then, it updates the real DOM with only the necessary changes (reconciliation).
+
+Performance issues often arise when:
+1.  **Too many re-renders:** Components render when they don't need to.
+2.  **Expensive operations:** Heavy calculations blocking the main thread.
+3.  **Large bundles:** Sending too much JavaScript to the client.
 
 ## Key Optimization Techniques
 
-1. **Memoization** - Use React.memo, useMemo, and useCallback wisely
-2. **Code Splitting** - Break your bundle into smaller chunks
-3. **Lazy Loading** - Load components only when needed
-4. **Virtual Lists** - Render only visible items in long lists
+### 1. Code Splitting & Lazy Loading
+
+Bundling is great, but as your app grows, your bundle size can become huge. Code splitting allows you to split your bundle into smaller chunks which can then be loaded on demand.
+
+**React.lazy** lets you render a dynamic import as a regular component.
+
+\`\`\`jsx
+import React, { Suspense } from 'react';
+
+const OtherComponent = React.lazy(() => import('./OtherComponent'));
+
+function MyComponent() {
+  return (
+    <div>
+      <Suspense fallback={<div>Loading...</div>}>
+        <OtherComponent />
+      </Suspense>
+    </div>
+  );
+}
+\`\`\`
+
+### 2. Memoization
+
+Memoization is a technique for caching the results of expensive function calls.
+
+*   **React.memo:** HOC that memorizes the result of a functional component. It only re-renders if props change.
+*   **useMemo:** Caches the result of a calculation between re-renders.
+*   **useCallback:** Caches a function definition between re-renders.
+
+\`\`\`jsx
+// Prevents re-creation of the function on every render
+const handleClick = useCallback(() => {
+  console.log('Clicked!');
+}, []);
+
+// Prevents expensive calculation on every render
+const expensiveValue = useMemo(() => {
+  return computeExpensiveValue(a, b);
+}, [a, b]);
+\`\`\`
+
+### 3. Virtualization (Windowing)
+
+If you need to render a huge list of data, rendering all items at once can crash your browser. Virtualization renders only the items currently visible in the viewport.
+
+Libraries like **react-window** or **react-virtualized** are excellent for this.
+
+### 4. Optimize State Management
+
+*   **Lift state up wisely:** Don't lift state higher than necessary.
+*   **Keep state local:** If a piece of state is only used in one component, keep it there.
+*   **Context API caution:** Be careful with Context. Updating a context value triggers a re-render in all consuming components. Consider splitting contexts or using libraries like Zustand or Redux for complex state.
+
+### 5. Throttling and Debouncing
+
+For event handlers that fire frequently (like \`scroll\`, \`resize\`, or \`input\`), use throttling or debouncing to limit the number of times the handler is executed.
+
+*   **Debounce:** Waits for a pause in the events before executing (good for search bars).
+*   **Throttle:** Ensures the function is executed at most once in a specified time period (good for scrolling).
 
 ## Measuring Performance
 
-Use React DevTools Profiler to identify bottlenecks and measure the impact of your optimizations.
+Don't guess—measure. Use the **React DevTools Profiler** to identify which components are rendering and how long they take.
+
+1.  Open React DevTools in Chrome.
+2.  Go to the "Profiler" tab.
+3.  Click record, interact with your app, and stop recording.
+4.  Analyze the flamegraph to find bottlenecks.
+
+## Conclusion
+
+Performance optimization is an ongoing process. Start by measuring, fix the biggest bottlenecks first, and always keep the user experience in mind.
         `,
-        author: 'Hafiz Rizwan Umar',
-        date: '2024-11-18',
-        readTime: '8 min read',
-        category: 'React',
-        image: 'https://images.unsplash.com/photo-1633356122102-3fe601e05bd2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cmVhY3R8ZW58MHx8MHx8fDA%3D',
-        tags: ['React', 'Performance', 'Optimization', 'JavaScript']
-    },
-    {
-        id: 3,
-        slug: 'ui-ux-design-principles-for-developers',
-        title: 'UI/UX Design Principles for Developers',
-        excerpt: 'Essential design principles every developer should know to create beautiful and functional user interfaces.',
-        content: `
+    author: 'Hafiz Rizwan Umar',
+    date: '2024-11-18',
+    readTime: '8 min read',
+    category: 'React',
+    image: 'https://images.unsplash.com/photo-1633356122102-3fe601e05bd2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cmVhY3R8ZW58MHx8MHx8fDA%3D',
+    tags: ['React', 'Performance', 'Optimization', 'JavaScript']
+  },
+  {
+    id: 3,
+    slug: 'ui-ux-design-principles-for-developers',
+    title: 'UI/UX Design Principles for Developers',
+    excerpt: 'Essential design principles every developer should know to create beautiful and functional user interfaces.',
+    content: `
 # UI/UX Design Principles for Developers
 
 Great design isn't just for designers. As developers, understanding fundamental design principles can dramatically improve the quality of our work.
@@ -97,19 +167,19 @@ Provide clear feedback for user actions.
 
 These principles aren't theoretical—they directly impact user satisfaction and business metrics.
         `,
-        author: 'Ammara Lohani',
-        date: '2024-11-15',
-        readTime: '6 min read',
-        category: 'Design',
-        image: 'https://images.unsplash.com/photo-1621111848501-8d3634f82336?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8dWklMjB1eHxlbnwwfHwwfHx8MA%3D%3D',
-        tags: ['UI/UX', 'Design', 'Frontend', 'Accessibility']
-    },
-    {
-        id: 4,
-        slug: 'building-scalable-nodejs-applications',
-        title: 'Building Scalable Node.js Applications',
-        excerpt: 'Best practices and architectural patterns for building Node.js applications that scale.',
-        content: `
+    author: 'Ammara Lohani',
+    date: '2024-11-15',
+    readTime: '6 min read',
+    category: 'Design',
+    image: 'https://images.unsplash.com/photo-1621111848501-8d3634f82336?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8dWklMjB1eHxlbnwwfHwwfHx8MA%3D%3D',
+    tags: ['UI/UX', 'Design', 'Frontend', 'Accessibility']
+  },
+  {
+    id: 4,
+    slug: 'building-scalable-nodejs-applications',
+    title: 'Building Scalable Node.js Applications',
+    excerpt: 'Best practices and architectural patterns for building Node.js applications that scale.',
+    content: `
 # Building Scalable Node.js Applications
 
 Scalability is a critical consideration when building Node.js applications. This guide covers proven patterns and practices.
@@ -132,19 +202,19 @@ Use events to decouple components and improve scalability.
 
 Implement comprehensive monitoring to catch issues before they impact users.
         `,
-        author: 'Hafiz Rizwan Umar',
-        date: '2024-11-12',
-        readTime: '10 min read',
-        category: 'Backend',
-        image: 'https://images.unsplash.com/photo-1653387300291-bfa1eeb90e16?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bm9kZSUyMGpzfGVufDB8fDB8fHww',
-        tags: ['Node.js', 'Backend', 'Scalability', 'Architecture']
-    },
-    {
-        id: 5,
-        slug: 'css-grid-vs-flexbox-when-to-use-which',
-        title: 'CSS Grid vs Flexbox: When to Use Which',
-        excerpt: 'A comprehensive comparison of CSS Grid and Flexbox to help you choose the right layout method.',
-        content: `
+    author: 'Hafiz Rizwan Umar',
+    date: '2024-11-12',
+    readTime: '10 min read',
+    category: 'Backend',
+    image: 'https://images.unsplash.com/photo-1653387300291-bfa1eeb90e16?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bm9kZSUyMGpzfGVufDB8fDB8fHww',
+    tags: ['Node.js', 'Backend', 'Scalability', 'Architecture']
+  },
+  {
+    id: 5,
+    slug: 'css-grid-vs-flexbox-when-to-use-which',
+    title: 'CSS Grid vs Flexbox: When to Use Which',
+    excerpt: 'A comprehensive comparison of CSS Grid and Flexbox to help you choose the right layout method.',
+    content: `
 # CSS Grid vs Flexbox: When to Use Which
 
 Both CSS Grid and Flexbox are powerful layout tools, but knowing when to use each can save you time and headaches.
@@ -173,19 +243,19 @@ Grid is designed for complex layouts that span both rows and columns.
 
 Absolutely! Grid and Flexbox work great together. Use Grid for the overall layout and Flexbox for component internals.
         `,
-        author: 'Ammara Lohani',
-        date: '2024-11-10',
-        readTime: '7 min read',
-        category: 'CSS',
-        image: 'https://images.unsplash.com/photo-1610018556010-6a11691bc905?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzB8fGNzc3xlbnwwfHwwfHx8MA%3D%3D',
-        tags: ['CSS', 'Flexbox', 'Grid', 'Frontend']
-    },
-    {
-        id: 6,
-        slug: 'top-10-ai-tools-for-students',
-        title: 'Top 10 AI Tools for Students',
-        excerpt: 'Discover the best AI tools that can help students improve their productivity, study smarter, and ace their exams.',
-        content: `
+    author: 'Ammara Lohani',
+    date: '2024-11-10',
+    readTime: '7 min read',
+    category: 'CSS',
+    image: 'https://images.unsplash.com/photo-1610018556010-6a11691bc905?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzB8fGNzc3xlbnwwfHwwfHx8MA%3D%3D',
+    tags: ['CSS', 'Flexbox', 'Grid', 'Frontend']
+  },
+  {
+    id: 6,
+    slug: 'top-10-ai-tools-for-students',
+    title: 'Top 10 AI Tools for Students',
+    excerpt: 'Discover the best AI tools that can help students improve their productivity, study smarter, and ace their exams.',
+    content: `
 # Top 10 AI Tools for Students
 
 Artificial Intelligence is revolutionizing education. It's not just about generating text; it's about personalized learning, efficient research, and smarter study habits. Here are the top 10 AI tools that every student should know about in 2025.
@@ -234,19 +304,19 @@ If you use Google Docs and Drive, Gemini is seamless. It can pull information fr
 ## Conclusion
 Leveraging these tools isn't cheating; it's working smarter. By automating the tedious parts of studying, you free up time to actually understand the material.
         `,
-        author: 'Hafiz Rizwan Umar',
-        date: '2025-11-23',
-        readTime: '8 min read',
-        category: 'Education',
-        image: 'https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&w=1200&q=80',
-        tags: ['AI', 'Students', 'Productivity', 'Education']
-    },
-    {
-        id: 7,
-        slug: 'build-startup-website-under-50',
-        title: 'How to Build a Startup Website Under $50',
-        excerpt: 'Learn how to launch a professional startup website on a budget using affordable hosting, free themes, and essential tools.',
-        content: `
+    author: 'Hafiz Rizwan Umar',
+    date: '2025-11-23',
+    readTime: '8 min read',
+    category: 'Education',
+    image: 'https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&w=1200&q=80',
+    tags: ['AI', 'Students', 'Productivity', 'Education']
+  },
+  {
+    id: 7,
+    slug: 'build-startup-website-under-50',
+    title: 'How to Build a Startup Website Under $50',
+    excerpt: 'Learn how to launch a professional startup website on a budget using affordable hosting, free themes, and essential tools.',
+    content: `
 # How to Build a Startup Website Under $50
 
 Launching a startup is expensive, but your website doesn't have to be. You can build a professional, high-converting site for less than the cost of a nice dinner. Here is the blueprint.
@@ -287,19 +357,19 @@ You don't need expensive managed hosting for a simple startup site.
 ## Conclusion
 A limited budget is not a barrier; it's a constraint that forces creativity. Your first version doesn't need to be perfect; it just needs to be live.
         `,
-        author: 'Hafiz Rizwan Umar',
-        date: '2025-11-23',
-        readTime: '6 min read',
-        category: 'Startups',
-        image: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80',
-        tags: ['Startup', 'Website', 'Budget', 'Web Development']
-    },
-    {
-        id: 8,
-        slug: 'best-chrome-extensions-productivity',
-        title: 'Best Chrome Extensions for Productivity',
-        excerpt: 'Boost your workflow with these essential Chrome extensions designed to save time and enhance focus.',
-        content: `
+    author: 'Hafiz Rizwan Umar',
+    date: '2025-11-23',
+    readTime: '6 min read',
+    category: 'Startups',
+    image: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80',
+    tags: ['Startup', 'Website', 'Budget', 'Web Development']
+  },
+  {
+    id: 8,
+    slug: 'best-chrome-extensions-productivity',
+    title: 'Best Chrome Extensions for Productivity',
+    excerpt: 'Boost your workflow with these essential Chrome extensions designed to save time and enhance focus.',
+    content: `
 # Best Chrome Extensions for Productivity
 
 Your browser is your operating system. Optimizing it can save you hours every week. Here is a curated list of extensions that actually make a difference.
@@ -343,19 +413,19 @@ Your browser is your operating system. Optimizing it can save you hours every we
 ## Conclusion
 Productivity isn't about doing more; it's about removing friction. These tools remove the friction from your digital life.
         `,
-        author: 'Ammara Lohani',
-        date: '2025-11-23',
-        readTime: '5 min read',
-        category: 'Productivity',
-        image: 'https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?auto=format&fit=crop&w=1200&q=80',
-        tags: ['Chrome Extensions', 'Productivity', 'Tools']
-    },
-    {
-        id: 9,
-        slug: 'flutter-vs-react-native-beginners',
-        title: 'Flutter vs React Native – Which Is Better for Beginners?',
-        excerpt: 'A detailed comparison of Flutter and React Native to help beginner developers choose the right mobile development framework.',
-        content: `
+    author: 'Ammara Lohani',
+    date: '2025-11-23',
+    readTime: '5 min read',
+    category: 'Productivity',
+    image: 'https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?auto=format&fit=crop&w=1200&q=80',
+    tags: ['Chrome Extensions', 'Productivity', 'Tools']
+  },
+  {
+    id: 9,
+    slug: 'flutter-vs-react-native-beginners',
+    title: 'Flutter vs React Native – Which Is Better for Beginners?',
+    excerpt: 'A detailed comparison of Flutter and React Native to help beginner developers choose the right mobile development framework.',
+    content: `
 # Flutter vs React Native: A Beginner's Guide
 
 The battle for cross-platform dominance continues. If you're a beginner looking to build mobile apps in 2025, which one should you choose?
@@ -398,19 +468,19 @@ The battle for cross-platform dominance continues. If you're a beginner looking 
 
 Both frameworks are excellent choices. The best one is the one you actually start building with.
         `,
-        author: 'Hafiz Rizwan Umar',
-        date: '2025-11-23',
-        readTime: '8 min read',
-        category: 'Mobile Development',
-        image: 'https://images.unsplash.com/photo-1567581935884-3349723552ca?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8bW9iaWxlfGVufDB8fDB8fHww',
-        tags: ['Flutter', 'React Native', 'Mobile Dev', 'Comparison']
-    },
-    {
-        id: 10,
-        slug: 'earning-from-digital-products-2025',
-        title: 'How to Start Earning from Digital Products in 2025',
-        excerpt: 'A step-by-step guide to creating and selling digital products like eBooks, courses, and templates in the coming year.',
-        content: `
+    author: 'Hafiz Rizwan Umar',
+    date: '2025-11-23',
+    readTime: '8 min read',
+    category: 'Mobile Development',
+    image: 'https://images.unsplash.com/photo-1567581935884-3349723552ca?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8bW9iaWxlfGVufDB8fDB8fHww',
+    tags: ['Flutter', 'React Native', 'Mobile Dev', 'Comparison']
+  },
+  {
+    id: 10,
+    slug: 'earning-from-digital-products-2025',
+    title: 'How to Start Earning from Digital Products in 2025',
+    excerpt: 'A step-by-step guide to creating and selling digital products like eBooks, courses, and templates in the coming year.',
+    content: `
 # How to Start Earning from Digital Products in 2025
 
 The digital product economy is booming. Unlike physical products, digital goods have zero shipping costs, zero inventory, and 100% profit margins (after creation). Here is how to get your slice of the pie.
@@ -461,19 +531,19 @@ You can't just build it and wait.
 ## Conclusion
 The best time to start was yesterday. The second best time is now. Pick a small problem, solve it with a digital file, and put it up for sale.
         `,
-        author: 'Ammara Lohani',
-        date: '2025-11-23',
-        readTime: '7 min read',
-        category: 'Digital Marketing',
-        image: 'https://plus.unsplash.com/premium_photo-1683262038148-2ac280407276?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fGRpZ2l0YWwlMjBtYXJrZXRpbmd8ZW58MHx8MHx8fDA%3D',
-        tags: ['Digital Products', 'Passive Income', 'E-commerce']
-    },
-    {
-        id: 11,
-        slug: 'how-adsense-works-beginner-guide',
-        title: 'How AdSense Actually Works (Beginner Guide)',
-        excerpt: 'Understand the mechanics of Google AdSense, from approval to getting paid, in this comprehensive guide for beginners.',
-        content: `
+    author: 'Ammara Lohani',
+    date: '2025-11-23',
+    readTime: '7 min read',
+    category: 'Digital Marketing',
+    image: 'https://plus.unsplash.com/premium_photo-1683262038148-2ac280407276?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fGRpZ2l0YWwlMjBtYXJrZXRpbmd8ZW58MHx8MHx8fDA%3D',
+    tags: ['Digital Products', 'Passive Income', 'E-commerce']
+  },
+  {
+    id: 11,
+    slug: 'how-adsense-works-beginner-guide',
+    title: 'How AdSense Actually Works (Beginner Guide)',
+    excerpt: 'Understand the mechanics of Google AdSense, from approval to getting paid, in this comprehensive guide for beginners.',
+    content: `
 # How AdSense Actually Works
 
 Google AdSense is the internet's default monetization layer. It connects publishers (you) with advertisers (businesses). But how does the money actually flow?
@@ -508,19 +578,19 @@ Getting approved in 2025 is stricter than before.
 ## Conclusion
 AdSense is a long game. It's not a get-rich-quick scheme, but a reliable way to monetize traffic once you have built a solid audience.
         `,
-        author: 'Hafiz Rizwan Umar',
-        date: '2025-11-23',
-        readTime: '6 min read',
-        category: 'Monetization',
-        image: 'https://plus.unsplash.com/premium_photo-1679397743724-b94e80b89005?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8YWRzJTIwbW9uZXl8ZW58MHx8MHx8fDA%3D',
-        tags: ['AdSense', 'Monetization', 'Blogging', 'Google']
-    },
-    {
-        id: 12,
-        slug: 'best-qr-code-generator-software',
-        title: 'Best QR Code Generator Software for Designers & Businesses',
-        excerpt: 'Explore top QR code generators, including the Nishan QR Code Generator on Microsoft Store, offering lifetime access and daily free codes.',
-        content: `
+    author: 'Hafiz Rizwan Umar',
+    date: '2025-11-23',
+    readTime: '6 min read',
+    category: 'Monetization',
+    image: 'https://plus.unsplash.com/premium_photo-1679397743724-b94e80b89005?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8YWRzJTIwbW9uZXl8ZW58MHx8MHx8fDA%3D',
+    tags: ['AdSense', 'Monetization', 'Blogging', 'Google']
+  },
+  {
+    id: 12,
+    slug: 'best-qr-code-generator-software',
+    title: 'Best QR Code Generator Software for Designers & Businesses',
+    excerpt: 'Explore top QR code generators, including the Nishan QR Code Generator on Microsoft Store, offering lifetime access and daily free codes.',
+    content: `
 # Best QR Code Generator Software
 
 In a touch-free world, QR codes have made a massive comeback. They are the bridge between the physical and digital worlds. But not all generators are created equal.
@@ -554,19 +624,19 @@ Always check the URL a QR code points to before entering sensitive information. 
 ## Conclusion
 Whether you are a restaurant owner needing a digital menu or a designer making a brochure, having a reliable tool like Nishan QR Code Generator in your toolkit is essential.
         `,
-        author: 'Hafiz Rizwan Umar',
-        date: '2025-11-23',
-        readTime: '5 min read',
-        category: 'Tools',
-        image: 'https://images.unsplash.com/photo-1550482781-48d477e61c72?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cXIlMjBjb2RlfGVufDB8fDB8fHww',
-        tags: ['QR Code', 'Software', 'Tools', 'Microsoft Store']
-    },
-    {
-        id: 13,
-        slug: 'run-flutter-apps-inside-vs-code',
-        title: 'How to Run Flutter Apps Inside VS Code (The Easy Way)',
-        excerpt: 'Stop switching windows! Learn how to run your Flutter Web apps directly inside VS Code using the Flutter Web Emulator extension.',
-        content: `
+    author: 'Hafiz Rizwan Umar',
+    date: '2025-11-23',
+    readTime: '5 min read',
+    category: 'Tools',
+    image: 'https://images.unsplash.com/photo-1550482781-48d477e61c72?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cXIlMjBjb2RlfGVufDB8fDB8fHww',
+    tags: ['QR Code', 'Software', 'Tools', 'Microsoft Store']
+  },
+  {
+    id: 13,
+    slug: 'run-flutter-apps-inside-vs-code',
+    title: 'How to Run Flutter Apps Inside VS Code (The Easy Way)',
+    excerpt: 'Stop switching windows! Learn how to run your Flutter Web apps directly inside VS Code using the Flutter Web Emulator extension.',
+    content: `
 # How to Run Flutter Apps Inside VS Code (The Easy Way)
 
 As Flutter developers, we spend half our lives Alt-Tabbing. You write code in VS Code, then switch to Chrome to see the changes. Then back to VS Code. Then back to Chrome.
@@ -620,19 +690,19 @@ Boom! Your app is now running inside VS Code.
 
 Productivity is about removing friction. By keeping your development environment contained within a single window, you stay in the "zone" longer. Give it a try and let me know what you think!
         `,
-        author: 'Hafiz Rizwan Umar',
-        date: '2025-12-06',
-        readTime: '4 min read',
-        category: 'Flutter',
-        image: 'https://images.unsplash.com/photo-1628277613967-6abca504d0ac?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Zmx1dHRlcnxlbnwwfHwwfHx8MA%3D%3D',
-        tags: ['Flutter', 'VS Code', 'Productivity', 'Tools']
-    },
-    {
-        id: 14,
-        slug: 'complete-flutter-guide-beginners-2025',
-        title: 'The Complete Flutter Guide for Beginners (2025)',
-        excerpt: 'Everything you need to know about Flutter - from installation to publishing your first app. A comprehensive tutorial covering widgets, state management, APIs, and best practices.',
-        content: `
+    author: 'Hafiz Rizwan Umar',
+    date: '2025-12-06',
+    readTime: '4 min read',
+    category: 'Flutter',
+    image: 'https://images.unsplash.com/photo-1628277613967-6abca504d0ac?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Zmx1dHRlcnxlbnwwfHwwfHx8MA%3D%3D',
+    tags: ['Flutter', 'VS Code', 'Productivity', 'Tools']
+  },
+  {
+    id: 14,
+    slug: 'complete-flutter-guide-beginners-2025',
+    title: 'The Complete Flutter Guide for Beginners (2025)',
+    excerpt: 'Everything you need to know about Flutter - from installation to publishing your first app. A comprehensive tutorial covering widgets, state management, APIs, and best practices.',
+    content: `
 # The Complete Flutter Guide for Beginners (2025)
 
 Flutter has revolutionized mobile app development. If you're looking to build beautiful, high-performance applications for iOS, Android, Web, and Desktop from a single codebase, you're in the right place.
@@ -1135,23 +1205,23 @@ Start building today. Your first app won't be perfect, but it will teach you mor
 
 Happy Fluttering! 🚀
         `,
-        author: 'Hafiz Rizwan Umar',
-        date: '2025-12-06',
-        readTime: '25 min read',
-        category: 'Flutter',
-        image: 'https://images.unsplash.com/photo-1618761714954-0b8cd0026356?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8Zmx1dHRlcnxlbnwwfHwwfHx8MA%3D%3D',
-        tags: ['Flutter', 'Mobile Development', 'Tutorial', 'Dart', 'Beginner Guide']
-    }
+    author: 'Hafiz Rizwan Umar',
+    date: '2025-12-06',
+    readTime: '25 min read',
+    category: 'Flutter',
+    image: 'https://images.unsplash.com/photo-1618761714954-0b8cd0026356?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8Zmx1dHRlcnxlbnwwfHwwfHx8MA%3D%3D',
+    tags: ['Flutter', 'Mobile Development', 'Tutorial', 'Dart', 'Beginner Guide']
+  }
 ];
 
 // Helper function to get article by slug
 export const getArticleBySlug = (slug) => {
-    return articlesData.find(article => article.slug === slug);
+  return articlesData.find(article => article.slug === slug);
 };
 
 // Helper function to get related articles
 export const getRelatedArticles = (currentSlug, limit = 3) => {
-    return articlesData
-        .filter(article => article.slug !== currentSlug)
-        .slice(0, limit);
+  return articlesData
+    .filter(article => article.slug !== currentSlug)
+    .slice(0, limit);
 };
