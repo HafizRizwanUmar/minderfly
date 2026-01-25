@@ -1,7 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
-import { FaMobileAlt, FaDesktop, FaCheck, FaGooglePlay, FaWindows, FaAmazon } from 'react-icons/fa';
+import { FaMobileAlt, FaDesktop, FaCheck, FaGooglePlay, FaWindows, FaAmazon, FaItchIo } from 'react-icons/fa';
 import ProductNavbar from '../components/ProductNavbar';
 import ProductFooter from '../components/ProductFooter';
 
@@ -65,6 +65,19 @@ const DebtSettlerPage = () => {
                                     <div className="text-left">
                                         <div className="text-xs font-medium text-indigo-200">Download for Mobile</div>
                                         <div className="text-lg font-bold">Minderfly Store</div>
+                                    </div>
+                                </a>
+
+                                <a
+                                    href="https://hafizrizwanumar.itch.io/debtsettler"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="group relative inline-flex items-center gap-3 px-8 py-4 bg-[#fa5c5c] hover:bg-[#ff4e4e] rounded-full transition-all duration-300 shadow-lg shadow-red-600/25 hover:shadow-red-600/40 transform hover:-translate-y-1"
+                                >
+                                    <FaItchIo className="text-2xl" />
+                                    <div className="text-left">
+                                        <div className="text-xs font-medium text-white">Download for Mobile</div>
+                                        <div className="text-lg font-bold">Itch.io</div>
                                     </div>
                                 </a>
 
