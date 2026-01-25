@@ -1,7 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
-import { FaMobileAlt, FaDesktop, FaCheck, FaGooglePlay, FaWindows } from 'react-icons/fa';
+import { FaMobileAlt, FaDesktop, FaCheck, FaGooglePlay, FaWindows, FaAmazon } from 'react-icons/fa';
 import ProductNavbar from '../components/ProductNavbar';
 import ProductFooter from '../components/ProductFooter';
 
@@ -72,10 +72,23 @@ const DebtSettlerPage = () => {
                                     href="#"
                                     className="group relative inline-flex items-center gap-3 px-8 py-4 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-full transition-all duration-300 shadow-lg hover:shadow-slate-700/25 transform hover:-translate-y-1"
                                 >
-                                    <FaDesktop className="text-2xl" />
+                                    <FaWindows className="text-2xl" />
                                     <div className="text-left">
                                         <div className="text-xs font-medium text-slate-400">Download for Desktop</div>
                                         <div className="text-lg font-bold">Microsoft Store</div>
+                                    </div>
+                                </a>
+
+                                <a
+                                    href="https://www.amazon.com/dp/B0GJNKLHXZ/ref=sr_1_5?dib=eyJ2IjoiMSJ9.uHySQ5mxehZhuh_R6PT8OoC9GAwM0v7JfXR4Me4o7_jGjHj071QN20LucGBJIEps.Rkk4U4DtQfQTEat6AxIQc26l8oio-b3N5ElDU7ReG5U&dib_tag=se&qid=1769349973&refinements=p_4%3Arebel&s=mobile-apps&search-type=ss&sr=1-5&tag=fcid07-20&linkCode=ll1&fbclid=IwZXh0bgNhZW0CMTEAAR1GYD0UeQ"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="group relative inline-flex items-center gap-3 px-8 py-4 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-full transition-all duration-300 shadow-lg hover:shadow-slate-700/25 transform hover:-translate-y-1"
+                                >
+                                    <FaAmazon className="text-2xl" />
+                                    <div className="text-left">
+                                        <div className="text-xs font-medium text-slate-400">Download for Tablet</div>
+                                        <div className="text-lg font-bold">Amazon Appstore</div>
                                     </div>
                                 </a>
                             </div>
