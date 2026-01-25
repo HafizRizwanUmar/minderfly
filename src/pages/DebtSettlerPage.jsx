@@ -1,14 +1,25 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
-import { FaMobileAlt, FaDesktop, FaCheck, FaGooglePlay, FaWindows, FaAmazon, FaItchIo } from 'react-icons/fa';
+import { FaDesktop, FaCheck, FaWindows, FaAmazon, FaItchIo } from 'react-icons/fa';
 import ProductNavbar from '../components/ProductNavbar';
 import ProductFooter from '../components/ProductFooter';
+import phoneMockup from '../assets/octopus-phone.png';
 
 const DebtSettlerPage = () => {
     const fadeIn = {
-        hidden: { opacity: 0, y: 20 },
-        visible: { opacity: 1, y: 0 }
+        hidden: { opacity: 0, y: 30 },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
+    };
+
+    const staggerContainer = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.2
+            }
+        }
     };
 
     const features = [
@@ -31,107 +42,137 @@ const DebtSettlerPage = () => {
 
             <ProductNavbar productName="Debt Settler" ctaLink="#" />
 
-            <div className="min-h-screen bg-black text-white overflow-hidden selection:bg-indigo-500/30">
+            <div className="min-h-screen bg-[#050505] text-white overflow-hidden selection:bg-primary/30 font-body">
                 {/* Hero Section */}
-                <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 px-6">
+                <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-32 px-6 overflow-hidden">
+                    {/* Ambient Background */}
                     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                        <div className="absolute top-0 left-1/4 w-96 h-96 bg-indigo-600/20 rounded-full blur-3xl -translate-y-1/2"></div>
-                        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-fuchsia-600/20 rounded-full blur-3xl translate-y-1/2"></div>
+                        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px] translate-x-1/3 -translate-y-1/4"></div>
+                        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-indigo-900/20 rounded-full blur-[120px] -translate-x-1/3 translate-y-1/4"></div>
                     </div>
 
-                    <div className="container mx-auto max-w-6xl relative z-10 text-center">
-                        <motion.div
-                            initial="hidden"
-                            animate="visible"
-                            transition={{ duration: 0.6 }}
-                            variants={fadeIn}
-                        >
-                            <h1 className="text-5xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 mb-6 drop-shadow-sm">
-                                Settle Debt. <br />
-                                <span className="text-white">Absolutely Free.</span>
-                            </h1>
-                            <p className="text-xl md:text-2xl text-slate-300 mb-10 max-w-2xl mx-auto leading-relaxed">
-                                The ultimate free application to manage shared expenses and settle debts.
-                                No hidden fees, just seamless financial harmony.
-                            </p>
+                    <div className="container mx-auto max-w-7xl relative z-10">
+                        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                            {/* Text Content */}
+                            <motion.div
+                                initial="hidden"
+                                animate="visible"
+                                variants={staggerContainer}
+                                className="text-center lg:text-left"
+                            >
+                                <motion.div variants={fadeIn}>
+                                    <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold font-display leading-tight mb-6">
+                                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-slate-400">
+                                            Settle Debt.
+                                        </span>
+                                        <br />
+                                        <span className="text-primary relative inline-block">
+                                            Absolutely Free.
+                                            <svg className="absolute w-full h-3 -bottom-1 left-0 text-primary/30" viewBox="0 0 100 10" preserveAspectRatio="none">
+                                                <path d="M0 5 Q 50 10 100 5" stroke="currentColor" strokeWidth="3" fill="none" />
+                                            </svg>
+                                        </span>
+                                    </h1>
+                                </motion.div>
 
-                            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                                <a
-                                    href="/mobile app/debtsettler.apk"
-                                    download="debtsettler.apk"
-                                    className="group relative inline-flex items-center gap-3 px-8 py-4 bg-indigo-600 hover:bg-indigo-700 rounded-full transition-all duration-300 shadow-lg shadow-indigo-600/25 hover:shadow-indigo-600/40 transform hover:-translate-y-1"
-                                >
-                                    <FaMobileAlt className="text-2xl" />
-                                    <div className="text-left">
-                                        <div className="text-xs font-medium text-indigo-200">Download for Mobile</div>
-                                        <div className="text-lg font-bold">Minderfly Store</div>
-                                    </div>
-                                </a>
+                                <motion.p variants={fadeIn} className="text-xl md:text-2xl text-slate-400 mb-10 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-light">
+                                    The ultimate free application to manage shared expenses and settle debts.
+                                    No hidden fees, just seamless financial harmony.
+                                </motion.p>
 
-                                <a
-                                    href="https://hafizrizwanumar.itch.io/debtsettler"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="group relative inline-flex items-center gap-3 px-8 py-4 bg-[#fa5c5c] hover:bg-[#ff4e4e] rounded-full transition-all duration-300 shadow-lg shadow-red-600/25 hover:shadow-red-600/40 transform hover:-translate-y-1"
-                                >
-                                    <FaItchIo className="text-2xl" />
-                                    <div className="text-left">
-                                        <div className="text-xs font-medium text-white">Download for Mobile</div>
-                                        <div className="text-lg font-bold">Itch.io</div>
-                                    </div>
-                                </a>
+                                <motion.div variants={fadeIn} className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center">
+                                    <a
+                                        href="https://hafizrizwanumar.itch.io/debtsettler"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="group relative inline-flex items-center gap-3 px-8 py-4 bg-[#fa5c5c] hover:bg-[#ff4e4e] rounded-full transition-all duration-300 shadow-lg shadow-red-600/20 hover:shadow-red-600/40 transform hover:-translate-y-1"
+                                    >
+                                        <FaItchIo className="text-2xl" />
+                                        <div className="text-left">
+                                            <div className="text-xs font-medium text-white/80 uppercase tracking-wider">Download for Mobile</div>
+                                            <div className="text-lg font-bold font-display">Itch.io</div>
+                                        </div>
+                                    </a>
 
-                                <a
-                                    href="#"
-                                    className="group relative inline-flex items-center gap-3 px-8 py-4 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-full transition-all duration-300 shadow-lg hover:shadow-slate-700/25 transform hover:-translate-y-1"
-                                >
-                                    <FaWindows className="text-2xl" />
-                                    <div className="text-left">
-                                        <div className="text-xs font-medium text-slate-400">Download for Desktop</div>
-                                        <div className="text-lg font-bold">Microsoft Store</div>
-                                    </div>
-                                </a>
+                                    <a
+                                        href="#"
+                                        className="group relative inline-flex items-center gap-3 px-8 py-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 rounded-full transition-all duration-300 backdrop-blur-md transform hover:-translate-y-1"
+                                    >
+                                        <FaWindows className="text-2xl text-blue-400" />
+                                        <div className="text-left">
+                                            <div className="text-xs font-medium text-slate-400 uppercase tracking-wider">For Desktop</div>
+                                            <div className="text-lg font-bold font-display">Microsoft Store</div>
+                                        </div>
+                                    </a>
 
-                                <a
-                                    href="https://www.amazon.com/dp/B0GJNKLHXZ/ref=sr_1_5?dib=eyJ2IjoiMSJ9.uHySQ5mxehZhuh_R6PT8OoC9GAwM0v7JfXR4Me4o7_jGjHj071QN20LucGBJIEps.Rkk4U4DtQfQTEat6AxIQc26l8oio-b3N5ElDU7ReG5U&dib_tag=se&qid=1769349973&refinements=p_4%3Arebel&s=mobile-apps&search-type=ss&sr=1-5&tag=fcid07-20&linkCode=ll1&fbclid=IwZXh0bgNhZW0CMTEAAR1GYD0UeQ"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="group relative inline-flex items-center gap-3 px-8 py-4 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-full transition-all duration-300 shadow-lg hover:shadow-slate-700/25 transform hover:-translate-y-1"
-                                >
-                                    <FaAmazon className="text-2xl" />
-                                    <div className="text-left">
-                                        <div className="text-xs font-medium text-slate-400">Download for Tablet</div>
-                                        <div className="text-lg font-bold">Amazon Appstore</div>
-                                    </div>
-                                </a>
-                            </div>
-                        </motion.div>
+                                    <a
+                                        href="https://www.amazon.com/dp/B0GJNKLHXZ/ref=sr_1_5?dib=eyJ2IjoiMSJ9.uHySQ5mxehZhuh_R6PT8OoC9GAwM0v7JfXR4Me4o7_jGjHj071QN20LucGBJIEps.Rkk4U4DtQfQTEat6AxIQc26l8oio-b3N5ElDU7ReG5U&dib_tag=se&qid=1769349973&refinements=p_4%3Arebel&s=mobile-apps&search-type=ss&sr=1-5&tag=fcid07-20&linkCode=ll1&fbclid=IwZXh0bgNhZW0CMTEAAR1GYD0UeQ"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="group relative inline-flex items-center gap-3 px-8 py-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 rounded-full transition-all duration-300 backdrop-blur-md transform hover:-translate-y-1"
+                                    >
+                                        <FaAmazon className="text-2xl text-amber-400" />
+                                        <div className="text-left">
+                                            <div className="text-xs font-medium text-slate-400 uppercase tracking-wider">For Tablet</div>
+                                            <div className="text-lg font-bold font-display">Amazon Store</div>
+                                        </div>
+                                    </a>
+                                </motion.div>
+                            </motion.div>
+
+                            {/* Image Content */}
+                            <motion.div
+                                initial={{ opacity: 0, x: 50, rotate: 5 }}
+                                animate={{ opacity: 1, x: 0, rotate: 0 }}
+                                transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
+                                className="relative hidden lg:block"
+                            >
+                                <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent rounded-full blur-[80px] scale-75 animate-pulse"></div>
+                                <motion.img
+                                    src={phoneMockup}
+                                    alt="Debt Settler App Interface"
+                                    className="relative z-10 w-full max-w-[500px] mx-auto drop-shadow-2xl"
+                                    animate={{ y: [0, -20, 0] }}
+                                    transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                                />
+                            </motion.div>
+                        </div>
                     </div>
                 </section>
 
                 {/* Features Grid */}
-                <section className="py-20 bg-slate-900/50 backdrop-blur-sm border-t border-slate-800">
-                    <div className="container mx-auto max-w-6xl px-6">
+                <section className="py-32 relative">
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-slate-900/20 to-transparent pointer-events-none"></div>
+                    <div className="container mx-auto max-w-7xl px-6">
                         <motion.div
-                            initial={{ opacity: 0, y: 20 }}
+                            initial={{ opacity: 0, y: 40 }}
                             whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, margin: "-100px" }}
+                            transition={{ duration: 0.8 }}
+                            className="text-center mb-20"
+                        >
+                            <h2 className="text-3xl md:text-5xl font-bold font-display mb-6">Features that matter</h2>
+                            <p className="text-slate-400 max-w-2xl mx-auto text-lg">Everything you need to keep your friendships debt-free.</p>
+                        </motion.div>
+
+                        <motion.div
+                            initial="hidden"
+                            whileInView="visible"
                             viewport={{ once: true }}
+                            variants={staggerContainer}
                             className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
                         >
                             {features.map((feature, index) => (
                                 <motion.div
                                     key={index}
-                                    initial={{ opacity: 0, scale: 0.95 }}
-                                    whileInView={{ opacity: 1, scale: 1 }}
-                                    transition={{ delay: index * 0.1 }}
-                                    viewport={{ once: true }}
-                                    className="p-6 rounded-2xl bg-slate-900 border border-slate-800 hover:border-indigo-500/50 hover:bg-slate-800/80 transition-colors group"
+                                    variants={fadeIn}
+                                    className="p-8 rounded-3xl bg-white/5 border border-white/5 backdrop-blur-sm hover:bg-white/10 hover:border-primary/30 transition-all duration-500 group"
                                 >
-                                    <div className="w-12 h-12 bg-indigo-500/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-indigo-500/20 transition-colors">
-                                        <FaCheck className="text-indigo-400" />
+                                    <div className="w-14 h-14 bg-gradient-to-br from-indigo-500/20 to-purple-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
+                                        <FaCheck className="text-xl text-primary" />
                                     </div>
-                                    <h3 className="text-xl font-semibold mb-2 text-slate-100">{feature}</h3>
-                                    <p className="text-slate-400">Experience the freedom of managing your finances without any cost.</p>
+                                    <h3 className="text-xl font-bold mb-3 text-slate-100 font-display">{feature}</h3>
+                                    <p className="text-slate-400 leading-relaxed text-sm">Experience the freedom of managing your finances without any cost.</p>
                                 </motion.div>
                             ))}
                         </motion.div>
@@ -139,14 +180,20 @@ const DebtSettlerPage = () => {
                 </section>
 
                 {/* CTA Section */}
-                <section className="py-24 px-6 relative overflow-hidden">
-                    <div className="absolute inset-0 bg-indigo-900/10"></div>
-                    <div className="container mx-auto max-w-4xl text-center relative z-10">
-                        <h2 className="text-3xl md:text-5xl font-bold mb-8">Ready to settle up?</h2>
-                        <p className="text-xl text-slate-300 mb-10">Join thousands of users who trust DebtSettler for their shared expenses.</p>
-                        <button className="px-10 py-4 bg-white text-slate-900 rounded-full font-bold hover:bg-slate-200 transition-colors shadow-xl">
-                            Get Started for Free
-                        </button>
+                <section className="py-32 px-6 relative overflow-hidden">
+                    <div className="container mx-auto max-w-5xl relative z-10">
+                        <div className="relative rounded-[2.5rem] overflow-hidden bg-gradient-to-r from-indigo-900/50 to-purple-900/50 border border-white/10 backdrop-blur-xl p-12 md:p-20 text-center">
+                            <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+                                <div className="absolute top-0 left-1/4 w-64 h-64 bg-primary/20 rounded-full blur-[80px]"></div>
+                                <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-indigo-500/20 rounded-full blur-[80px]"></div>
+                            </div>
+
+                            <h2 className="text-4xl md:text-6xl font-bold mb-8 font-display relative z-10">Ready to settle up?</h2>
+                            <p className="text-xl text-slate-300 mb-12 max-w-2xl mx-auto relative z-10">Join thousands of users who trust DebtSettler for their shared expenses.</p>
+                            <button className="relative z-10 px-12 py-5 bg-white text-black rounded-full font-bold text-lg hover:bg-primary hover:text-black transition-all duration-300 shadow-xl shadow-white/5 hover:shadow-primary/25">
+                                Get Started for Free
+                            </button>
+                        </div>
                     </div>
                 </section>
             </div>
