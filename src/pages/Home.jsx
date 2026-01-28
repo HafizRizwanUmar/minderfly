@@ -94,9 +94,9 @@ const Home = () => {
     return (
         <>
             <SEOHead
-                title="Minderfly - Digital Agency | MERN Stack, Flutter, VS Code Extensions & Chrome Development"
-                description="Minderfly builds innovative digital solutions using MERN stack, Flutter, VS Code extensions, and Chrome themes. We provide professional web development and custom software services to bring your ideas to life."
-                keywords="digital agency, MERN stack development, Flutter development, VS Code extensions, Chrome themes, Chrome extensions, web development, custom software, React development, Node.js, MongoDB, Express.js, mobile apps, desktop apps"
+                title="Minderfly | Web & Mobile App Development, Graphics & Chrome Extensions"
+                description="Expert Web & Mobile App Development, Graphics Designing, and Chrome Extension creation. Home of Sanad PDF Editor, Debt Settler, and Nishan QR."
+                keywords="web development, mobile app development, graphics designing, extension development, chrome theme development, Sanad PDF editor, Debt Settler, Nishan QR, Flutter Web Emulator, custom software, brands"
                 canonical="https://minderfly.com/"
                 schema={structuredData}
             />

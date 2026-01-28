@@ -17,7 +17,7 @@ const StorePreview = () => {
                 { label: 'Uptime', value: '99.9%' }
             ],
             image: 'https://images.unsplash.com/photo-1595079686539-094317808eff?auto=format&fit=crop&q=80&w=800',
-            link: '/store/nishan-qr-generator',
+            link: '/products/nishan-qr',
             color: '#bcd848'
         },
         {
@@ -31,7 +31,7 @@ const StorePreview = () => {
                 { label: 'Saved', value: '100h+' }
             ],
             image: 'https://images.unsplash.com/photo-1629904853716-f004b3a778fd?auto=format&fit=crop&q=80&w=800',
-            link: '/store/flutter-web-emulator',
+            link: '/products/flutter-web-emulator',
             color: '#42a5f5'
         }
     ];

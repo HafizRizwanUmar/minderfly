@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { FaArrowRight } from 'react-icons/fa';
 import './Services.css';
 
@@ -11,31 +12,36 @@ const Services = () => {
             id: '01',
             title: 'Chrome Theme Building',
             description: 'Custom aesthetics and personalized browser experiences.',
-            image: 'https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&q=80&w=600'
+            image: 'https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&q=80&w=600',
+            link: '/services/chrome-theme-development'
         },
         {
             id: '02',
             title: 'Chrome Extension Building',
             description: 'Powerful tools to enhance browser productivity and functionality.',
-            image: 'https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&q=80&w=600'
+            image: 'https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&q=80&w=600',
+            link: '/services/chrome-extension-development'
         },
         {
             id: '03',
             title: 'Flutter Desktop Apps',
             description: 'Cross-platform native performance for desktop environments.',
-            image: 'https://images.unsplash.com/photo-1628277613967-6abca504d0ac?auto=format&fit=crop&q=80&w=600'
+            image: 'https://images.unsplash.com/photo-1628277613967-6abca504d0ac?auto=format&fit=crop&q=80&w=600',
+            link: '/services/mobile-app-development'
         },
         {
             id: '04',
             title: 'VS Code Extensions',
             description: 'Custom developer tools to boost your coding workflow.',
-            image: 'https://images.unsplash.com/photo-1618401471353-b74afee0adb4?auto=format&fit=crop&q=80&w=600'
+            image: 'https://images.unsplash.com/photo-1618401471353-b74afee0adb4?auto=format&fit=crop&q=80&w=600',
+            link: '/services/web-development'
         },
         {
             id: '05',
             title: 'MERN Stack Development',
             description: 'Full-stack web solutions for scalable modern businesses.',
-            image: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&q=80&w=600'
+            image: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&q=80&w=600',
+            link: '/services/web-development'
         }
     ];
 
@@ -48,11 +54,13 @@ const Services = () => {
 
                 <div className="services-list-container">
                     {services.map((service, index) => (
-                        <div
+                        <Link
+                            to={service.link}
                             key={service.id}
                             className={`service-item ${hoveredIndex === index ? 'active' : ''}`}
                             onMouseEnter={() => setHoveredIndex(index)}
                             onMouseLeave={() => setHoveredIndex(null)}
+                            style={{ textDecoration: 'none' }}
                         >
                             <div className="service-info">
                                 <span className="service-number">{service.id}</span>
@@ -75,7 +83,7 @@ const Services = () => {
                                 </AnimatePresence>
                                 <p className="service-description">{service.description}</p>
                             </div>
-                        </div>
+                        </Link>
                     ))}
                 </div>
             </div>
