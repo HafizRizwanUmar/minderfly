@@ -1,20 +1,23 @@
 :root {
-    /* Inherit global variables where possible, but define specific overrides if needed */
-    --nishan-bg: var(--color-bg-primary);
-    --nishan-primary: var(--color-accent);
-    /* Use site accent color */
-    --nishan-accent: #ffffff;
-    /* White accent for contrast */
-    --nishan-text: var(--color-text-primary);
-    --nishan-text-muted: var(--color-text-secondary);
+    --nishan-bg: #050505;
+    --nishan-surface: #101010;
+    --nishan-border: #222;
+    --nishan-accent: #B0FF05;
+    /* Neon Lime */
+    --nishan-text-main: #ffffff;
+    --nishan-text-muted: #888888;
 }
 
-.nishan-page {
+body {
     background-color: var(--nishan-bg);
-    color: var(--nishan-text);
+}
+
+.nishan-wrapper {
+    background-color: var(--nishan-bg);
     min-height: 100vh;
+    color: var(--nishan-text-main);
+    font-family: 'Inter', sans-serif;
     padding-top: 80px;
-    font-family: var(--font-body);
 }
 
 .nishan-container {
@@ -23,559 +26,443 @@
     padding: 0 20px;
 }
 
-/* Custom Nav */
+/* Nav */
 .nishan-nav {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    padding: 20px 0;
-    z-index: 100;
+    right: 0;
+    height: 70px;
     background: rgba(5, 5, 5, 0.8);
-    /* Dark background with opacity */
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--border-subtle);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--nishan-border);
+    z-index: 999;
+    display: flex;
+    align-items: center;
 }
 
-.nishan-nav .nav-container {
+.nav-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
+}
+
+.nishan-logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.nishan-accent {
+    color: var(--nishan-accent);
 }
 
 .nishan-back-link {
     color: var(--nishan-text-muted);
     text-decoration: none;
     font-size: 0.9rem;
-    transition: color 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    transition: 0.2s;
 }
 
 .nishan-back-link:hover {
-    color: var(--nishan-primary);
-}
-
-.nishan-logo {
-    font-size: 1.5rem;
-    font-weight: 700;
-    letter-spacing: -0.5px;
-    font-family: var(--font-heading);
+    color: #fff;
 }
 
 .btn-nishan-sm {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
     padding: 8px 16px;
-    background: var(--border-light);
-    color: var(--nishan-text);
-    border-radius: 50px;
+    border-radius: 20px;
     text-decoration: none;
-    font-size: 0.9rem;
-    font-weight: 600;
-    transition: all 0.3s ease;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: 0.2s;
 }
 
 .btn-nishan-sm:hover {
-    background: var(--nishan-primary);
-    color: var(--color-text-dark);
+    background: var(--nishan-accent);
+    color: #000;
 }
 
-/* Hero Section */
-.nishan-hero {
-    padding: 80px 0;
-    display: flex;
-    align-items: center;
+/* Workspace Grid */
+.nishan-main-workspace {
+    padding: 60px 0;
     min-height: 80vh;
 }
 
-.nishan-hero .nishan-container {
+.workspace-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1.2fr 0.8fr;
     gap: 60px;
-    align-items: center;
-    width: 100%;
+    align-items: start;
 }
 
-.nishan-badge {
-    display: inline-block;
-    padding: 6px 16px;
-    background: rgba(188, 216, 72, 0.2);
-    /* Accent color with opacity */
-    color: var(--nishan-primary);
-    border-radius: 50px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    margin-bottom: 20px;
-    border: 1px solid var(--nishan-primary);
-}
-
-.nishan-hero h1 {
-    font-size: 4rem;
-    margin-bottom: 40px;
-    max-width: 500px;
+.controls-header h1 {
+    font-size: 3rem;
     line-height: 1.1;
-    font-family: var(--font-heading);
-    font-weight: 800;
+    margin-bottom: 10px;
 }
 
-.nishan-accent {
-    color: var(--nishan-primary);
-}
-
-.nishan-subtitle {
-    font-size: 1.25rem;
+.controls-header p {
     color: var(--nishan-text-muted);
+    font-size: 1.1rem;
     margin-bottom: 40px;
-    max-width: 500px;
-    line-height: 1.6;
 }
 
-.nishan-cta-group {
+.gradient-text {
+    background: linear-gradient(90deg, #fff, #888);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Tabs */
+.qr-type-tabs {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.tab-btn {
+    background: var(--nishan-surface);
+    border: 1px solid var(--nishan-border);
+    color: var(--nishan-text-muted);
+    padding: 12px 24px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: 0.3s;
+}
+
+.tab-btn:hover {
+    border-color: #444;
+    color: #fff;
+}
+
+.tab-btn.active {
+    background: rgba(176, 255, 5, 0.1);
+    border-color: var(--nishan-accent);
+    color: var(--nishan-accent);
+}
+
+/* Inputs */
+.input-area {
+    margin-bottom: 40px;
+    min-height: 150px;
+}
+
+.input-stack {
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    align-items: flex-start;
+    gap: 20px;
+}
+
+.input-group label {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--nishan-text-muted);
+    margin-bottom: 8px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.nishan-input {
+    width: 100%;
+    background: var(--nishan-surface);
+    border: 1px solid var(--nishan-border);
+    border-radius: 12px;
+    padding: 16px;
+    color: #fff;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: 0.3s;
+}
+
+.nishan-input:focus {
+    outline: none;
+    border-color: var(--nishan-accent);
+    box-shadow: 0 0 0 4px rgba(176, 255, 5, 0.1);
+}
+
+/* Preview Card */
+.preview-card-sticky {
+    position: sticky;
+    top: 100px;
+    background: rgba(20, 20, 20, 0.6);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--nishan-border);
+    border-radius: 24px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+.preview-header h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+    color: var(--nishan-text-muted);
+}
+
+.qr-canvas-wrapper {
+    background: #fff;
+    padding: 20px;
+    border-radius: 16px;
+    display: inline-block;
+    margin-bottom: 30px;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
 }
 
 .btn-nishan-primary {
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    background: var(--nishan-primary);
-    color: var(--color-text-dark);
-    /* Dark text on accent */
+    background: var(--nishan-accent);
+    color: #000;
+    border: none;
     padding: 16px 32px;
     border-radius: 50px;
-    /* Match site button style */
-    font-size: 1.1rem;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    box-shadow: 0 10px 25px rgba(188, 216, 72, 0.3);
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 }
 
 .btn-nishan-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 15px 35px rgba(188, 216, 72, 0.4);
-    background: var(--color-accent-dark);
-    color: var(--color-text-primary);
+    box-shadow: 0 10px 30px rgba(176, 255, 5, 0.3);
 }
 
-.nishan-price-info {
-    font-size: 0.9rem;
+.btn-nishan-primary.full-width {
+    width: 100%;
+}
+
+.preview-info p {
+    margin-top: 20px;
+    color: var(--nishan-text-muted);
+    font-size: 0.85rem;
+}
+
+/* Customization */
+.customization-section {
+    border-top: 1px solid var(--nishan-border);
+    padding-top: 30px;
+}
+
+.customization-section h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.color-pickers {
+    display: flex;
+    gap: 30px;
+}
+
+.color-control label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 0.85rem;
     color: var(--nishan-text-muted);
 }
 
-/* App Mockup */
-.app-mockup {
-    background: var(--color-bg-card);
-    border-radius: 20px;
-    padding: 20px;
-    box-shadow: var(--shadow-lg);
-    border: 1px solid var(--border-light);
-    aspect-ratio: 4/3;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    overflow: hidden;
-}
-
-.app-window-bar {
-    height: 30px;
+.color-wrapper {
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
-}
-
-.window-dots {
-    display: flex;
-    gap: 8px;
-}
-
-.window-dots span {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
-}
-
-.window-dots span:nth-child(1) {
-    background: #ff5f56;
-}
-
-.window-dots span:nth-child(2) {
-    background: #ffbd2e;
-}
-
-.window-dots span:nth-child(3) {
-    background: #27c93f;
-}
-
-.app-content {
-    flex: 1;
-    display: flex;
-    gap: 20px;
-}
-
-.qr-preview {
-    flex: 1;
-    background: white;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 5rem;
-    color: #333;
-}
-
-.app-controls {
-    width: 150px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.control-line {
-    height: 10px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 5px;
-}
-
-.control-line.short {
-    width: 60%;
-}
-
-.control-btn {
-    height: 40px;
-    background: var(--nishan-primary);
+    gap: 10px;
+    background: var(--nishan-surface);
+    padding: 8px 12px;
     border-radius: 8px;
-    margin-top: auto;
+    border: 1px solid var(--nishan-border);
 }
 
-/* Features */
-.nishan-features {
-    padding: 100px 0;
-    background: var(--color-bg-secondary);
+.color-wrapper input[type="color"] {
+    background: none;
+    border: none;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    padding: 0;
+}
+
+.color-wrapper span {
+    font-family: monospace;
+    font-size: 0.9rem;
+    color: #888;
+}
+
+/* Legacy Features */
+.nishan-legacy-content {
+    background: #0a0a0a;
+    border-top: 1px solid var(--nishan-border);
+    padding: 80px 0;
+}
+
+.features-header {
+    text-align: center;
+    margin-bottom: 50px;
 }
 
 .features-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 40px;
+    gap: 30px;
 }
 
 .feature-box {
-    background: var(--color-bg-card);
-    padding: 40px;
-    border-radius: 20px;
-    border: 1px solid var(--border-light);
+    background: rgba(255, 255, 255, 0.03);
+    padding: 30px;
+    border-radius: 16px;
     text-align: center;
-    transition: transform 0.3s ease;
 }
 
-.feature-box:hover {
-    transform: translateY(-10px);
-    border-color: var(--nishan-primary);
-}
-
-.feature-icon {
-    font-size: 2.5rem;
-    color: var(--nishan-primary);
-    margin-bottom: 20px;
+.f-icon {
+    font-size: 2rem;
+    color: var(--nishan-accent);
+    margin-bottom: 15px;
 }
 
 .feature-box h3 {
-    font-size: 1.5rem;
-    margin-bottom: 15px;
-    font-family: var(--font-heading);
+    margin: 10px 0;
+    font-size: 1.1rem;
 }
 
 .feature-box p {
-    color: var(--nishan-text-muted);
-    line-height: 1.6;
+    color: #888;
+    font-size: 0.9rem;
+    margin: 0;
 }
 
-/* Pricing */
-.nishan-pricing {
-    padding: 100px 0;
-}
-
-.pricing-card-wrapper {
-    max-width: 900px;
-    margin: 0 auto;
-}
-
-.pricing-card {
-    background: var(--color-bg-card);
-    border: 1px solid var(--border-light);
-    border-radius: 30px;
-    padding: 60px;
-    text-align: center;
-    backdrop-filter: blur(20px);
-}
-
-.pricing-card h2 {
-    font-size: 2.5rem;
-    margin-bottom: 10px;
-    font-family: var(--font-heading);
-}
-
-.pricing-card>p {
-    color: var(--nishan-text-muted);
-    margin-bottom: 50px;
-}
-
-.plans-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    align-items: center;
-}
-
-.plan {
-    padding: 30px;
-    border-radius: 20px;
-    text-align: left;
-}
-
-.free-plan {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid var(--border-light);
-}
-
-.pro-plan {
-    background: rgba(188, 216, 72, 0.1);
-    border: 1px solid var(--nishan-primary);
-    position: relative;
-    transform: scale(1.05);
-    box-shadow: var(--shadow-lg);
-}
-
-.popular-tag {
-    position: absolute;
-    top: -12px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--nishan-primary);
-    color: var(--color-text-dark);
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: 600;
-}
-
-.plan h3 {
-    font-size: 1.5rem;
-    margin-bottom: 15px;
-    font-family: var(--font-heading);
-}
-
-.plan .price {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 25px;
-    color: var(--nishan-text);
-}
-
-.plan .price .period {
-    font-size: 1rem;
-    color: var(--nishan-text-muted);
-    font-weight: 400;
-}
-
-.plan-features {
-    list-style: none;
-    padding: 0;
-    margin-bottom: 30px;
-}
-
-.plan-features li {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 15px;
-    color: var(--nishan-text-muted);
-}
-
-.plan-features li svg {
-    color: var(--nishan-primary);
-}
-
-.btn-nishan-buy {
-    display: block;
-    width: 100%;
-    padding: 15px;
-    background: var(--nishan-primary);
-    color: var(--color-text-dark);
-    text-align: center;
-    border-radius: 50px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: background 0.3s ease;
-}
-
-.btn-nishan-buy:hover {
-    background: var(--color-accent-dark);
-    color: var(--color-text-primary);
-}
-
-/* Custom Footer */
 .nishan-footer {
-    padding: 60px 0;
-    background: var(--color-bg-secondary);
-    border-top: 1px solid var(--border-light);
-    margin-top: 60px;
-}
-
-.nishan-footer-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.nishan-footer-left p {
-    color: var(--nishan-text-muted);
+    padding: 40px 0;
+    text-align: center;
+    border-top: 1px solid var(--nishan-border);
+    color: #666;
     font-size: 0.9rem;
-    margin-top: 5px;
 }
 
-.nishan-logo-sm {
-    font-weight: 700;
-    color: var(--nishan-text);
-    font-family: var(--font-heading);
+/* SEO Content */
+.nishan-seo-content {
+    padding-top: 80px;
+    padding-bottom: 40px;
+    border-top: 1px solid var(--nishan-border);
 }
 
-.nishan-footer-links {
-    display: flex;
+.seo-article {
+    max-width: 800px;
+    margin: 0 auto;
+    color: #ccc;
+    line-height: 1.8;
+}
+
+.seo-article h2 {
+    font-size: 2.5rem;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.seo-article h3 {
+    font-size: 1.8rem;
+    color: #fff;
+    margin-top: 50px;
+    margin-bottom: 20px;
+}
+
+.seo-article p {
+    margin-bottom: 20px;
+    font-size: 1rem;
+}
+
+.seo-article ol {
+    margin-bottom: 30px;
+    padding-left: 20px;
+}
+
+.seo-article li {
+    margin-bottom: 15px;
+}
+
+.seo-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 20px;
+    margin: 30px 0;
 }
 
-.nishan-footer-links a {
-    color: var(--nishan-text-muted);
-    text-decoration: none;
+.seo-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--nishan-border);
+    padding: 24px;
+    border-radius: 12px;
+}
+
+.seo-card h4 {
+    margin-top: 0;
+    color: #fff;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.seo-card p {
     font-size: 0.9rem;
-    transition: color 0.3s ease;
+    margin-bottom: 0;
+    color: #999;
 }
 
-.nishan-footer-links a:hover {
-    color: var(--nishan-primary);
+.faq-section {
+    margin-top: 30px;
 }
 
-@media (max-width: 900px) {
-    .nishan-hero .nishan-container {
+.faq-item {
+    background: var(--nishan-surface);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 15px;
+    border: 1px solid var(--nishan-border);
+}
+
+.faq-item h4 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: var(--nishan-accent);
+}
+
+.faq-item p {
+    margin-bottom: 0;
+    font-size: 0.95rem;
+}
+
+@media (max-width: 968px) {
+    .workspace-grid {
         grid-template-columns: 1fr;
-        text-align: center;
     }
 
-    .nishan-cta-group {
-        align-items: center;
+    .preview-card-sticky {
+        position: static;
+        margin-top: 40px;
+    }
+
+    .qr-type-tabs {
+        overflow-x: auto;
+        padding-bottom: 10px;
     }
 
     .features-grid {
         grid-template-columns: 1fr;
     }
 
-    .plans-container {
+    .seo-grid {
         grid-template-columns: 1fr;
-        gap: 60px;
     }
-
-    .pro-plan {
-        transform: scale(1);
-    }
-
-    .nishan-footer-content {
-        flex-direction: column;
-        gap: 20px;
-        text-align: center;
-    }
-}
-
-/* Demo Section */
-.nishan-demo-section {
-    padding: 80px 0;
-    background: linear-gradient(180deg, #000000 0%, #0a0a0a 100%);
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.demo-wrapper {
-    max-width: 800px;
-    margin: 0 auto;
-    text-align: center;
-}
-
-.demo-header {
-    margin-bottom: 40px;
-}
-
-.demo-interface {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 24px;
-    padding: 40px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 30px;
-    backdrop-filter: blur(10px);
-}
-
-.demo-input-group {
-    width: 100%;
-    max-width: 500px;
-}
-
-.nishan-input {
-    width: 100%;
-    padding: 16px 24px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    color: #fff;
-    font-size: 1.1rem;
-    font-family: 'Inter', sans-serif;
-    transition: all 0.3s ease;
-    text-align: center;
-}
-
-.nishan-input:focus {
-    outline: none;
-    border-color: var(--nishan-accent);
-    background: rgba(255, 255, 255, 0.08);
-    box-shadow: 0 0 0 4px rgba(0, 255, 136, 0.1);
-}
-
-.demo-output {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-}
-
-.qr-canvas-container {
-    padding: 20px;
-    background: #fff;
-    border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-}
-
-.btn-nishan-secondary {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 24px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 50px;
-    color: #fff;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-size: 0.95rem;
-}
-
-.btn-nishan-secondary:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: translateY(-2px);
 }
