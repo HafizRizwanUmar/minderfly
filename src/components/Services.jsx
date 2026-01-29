@@ -33,7 +33,7 @@ const Services = () => {
             id: '04',
             title: 'VS Code Extensions',
             description: 'Custom developer tools to boost your coding workflow.',
-            image: 'https://images.unsplash.com/photo-1618401471353-b74afee0adb4?auto=format&fit=crop&q=80&w=600',
+            image: '/vscode_preview.png',
             link: '/services/web-development'
         },
         {

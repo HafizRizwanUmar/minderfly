@@ -11,6 +11,8 @@ import StorePreview from '../components/StorePreview';
 import OffersSection from '../components/OffersSection';
 import TestimonialsSection from '../components/TestimonialsSection';
 import ArticleSection from '../components/ArticleSection';
+import StatsSection from '../components/StatsSection';
+import TrustBadges from '../components/TrustBadges';
 
 const Home = () => {
     useEffect(() => {
@@ -104,12 +106,14 @@ const Home = () => {
             <div className="app">
                 <Navbar />
                 <Hero />
-                <OffersSection />
+                <StatsSection />
+                <TrustBadges />
+                <Services />
                 <WorkShowcase />
                 <TestimonialsSection />
-                <Team />
-                <Services />
+                <OffersSection />
                 <StorePreview />
+                <Team />
                 <ArticleSection />
                 <Footer />
             </div>

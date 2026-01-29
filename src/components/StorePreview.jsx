@@ -1,7 +1,7 @@
-import { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import React from 'react';
+import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { FaArrowRight, FaStar, FaDownload, FaUsers } from 'react-icons/fa';
+import { FaWindows, FaArrowRight, FaCode, FaDownload, FaStar } from 'react-icons/fa';
 import './StorePreview.css';
 
 const StorePreview = () => {
@@ -9,89 +9,121 @@ const StorePreview = () => {
         {
             id: 'nishan',
             title: 'Nishan QR Generator',
-            description: 'The ultimate QR code solution for Windows. Create unlimited, high-quality QR codes with a sleek native interface.',
+            subtitle: 'Native Windows Application',
+            description: 'The most powerful offline QR code generator for Windows. Create encrypted WiFi codes, vCards, and marketing links without an internet connection.',
+            longDescription: 'Designed for professionals who need privacy and speed. Nishan allows you to generate high-resolution QR codes for print and digital media instantly. Features include custom colors, error correction levels, and bulk generation.',
+            image: '/nishan_preview.png',
+            link: '/products/nishan-qr',
+            icon: <FaWindows />,
             stats: [
                 { label: 'Downloads', value: '10k+' },
-                { label: 'Rating', value: '4.8/5' },
-                { label: 'Users', value: '5k+' },
-                { label: 'Uptime', value: '99.9%' }
+                { label: 'User Rating', value: '4.8/5' }
             ],
-            image: 'https://images.unsplash.com/photo-1595079686539-094317808eff?auto=format&fit=crop&q=80&w=800',
-            link: '/products/nishan-qr',
-            color: '#bcd848'
+            schema: {
+                "@context": "https://schema.org",
+                "@type": "SoftwareApplication",
+                "name": "Nishan QR Generator",
+                "operatingSystem": "Windows 10, Windows 11",
+                "applicationCategory": "UtilitiesApplication",
+                "aggregateRating": {
+                    "@type": "AggregateRating",
+                    "ratingValue": "4.8",
+                    "ratingCount": "1250"
+                },
+                "offers": {
+                    "@type": "Offer",
+                    "price": "0.00",
+                    "priceCurrency": "USD"
+                }
+            }
         },
         {
             id: 'flutter',
             title: 'Flutter Web Emulator',
-            description: 'Run, debug, and test your Flutter Web applications directly inside VS Code without context switching.',
-            stats: [
-                { label: 'Installs', value: '25k+' },
-                { label: 'Rating', value: '5.0' },
-                { label: 'Active', value: '12k+' },
-                { label: 'Saved', value: '100h+' }
-            ],
-            image: 'https://images.unsplash.com/photo-1629904853716-f004b3a778fd?auto=format&fit=crop&q=80&w=800',
+            subtitle: 'VS Code Extension',
+            description: 'Streamline your mobile development workflow. Run and debug Flutter Web apps directly inside VS Code with a unified emulator interface.',
+            longDescription: 'Stop switching windows. Our emulator integrates seamlessly into your IDE, providing a realistic mobile view for your web builds. It supports hot reload, custom device sizing, and landscape orientation testing.',
+            image: '/flutter_preview.png',
             link: '/products/flutter-web-emulator',
-            color: '#42a5f5'
+            icon: <FaCode />,
+            stats: [
+                { label: 'Active Users', value: '25k+' },
+                { label: 'Devs Trust', value: '5.0' }
+            ],
+            schema: {
+                "@context": "https://schema.org",
+                "@type": "SoftwareApplication",
+                "name": "Flutter Web Emulator",
+                "operatingSystem": "VS Code, Cross-platform",
+                "applicationCategory": "DeveloperApplication",
+                "aggregateRating": {
+                    "@type": "AggregateRating",
+                    "ratingValue": "5.0",
+                    "ratingCount": "3400"
+                },
+                "offers": {
+                    "@type": "Offer",
+                    "price": "0.00",
+                    "priceCurrency": "USD"
+                }
+            }
         }
     ];
 
-    const containerRef = useRef(null);
-    const { scrollYProgress } = useScroll({
-        target: containerRef,
-        offset: ["start end", "end start"]
-    });
-
     return (
-        <section className="store-preview-section" ref={containerRef}>
+        <section className="store-seo-section" id="products">
             <div className="container">
-                <div className="store-header">
-                    <h2>We Help Developers <em>Grow</em></h2>
-                    <p>A collection of premium tools we built to accelerate development.</p>
-                    <Link to="/store" className="btn-case-study">View All Products</Link>
+                <div className="seo-header">
+                    <h2>We Help Developers <span className="gradient-text">Build Faster</span></h2>
+                    <p>Premium tools engineered to accelerate your workflow.</p>
                 </div>
 
-                <div className="store-carousel">
-                    {products.map((product) => (
-                        <div key={product.id} className="store-product-group">
-                            {/* Stats Card */}
+                <div className="products-list">
+                    {products.map((product, index) => (
+                        <div key={product.id} className={`product-row ${index % 2 !== 0 ? 'reverse' : ''}`}>
+                            <script type="application/ld+json">
+                                {JSON.stringify(product.schema)}
+                            </script>
+
                             <motion.div
-                                className="store-card stats-card"
-                                initial={{ opacity: 0, y: 50 }}
-                                whileInView={{ opacity: 1, y: 0 }}
+                                className="product-content"
+                                initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+                                whileInView={{ opacity: 1, x: 0 }}
                                 viewport={{ once: true }}
-                                transition={{ duration: 0.5 }}
-                                style={{ '--accent-color': product.color }}
+                                transition={{ duration: 0.6 }}
                             >
-                                <div className="card-top">
-                                    <div className="product-badge">{product.title}</div>
-                                    <h3>{product.title}</h3>
-                                    <p>{product.description}</p>
-                                    <Link to={product.link} className="learn-more-link">
-                                        Learn more <FaArrowRight />
-                                    </Link>
+                                <div className="product-badge-row">
+                                    <span className="icon-badge">{product.icon}</span>
+                                    <span className="subtitle-badge">{product.subtitle}</span>
                                 </div>
-                                <div className="card-stats">
-                                    {product.stats.map((stat, idx) => (
-                                        <div key={idx} className="stat-item">
-                                            <span className="stat-value">{stat.value}</span>
-                                            <span className="stat-label">{stat.label}</span>
+                                <h3 className="product-title">{product.title}</h3>
+                                <p className="product-desc">{product.description}</p>
+                                <p className="product-long-desc">{product.longDescription}</p>
+
+                                <div className="product-meta">
+                                    {product.stats.map((stat, i) => (
+                                        <div key={i} className="meta-item">
+                                            <strong>{stat.value}</strong>
+                                            <span>{stat.label}</span>
                                         </div>
                                     ))}
                                 </div>
+
+                                <Link to={product.link} className="btn-product-cta">
+                                    View Product <FaArrowRight />
+                                </Link>
                             </motion.div>
 
-                            {/* Image Card */}
                             <motion.div
-                                className="store-card image-card"
-                                initial={{ opacity: 0, y: 50 }}
-                                whileInView={{ opacity: 1, y: 0 }}
+                                className="product-visual"
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
                                 viewport={{ once: true }}
-                                transition={{ duration: 0.5, delay: 0.2 }}
+                                transition={{ duration: 0.6, delay: 0.2 }}
                             >
-                                <img src={product.image} alt={product.title} />
-                                <div className="image-overlay">
-                                    <span className="image-badge">Product Preview</span>
+                                <div className="visual-card-glass">
+                                    <img src={product.image} alt={`${product.title} Interface`} />
+                                    <div className="glow-effect"></div>
                                 </div>
                             </motion.div>
                         </div>

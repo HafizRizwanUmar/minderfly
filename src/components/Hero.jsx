@@ -123,78 +123,54 @@ const Hero = () => {
                 </motion.div>
             </div>
 
-            <div className="hero-grid container">
-
-                {/* 1. PAVE */}
+            <div className="hero-content container">
                 <motion.div
-                    className="grid-item area-pave"
-                    initial={{ opacity: 0, y: 40 }}
+                    className="hero-badge"
+                    initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
+                    transition={{ delay: 0.2 }}
                 >
-                    <h1 className="giant-text">Build</h1>
+                    <span>Minderfly Digital Agency</span>
                 </motion.div>
 
-                {/* 2. YOUR */}
-                <motion.div
-                    className="grid-item area-your"
-                    initial={{ opacity: 0, x: 40 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.8, delay: 0.2 }}
+                <motion.h1
+                    className="hero-title"
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4 }}
                 >
-                    <h2 className="secondary-giant-text">Minderfly</h2>
-                </motion.div>
+                    Unlock Your <br />
+                    <span className="text-gradient">Digital Potential</span>
+                </motion.h1>
 
-                {/* 3. PATH */}
-                <motion.div
-                    className="grid-item area-path"
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.8, delay: 0.4 }}
-                >
-                    <h1 className="giant-text">Vision</h1>
-                </motion.div>
-
-                {/* 4. DESCRIPTION & DATA */}
-                <motion.div
-                    className="grid-item area-desc"
+                <motion.p
+                    className="hero-description"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.6 }}
                 >
-                    <div className="tech-desc-container">
-                        <p className="tech-desc">
-                            We transform ideas into digital reality.
-                            Whether it's a <strong>saas platform</strong>, a <strong>custom extension</strong>,
-                            or a <strong>mobile app</strong>, we engineer the code that drives your startup forward.
-                        </p>
-                        <div className="tech-stack-list">
-                            <span>[ Flutter Mobile ]</span>
-                            <span>[ MERN Stack ]</span>
-                            <span>[ Chrome Extensions ]</span>
-                            <span>[ VS Code Plugins ]</span>
-                        </div>
-                    </div>
-                </motion.div>
+                    Trusted by 25,000+ users. We engineer high-performance <strong>web apps</strong>,
+                    <strong> extensions</strong>, and <strong>mobile solutions</strong> that scale.
+                    From concept to market leader, we build the future.
+                </motion.p>
 
-                {/* 5. CTA */}
                 <motion.div
-                    className="grid-item area-cta"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
+                    className="hero-actions"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.8 }}
                 >
-                    <div className="wireframe-btn-wrapper">
-                        <MagneticButton
-                            className="btn-wireframe"
-                            href="https://wa.me/923449233424?text=Hi%2C%20I%20want%20to%20start%20a%20project."
-                        >
-                            Start Project <FaArrowRight style={{ marginLeft: '8px' }} />
-                        </MagneticButton>
-                        <div className="connector-line"></div>
-                    </div>
-                </motion.div>
+                    <MagneticButton
+                        className="btn-primary-hero"
+                        href="https://wa.me/923449233424?text=Hi%2C%20I%20want%20to%20start%20a%20project."
+                    >
+                        Start Project <FaArrowRight style={{ marginLeft: '8px' }} />
+                    </MagneticButton>
 
+                    <a href="#work" className="btn-secondary-hero">
+                        View Our Work
+                    </a>
+                </motion.div>
             </div>
         </section>
     );

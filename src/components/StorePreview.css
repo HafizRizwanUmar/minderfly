@@ -1,240 +1,212 @@
-.store-preview-section {
-    padding: var(--spacing-xl) 0;
-    background-color: var(--color-bg-primary);
-    overflow: hidden;
+.store-seo-section {
+    padding: 100px 0;
+    background: linear-gradient(to bottom, #050505, #0a0a0a);
+    position: relative;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.store-header {
+.seo-header {
     text-align: center;
-    margin-bottom: 4rem;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
+    margin-bottom: 80px;
 }
 
-.store-header h2 {
-    font-size: clamp(3rem, 6vw, 4.5rem);
-    line-height: 1.1;
-    margin-bottom: 1rem;
+.seo-header h2 {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    color: #fff;
+    letter-spacing: -1px;
 }
 
-.store-header h2 em {
-    font-family: 'Times New Roman', serif;
-    font-style: italic;
-    font-weight: 400;
+.seo-header p {
+    color: #888;
+    font-size: 1.1rem;
 }
 
-.store-header p {
-    color: var(--color-text-secondary);
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
-}
-
-.btn-case-study {
-    display: inline-block;
-    padding: 0.8rem 2rem;
-    border: 1px solid var(--color-accent);
-    color: var(--color-accent);
-    border-radius: 50px;
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: all 0.3s ease;
-}
-
-.btn-case-study:hover {
-    background: var(--color-accent);
-    color: #000;
-}
-
-.store-carousel {
-    display: flex;
-    overflow-x: auto;
-    gap: 2rem;
-    padding-bottom: 2rem;
-    /* Space for scrollbar if visible, currently hidden via global css usually */
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-}
-
-.store-carousel::-webkit-scrollbar {
-    display: none;
-}
-
-.store-product-group {
-    display: flex;
-    gap: 1.5rem;
-    flex: 0 0 auto;
-    width: 100%;
-    /* Or fixed width if you want carousel behavior on desktop too, for now full width rows */
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-/* On desktop, maybe show one product group at a time or stack them? 
-   The request implies "show two cards... same for all products", implying a list of these groups.
-   Let's make them stack vertically for the main page flow, or carousel if horizontal.
-   The implementation below makes them STACK Vertically (standard section flow), 
-   which is better for "landing page" unless specifically a slider component.
-   
-   WAIT: Layout "horizontal scroll" was mentioned in my plan. 
-   But "landing page show like this" usually implies a section. 
-   Let's do horizontal scroll for multiple products so it doesn't take unlimited height.
-*/
-
-.store-carousel {
-    display: flex;
-    overflow-x: auto;
-    gap: 2rem;
-    padding-bottom: 2rem;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
-}
-
-.store-product-group {
+/* Product Row Layout */
+.product-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-    min-width: 100%;
-    /* Ensure it takes full width of container */
-    scroll-snap-align: center;
-    /* Snap to center of the viewport */
-    scroll-margin-inline: 2rem;
-    /* Optional: adds margin for snapping */
+    gap: 80px;
+    align-items: center;
+    margin-bottom: 120px;
 }
 
-@media (max-width: 900px) {
-    .store-product-group {
-        grid-template-columns: 1fr;
-        min-width: 90vw;
-        /* Slightly smaller on mobile to show hint of next? or just full width */
-    }
+.product-row.reverse {
+    direction: rtl;
+    /* Simple way to flip, but better to swap grid areas for text clarity */
+    grid-template-areas: "visual content";
 }
 
-.store-card {
-    border-radius: 30px;
-    overflow: hidden;
-    position: relative;
-    height: 500px;
-    /* Fixed height for consistency */
+/* Fix direction for text content */
+.product-row.reverse .product-content {
+    direction: ltr;
+    /* Reset text direction */
 }
 
-/* Stats Card Styling */
-.stats-card {
-    background: #0a0a0a;
-    /* Dark Card */
-    border: 1px solid var(--accent-color, var(--color-accent));
-    /* Dynamic border color */
-    padding: 3rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+.product-row.reverse .product-visual {
+    direction: ltr;
 }
 
-.stats-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+.product-row:last-child {
+    margin-bottom: 0;
 }
 
-.card-top {
+/* Content Styling */
+.product-content {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 }
 
-.product-badge {
-    border: 1px solid #fff;
-    padding: 0.5rem 1rem;
-    border-radius: 50px;
-    font-size: 0.8rem;
-    margin-bottom: 2rem;
-    display: inline-block;
-    border-radius: 50%;
-    /* Circle badge if just icon, but text badge here */
-    border-radius: 50px;
-}
-
-.stats-card h3 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-}
-
-.stats-card p {
-    color: var(--color-text-secondary);
-    line-height: 1.6;
-    margin-bottom: 2rem;
-    font-size: 1.1rem;
-}
-
-.learn-more-link {
-    color: #fff;
-    text-decoration: none;
+.product-badge-row {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.icon-badge {
+    color: var(--color-accent);
+    font-size: 1.2rem;
+    display: flex;
+}
+
+.subtitle-badge {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--color-accent);
+    background: rgba(188, 216, 72, 0.1);
+    padding: 4px 10px;
+    border-radius: 4px;
+}
+
+.product-title {
+    font-size: 2.5rem;
+    margin: 0 0 20px 0;
+    color: #fff;
+    line-height: 1.1;
+}
+
+.product-desc {
+    font-size: 1.2rem;
+    color: #ddd;
+    margin-bottom: 15px;
     font-weight: 500;
-    margin-top: auto;
 }
 
-.learn-more-link:hover {
-    gap: 1rem;
+.product-long-desc {
+    font-size: 1rem;
+    color: #999;
+    line-height: 1.7;
+    margin-bottom: 30px;
+    max-width: 500px;
 }
 
-.card-stats {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    padding-top: 2rem;
+.product-meta {
+    display: flex;
+    gap: 40px;
+    margin-bottom: 35px;
+    border-left: 2px solid rgba(255, 255, 255, 0.1);
+    padding-left: 20px;
 }
 
-.stat-item {
+.meta-item {
     display: flex;
     flex-direction: column;
 }
 
-.stat-value {
-    font-size: 2rem;
-    font-weight: 700;
+.meta-item strong {
+    font-size: 1.5rem;
     color: #fff;
-    line-height: 1;
-    margin-bottom: 0.5rem;
+    font-weight: 700;
 }
 
-.stat-label {
-    font-size: 0.9rem;
-    color: var(--color-text-muted);
+.meta-item span {
+    font-size: 0.8rem;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
-/* Image Card Styling */
-.image-card {
-    background: #111;
+.btn-product-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 30px;
+    background: #fff;
+    color: #000;
+    border-radius: 50px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s ease;
 }
 
-.image-card img {
+.btn-product-cta:hover {
+    background: var(--color-accent);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Visual Styling */
+.product-visual {
+    position: relative;
+}
+
+.visual-card-glass {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.02);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    aspect-ratio: 16/10;
+}
+
+.visual-card-glass img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.7s ease;
+    transition: transform 0.6s ease;
 }
 
-.image-card:hover img {
+.visual-card-glass:hover img {
     transform: scale(1.05);
 }
 
-.image-overlay {
+.glow-effect {
     position: absolute;
-    bottom: 2rem;
-    left: 2rem;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(188, 216, 72, 0.15), transparent 70%);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    mix-blend-mode: screen;
 }
 
-.image-badge {
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(10px);
-    padding: 0.5rem 1rem;
-    border-radius: 50px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    font-size: 0.9rem;
+@media (max-width: 900px) {
+
+    .product-row,
+    .product-row.reverse {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        direction: ltr;
+        /* Stack normally on mobile */
+        grid-template-areas: "visual" "content";
+        /* Image first on mobile */
+    }
+
+    .product-content {
+        align-items: center;
+        text-align: center;
+    }
+
+    .product-meta {
+        justify-content: center;
+        border-left: none;
+        padding-left: 0;
+    }
 }

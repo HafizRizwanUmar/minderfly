@@ -1,166 +1,138 @@
-/* Testimonials Section Styles */
 .testimonials-section {
-    position: relative;
-    padding: var(--spacing-xl) 0;
+    padding: 80px 0;
+    background: #080808;
     overflow: hidden;
-}
-
-.testimonials-bg-glow {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at center, rgba(100, 255, 218, 0.03) 0%, transparent 70%);
-    /* Different subtle glow color */
-    pointer-events: none;
-    z-index: 0;
+    position: relative;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .testimonials-header {
     text-align: center;
-    margin-bottom: var(--spacing-lg);
-    position: relative;
-    z-index: 1;
+    margin-bottom: 50px;
 }
 
 .testimonials-header h2 {
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    margin-bottom: 1rem;
+    font-size: 2.5rem;
+    color: #fff;
+    margin-bottom: 10px;
 }
 
-/* Grid Layout */
-.testimonials-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
+.testimonials-header p {
+    color: #888;
+}
+
+/* Marquee Container */
+.marquee-wrapper {
     position: relative;
-    z-index: 1;
-    justify-items: center;
-}
-
-/* Video Card - TikTok Size (9:16 Aspect Ratio) */
-.video-card {
     width: 100%;
-    max-width: 300px;
-    /* Typical phone width range */
-    aspect-ratio: 9 / 16;
-    border-radius: 20px;
+    display: flex;
     overflow: hidden;
-    position: relative;
-    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
-    background: #000;
-    border: 4px solid rgba(255, 255, 255, 0.1);
-    transition: transform 0.3s ease, border-color 0.3s ease;
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
 }
 
-.video-card:hover {
-    transform: translateY(-10px);
+.marquee-track {
+    display: flex;
+    gap: 30px;
+    padding: 20px 0;
+    min-width: 100%;
+    animation: scroll 30s linear infinite;
+}
+
+.marquee-track:hover {
+    animation-play-state: paused;
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(calc(-100% - 30px));
+        /* Adjust based on content width logic */
+    }
+
+    /* 
+       Note: For perfect infinite scroll with CSS only, content needs to be doubled and translate correctly.
+       A simpler way is usually 0 to -50% if content is perfectly doubled.
+       Let's try -50% assumption for doubled content.
+    */
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* Review Card */
+.review-card {
+    flex: 0 0 350px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 25px;
+    border-radius: 16px;
+    transition: all 0.3s ease;
+}
+
+.review-card:hover {
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateY(-5px);
     border-color: var(--color-accent);
 }
 
-.video-wrapper {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    cursor: pointer;
+.review-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
 }
 
-.testimonial-video {
+.review-avatar {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, var(--color-accent), #00A3FF);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    /* Ensure image stays in circle */
+    flex-shrink: 0;
+}
+
+.review-avatar img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-/* Play Overlay */
-.play-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 2;
-    transition: opacity 0.3s ease;
+.review-info h4 {
+    margin: 0;
+    font-size: 1rem;
+    color: #fff;
 }
 
-.play-btn {
-    width: 60px;
-    height: 60px;
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(5px);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 1.5rem;
-    padding-left: 4px;
-    /* Optical center for play icon */
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    transition: all 0.3s ease;
-}
-
-.video-wrapper:hover .play-btn {
-    transform: scale(1.1);
-    background: var(--color-accent);
-    color: var(--color-text-dark);
-}
-
-/* Video Overlay Info */
-.video-overlay-info {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    padding: 2rem 1.5rem 1.5rem;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.6) 50%, transparent 100%);
-    color: white;
-    z-index: 2;
-    pointer-events: none;
-    /* Allow clicks to pass through to video wrapper for pause */
-}
-
-.quote-icon {
-    font-size: 1.2rem;
-    color: var(--color-accent);
-    margin-bottom: 0.5rem;
-    opacity: 0.8;
-}
-
-.video-quote {
-    font-size: 0.95rem;
-    font-style: italic;
-    margin-bottom: 1rem;
-    line-height: 1.4;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-
-.client-info h4 {
-    font-size: 1.1rem;
-    font-weight: 700;
-    margin-bottom: 0.2rem;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
-}
-
-.client-info span {
+.review-info span {
     font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.8);
+    color: #888;
 }
 
-/* Responsive */
+.review-rating {
+    margin-left: auto;
+    color: #FFD700;
+    font-size: 0.9rem;
+    display: flex;
+    gap: 2px;
+}
+
+.review-content {
+    color: #ccc;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 0;
+    font-style: italic;
+}
+
 @media (max-width: 768px) {
-    .testimonials-grid {
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 1.5rem;
+    .review-card {
+        flex: 0 0 300px;
     }
 }
