@@ -16,7 +16,7 @@ const Footer = () => {
         setForm((s) => ({ ...s, [name]: value }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
 
@@ -31,11 +31,35 @@ const Footer = () => {
             return;
         }
 
-        // Simulated submit (replace with API call)
-        setTimeout(() => {
-            setSubmitted(true);
-            setForm({ name: '', email: '', message: '' });
-        }, 700);
+        // Send to backend
+        try {
+            const response = await fetch("https://minderfly-backend.vercel.app/api/send-email", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: form.name,
+                    email: form.email,
+                    phone: 'Not provided (Footer Contact)',
+                    projectType: 'General Inquiry',
+                    details: form.message
+                })
+            });
+
+            const data = await response.json();
+
+            if (response.ok && data.success) {
+                setSubmitted(true);
+                setForm({ name: '', email: '', message: '' });
+            } else {
+                setError('Failed to send message. Please try again.');
+                console.error("Backend error:", data);
+            }
+        } catch (err) {
+            console.error("Error sending message:", err);
+            setError('Something went wrong. Please check your connection.');
+        }
     };
 
     return (
@@ -60,9 +84,9 @@ const Footer = () => {
                     </p>
 
                     <div className="footer-cta-wrapper">
-                        <a href="https://wa.me/923449233424?text=Hi%2C%20I%20would%20like%20to%20book%20a%20call" target="_blank" rel="noopener noreferrer" className="circle-cta">
+                        <button onClick={() => setOpen(true)} className="circle-cta">
                             Book a call
-                        </a>
+                        </button>
                     </div>
 
                     <AnimatePresence>
@@ -106,9 +130,6 @@ const Footer = () => {
 
                                             <div className="form-actions">
                                                 <button type="submit" className="btn btn-primary">Send message</button>
-                                                <button type="button" className="btn ghost" onClick={() => {
-                                                    window.open(`https://wa.me/923449233424?text=${encodeURIComponent('Hi, I would like to discuss a project: ' + form.message)}`, '_blank');
-                                                }}>WhatsApp instead</button>
                                             </div>
                                         </form>
                                     ) : (

@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaGlobe, FaMobileAlt, FaChrome, FaPalette, FaCheck, FaArrowRight } from 'react-icons/fa';
+import SpecialOfferModal from './SpecialOfferModal';
 import './OffersSection.css';
 
 const OffersSection = () => {
     const [hoveredId, setHoveredId] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const offers = [
         {
@@ -74,6 +76,24 @@ const OffersSection = () => {
             ],
             link: 'https://wa.me/923449233424?text=Hi%2C%20I%20am%20interested%20in%20the%20Chrome%20Theme%20offer%20for%20%2410.',
             isPopular: false
+        },
+        {
+            id: 5,
+            title: 'Feb Special Offer',
+            price: 'Free',
+            description: 'Get a basic website for free this February! Limited slots available.',
+            icon: <FaGlobe />,
+            features: [
+                'One Page Portfolio',
+                'Basic Contact Form',
+                'Mobile Responsive',
+                'Standard Design',
+                'Social Links',
+                'Limited Time Only'
+            ],
+            isSpecial: true,
+            isPopular: false,
+            link: '#' // Handled by modal
         }
     ];
 
@@ -150,14 +170,18 @@ const OffersSection = () => {
                                     ))}
                                 </ul>
 
-                                <a href={offer.link} className={`btn btn-offer ${offer.isPopular ? 'btn-primary' : 'btn-outline'}`}>
-                                    Get Started
-                                </a>
+                                <button
+                                    onClick={() => offer.isSpecial ? setIsModalOpen(true) : window.location.href = offer.link}
+                                    className={`btn btn-offer ${offer.isPopular || offer.isSpecial ? 'btn-primary' : 'btn-outline'}`}
+                                >
+                                    {offer.isSpecial ? 'Claim Offer' : 'Get Started'}
+                                </button>
                             </div>
                         </motion.div>
                     ))}
                 </motion.div>
             </div>
+            <SpecialOfferModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
         </section>
     );
 };

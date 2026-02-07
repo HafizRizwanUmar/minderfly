@@ -13,8 +13,13 @@ import TestimonialsSection from '../components/TestimonialsSection';
 import ArticleSection from '../components/ArticleSection';
 import StatsSection from '../components/StatsSection';
 import TrustBadges from '../components/TrustBadges';
+import FebOfferBanner from '../components/FebOfferBanner';
+import SpecialOfferModal from '../components/SpecialOfferModal';
+import { useState } from 'react';
 
 const Home = () => {
+    const [isOfferModalOpen, setIsOfferModalOpen] = useState(false);
+
     useEffect(() => {
         // Initialize Lenis smooth scroll
         const lenis = new Lenis({
@@ -98,14 +103,16 @@ const Home = () => {
             <SEOHead
                 title="Minderfly | Web & Mobile App Development, Graphics & Chrome Extensions"
                 description="Expert Web & Mobile App Development, Graphics Designing, and Chrome Extension creation. Home of Sanad PDF Editor, Debt Settler, and Nishan QR."
-                keywords="web development, mobile app development, graphics designing, extension development, chrome theme development, Sanad PDF editor, Debt Settler, Nishan QR, Flutter Web Emulator, custom software, brands"
+                keywords="web developer in lahore, web development, mobile app development, graphics designing, extension development, chrome theme development, Sanad PDF editor, Debt Settler, Nishan QR, Flutter Web Emulator, custom software, brands"
                 canonical="https://minderfly.com/"
                 schema={structuredData}
             />
 
             <div className="app">
-                <Navbar />
-                <Hero />
+                <Navbar onContactClick={() => setIsOfferModalOpen(true)} />
+                <FebOfferBanner onClaim={() => setIsOfferModalOpen(true)} />
+                <Hero onStartProject={() => setIsOfferModalOpen(true)} />
+                <SpecialOfferModal isOpen={isOfferModalOpen} onClose={() => setIsOfferModalOpen(false)} />
                 <StatsSection />
                 <TrustBadges />
                 <Services />

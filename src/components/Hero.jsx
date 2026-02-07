@@ -101,7 +101,7 @@ const NetworkBackground = () => {
     return <canvas ref={canvasRef} className="network-canvas" />;
 };
 
-const Hero = () => {
+const Hero = ({ onStartProject }) => { // Accept prop
     const ref = useRef(null);
     const { scrollYProgress } = useScroll({
         target: ref,
@@ -162,7 +162,7 @@ const Hero = () => {
                 >
                     <MagneticButton
                         className="btn-primary-hero"
-                        href="https://wa.me/923449233424?text=Hi%2C%20I%20want%20to%20start%20a%20project."
+                        onClick={onStartProject}
                     >
                         Start Project <FaArrowRight style={{ marginLeft: '8px' }} />
                     </MagneticButton>

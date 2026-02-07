@@ -1,0 +1,165 @@
+.feb-offer-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+    background: rgba(20, 20, 20, 0.95);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid var(--primary-color);
+    border-bottom: none;
+    padding: 0.8rem 0;
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5);
+    margin-top: 0;
+}
+
+.banner-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+}
+
+.banner-left {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.icon-wrapper {
+    font-size: 2rem;
+    color: #FF4D4D;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+.text-content h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.2rem;
+    color: var(--text-color);
+}
+
+.highlight {
+    color: #FF4D4D;
+    font-weight: 700;
+}
+
+.text-content p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.banner-right {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.countdown {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: monospace;
+    font-size: 1.1rem;
+    color: var(--text-color);
+}
+
+.time-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.time-unit .number {
+    font-weight: 700;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.time-unit .label {
+    font-size: 0.6rem;
+    color: var(--text-secondary);
+    margin-top: 2px;
+}
+
+.separator {
+    font-weight: 700;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+}
+
+.claim-btn {
+    padding: 0.6rem 1.5rem;
+    font-size: 0.95rem;
+    box-shadow: 0 4px 15px rgba(255, 77, 77, 0.3);
+}
+
+@media (max-width: 900px) {
+    .feb-offer-banner {
+        margin-top: 0;
+        padding: 0.8rem 0;
+    }
+
+    .banner-content {
+        flex-direction: row;
+        /* Keep row direction if possible, or stack compactly */
+        justify-content: space-between;
+        gap: 0.5rem;
+    }
+
+    .banner-left {
+        gap: 0.5rem;
+    }
+
+    .icon-wrapper {
+        font-size: 1.2rem;
+        display: none;
+        /* Hide icon on mobile to save space */
+    }
+
+    .text-content h3 {
+        font-size: 0.9rem;
+    }
+
+    .text-content p {
+        display: none;
+        /* Hide description on mobile */
+    }
+
+    .banner-right {
+        width: auto;
+        gap: 0.5rem;
+        flex-direction: row;
+    }
+
+    .countdown {
+        font-size: 0.8rem;
+    }
+
+    .time-unit .number {
+        padding: 1px 3px;
+    }
+
+    .time-unit .label {
+        font-size: 0.5rem;
+    }
+
+    .claim-btn {
+        width: auto;
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+    }
+}

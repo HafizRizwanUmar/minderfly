@@ -5,7 +5,7 @@ import MagneticButton from './MagneticButton';
 import { useState, useEffect } from 'react';
 import './Navbar.css';
 
-const Navbar = () => {
+const Navbar = ({ onContactClick }) => {
     const [open, setOpen] = useState(false);
     const location = useLocation();
     const isHomePage = location.pathname === '/';
@@ -68,15 +68,23 @@ const Navbar = () => {
                     </div>
 
                     <div className="navbar-right">
-                        <a
-                            href={whatsappUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="btn btn-primary navbar-btn whatsapp-btn"
+
+
+                        <button
+                            className="btn btn-primary navbar-btn contact-btn"
+                            onClick={() => {
+                                if (onContactClick) {
+                                    onContactClick();
+                                } else {
+                                    const contactSection = document.getElementById('contact');
+                                    if (contactSection) {
+                                        contactSection.scrollIntoView({ behavior: 'smooth' });
+                                    }
+                                }
+                            }}
                         >
-                            <FaWhatsapp className="whatsapp-icon" />
                             <span>Contact</span>
-                        </a>
+                        </button>
 
                         <button
                             className={`navbar-toggle ${open ? 'open' : ''}`}
@@ -127,15 +135,22 @@ const Navbar = () => {
                             </ul>
 
                             <div className="mobile-cta">
-                                <a
-                                    href={whatsappUrl}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="btn btn-primary whatsapp-btn-mobile"
+                                <button
+                                    className="btn btn-primary contact-btn-mobile"
+                                    onClick={() => {
+                                        setOpen(false);
+                                        if (onContactClick) {
+                                            onContactClick();
+                                        } else {
+                                            const contactSection = document.getElementById('contact');
+                                            if (contactSection) {
+                                                contactSection.scrollIntoView({ behavior: 'smooth' });
+                                            }
+                                        }
+                                    }}
                                 >
-                                    <FaWhatsapp />
-                                    <span>Contact on WhatsApp</span>
-                                </a>
+                                    <span>Contact Us</span>
+                                </button>
                             </div>
                         </motion.div>
                     </motion.aside>
