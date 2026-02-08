@@ -1,6 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
-import { FaWhatsapp } from 'react-icons/fa';
 import MagneticButton from './MagneticButton';
 import { useState, useEffect } from 'react';
 import './Navbar.css';
@@ -8,13 +7,16 @@ import './Navbar.css';
 const Navbar = ({ onContactClick }) => {
     const [open, setOpen] = useState(false);
     const location = useLocation();
-    const isHomePage = location.pathname === '/';
 
+    // Lock body scroll when mobile menu is open
     useEffect(() => {
-        // lock body scroll when mobile menu is open
-        document.body.style.overflow = open ? 'hidden' : '';
+        if (open) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
         return () => {
-            document.body.style.overflow = '';
+            document.body.style.overflow = 'unset';
         };
     }, [open]);
 
@@ -24,32 +26,55 @@ const Navbar = ({ onContactClick }) => {
     }, [location.pathname]);
 
     const navItems = [
-        { name: 'home', path: '/', hash: null },
-        { name: 'services', path: '/services', hash: null },
-        { name: 'work', path: '/work', hash: null },
-        { name: 'store', path: '/store', hash: null },
-        { name: 'team', path: '/team', hash: null },
-        { name: 'articles', path: '/articles', hash: null }
+        { name: 'Home', path: '/' },
+        { name: 'Services', path: '/services' },
+        { name: 'Work', path: '/work' },
+        { name: 'Store', path: '/store' },
+        { name: 'Team', path: '/team' },
+        { name: 'Articles', path: '/articles' }
     ];
 
-    const handleNavClick = (item) => {
-        setOpen(false);
+    const menuVars = {
+        initial: { scaleY: 0 },
+        animate: {
+            scaleY: 1,
+            transition: { duration: 0.5, ease: [0.12, 0, 0.39, 0] }
+        },
+        exit: {
+            scaleY: 0,
+            transition: { delay: 0.5, duration: 0.5, ease: [0.22, 1, 0.36, 1] }
+        }
     };
 
-    const whatsappNumber = '923449233424';
-    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=Hi%2C%20I%20would%20like%20to%20discuss%20a%20project`;
+    const containerVars = {
+        initial: { transition: { staggerChildren: 0.09, staggerDirection: -1 } },
+        open: {
+            transition: { delayChildren: 0.3, staggerChildren: 0.09, staggerDirection: 1 }
+        }
+    };
+
+    const mobileLinkVars = {
+        initial: {
+            y: "30vh",
+            transition: { duration: 0.5, ease: [0.37, 0, 0.63, 1] }
+        },
+        open: {
+            y: 0,
+            transition: { duration: 0.7, ease: [0, 0.55, 0.45, 1] }
+        }
+    };
 
     return (
         <>
-            <motion.nav
-                className="navbar"
+            <motion.header
+                className="navbar-wrapper"
                 initial={{ y: -100 }}
                 animate={{ y: 0 }}
                 transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             >
-                <div className="container navbar-content">
+                <nav className="navbar glass-panel">
                     <div className="navbar-left">
-                        <Link to="/" className="navbar-logo">
+                        <Link to="/" className="navbar-logo" onClick={() => setOpen(false)}>
                             <span className="logo-text">minder</span>
                             <span className="logo-accent">fly</span>
                         </Link>
@@ -59,8 +84,9 @@ const Navbar = ({ onContactClick }) => {
                         <ul className="navbar-links">
                             {navItems.map((item) => (
                                 <li key={item.name}>
-                                    <Link to={item.path} onClick={() => handleNavClick(item)}>
-                                        {item.name}
+                                    <Link to={item.path} className="nav-link">
+                                        <span className="link-text">{item.name}</span>
+                                        <span className="link-text-hover">{item.name}</span>
                                     </Link>
                                 </li>
                             ))}
@@ -68,92 +94,92 @@ const Navbar = ({ onContactClick }) => {
                     </div>
 
                     <div className="navbar-right">
-
-
-                        <button
-                            className="btn btn-primary navbar-btn contact-btn"
-                            onClick={() => {
-                                if (onContactClick) {
-                                    onContactClick();
-                                } else {
-                                    const contactSection = document.getElementById('contact');
-                                    if (contactSection) {
-                                        contactSection.scrollIntoView({ behavior: 'smooth' });
-                                    }
-                                }
-                            }}
-                        >
-                            <span>Contact</span>
-                        </button>
+                        <div className="desktop-cta">
+                            <MagneticButton className="contact-btn-wrapper">
+                                <button
+                                    className="btn-magnetic"
+                                    onClick={() => {
+                                        if (onContactClick) onContactClick();
+                                        else document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                                    }}
+                                >
+                                    Let's Talk
+                                </button>
+                            </MagneticButton>
+                        </div>
 
                         <button
                             className={`navbar-toggle ${open ? 'open' : ''}`}
                             onClick={() => setOpen(!open)}
                             aria-label={open ? 'Close menu' : 'Open menu'}
-                            aria-expanded={open}
                         >
-                            <span className="hamburger">
-                                <span />
-                                <span />
-                                <span />
+                            <span className="hamburger-box">
+                                <span className="hamburger-inner"></span>
                             </span>
                         </button>
                     </div>
-                </div>
-            </motion.nav>
+                </nav>
+            </motion.header>
 
             <AnimatePresence>
                 {open && (
-                    <motion.aside
-                        className="mobile-nav-overlay"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.25 }}
+                    <motion.div
+                        className="mobile-menu-overlay"
+                        variants={menuVars}
+                        initial="initial"
+                        animate="animate"
+                        exit="exit"
                     >
-                        <motion.div
-                            className="mobile-nav-panel container"
-                            initial={{ y: -20, opacity: 0 }}
-                            animate={{ y: 0, opacity: 1 }}
-                            exit={{ y: -10, opacity: 0 }}
-                            transition={{ duration: 0.28, ease: [0.2, 0.9, 0.2, 1] }}
-                        >
-                            <div className="mobile-nav-head">
-                                <Link to="/" className="navbar-logo" onClick={() => setOpen(false)}>
-                                    <span className="logo-text">minder</span>
-                                    <span className="logo-accent">fly</span>
-                                </Link>
-                                <button className="mobile-close" onClick={() => setOpen(false)} aria-label="Close menu">×</button>
+                        <div className="mobile-menu-container">
+                            <div className="mobile-menu-header">
+                                <span className="menu-title">Menu</span>
+                                <button className="close-btn" onClick={() => setOpen(false)}>Close</button>
                             </div>
 
-                            <ul className="mobile-links">
+                            <motion.div
+                                className="mobile-links-container"
+                                variants={containerVars}
+                                initial="initial"
+                                animate="open"
+                                exit="initial"
+                            >
                                 {navItems.map((item) => (
-                                    <li key={item.name} onClick={() => handleNavClick(item)}>
-                                        <Link to={item.path}>{item.name}</Link>
-                                    </li>
+                                    <div className="mobile-link-wrapper" key={item.name}>
+                                        <motion.div variants={mobileLinkVars}>
+                                            <Link
+                                                to={item.path}
+                                                onClick={() => setOpen(false)}
+                                                className="mobile-link"
+                                            >
+                                                {item.name}
+                                            </Link>
+                                        </motion.div>
+                                    </div>
                                 ))}
-                            </ul>
 
-                            <div className="mobile-cta">
-                                <button
-                                    className="btn btn-primary contact-btn-mobile"
-                                    onClick={() => {
-                                        setOpen(false);
-                                        if (onContactClick) {
-                                            onContactClick();
-                                        } else {
-                                            const contactSection = document.getElementById('contact');
-                                            if (contactSection) {
-                                                contactSection.scrollIntoView({ behavior: 'smooth' });
-                                            }
-                                        }
-                                    }}
-                                >
-                                    <span>Contact Us</span>
-                                </button>
+                                <motion.div variants={mobileLinkVars} className="mobile-cta-wrapper">
+                                    <button
+                                        className="btn btn-primary mobile-contact-btn"
+                                        onClick={() => {
+                                            setOpen(false);
+                                            if (onContactClick) onContactClick();
+                                            else document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                                        }}
+                                    >
+                                        Let's Talk Project
+                                    </button>
+                                </motion.div>
+                            </motion.div>
+
+                            <div className="mobile-menu-footer">
+                                <a href="mailto:hello@minderfly.com">hello@minderfly.com</a>
+                                <div className="socials">
+                                    <a href="#">Instagram</a>
+                                    <a href="#">LinkedIn</a>
+                                </div>
                             </div>
-                        </motion.div>
-                    </motion.aside>
+                        </div>
+                    </motion.div>
                 )}
             </AnimatePresence>
         </>
