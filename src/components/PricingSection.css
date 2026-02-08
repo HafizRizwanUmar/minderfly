@@ -1,0 +1,226 @@
+/* Pricing Section */
+.pricing-section {
+    padding: 6rem 0;
+    font-family: 'Inter', sans-serif;
+    /* Assuming Inter or similar sans-serif */
+    position: relative;
+    overflow: hidden;
+}
+
+/* Background Glow (Optional to match image vibe) */
+.pricing-section::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 80%;
+    background: radial-gradient(circle, rgba(255, 100, 100, 0.05) 0%, transparent 70%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.pricing-header {
+    text-align: center;
+    margin-bottom: 4rem;
+    position: relative;
+    z-index: 1;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+}
+
+.section-subtitle {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+}
+
+.pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+    align-items: center;
+    /* Vertically align so middle can pop */
+}
+
+/* Card Styles */
+.pricing-card {
+    background: #111;
+    /* Very dark grey/black */
+    border: 1px solid #222;
+    border-radius: 12px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* Hover/Active State */
+.pricing-card:hover,
+.pricing-card.active {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    border-color: #333;
+    z-index: 2;
+}
+
+/* Recommended/Detailed Card Specifics */
+.pricing-card.recommended {
+    border-color: rgba(255, 255, 255, 0.1);
+    background: #161616;
+    transform: scale(1.05);
+    /* Slightly larger */
+}
+
+/* Recommended Badge */
+.recommended-badge {
+    position: absolute;
+    top: 1.5rem;
+    left: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.recommended-badge span {
+    color: #FFA500;
+    /* Orange color from image */
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+/* Icon */
+.card-icon-wrapper {
+    font-size: 2rem;
+    color: #ddd;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    /* Space for badge if present */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pricing-card.recommended .card-icon-wrapper {
+    color: #FFA500;
+    /* Orange icon */
+    font-size: 2.5rem;
+}
+
+
+/* Text Elements */
+.plan-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #fff;
+}
+
+.plan-price {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 0.3rem;
+    margin-bottom: 1rem;
+}
+
+.amount {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1;
+}
+
+.period {
+    color: #888;
+    font-size: 0.9rem;
+}
+
+.plan-description {
+    color: #888;
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+    line-height: 1.5;
+    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.divider {
+    height: 1px;
+    background: #222;
+    width: 100%;
+    margin-bottom: 2rem;
+}
+
+/* Features List */
+.features-list {
+    text-align: left;
+    margin-bottom: 2.5rem;
+    flex-grow: 1;
+}
+
+.features-title {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #fff;
+    margin-bottom: 1rem;
+}
+
+.features-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.features-list li {
+    margin-bottom: 0.8rem;
+    color: #ccc;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+/* Button */
+.btn-pricing {
+    width: 100%;
+    background: #333;
+    color: #fff;
+    border: none;
+    padding: 1rem;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-pricing:hover {
+    background: #444;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 900px) {
+    .pricing-grid {
+        grid-template-columns: 1fr;
+        max-width: 500px;
+    }
+
+    .pricing-card.recommended {
+        transform: none;
+        /* remove scale on mobile */
+        margin: 1rem 0;
+        z-index: 1;
+    }
+}
