@@ -1,133 +1,127 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { FaWindows, FaArrowRight, FaCode, FaDownload, FaStar } from 'react-icons/fa';
+import { FaWindows, FaArrowRight, FaMobileAlt, FaStar, FaDownload } from 'react-icons/fa';
 import './StorePreview.css';
 
 const StorePreview = () => {
+    const [hoveredProduct, setHoveredProduct] = useState(null);
+
     const products = [
         {
-            id: 'nishan',
-            title: 'Nishan QR Generator',
-            subtitle: 'Native Windows Application',
-            description: 'The most powerful offline QR code generator for Windows. Create encrypted WiFi codes, vCards, and marketing links without an internet connection.',
-            longDescription: 'Designed for professionals who need privacy and speed. Nishan allows you to generate high-resolution QR codes for print and digital media instantly. Features include custom colors, error correction levels, and bulk generation.',
-            image: '/nishan_preview.png',
-            link: '/products/nishan-qr',
-            icon: <FaWindows />,
-            stats: [
-                { label: 'Downloads', value: '10k+' },
-                { label: 'User Rating', value: '4.8/5' }
-            ],
-            schema: {
-                "@context": "https://schema.org",
-                "@type": "SoftwareApplication",
-                "name": "Nishan QR Generator",
-                "operatingSystem": "Windows 10, Windows 11",
-                "applicationCategory": "UtilitiesApplication",
-                "aggregateRating": {
-                    "@type": "AggregateRating",
-                    "ratingValue": "4.8",
-                    "ratingCount": "1250"
-                },
-                "offers": {
-                    "@type": "Offer",
-                    "price": "0.00",
-                    "priceCurrency": "USD"
-                }
-            }
+            id: 'debt-settler',
+            name: 'Debt Settler',
+            description: 'The ultimate free application to manage shared expenses and settle debts with friends. No hidden fees, just seamless financial harmony.',
+            price: 'Free',
+            icon: <FaMobileAlt />,
+            link: '/store/debt-settler',
+            color: '#8B5CF6',
+            rating: 4.9,
+            downloads: '10k+'
         },
         {
-            id: 'flutter',
-            title: 'Flutter Web Emulator',
-            subtitle: 'VS Code Extension',
-            description: 'Streamline your mobile development workflow. Run and debug Flutter Web apps directly inside VS Code with a unified emulator interface.',
-            longDescription: 'Stop switching windows. Our emulator integrates seamlessly into your IDE, providing a realistic mobile view for your web builds. It supports hot reload, custom device sizing, and landscape orientation testing.',
-            image: '/flutter_preview.png',
-            link: '/products/flutter-web-emulator',
-            icon: <FaCode />,
-            stats: [
-                { label: 'Active Users', value: '25k+' },
-                { label: 'Devs Trust', value: '5.0' }
-            ],
-            schema: {
-                "@context": "https://schema.org",
-                "@type": "SoftwareApplication",
-                "name": "Flutter Web Emulator",
-                "operatingSystem": "VS Code, Cross-platform",
-                "applicationCategory": "DeveloperApplication",
-                "aggregateRating": {
-                    "@type": "AggregateRating",
-                    "ratingValue": "5.0",
-                    "ratingCount": "3400"
-                },
-                "offers": {
-                    "@type": "Offer",
-                    "price": "0.00",
-                    "priceCurrency": "USD"
-                }
-            }
+            id: 'nishan-qr',
+            name: 'Nishan QR Generator',
+            description: 'Generate unlimited custom QR codes with a sleek, modern interface. The professional choice for Windows users.',
+            price: 'Free / $5',
+            icon: <FaWindows />,
+            link: '/store/nishan-qr-generator',
+            color: '#0078D7',
+            rating: 4.8,
+            downloads: '5k+'
+        },
+        {
+            id: 'flutter-web-emulator',
+            name: 'Flutter Web Emulator',
+            description: 'Run, debug, and test Flutter Web apps directly inside VS Code. Eliminate context switching and boost productivity.',
+            price: 'Free',
+            icon: <FaWindows />,
+            link: '/store/flutter-web-emulator',
+            color: '#007ACC',
+            rating: 4.7,
+            downloads: '2k+'
         }
     ];
 
     return (
-        <section className="store-seo-section" id="products">
-            <div className="container">
+        <section className="store-seo-section relative overflow-hidden" id="products">
+            {/* Background Ambient Glow */}
+            <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+                <div className="absolute top-[-10%] right-[-5%] w-[30%] h-[30%] bg-purple-900/10 blur-[100px] rounded-full" />
+                <div className="absolute bottom-[-10%] left-[-5%] w-[30%] h-[30%] bg-blue-900/10 blur-[100px] rounded-full" />
+            </div>
+
+            <div className="container mx-auto px-6 relative z-10">
                 <div className="seo-header">
-                    <h2>We Help Developers <span className="gradient-text">Build Faster</span></h2>
-                    <p>Premium tools engineered to accelerate your workflow.</p>
+                    <h2>Our <span className="gradient-text">Top Products</span></h2>
+                    <p>Premium tools engineered to accelerate your workflow and simplify your life.</p>
                 </div>
 
-                <div className="products-list">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
                     {products.map((product, index) => (
-                        <div key={product.id} className={`product-row ${index % 2 !== 0 ? 'reverse' : ''}`}>
-                            <script type="application/ld+json">
-                                {JSON.stringify(product.schema)}
-                            </script>
+                        <motion.div
+                            key={product.id}
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5, delay: index * 0.1 }}
+                            onMouseEnter={() => setHoveredProduct(product.id)}
+                            onMouseLeave={() => setHoveredProduct(null)}
+                            className="group relative bg-[#252525] rounded-xl p-8 border border-white/5 hover:border-white/20 transition-all duration-300 hover:shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:-translate-y-2 flex flex-col h-full"
+                        >
+                            {/* Hover Reveal Gradient */}
+                            <div
+                                className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                                style={{
+                                    background: `radial-gradient(circle at center, rgba(255,255,255,0.03), transparent 70%)`
+                                }}
+                            />
 
-                            <motion.div
-                                className="product-content"
-                                initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-                                whileInView={{ opacity: 1, x: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.6 }}
+                            <div className="flex justify-between items-start mb-6">
+                                <div
+                                    className="w-14 h-14 rounded-xl flex items-center justify-center text-2xl shadow-lg transition-transform duration-300 group-hover:scale-110"
+                                    style={{ backgroundColor: `${product.color}20`, color: product.color }}
+                                >
+                                    {product.icon}
+                                </div>
+                                <div className="text-right">
+                                    <span className="block text-xl font-bold text-white">{product.price}</span>
+                                </div>
+                            </div>
+
+                            <h3 className="text-2xl font-bold mb-3 group-hover:text-white transition-colors text-gray-100">
+                                {product.name}
+                            </h3>
+
+                            <div className="flex items-center gap-3 mb-5 text-sm text-gray-400">
+                                <span className="flex items-center gap-1 text-[#FFB900]">
+                                    {product.rating} <FaStar />
+                                </span>
+                                <span className="w-1 h-1 bg-gray-600 rounded-full" />
+                                <span>{product.downloads} Downloads</span>
+                            </div>
+
+                            <p className="text-base text-gray-400 leading-relaxed mb-8 flex-grow">
+                                {product.description}
+                            </p>
+
+                            <Link
+                                to={product.link}
+                                className="w-full py-3 bg-white/5 hover:bg-[#0078D7] hover:text-white text-gray-200 font-medium rounded-lg transition-all flex items-center justify-center gap-2 group-hover:bg-[#0078D7] group-hover:text-white"
                             >
-                                <div className="product-badge-row">
-                                    <span className="icon-badge">{product.icon}</span>
-                                    <span className="subtitle-badge">{product.subtitle}</span>
-                                </div>
-                                <h3 className="product-title">{product.title}</h3>
-                                <p className="product-desc">{product.description}</p>
-                                <p className="product-long-desc">{product.longDescription}</p>
-
-                                <div className="product-meta">
-                                    {product.stats.map((stat, i) => (
-                                        <div key={i} className="meta-item">
-                                            <strong>{stat.value}</strong>
-                                            <span>{stat.label}</span>
-                                        </div>
-                                    ))}
-                                </div>
-
-                                <Link to={product.link} className="btn-product-cta">
-                                    View Product <FaArrowRight />
-                                </Link>
-                            </motion.div>
-
-                            <motion.div
-                                className="product-visual"
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                whileInView={{ opacity: 1, scale: 1 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.6, delay: 0.2 }}
-                            >
-                                <div className="visual-card-glass">
-                                    <img src={product.image} alt={`${product.title} Interface`} />
-                                    <div className="glow-effect"></div>
-                                </div>
-                            </motion.div>
-                        </div>
+                                View Details <FaArrowRight className="text-xs transition-transform group-hover:translate-x-1" />
+                            </Link>
+                        </motion.div>
                     ))}
+                </div>
+
+                <div className="text-center">
+                    <Link
+                        to="/store"
+                        className="inline-flex items-center gap-2 px-8 py-4 bg-white text-black font-bold rounded-full hover:bg-gray-200 transition-colors shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_25px_rgba(255,255,255,0.3)]"
+                    >
+                        See More Products <FaArrowRight />
+                    </Link>
                 </div>
             </div>
         </section>
