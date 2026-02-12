@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { useRef } from 'react';
+import Reveal from './Reveal';
 import { FaArrowRight, FaCode, FaMobileAlt, FaChrome, FaDesktop, FaExternalLinkAlt } from 'react-icons/fa';
 import './WorkShowcase.css';
 
@@ -61,16 +62,10 @@ const WorkShowcase = () => {
     return (
         <section className="work-section" id="work">
             <div className="container">
-                <motion.div
-                    className="work-header"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
-                >
-                    <h2>Selected <span className="highlight">Works</span></h2>
-                    <p className="work-subtitle">Crafting digital experiences across platforms</p>
-                </motion.div>
+                <div className="work-header">
+                    <Reveal><h2>Selected <span className="highlight">Works</span></h2></Reveal>
+                    <Reveal delay={0.2}><p className="work-subtitle">Crafting digital experiences across platforms</p></Reveal>
+                </div>
 
                 <div className="work-scroll-container" ref={scrollRef}>
                     <div className="work-grid">

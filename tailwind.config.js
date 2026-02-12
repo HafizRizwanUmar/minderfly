@@ -17,8 +17,10 @@ export default {
                 }
             },
             fontFamily: {
-                display: ['Syne', 'sans-serif'],
-                body: ['Manrope', 'sans-serif'],
+                display: ['Poppins', 'sans-serif'],
+                body: ['Lato', 'sans-serif'],
+                poppins: ['Poppins', 'sans-serif'],
+                lato: ['Lato', 'sans-serif'],
             }
         },
     },

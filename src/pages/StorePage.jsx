@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { FaWindows, FaArrowRight, FaMobileAlt, FaSearch, FaStar, FaDownload } from 'react-icons/fa';
+import { FaWindows, FaArrowRight, FaMobileAlt, FaSearch, FaStar, FaDownload, FaPlay } from 'react-icons/fa';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import './StorePage.css';
@@ -53,6 +53,19 @@ const StorePage = () => {
             featured: false,
             rating: 4.7,
             downloads: '2k+'
+        },
+        {
+            id: 'cinemafly',
+            name: 'Cinemafly',
+            description: 'The next-generation media player for Windows. Play HEVC, MKV, 4K HDR, and more without extra codecs.',
+            price: 'Free',
+            icon: <FaPlay className="text-3xl" />,
+            link: '/store/cinemafly',
+            color: '#A855F7',
+            category: 'Utilities',
+            featured: false,
+            rating: 4.8,
+            downloads: '1k+'
         }
     ];
 
@@ -180,8 +193,8 @@ const StorePage = () => {
                                     key={category}
                                     onClick={() => setActiveCategory(category)}
                                     className={`px-5 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap ${activeCategory === category
-                                            ? 'bg-white text-black shadow-[0_0_15px_rgba(255,255,255,0.3)]'
-                                            : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white'
+                                        ? 'bg-white text-black shadow-[0_0_15px_rgba(255,255,255,0.3)]'
+                                        : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white'
                                         }`}
                                 >
                                     {category}

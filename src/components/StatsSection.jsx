@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import Reveal from './Reveal';
 import { FaUsers, FaProjectDiagram, FaStar, FaGlobe } from 'react-icons/fa';
 import './StatsSection.css';
 
@@ -40,13 +41,11 @@ const StatsSection = () => {
             <div className="container">
                 <div className="stats-grid">
                     {stats.map((stat, index) => (
-                        <motion.div
+                        <Reveal
                             key={stat.id}
                             className="stat-card"
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: index * 0.1, duration: 0.5 }}
+                            delay={index * 0.1}
+                            width="100%"
                         >
                             <div className="stat-icon" style={{ color: stat.color }}>
                                 {stat.icon}
@@ -55,7 +54,7 @@ const StatsSection = () => {
                                 <h3 className="stat-value">{stat.value}</h3>
                                 <p className="stat-label">{stat.label}</p>
                             </div>
-                        </motion.div>
+                        </Reveal>
                     ))}
                 </div>
             </div>

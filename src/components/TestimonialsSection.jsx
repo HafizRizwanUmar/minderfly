@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import Reveal from './Reveal';
 import { FaQuoteLeft, FaStar } from 'react-icons/fa';
 import './TestimonialsSection.css';
 
@@ -79,8 +80,8 @@ const TestimonialsSection = () => {
         <section className="testimonials-section">
             <div className="container">
                 <div className="testimonials-header">
-                    <h2>Trusted by <span className="gradient-text">Innovators</span></h2>
-                    <p>Don't just take our word for it. Join hundreds of satisfied clients.</p>
+                    <Reveal><h2>Trusted by <span className="gradient-text">Innovators</span></h2></Reveal>
+                    <Reveal delay={0.2}><p>Don't just take our word for it. Join hundreds of satisfied clients.</p></Reveal>
                 </div>
             </div>
 

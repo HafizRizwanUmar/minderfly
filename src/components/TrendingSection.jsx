@@ -48,6 +48,14 @@ const TrendingSection = () => {
             image: "/flutter_preview.png",
             rating: 4.5,
             link: "/store/flutter-web-emulator"
+        },
+        {
+            id: 6,
+            title: "Cinemafly",
+            category: "Video Player",
+            image: "/cinemafly_logo.png",
+            rating: 4.9,
+            link: "/store/cinemafly"
         }
     ];
 

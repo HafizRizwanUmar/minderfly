@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 // Main Pages
 import Home from './pages/Home';
@@ -23,13 +23,17 @@ import SanadPdfEditor from './pages/store/SanadPdfEditor';
 import DebtSettler from './pages/store/DebtSettler';
 import NishanQr from './pages/store/NishanQr';
 import ChromeThemes from './pages/store/ChromeThemes';
+
 import FlutterWebEmulator from './pages/store/FlutterWebEmulator';
+import CinemaflyProduct from './pages/store/CinemaflyProduct';
 
 // Articles (Blog)
 import ArticlesIndex from './pages/articles/ArticlesIndex';
 import ArticleDetail from './pages/articles/ArticleDetail';
 
 import { initGA, logPageView } from './utils/analytics';
+import ConversionManager from './components/ConversionManager';
+import SpecialOfferModal from './components/SpecialOfferModal';
 import './App.css';
 
 // Component to track page views
@@ -51,10 +55,14 @@ function Analytics() {
 }
 
 function App() {
+  const [isContactOpen, setIsContactOpen] = useState(false);
+
   return (
     <HelmetProvider>
       <Router>
         <Analytics />
+        <ConversionManager onOpenContactForm={() => setIsContactOpen(true)} />
+        <SpecialOfferModal isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} />
         <Routes>
           {/* Main Routes */}
           <Route path="/" element={<Home />} />
@@ -83,7 +91,11 @@ function App() {
           <Route path="/store/chrome-themes" element={<ChromeThemes />} /> {/* Alias */}
 
           <Route path="/products/flutter-web-emulator" element={<FlutterWebEmulator />} /> {/* Sitemap Req */}
+
           <Route path="/store/flutter-web-emulator" element={<FlutterWebEmulator />} /> {/* Alias */}
+
+          <Route path="/products/cinemafly" element={<CinemaflyProduct />} />
+          <Route path="/store/cinemafly" element={<CinemaflyProduct />} />
 
           {/* Articles Routes */}
           <Route path="/articles" element={<ArticlesIndex />} />

@@ -1,5 +1,6 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import Reveal from './Reveal';
 import { Link } from 'react-router-dom';
 import { articlesData } from '../data/articles'; // Assuming this exists from previous analysis
 import './ArticleSection.css';
@@ -20,8 +21,8 @@ const ArticleSection = () => {
         <section className="article-section" ref={sectionRef}>
             <div className="container">
                 <div className="article-header">
-                    <span className="subtitle">LATEST IN</span>
-                    <h2 className="title">Tech & Insights</h2>
+                    <Reveal><span className="subtitle">LATEST IN</span></Reveal>
+                    <Reveal delay={0.1}><h2 className="title">Tech & Insights</h2></Reveal>
                 </div>
 
                 <div className="article-grid">

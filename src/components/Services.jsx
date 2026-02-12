@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import Reveal from './Reveal';
 import { FaArrowRight } from 'react-icons/fa';
 import './Services.css';
 
@@ -49,7 +50,7 @@ const Services = () => {
         <section className="services-section-list" id="services">
             <div className="container">
                 <div className="services-header-list">
-                    <h2>What we do <em>best.</em></h2>
+                    <Reveal><h2>What we do <em>best.</em></h2></Reveal>
                 </div>
 
                 <div className="services-list-container">
@@ -64,7 +65,7 @@ const Services = () => {
                         >
                             <div className="service-info">
                                 <span className="service-number">{service.id}</span>
-                                <h3 className="service-title">{service.title}</h3>
+                                <Reveal width="100%"><h3 className="service-title">{service.title}</h3></Reveal>
                             </div>
 
                             <div className="service-content-wrapper">
@@ -81,7 +82,7 @@ const Services = () => {
                                         </motion.div>
                                     )}
                                 </AnimatePresence>
-                                <p className="service-description">{service.description}</p>
+                                <Reveal delay={0.1}><p className="service-description">{service.description}</p></Reveal>
                             </div>
                         </Link>
                     ))}
