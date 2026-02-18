@@ -2,12 +2,11 @@
 .pricing-section {
     padding: 6rem 0;
     font-family: 'Inter', sans-serif;
-    /* Assuming Inter or similar sans-serif */
     position: relative;
     overflow: hidden;
 }
 
-/* Background Glow (Optional to match image vibe) */
+/* Background Glow */
 .pricing-section::before {
     content: '';
     position: absolute;
@@ -16,14 +15,14 @@
     transform: translate(-50%, -50%);
     width: 80%;
     height: 80%;
-    background: radial-gradient(circle, rgba(255, 100, 100, 0.05) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(188, 216, 72, 0.05) 0%, transparent 70%);
     z-index: 0;
     pointer-events: none;
 }
 
 .pricing-header {
     text-align: center;
-    margin-bottom: 4rem;
+    margin-bottom: 2.5rem;
     position: relative;
     z-index: 1;
 }
@@ -40,22 +39,80 @@
     font-size: 1.1rem;
 }
 
+/* Category Tabs */
+.pricing-tabs {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 3rem;
+    position: relative;
+    z-index: 1;
+}
+
+.pricing-tab {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1.2rem;
+    border-radius: 50px;
+    border: 1px solid #333;
+    background: #111;
+    color: #888;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    font-family: inherit;
+}
+
+.pricing-tab:hover {
+    border-color: #555;
+    color: #ccc;
+    background: #1a1a1a;
+}
+
+.pricing-tab.active {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    background: rgba(188, 216, 72, 0.08);
+}
+
+.tab-icon {
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+}
+
+.tab-label {
+    white-space: nowrap;
+}
+
+/* Pricing Grid */
 .pricing-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
     max-width: 1200px;
     margin: 0 auto;
     position: relative;
     z-index: 1;
-    align-items: center;
-    /* Vertically align so middle can pop */
+    align-items: stretch;
+}
+
+.pricing-grid.two-plans {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 800px;
+}
+
+.pricing-grid.single-plan {
+    grid-template-columns: 1fr;
+    max-width: 420px;
 }
 
 /* Card Styles */
 .pricing-card {
     background: #111;
-    /* Very dark grey/black */
     border: 1px solid #222;
     border-radius: 12px;
     padding: 2.5rem 2rem;
@@ -76,12 +133,17 @@
     z-index: 2;
 }
 
-/* Recommended/Detailed Card Specifics */
+/* Recommended Card */
 .pricing-card.recommended {
-    border-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(188, 216, 72, 0.3);
     background: #161616;
     transform: scale(1.05);
-    /* Slightly larger */
+}
+
+.pricing-card.recommended:hover,
+.pricing-card.recommended.active {
+    transform: scale(1.05) translateY(-10px);
+    border-color: rgba(188, 216, 72, 0.5);
 }
 
 /* Recommended Badge */
@@ -94,11 +156,25 @@
 }
 
 .recommended-badge span {
-    color: #FFA500;
-    /* Orange color from image */
+    color: var(--color-accent);
     font-size: 0.85rem;
-    font-weight: 500;
+    font-weight: 600;
     text-transform: capitalize;
+}
+
+/* Plan Badge (for non-recommended plans) */
+.plan-badge {
+    position: absolute;
+    top: 1.5rem;
+    left: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.plan-badge span {
+    color: #888;
+    font-size: 0.8rem;
+    font-weight: 500;
 }
 
 /* Icon */
@@ -107,18 +183,15 @@
     color: #ddd;
     margin-bottom: 1rem;
     margin-top: 1rem;
-    /* Space for badge if present */
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .pricing-card.recommended .card-icon-wrapper {
-    color: #FFA500;
-    /* Orange icon */
+    color: var(--color-accent);
     font-size: 2.5rem;
 }
-
 
 /* Text Elements */
 .plan-title {
@@ -153,7 +226,7 @@
     font-size: 0.9rem;
     margin-bottom: 2rem;
     line-height: 1.5;
-    max-width: 80%;
+    max-width: 85%;
     margin-left: auto;
     margin-right: auto;
 }
@@ -188,12 +261,44 @@
 .features-list li {
     margin-bottom: 0.8rem;
     color: #ccc;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     line-height: 1.5;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+}
+
+.feature-icon {
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+    font-size: 0.8rem;
+}
+
+.icon-check {
+    color: #4ade80;
+}
+
+.icon-cross {
+    color: #666;
+}
+
+.icon-info {
+    color: var(--color-accent);
+}
+
+.features-list li.not-included {
+    color: #555;
+    text-decoration: line-through;
+}
+
+.features-list li.info-item {
+    color: var(--color-accent);
+    font-style: italic;
 }
 
 /* Button */
 .btn-pricing {
+    display: block;
     width: 100%;
     background: #333;
     color: #fff;
@@ -204,23 +309,69 @@
     font-size: 1rem;
     cursor: pointer;
     transition: all 0.2s ease;
+    text-align: center;
+    text-decoration: none;
+    margin-top: auto;
 }
 
 .btn-pricing:hover {
     background: #444;
 }
 
+.pricing-card.recommended .btn-pricing {
+    background: linear-gradient(135deg, var(--color-accent), var(--color-accent-dark));
+    color: #000;
+    font-weight: 700;
+}
+
+.pricing-card.recommended .btn-pricing:hover {
+    background: linear-gradient(135deg, #cde665, #a3bd47);
+}
+
 /* Mobile Responsiveness */
 @media (max-width: 900px) {
-    .pricing-grid {
+
+    .pricing-grid,
+    .pricing-grid.two-plans {
         grid-template-columns: 1fr;
         max-width: 500px;
     }
 
     .pricing-card.recommended {
         transform: none;
-        /* remove scale on mobile */
-        margin: 1rem 0;
+        margin: 0;
         z-index: 1;
+    }
+
+    .pricing-card.recommended:hover,
+    .pricing-card.recommended.active {
+        transform: translateY(-10px);
+    }
+
+    .pricing-tabs {
+        gap: 0.4rem;
+    }
+
+    .pricing-tab {
+        padding: 0.5rem 0.9rem;
+        font-size: 0.78rem;
+    }
+
+    .tab-icon {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .pricing-tab .tab-label {
+        display: none;
+    }
+
+    .pricing-tab {
+        padding: 0.6rem 0.8rem;
+    }
+
+    .tab-icon {
+        font-size: 1.1rem;
     }
 }

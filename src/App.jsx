@@ -18,7 +18,9 @@ import ChromeExtensionDev from './pages/services/ChromeExtensionDev';
 import ChromeThemeDev from './pages/services/ChromeThemeDev';
 
 // Store (Products)
+import ClawdDashboard from './pages/ClawdDashboard';
 import StoreHub from './pages/store/StoreHub';
+
 import SanadPdfEditor from './pages/store/SanadPdfEditor';
 import DebtSettler from './pages/store/DebtSettler';
 import NishanQr from './pages/store/NishanQr';
@@ -76,6 +78,7 @@ function App() {
           <Route path="/services/chrome-theme-development" element={<ChromeThemeDev />} />
 
           {/* Store Routes */}
+          <Route path="/clawd" element={<ClawdDashboard />} />
           <Route path="/store" element={<StoreHub />} />
           <Route path="/products/sanad-pdf-editor" element={<SanadPdfEditor />} /> {/* Sitemap Req */}
           <Route path="/store/sanad-pdf-editor" element={<SanadPdfEditor />} /> {/* Alias */}

@@ -3,12 +3,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FaTimes, FaPaperPlane } from 'react-icons/fa';
 import './SpecialOfferModal.css';
 
-const SpecialOfferModal = ({ isOpen, onClose }) => {
+const SpecialOfferModal = ({ isOpen, onClose, initialProjectType = 'General Inquiry' }) => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
         phone: '',
-        projectType: 'Free Website (Feb Offer)',
+        projectType: initialProjectType,
         details: ''
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -85,8 +85,11 @@ const SpecialOfferModal = ({ isOpen, onClose }) => {
                         </button>
 
                         <div className="modal-header">
-                            <h3><span className="gradient-text">Unlock Your Offer</span></h3>
-                            <p>Fill in the details below to claim your Free Website offer for February!</p>
+                            <h3><span className="gradient-text">{formData.projectType?.includes('Feb Offer') ? 'Unlock Your Offer' : "Let's Get Started"}</span></h3>
+                            <p>{formData.projectType?.includes('Feb Offer')
+                                ? "Fill in the details below to claim your Free Website offer for February!"
+                                : `Fill in the details below to discuss your ${formData.projectType} requirements.`}
+                            </p>
                         </div>
 
                         <form onSubmit={handleSubmit} className="modal-form">
@@ -155,7 +158,7 @@ const SpecialOfferModal = ({ isOpen, onClose }) => {
                                 ) : (
                                     <>
                                         <FaPaperPlane className="icon" />
-                                        <span>Send Request</span>
+                                        <span>{formData.projectType?.includes('Feb Offer') ? 'Claim Offer' : 'Send Request'}</span>
                                     </>
                                 )}
                             </button>

@@ -8,17 +8,23 @@ import WorkShowcase from '../components/WorkShowcase';
 import Team from '../components/Team';
 import Services from '../components/Services';
 import StorePreview from '../components/StorePreview';
-import OffersSection from '../components/OffersSection';
+import PricingSection from '../components/PricingSection';
 import TestimonialsSection from '../components/TestimonialsSection';
 import ArticleSection from '../components/ArticleSection';
 import StatsSection from '../components/StatsSection';
 import TrustBadges from '../components/TrustBadges';
-import FebOfferBanner from '../components/FebOfferBanner';
+
 import SpecialOfferModal from '../components/SpecialOfferModal';
 import { useState } from 'react';
 
 const Home = () => {
     const [isOfferModalOpen, setIsOfferModalOpen] = useState(false);
+    const [selectedProject, setSelectedProject] = useState('General Inquiry');
+
+    const handleOpenModal = (projectType = 'General Inquiry') => {
+        setSelectedProject(projectType);
+        setIsOfferModalOpen(true);
+    };
 
     useEffect(() => {
         // Initialize Lenis smooth scroll
@@ -109,16 +115,20 @@ const Home = () => {
             />
 
             <div className="app">
-                <Navbar onContactClick={() => setIsOfferModalOpen(true)} />
-                <FebOfferBanner onClaim={() => setIsOfferModalOpen(true)} />
-                <Hero onStartProject={() => setIsOfferModalOpen(true)} />
-                <SpecialOfferModal isOpen={isOfferModalOpen} onClose={() => setIsOfferModalOpen(false)} />
+                <Navbar onContactClick={() => handleOpenModal('General Inquiry')} />
+
+                <Hero onStartProject={() => handleOpenModal('New Project Inquiry')} />
+                <SpecialOfferModal
+                    isOpen={isOfferModalOpen}
+                    onClose={() => setIsOfferModalOpen(false)}
+                    initialProjectType={selectedProject}
+                />
                 <StatsSection />
                 <TrustBadges />
                 <Services />
                 <WorkShowcase />
                 <TestimonialsSection />
-                <OffersSection />
+                <PricingSection onOrder={(title) => handleOpenModal(title)} />
                 <StorePreview />
                 <Team />
                 <ArticleSection />
