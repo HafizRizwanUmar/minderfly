@@ -1,6 +1,5 @@
 import puppeteer from 'puppeteer-core';
 import chromium from '@sparticuz/chromium';
-import localPuppeteer from 'puppeteer';
 import express from 'express';
 import path from 'path';
 import fs from 'fs';
@@ -37,23 +36,15 @@ async function prerender() {
         console.log(`📡 Static server running on http://localhost:${PORT}`);
 
         // 2. Launch Puppeteer
-        let browser;
-        if (process.env.VERCEL || process.env.VERCEL_ENV) {
-            console.log('🌐 Running on Vercel, using @sparticuz/chromium');
-            browser = await puppeteer.launch({
-                args: chromium.args,
-                defaultViewport: chromium.defaultViewport,
-                executablePath: await chromium.executablePath(),
-                headless: chromium.headless,
-                ignoreHTTPSErrors: true,
-            });
-        } else {
-            console.log('💻 Running locally, using standard puppeteer');
-            browser = await localPuppeteer.launch({
-                headless: "new",
-                args: ['--no-sandbox', '--disable-setuid-sandbox']
-            });
-        }
+        console.log('🌐 Launching browser with @sparticuz/chromium...');
+
+        const browser = await puppeteer.launch({
+            args: chromium.args,
+            defaultViewport: chromium.defaultViewport,
+            executablePath: await chromium.executablePath(),
+            headless: chromium.headless,
+        });
+
         const page = await browser.newPage();
 
         for (const route of ROUTES) {
