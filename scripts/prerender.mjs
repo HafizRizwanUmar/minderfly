@@ -1,4 +1,4 @@
-import puppeteer from 'puppeteer-core';
+import puppeteer from 'puppeteer';
 import express from 'express';
 import path from 'path';
 import fs from 'fs';
@@ -36,7 +36,8 @@ async function prerender() {
 
         // 2. Launch Puppeteer
         const browser = await puppeteer.launch({
-            headless: "new"
+            headless: "new",
+            args: ['--no-sandbox', '--disable-setuid-sandbox']
         });
         const page = await browser.newPage();
 
