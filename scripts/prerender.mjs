@@ -10,20 +10,11 @@ const __dirname = path.dirname(__filename);
 const PORT = 3333;
 const DIST_PATH = path.join(__dirname, '..', 'dist');
 
+import { articlesData } from '../src/data/articles.js';
+
 const ROUTES = [
     '/',
     '/services',
-    '/services/web-development',
-    '/services/mobile-app-development',
-    '/services/graphics-design',
-    '/services/chrome-extension-development',
-    '/services/chrome-theme-development',
-    '/store',
-    '/products/sanad-pdf-editor',
-    '/products/debt-settler',
-    '/products/nishan-qr',
-    '/products/flutter-web-emulator',
-    '/products/chrome-themes',
     '/products/cinemafly',
     '/work',
     '/team',

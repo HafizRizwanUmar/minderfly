@@ -213,25 +213,6 @@
     background: rgba(255, 255, 255, 0.05);
 }
 
-.tech-stack-preview {
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    padding-top: 20px;
-}
-
-.tech-stack-preview span {
-    display: block;
-    margin-bottom: 10px;
-    font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.5);
-}
-
-.stack-icons {
-    display: flex;
-    gap: 20px;
-    font-size: 1.5rem;
-    color: var(--color-accent);
-    justify-content: center;
-}
 
 
 /* Right Column CSS Removed */

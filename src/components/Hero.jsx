@@ -41,7 +41,6 @@ const Hero = ({ onStartProject }) => {
     const titleRef = useRef(null);
     const descRef = useRef(null);
     const actionsRef = useRef(null);
-    const stackRef = useRef(null);
 
 
     useLayoutEffect(() => {
@@ -90,12 +89,6 @@ const Hero = ({ onStartProject }) => {
                     { y: 20, opacity: 0 },
                     { y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: "back.out(1.2)" },
                     "-=0.6"
-                )
-                // Tech Stack Fade
-                .fromTo(stackRef.current,
-                    { opacity: 0, y: 10 },
-                    { opacity: 1, y: 0, duration: 1 },
-                    "-=0.4"
                 );
 
         }, heroRef);
@@ -169,14 +162,6 @@ const Hero = ({ onStartProject }) => {
                             </a>
                         </div>
 
-                        <div ref={stackRef} className="tech-stack-preview opacity-0">
-                            <span>Powering next-gen apps with:</span>
-                            <div className="stack-icons">
-                                <FaCode title="Web Dev" />
-                                <FaMobileAlt title="Mobile Apps" />
-                                <FaChrome title="Extensions" />
-                            </div>
-                        </div>
                     </div>
 
                     {/* Right Column Removed */}

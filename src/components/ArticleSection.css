@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400;1,600&display=swap');
+
 /* Dark theme for article section */
 .article-section {
     background-color: #000000;
@@ -32,8 +34,6 @@
     margin: 0;
 }
 
-/* Make sure we have a serif font fallback */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400;1,600&display=swap');
 
 .article-header .title {
     font-family: 'Playfair Display', 'Times New Roman', serif;

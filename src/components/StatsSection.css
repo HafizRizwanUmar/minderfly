@@ -1,27 +1,26 @@
 .stats-section {
-    padding: var(--spacing-xl) 0;
-    background: var(--color-bg-primary);
     position: relative;
+    /* Removed redundant padding, inherited from 'section' in index.css */
 }
 
 .stats-container {
     display: grid;
-    grid-template-columns: 350px 1fr;
-    gap: 60px;
+    grid-template-columns: 280px 1fr;
+    gap: 40px;
     align-items: flex-start;
 }
 
 /* Left Side - Title & Categories */
 .stats-categories {
     position: sticky;
-    top: 100px;
+    top: 120px;
 }
 
 .stats-title {
-    font-size: var(--text-4xl);
+    font-size: var(--text-3xl);
     color: var(--color-text-primary);
-    margin-bottom: 40px;
-    line-height: 1.1;
+    margin-bottom: 32px;
+    line-height: 1.2;
     text-transform: uppercase;
 }
 
@@ -36,10 +35,10 @@
 }
 
 .category-pill {
-    padding: 14px 28px;
+    padding: 12px 24px;
     border: 1px solid var(--border-light);
     border-radius: 100px;
-    font-size: var(--text-sm);
+    font-size: var(--text-xs);
     font-weight: 600;
     color: var(--color-text-secondary);
     cursor: default;
@@ -47,6 +46,7 @@
     text-align: left;
     background: rgba(255, 255, 255, 0.02);
     width: fit-content;
+    letter-spacing: 0.1em;
 }
 
 .category-pill:hover {
@@ -59,15 +59,15 @@
 /* Right Side - Cards Grid */
 .stats-cards-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 40px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
 }
 
 /* Folder Card Base Styles */
 .folder-card {
     position: relative;
     padding: 35px;
-    height: 340px;
+    min-height: 340px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -87,7 +87,6 @@
     left: -1px;
     width: 140px;
     height: 20px;
-    background: inherit;
     border: 1px solid var(--border-light);
     border-bottom: none;
     border-radius: 16px 40px 0 0;
@@ -101,9 +100,21 @@
     border-color: rgba(255, 255, 255, 0.1);
 }
 
+.folder-card.blue::before {
+    background: #0029FF;
+    /* Match start of gradient */
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
 .folder-card.white {
     background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
     color: #000;
+    border-color: rgba(0, 0, 0, 0.05);
+}
+
+.folder-card.white::before {
+    background: #f8f9fa;
+    /* Match start of gradient */
     border-color: rgba(0, 0, 0, 0.05);
 }
 
@@ -113,8 +124,9 @@
     border-color: rgba(0, 0, 0, 0.05);
 }
 
-.folder-card.white::before,
-.folder-card.white {
+.folder-card.yellow::before {
+    background: #FFC043;
+    /* Match start of gradient */
     border-color: rgba(0, 0, 0, 0.05);
 }
 
