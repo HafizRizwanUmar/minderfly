@@ -34,10 +34,9 @@ async function prerender() {
     const server = app.listen(PORT, async () => {
         console.log(`📡 Static server running on http://localhost:${PORT}`);
 
-        // 2. Launch Puppeteer using local Chrome installation
+        // 2. Launch Puppeteer
         const browser = await puppeteer.launch({
-            headless: "new",
-            executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe'
+            headless: "new"
         });
         const page = await browser.newPage();
 
