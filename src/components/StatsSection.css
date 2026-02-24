@@ -1,66 +1,183 @@
 .stats-section {
-    padding: 60px 0;
-    background: #050505;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    position: relative;
-    z-index: 10;
-}
-
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 30px;
-    text-align: center;
-}
-
-.stat-card {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    padding: 30px 20px;
-    border-radius: 16px;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(5px);
-}
-
-.stat-card:hover {
-    transform: translateY(-5px);
-    background: rgba(255, 255, 255, 0.04);
-    border-color: rgba(255, 255, 255, 0.1);
-}
-
-.stat-icon {
-    font-size: 2rem;
-    margin-bottom: 15px;
-    filter: drop-shadow(0 0 10px currentColor);
-}
-
-.stat-value {
-    font-size: 2.5rem;
-    font-weight: 800;
-    margin: 0;
+    padding: 80px 0;
+    background: #000;
     color: #fff;
-    line-height: 1.1;
-    font-family: 'Space Grotesk', sans-serif;
-    /* Assuming font availability or fallback */
+    overflow: hidden;
 }
 
-.stat-label {
-    margin-top: 5px;
-    color: #888;
-    text-transform: uppercase;
-    font-size: 0.8rem;
-    letter-spacing: 1px;
+.stats-container {
+    display: flex;
+    gap: 60px;
+    align-items: center;
+}
+
+/* Categories Sidebar */
+.stats-categories {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    min-width: 200px;
+}
+
+.category-pill {
+    padding: 12px 24px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 100px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #fff;
+    cursor: default;
+    transition: all 0.3s ease;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.category-pill:hover {
+    border-color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Cards Grid */
+.stats-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    flex: 1;
+}
+
+/* Folder Card Base Styles */
+.folder-card {
+    position: relative;
+    padding: 30px;
+    border-radius: 20px;
+    height: 280px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease;
+    clip-path: polygon(0% 20px,
+            /* Top-left start */
+            20px 0%,
+            /* Top-left curve/cut (optional, keeping it simple rounded) */
+            0% 0%, 100% 0%,
+            /* Top edge */
+            100% 100%, 0% 100%
+            /* Bottom */
+        );
+    /* Better folder shape via SVG or complex clip-path, simple rounded for now with a tab effect if needed */
+    /* Reseting clip path to use border-radius for cleaner look first, user asked for "look like this" */
+    clip-path: none;
+    border-top-right-radius: 20px;
+}
+
+/* The "Tab" look can be achieved with a pseudo element or clip-path. 
+   Let's try a simple reliable approach: just border radius plus a pseudo-element for the tab if strictly needed.
+   The image shows a "tab" on the right. 
+*/
+.folder-card::before {
+    content: '';
+    position: absolute;
+    top: -15px;
+    right: 0;
+    width: 40%;
+    height: 30px;
+    background: inherit;
+    border-radius: 15px 15px 0 0;
+    z-index: -1;
+    display: none;
+    /* Hiding complex tab for now to ensure clean UI first, unless requested */
+}
+
+/* Specific Card Colors */
+.folder-card.blue {
+    background-color: #0029FF;
+    /* Vibrant Blue */
+    color: #fff;
+}
+
+.folder-card.white {
+    background-color: #E6E6E6;
+    /* Light Grey/White */
+    color: #000;
+}
+
+.folder-card.yellow {
+    background-color: #FFC043;
+    /* Yellow */
+    color: #000;
+}
+
+/* Card Content */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.card-subtitle {
+    font-size: 0.85rem;
     font-weight: 600;
+    text-transform: uppercase;
+    line-height: 1.4;
+    opacity: 0.8;
 }
 
-@media (max-width: 900px) {
-    .stats-grid {
+.card-icon-arrow {
+    font-size: 1.5rem;
+}
+
+.card-body h3 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 1.1;
+    margin: 0;
+}
+
+.card-body.centered-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
+.card-main-icon {
+    font-size: 5rem;
+}
+
+.big-number {
+    font-size: 5rem !important;
+    font-weight: 800;
+}
+
+/* Hover Effects */
+.folder-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .stats-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .stats-categories {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .stats-cards-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
-@media (max-width: 480px) {
-    .stats-value {
-        font-size: 2rem;
+@media (max-width: 600px) {
+    .stats-cards-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .folder-card {
+        height: 240px;
     }
 }

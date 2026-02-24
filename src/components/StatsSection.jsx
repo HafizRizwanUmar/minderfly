@@ -1,61 +1,70 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import Reveal from './Reveal';
-import { FaUsers, FaProjectDiagram, FaStar, FaGlobe } from 'react-icons/fa';
+import { FaAsterisk } from 'react-icons/fa';
+import { GoArrowUpRight } from 'react-icons/go';
 import './StatsSection.css';
 
 const StatsSection = () => {
-    const stats = [
-        {
-            id: 1,
-            label: "Active Users",
-            value: "25k+",
-            icon: <FaUsers />,
-            color: "#00f2ea"
-        },
-        {
-            id: 2,
-            label: "Projects Delivered",
-            value: "150+",
-            icon: <FaProjectDiagram />,
-            color: "#ff0050"
-        },
-        {
-            id: 3,
-            label: "Client Rating",
-            value: "4.9/5",
-            icon: <FaStar />,
-            color: "#FFD700"
-        },
-        {
-            id: 4,
-            label: "Countries Served",
-            value: "80+",
-            icon: <FaGlobe />,
-            color: "#00ff80"
-        }
+    const categories = [
+        "DESIGN",
+        "WEB DEVELOPMENT",
+        "UI/UX"
     ];
 
     return (
         <section className="stats-section">
             <div className="container">
-                <div className="stats-grid">
-                    {stats.map((stat, index) => (
-                        <Reveal
-                            key={stat.id}
-                            className="stat-card"
-                            delay={index * 0.1}
-                            width="100%"
-                        >
-                            <div className="stat-icon" style={{ color: stat.color }}>
-                                {stat.icon}
+                <div className="stats-container">
+                    {/* Left Side - Categories */}
+                    <div className="stats-categories">
+                        {categories.map((cat, index) => (
+                            <motion.div
+                                key={index}
+                                className="category-pill"
+                                initial={{ opacity: 0, x: -20 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                transition={{ delay: index * 0.1 }}
+                            >
+                                {cat}
+                            </motion.div>
+                        ))}
+                    </div>
+
+                    {/* Right Side - Cards */}
+                    <div className="stats-cards-grid">
+                        {/* Card 1 - Blue */}
+                        <Reveal delay={0.1} className="folder-card blue">
+                            <div className="card-header">
+                                <span className="card-subtitle">ALUMNI 21 PROGRAM</span>
                             </div>
-                            <div className="stat-content">
-                                <h3 className="stat-value">{stat.value}</h3>
-                                <p className="stat-label">{stat.label}</p>
+                            <div className="card-body">
+                                <h3>EMPLOYMENT<br />ASSISTANCE</h3>
                             </div>
                         </Reveal>
-                    ))}
+
+                        {/* Card 2 - White/Grey */}
+                        <Reveal delay={0.2} className="folder-card white">
+                            <div className="card-header">
+                                <span className="card-subtitle">LEARNING PLATFORM<br />WALKTHROUGH</span>
+                                <GoArrowUpRight className="card-icon-arrow" />
+                            </div>
+                            <div className="card-body centered-icon">
+                                <FaAsterisk className="card-main-icon" />
+                            </div>
+                        </Reveal>
+
+                        {/* Card 3 - Yellow */}
+                        <Reveal delay={0.3} className="folder-card yellow">
+                            <div className="card-header">
+                                <span className="card-subtitle">LEARNING PLATFORM<br />WALKTHROUGH</span>
+                                <GoArrowUpRight className="card-icon-arrow" />
+                            </div>
+                            <div className="card-body">
+                                <h3 className="big-number">700</h3>
+                            </div>
+                        </Reveal>
+                    </div>
                 </div>
             </div>
         </section>
