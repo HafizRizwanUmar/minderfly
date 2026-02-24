@@ -8,7 +8,6 @@ import GameOverScreen from '../screens/GameOverScreen';
 import LeaderboardScreen from '../screens/LeaderboardScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import DailyRewardScreen from '../screens/DailyRewardScreen';
-import { TelegramAds } from '../ads/TelegramAds';
 
 // We wrap the internal controller with the Provider
 const GameController = () => {
@@ -31,10 +30,6 @@ const GameLogic = () => {
     // Platform Mock (Replace with actual platform detection later)
     const isTelegram = false; // Placeholder
 
-    // Initialize Ads
-    useEffect(() => {
-        TelegramAds.initInAppInterstitial();
-    }, []);
 
     // Timer Logic
     useEffect(() => {
@@ -153,15 +148,8 @@ const GameLogic = () => {
                         }
                     }}
                     onClaimReward={() => {
-                        TelegramAds.showRewardedInterstitial().then((seen) => {
-                            if (seen) {
-                                actions.addCoins(50);
-                                alert("Reward claimed!");
-                            }
-                        }).catch(e => {
-                            console.error("Ad failed", e);
-                            // Optional: reward anyway? No, user explicitly said "To make ads work".
-                        });
+                        actions.addCoins(50);
+                        alert("Reward claimed!");
                     }}
                 />;
             case 'LEADERBOARD':
@@ -178,16 +166,7 @@ const GameLogic = () => {
                         }
 
                         if (double) {
-                            TelegramAds.showRewardedInterstitial().then((seen) => {
-                                if (seen) reward();
-                            }).catch(() => {
-                                // Fallback or error handling
-                                reward(); // Or maybe don't reward if failed? For now be generous? 
-                                // Actually better to not reward if ad failed/skipped if strict, but user code allows strict.
-                                // Let's just run reward() for now or maybe fall back to simple reward.
-                                // I'll assume if it fails they get nothing for the "double" part? 
-                                // Let's just execute reward to be safe for user exp in case of ad block.
-                            });
+                            reward();
                         } else {
                             reward();
                         }

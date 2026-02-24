@@ -109,7 +109,7 @@ const Home = () => {
             <SEOHead
                 title="Minderfly | Web & Mobile App Development, Graphics & Chrome Extensions"
                 description="Expert Web & Mobile App Development, Graphics Designing, and Chrome Extension creation. Home of Sanad PDF Editor, Debt Settler, and Nishan QR."
-                keywords="web developer in lahore, web development, mobile app development, graphics designing, extension development, chrome theme development, Sanad PDF editor, Debt Settler, Nishan QR, Flutter Web Emulator, custom software, brands"
+                keywords="web development, mobile app development, graphics design, chrome extension development, chrome theme building, Sanad PDF editor, Debt Settler, Nishan QR, Flutter Web Emulator, custom software solutions, software studio Pakistan"
                 canonical="https://minderfly.com/"
                 schema={structuredData}
             />
