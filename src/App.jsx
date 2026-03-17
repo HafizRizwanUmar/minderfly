@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react';
 // Main Pages
 import Home from './pages/Home';
 import WorkPage from './pages/WorkPage';
+import ProjectDetail from './pages/ProjectDetail';
+import AcademyAdmin from './pages/AcademyAdmin';
 import TeamPage from './pages/TeamPage';
 import AntigravitySession from './pages/AntigravitySession';
 import GameApp from './game/GameApp';
@@ -107,6 +109,8 @@ function App() {
 
           {/* Other Pages */}
           <Route path="/work" element={<WorkPage />} />
+          <Route path="/work/:id" element={<ProjectDetail />} />
+          <Route path="/quran-o-itrat/admin" element={<AcademyAdmin />} />
           <Route path="/team" element={<TeamPage />} />
           <Route path="/antigravity-masterclass" element={<AntigravitySession />} />
           <Route path="/game" element={<GameApp />} />

@@ -1,7 +1,9 @@
 import { motion } from 'framer-motion';
 import { useRef } from 'react';
+import { Link } from 'react-router-dom';
 import Reveal from './Reveal';
 import { FaArrowRight, FaCode, FaMobileAlt, FaChrome, FaDesktop, FaExternalLinkAlt } from 'react-icons/fa';
+import { projectsData } from '../data/projects';
 import './WorkShowcase.css';
 
 // Icons mapping for different project categories
@@ -16,49 +18,6 @@ const getIcon = (category) => {
 const WorkShowcase = () => {
     const scrollRef = useRef(null);
 
-    const projects = [
-        {
-            id: 0,
-            title: 'Flutter Web Emulator',
-            category: 'VS Code Extension',
-            description: 'A revolutionary tool used by 4000+ developers.',
-            stats: '4,000+ Users',
-            link: 'https://marketplace.visualstudio.com/items?itemName=HafizRizwanUmar.flutter-web-emulator',
-        },
-        {
-            id: 1,
-            title: 'Pastel Aurora',
-            category: 'Chrome Theme',
-            description: 'Aesthetics for your browser with 450+ users.',
-            stats: '450+ Users',
-            link: 'https://chromewebstore.google.com/detail/lmggijfeinibhlmbnjlkiobndeiogimo',
-        },
-        {
-            id: 2,
-            title: 'Knights Engineering',
-            category: 'MERN Website',
-            description: 'Enterprise platform for UAE based oil company.',
-            stats: 'Enterprise Client',
-            link: 'https://knightsengineering.ae/',
-        },
-        {
-            id: 3,
-            title: 'Nishan QR',
-            category: 'Desktop App',
-            description: 'Professional QR generator for Windows.',
-            stats: 'Microsoft Store',
-            link: 'https://apps.microsoft.com/detail/9njf5mhwhhps?hl=en-US&gl=PK',
-        },
-        {
-            id: 4,
-            title: 'Campus Skill Share',
-            category: 'React Platform',
-            description: 'P2P skill sharing for university students.',
-            stats: 'Education Platform',
-            link: '#',
-        }
-    ];
-
     return (
         <section className="work-section" id="work">
             <div className="container">
@@ -69,44 +28,55 @@ const WorkShowcase = () => {
 
                 <div className="work-scroll-container" ref={scrollRef}>
                     <div className="work-grid">
-                        {projects.map((project, index) => (
-                            <motion.a
-                                key={project.id}
-                                href={project.link}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="work-card"
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true, margin: "-50px" }}
-                                transition={{ duration: 0.5, delay: index * 0.1 }}
-                                whileHover={{ y: -8 }}
-                                aria-label={`View ${project.title} - ${project.category}`}
-                            >
-                                <div className="card-background"></div>
+                        {projectsData.map((project, index) => {
+                            const CardComponent = project.isExternal ? motion.a : motion(Link);
+                            const cardProps = project.isExternal 
+                                ? { href: project.link, target: "_blank", rel: "noopener noreferrer" }
+                                : { to: project.link };
 
-                                <div className="card-header">
-                                    <div className="card-icon">
-                                        {getIcon(project.category)}
+                            return (
+                                <CardComponent
+                                    key={project.id}
+                                    {...cardProps}
+                                    className="work-card"
+                                    initial={{ opacity: 0, y: 30 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true, margin: "-50px" }}
+                                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                                    whileHover={{ y: -8 }}
+                                    aria-label={`View ${project.title} - ${project.category}`}
+                                >
+                                    <div className="card-background"></div>
+
+                                    <div className="card-header">
+                                        <div className="card-icon">
+                                            {getIcon(project.category)}
+                                        </div>
+                                        <span className="card-category">{project.category}</span>
                                     </div>
-                                    <span className="card-category">{project.category}</span>
-                                </div>
 
-                                <div className="card-content">
-                                    <h3 className="card-title">{project.title}</h3>
-                                    <p className="card-description">{project.description}</p>
+                                    {project.thumbnail && (
+                                        <div className="card-image-container">
+                                            <img src={project.thumbnail} alt={project.title} className="card-image" />
+                                        </div>
+                                    )}
 
-                                    <div className="card-footer">
-                                        <span className="card-stats">{project.stats}</span>
-                                        <div className="card-link-icon">
-                                            <FaExternalLinkAlt />
+                                    <div className="card-content">
+                                        <h3 className="card-title">{project.title}</h3>
+                                        <p className="card-description">{project.description}</p>
+
+                                        <div className="card-footer">
+                                            <span className="card-stats">{project.stats}</span>
+                                            <div className="card-link-icon">
+                                                <FaExternalLinkAlt />
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div className="card-glow"></div>
-                            </motion.a>
-                        ))}
+                                    <div className="card-glow"></div>
+                                </CardComponent>
+                            );
+                        })}
                     </div>
                 </div>
 
@@ -119,4 +89,4 @@ const WorkShowcase = () => {
     );
 };
 
-export default WorkShowcase;
+export default WorkShowcase;

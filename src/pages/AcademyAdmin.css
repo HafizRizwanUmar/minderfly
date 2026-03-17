@@ -1,0 +1,46 @@
+.academy-admin-layout {
+    --accent: #bcd848;
+    --dark: #0a0a0a;
+}
+
+.academy-admin-layout .text-accent {
+    color: var(--accent);
+}
+
+.academy-admin-layout .bg-accent {
+    background-color: var(--accent);
+}
+
+.academy-admin-layout .text-dark {
+    color: var(--dark);
+}
+
+.academy-admin-layout .btn-primary {
+    transition: all 0.3s ease;
+}
+
+.academy-admin-layout .btn-primary:hover {
+    box-shadow: 0 10px 15px -3px rgba(188, 216, 72, 0.3);
+}
+
+.academy-admin-layout input::placeholder {
+    color: #444;
+}
+
+/* Scrollbar for modern look */
+.academy-admin-layout ::-webkit-scrollbar {
+    width: 6px;
+}
+
+.academy-admin-layout ::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.academy-admin-layout ::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 10px;
+}
+
+.academy-admin-layout ::-webkit-scrollbar-thumb:hover {
+    background: #444;
+}
