@@ -5,6 +5,7 @@ import { FaArrowLeft, FaExternalLinkAlt, FaCheckCircle, FaCode, FaRocket } from 
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import SEOHead from '../components/SEOHead';
+import Reveal from '../components/Reveal';
 import { projectsData } from '../data/projects';
 import './ProjectDetail.css';
 

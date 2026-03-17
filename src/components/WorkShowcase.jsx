@@ -43,7 +43,7 @@ const WorkShowcase = () => {
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true, margin: "-50px" }}
                                     transition={{ duration: 0.5, delay: index * 0.1 }}
-                                    whileHover={{ y: -8 }}
+                                    whileHover={{ y: -12 }}
                                     aria-label={`View ${project.title} - ${project.category}`}
                                 >
                                     <div className="card-background"></div>
@@ -58,6 +58,7 @@ const WorkShowcase = () => {
                                     {project.thumbnail && (
                                         <div className="card-image-container">
                                             <img src={project.thumbnail} alt={project.title} className="card-image" />
+                                            <div className="card-image-overlay"></div>
                                         </div>
                                     )}
 
