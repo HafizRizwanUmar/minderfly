@@ -18,6 +18,8 @@ const ROUTES = [
     '/services',
     '/products/cinemafly',
     '/work',
+    '/work/quran-o-itrat-academy',
+    '/quran-o-itrat/admin',
     '/team',
     '/articles'
 ];

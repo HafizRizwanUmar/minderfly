@@ -4,7 +4,7 @@ import SEOHead from '../components/SEOHead';
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
 import Footer from '../components/Footer';
-import WorkShowcase from '../components/WorkShowcase';
+import BentoGrid from '../components/BentoGrid';
 import Team from '../components/Team';
 import Services from '../components/Services';
 import StorePreview from '../components/StorePreview';
@@ -13,18 +13,10 @@ import TestimonialsSection from '../components/TestimonialsSection';
 import ArticleSection from '../components/ArticleSection';
 import StatsSection from '../components/StatsSection';
 import TrustBadges from '../components/TrustBadges';
-
-import SpecialOfferModal from '../components/SpecialOfferModal';
-import { useState } from 'react';
+import { useModal } from '../context/ModalContext';
 
 const Home = () => {
-    const [isOfferModalOpen, setIsOfferModalOpen] = useState(false);
-    const [selectedProject, setSelectedProject] = useState('General Inquiry');
-
-    const handleOpenModal = (projectType = 'General Inquiry') => {
-        setSelectedProject(projectType);
-        setIsOfferModalOpen(true);
-    };
+    const { openModal } = useModal();
 
     useEffect(() => {
         // Initialize Lenis smooth scroll
@@ -115,24 +107,20 @@ const Home = () => {
             />
 
             <div className="app">
-                <Navbar onContactClick={() => handleOpenModal('General Inquiry')} />
+                <Navbar />
 
-                <Hero onStartProject={() => handleOpenModal('New Project Inquiry')} />
-                <SpecialOfferModal
-                    isOpen={isOfferModalOpen}
-                    onClose={() => setIsOfferModalOpen(false)}
-                    initialProjectType={selectedProject}
-                />
+                <Hero onStartProject={() => openModal('New Project Inquiry')} />
+                
                 <StatsSection />
                 <TrustBadges />
                 <Services />
-                <WorkShowcase />
+                <BentoGrid />
                 <TestimonialsSection />
-                <PricingSection onOrder={(title) => handleOpenModal(title)} />
+                <PricingSection onOrder={(title) => openModal(title)} />
                 <StorePreview />
                 <Team />
                 <ArticleSection />
-                <Footer />
+                <Footer onContactClick={() => openModal('General Inquiry')} />
             </div>
         </>
     );

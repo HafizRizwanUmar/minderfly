@@ -1,0 +1,189 @@
+/* ═══════════════════════════════════════════════
+   Contact.css — Minderfly Contact Page
+   Aesthetic: Premium Dark Editorial · Syne + DM Sans
+   Glassmorphism · Subtle Gradients · Fluid Layout
+═══════════════════════════════════════════════ */
+
+:root {
+  --contact-accent: #c8f23a;
+  --contact-bg: #050505;
+  --contact-wire: rgba(255, 255, 255, 0.07);
+}
+
+.contact-main {
+  background: var(--contact-bg);
+  color: #fff;
+  min-height: 100vh;
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* ── Hero Section ── */
+.contact-hero {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 128px 3rem 100px;
+  position: relative;
+  z-index: 1;
+}
+
+.contact-hero-grid {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4rem;
+  align-items: flex-end;
+  margin-bottom: 80px;
+}
+
+.contact-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--contact-accent);
+  margin-bottom: 1.1rem;
+}
+
+.contact-eyebrow-line {
+  width: 20px;
+  height: 1px;
+  background: var(--contact-accent);
+}
+
+.contact-title {
+  font-family: var(--font-heading, 'Syne', sans-serif);
+  font-size: clamp(2.4rem, 5vw, 4.5rem);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+  margin-bottom: 1rem;
+}
+
+.contact-title-stroke {
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.2);
+  color: transparent;
+}
+
+.contact-subtitle {
+  font-size: 1.05rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.44);
+  max-width: 540px;
+  line-height: 1.72;
+}
+
+/* ── Info Card ── */
+.contact-info-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--contact-wire);
+  border-radius: 18px;
+  padding: 28px 28px 24px;
+  min-width: 260px;
+}
+
+.contact-info-label {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.25);
+  margin-bottom: 1.25rem;
+}
+
+.contact-info-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 1rem;
+}
+
+.contact-info-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: rgba(200, 242, 58, 0.08);
+  border: 1px solid rgba(200, 242, 58, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--contact-accent);
+  font-size: 0.85rem;
+}
+
+.contact-info-link {
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.65);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.contact-info-link:hover {
+  color: #fff;
+}
+
+/* ── Grid Sections ── */
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+/* ── Process Steps ── */
+.contact-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  position: relative;
+  margin-top: 40px;
+}
+
+.contact-step-item {
+  padding: 0 20px 52px;
+  text-align: center;
+  position: relative;
+}
+
+.contact-step-num {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--contact-bg);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--contact-accent);
+  margin: 0 auto 1.5rem;
+  transition: all 0.2s;
+}
+
+/* ── Bottom CTA ── */
+.contact-cta-banner {
+  background: var(--contact-accent);
+  border-radius: 22px;
+  padding: 80px 72px;
+  color: #000;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .contact-hero-grid { grid-template-columns: 1fr; }
+  .contact-grid { grid-template-columns: repeat(2, 1fr); }
+  .contact-steps { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .contact-hero { padding: 100px 1.5rem 60px; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .contact-cta-banner { padding: 48px 32px; }
+}

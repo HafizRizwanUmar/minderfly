@@ -1,178 +1,283 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaChevronLeft, FaChevronRight, FaLinkedin, FaGithub } from 'react-icons/fa';
+import { FaChevronLeft, FaChevronRight, FaLinkedin, FaGithub, FaGlobe } from 'react-icons/fa';
 import './Team.css';
-import teamMemberImg from '../assets/team-member.png';
+
+// Import your actual team member images
+import teamMemberImg  from '../assets/team-member.png';
 import teamMemberImg1 from '../assets/team-member1.png';
 
+/* ═══════════════════════════════════════════════
+   Team Section — Minderfly
+   Full-bleed editorial portrait carousel
+   Analog-inspired · amber accent
+   Full SEO structured data
+═══════════════════════════════════════════════ */
+
+/* ── Team data ── */
+const TEAM = [
+  {
+    id: 1,
+    firstName: 'HAFIZ',
+    lastName:  'RIZWAN',
+    name:      'Hafiz Rizwan Umar',
+    role:      'Full Stack Developer',
+    location:  'Lahore, Pakistan',
+    bio:       'Builds Chrome extensions, VS Code tools, Windows apps, and full-stack web platforms. 5+ years shipping production software.',
+    image:     teamMemberImg,
+    skills:    ['React', 'Node.js', 'Flutter', 'VS Code API', 'Chrome Extensions'],
+    social: {
+      linkedin: 'https://www.linkedin.com/in/hafizrizwanumar',
+      github:   'https://github.com/hafizrizwanumar',
+    },
+  },
+  {
+    id: 2,
+    firstName: 'AMMARA',
+    lastName:  'LOHANI',
+    name:      'Ammara Lohani',
+    role:      'UI/UX Designer',
+    location:  'Karachi, Pakistan',
+    bio:       'Crafts intuitive, visually striking interfaces from wireframe to pixel-perfect handoff. Specialises in design systems and product identity.',
+    image:     teamMemberImg1,
+    skills:    ['Figma', 'Design Systems', 'Prototyping', 'Brand Identity', 'Motion Design'],
+    social: {
+      linkedin: null,
+      github:   null,
+    },
+  },
+];
+
+/* ── SEO schema ── */
+const orgSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Minderfly',
+  url: 'https://minderfly.com',
+  member: TEAM.map(m => ({
+    '@type': 'Person',
+    name: m.name,
+    jobTitle: m.role,
+    worksFor: { '@type': 'Organization', name: 'Minderfly' },
+    sameAs: [m.social.linkedin, m.social.github].filter(Boolean),
+  })),
+};
+
+/* ── Motion variants ── */
+const slideVariants = {
+  enter:  (dir) => ({ opacity: 0, x: dir > 0 ?  60 : -60 }),
+  center: { opacity: 1, x: 0 },
+  exit:   (dir) => ({ opacity: 0, x: dir > 0 ? -60 :  60 }),
+};
+
+const bgVariants = {
+  enter:  { opacity: 0 },
+  center: { opacity: 1 },
+  exit:   { opacity: 0 },
+};
+
+/* ═══════════════════════════════════════════════
+   COMPONENT
+═══════════════════════════════════════════════ */
 const Team = () => {
-    const [currentIndex, setCurrentIndex] = useState(0);
+  const [index,  setIndex]  = useState(0);
+  const [dir,    setDir]    = useState(1);
 
-    const teamMembers = [
-        {
-            id: 1,
-            name: 'HAFIZ RIZWAN UMAR',
-            firstName: 'HAFIZ',
-            lastName: 'RIZWAN',
-            role: 'FULL STACK DEVELOPER',
-            location: 'BASED IN PAKISTAN',
-            image: teamMemberImg,
-            social: {
-                linkedin: 'https://www.linkedin.com/in/hafizrizwanumar',
-                github: 'https://github.com/hafizrizwanumar'
-            }
-        },
-        {
-            id: 2,
-            name: 'AMMARA LOHANI',
-            firstName: 'AMMARA',
-            lastName: 'LOHANI',
-            role: 'UI/UX DESIGNER',
-            location: 'BASED IN PAKISTAN',
-            image: teamMemberImg1, // Placeholder
-            social: {
-                linkedin: '#',
-                github: '#'
-            }
-        },
-    ];
+  const goTo = (next) => {
+    setDir(next > index ? 1 : -1);
+    setIndex(next);
+  };
+  const next = () => goTo((index + 1) % TEAM.length);
+  const prev = () => goTo((index - 1 + TEAM.length) % TEAM.length);
 
-    const currentMember = teamMembers[currentIndex];
-
-    const nextMember = () => {
-        setCurrentIndex((prev) => (prev + 1) % teamMembers.length);
+  /* Keyboard navigation */
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === 'ArrowRight') next();
+      if (e.key === 'ArrowLeft')  prev();
     };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [index]);
 
-    const prevMember = () => {
-        setCurrentIndex((prev) => (prev - 1 + teamMembers.length) % teamMembers.length);
-    };
+  const member = TEAM[index];
 
-    // Keyboard navigation
-    useEffect(() => {
-        const handleKeyDown = (e) => {
-            if (e.key === 'ArrowRight') {
-                setCurrentIndex((prev) => (prev + 1) % teamMembers.length);
-            }
-            if (e.key === 'ArrowLeft') {
-                setCurrentIndex((prev) => (prev - 1 + teamMembers.length) % teamMembers.length);
-            }
-        };
-        window.addEventListener('keydown', handleKeyDown);
-        return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [teamMembers.length]);
+  return (
+    <section id="team" className="team-section" aria-label="Meet the Minderfly team">
+      {/* SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }}
+      />
 
-    return (
-        <section id="team" className="team-section">
-            <div className="team-container">
-                {/* Side Navigation */}
-                <div className="team-side-nav">
-                    <a href="#about" className="side-nav-link">[ ABOUT ]</a>
-                    <a href="#work" className="side-nav-link">[ WORKS ]</a>
-                    <a href="#contact" className="side-nav-link">[ CONTACTS ]</a>
-                </div>
+      {/* Grain */}
+      <div className="team-grain" aria-hidden="true"/>
 
-                {/* Navigation Arrows */}
-                <button
-                    className="team-nav-btn team-nav-prev"
-                    onClick={prevMember}
-                    aria-label="Previous team member"
-                >
-                    <FaChevronLeft />
-                </button>
-                <button
-                    className="team-nav-btn team-nav-next"
-                    onClick={nextMember}
-                    aria-label="Next team member"
-                >
-                    <FaChevronRight />
-                </button>
+      {/* Eyebrow */}
+      <div className="team-eyebrow" aria-hidden="true">
+        <span className="team-eyebrow-line"/>
+        The Team
+      </div>
 
-                {/* Background Text */}
-                <AnimatePresence mode="wait">
-                    <motion.div
-                        key={currentMember.id}
-                        className="team-bg-text"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.3 }}
-                    >
-                        {currentMember.firstName}
-                        <br />
-                        {currentMember.lastName}
-                    </motion.div>
-                </AnimatePresence>
+      <div className="team-container">
 
-                <AnimatePresence mode="wait">
-                    <motion.div
-                        key={currentMember.id}
-                        className="team-content"
-                        initial={{ opacity: 0, x: 100 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -100 }}
-                        transition={{ duration: 0.5, ease: "easeInOut" }}
-                    >
-                        {/* Image */}
-                        <div className="team-image-wrapper">
-                            <img
-                                src={currentMember.image}
-                                alt={currentMember.name}
-                                className="team-image"
-                            />
-                        </div>
+        {/* Side nav */}
+        <nav className="team-side-nav" aria-label="Section links">
+          <a href="#services" className="side-nav-link">Services</a>
+          <a href="#work"     className="side-nav-link">Work</a>
+          <a href="#contact"  className="side-nav-link">Contact</a>
+        </nav>
 
-                        {/* Info */}
-                        <div className="team-info">
-                            <div className="team-role">
-                                {currentMember.role}
-                                <br />
-                                {currentMember.location}
-                            </div>
+        {/* Ghost background text */}
+        <AnimatePresence mode="wait" custom={dir}>
+          <motion.div
+            key={member.id + '-bg'}
+            className="team-bg-text"
+            variants={bgVariants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{ duration: .35 }}
+            aria-hidden="true"
+          >
+            {member.firstName}
+            <br/>
+            {member.lastName}
+          </motion.div>
+        </AnimatePresence>
 
-                            <h2 className="team-name">
-                                {currentMember.firstName}
-                                <br />
-                                {currentMember.lastName}
-                            </h2>
-                        </div>
+        {/* Nav buttons */}
+        <button className="team-nav-btn team-nav-prev" onClick={prev} aria-label="Previous team member">
+          <FaChevronLeft aria-hidden="true"/>
+        </button>
+        <button className="team-nav-btn team-nav-next" onClick={next} aria-label="Next team member">
+          <FaChevronRight aria-hidden="true"/>
+        </button>
 
-                        {/* Social */}
-                        <div className="team-social">
-                            {currentMember.social.linkedin !== '#' && (
-                                <a href={currentMember.social.linkedin} target="_blank" rel="noopener noreferrer" className="social-link">
-                                    <FaLinkedin /> LINKEDIN
-                                </a>
-                            )}
-                            {currentMember.social.github !== '#' && (
-                                <a href={currentMember.social.github} target="_blank" rel="noopener noreferrer" className="social-link">
-                                    <FaGithub /> GITHUB
-                                </a>
-                            )}
-                        </div>
-                    </motion.div>
-                </AnimatePresence>
+        {/* Main content */}
+        <AnimatePresence mode="wait" custom={dir}>
+          <motion.div
+            key={member.id}
+            className="team-content"
+            custom={dir}
+            variants={slideVariants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{ duration: .52, ease: [.22,1,.36,1] }}
+            itemScope
+            itemType="https://schema.org/Person"
+          >
+            <meta itemProp="name"     content={member.name}  />
+            <meta itemProp="jobTitle" content={member.role}  />
 
-                {/* Pagination Dots */}
-                <div className="team-pagination">
-                    {teamMembers.map((member, index) => (
-                        <button
-                            key={member.id}
-                            className={`pagination-dot ${index === currentIndex ? 'active' : ''}`}
-                            onClick={() => setCurrentIndex(index)}
-                            aria-label={`View ${member.name}`}
-                        />
-                    ))}
-                </div>
-
-                {/* Counter */}
-                <div className="team-counter">
-                    <span className="counter-current">{String(currentIndex + 1).padStart(2, '0')}</span>
-                    <span className="counter-divider"> / </span>
-                    <span className="counter-total">{String(teamMembers.length).padStart(2, '0')}</span>
-                </div>
+            {/* Role + location */}
+            <div className="team-role-col" aria-label="Role and location">
+              <div className="team-role-text">
+                <span itemProp="jobTitle">{member.role}</span>
+                <br/>
+                <span itemProp="address" itemScope itemType="https://schema.org/PostalAddress">
+                  <span itemProp="addressLocality">{member.location}</span>
+                </span>
+              </div>
+              {/* Bio */}
+              <p style={{
+                fontFamily: 'inherit',
+                fontSize: '.82rem',
+                fontWeight: 300,
+                color: 'rgba(237,232,222,.38)',
+                lineHeight: 1.72,
+                maxWidth: 200,
+                marginTop: '1rem',
+                textAlign: 'right',
+              }} itemProp="description">{member.bio}</p>
             </div>
-        </section>
-    );
+
+            {/* Portrait */}
+            <div className="team-portrait-col">
+              <figure className="team-image-wrapper" style={{ margin: 0 }}>
+                <img
+                  src={member.image}
+                  alt={`${member.name} — ${member.role} at Minderfly`}
+                  className="team-image"
+                  loading="lazy"
+                  itemProp="image"
+                />
+              </figure>
+            </div>
+
+            {/* Name */}
+            <div className="team-name-col">
+              <h2 className="team-name" aria-label={member.name}>
+                <span className="team-name-first">{member.firstName}</span>
+                <span className="team-name-last">{member.lastName}</span>
+              </h2>
+              {/* Skills */}
+              <div className="team-skills" role="list" aria-label="Skills">
+                {member.skills.map(s => (
+                  <span key={s} className="skill-tag" role="listitem">{s}</span>
+                ))}
+              </div>
+            </div>
+
+            {/* Social */}
+            <div className="team-social-col">
+              <nav aria-label={`${member.name} social links`}>
+                {member.social.linkedin && (
+                  <a
+                    href={member.social.linkedin}
+                    className="social-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${member.name} on LinkedIn`}
+                    itemProp="sameAs"
+                  >
+                    <FaLinkedin aria-hidden="true"/> LinkedIn
+                  </a>
+                )}
+                {member.social.github && (
+                  <a
+                    href={member.social.github}
+                    className="social-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${member.name} on GitHub`}
+                    itemProp="sameAs"
+                  >
+                    <FaGithub aria-hidden="true"/> GitHub
+                  </a>
+                )}
+              </nav>
+            </div>
+
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Footer — counter + dots */}
+        <div className="team-footer" aria-label="Team navigation">
+          <div className="team-counter" aria-live="polite" aria-label={`Member ${index + 1} of ${TEAM.length}`}>
+            <span className="counter-current">{String(index + 1).padStart(2,'0')}</span>
+            <span className="counter-divider" aria-hidden="true">/</span>
+            <span className="counter-total">{String(TEAM.length).padStart(2,'0')}</span>
+          </div>
+
+          <div className="team-pagination" role="tablist" aria-label="Select team member">
+            {TEAM.map((m, i) => (
+              <button
+                key={m.id}
+                role="tab"
+                aria-selected={i === index}
+                aria-label={`View ${m.name}`}
+                className={`pagination-dot${i === index ? ' active' : ''}`}
+                onClick={() => goTo(i)}
+              />
+            ))}
+          </div>
+        </div>
+
+      </div>
+    </section>
+  );
 };
 
 export default Team;

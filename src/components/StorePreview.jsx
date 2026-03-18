@@ -1,323 +1,347 @@
-import React, { useState, useRef, useLayoutEffect, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { FaWindows, FaArrowRight, FaMobileAlt, FaStar, FaChevronLeft, FaChevronRight, FaDownload } from 'react-icons/fa';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { motion, AnimatePresence } from 'framer-motion';
+import {
+  FaWindows, FaMobileAlt, FaStar, FaDownload,
+  FaArrowRight, FaChevronLeft, FaChevronRight,
+} from 'react-icons/fa';
 import './StorePreview.css';
 
-// Import local assets from src/assets
+// Local product preview images
 import debtSettlerImg from '../assets/debtsettler_preview.svg';
-import nishanImg from '../assets/nishan_preview.svg';
-import flutterImg from '../assets/flutter_preview.png';
+import nishanImg      from '../assets/nishan_preview.svg';
+import flutterImg     from '../assets/flutter_preview.png';
 
-gsap.registerPlugin(ScrollTrigger);
+/* ═══════════════════════════════════════
+   StorePreview — Homepage product carousel
+   No GSAP dependency · Framer Motion + CSS
+   Full SEO structured data inline
+═══════════════════════════════════════ */
 
+/* ── Product data ── */
+const PRODUCTS = [
+  {
+    id:          'debt-settler',
+    name:        'Debt Settler',
+    tagline:     'Finance',
+    desc:        'The free app for managing shared expenses and settling debts with friends, roommates, and travel groups. Zero sign-up, zero fees.',
+    price:       'Free',
+    platform:    'Android',
+    PlatformIcon: FaMobileAlt,
+    link:        '/store/debt-settler',
+    accent:      '#c8f23a',
+    rating:      4.9,
+    downloads:   '10k+',
+    image:       debtSettlerImg,
+  },
+  {
+    id:          'nishan-qr',
+    name:        'Nishan QR Generator',
+    tagline:     'Utilities',
+    desc:        'Generate unlimited custom QR codes for URLs, WiFi, text, and email. Privacy-first — works fully offline in your browser.',
+    price:       'Free',
+    platform:    'Windows',
+    PlatformIcon: FaWindows,
+    link:        '/store/nishan-qr-generator',
+    accent:      '#3b82f6',
+    rating:      4.8,
+    downloads:   '5k+',
+    image:       nishanImg,
+  },
+  {
+    id:          'flutter-web-emulator',
+    name:        'Flutter Emulator',
+    tagline:     'Development',
+    desc:        'Run, debug, and test Flutter Web apps directly inside VS Code without switching tabs. Hot reload ready, zero configuration.',
+    price:       'Free',
+    platform:    'VS Code',
+    PlatformIcon: FaWindows,
+    link:        '/store/flutter-web-emulator',
+    accent:      '#06b6d4',
+    rating:      4.7,
+    downloads:   '2k+',
+    image:       flutterImg,
+  },
+];
+
+/* ── Structured data ── */
+const itemListSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Featured Minderfly Apps',
+  description: 'A selection of free productivity and developer tools built by Minderfly — available for Windows, Android, and VS Code.',
+  url: 'https://minderfly.com/store',
+  numberOfItems: PRODUCTS.length,
+  itemListElement: PRODUCTS.map((p, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    item: {
+      '@type': 'SoftwareApplication',
+      name: p.name,
+      description: p.desc,
+      url: `https://minderfly.com${p.link}`,
+      applicationCategory: p.tagline,
+      operatingSystem: p.platform,
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+      aggregateRating: { '@type': 'AggregateRating', ratingValue: p.rating, reviewCount: 100 },
+    },
+  })),
+};
+
+/* ── Card position state ──
+   diff = index - activeIndex (wrapped)
+   0 = center, -1 = left, +1 = right, else hidden
+*/
+const cardStyle = (diff) => {
+  if (diff === 0) return {
+    x: '-50%', scale: 1.05, opacity: 1, zIndex: 10,
+    filter: 'blur(0px)', rotateY: 0,
+    transition: { duration: .6, ease: [.22,1,.36,1] },
+  };
+  if (diff === -1) return {
+    x: '-135%', scale: .82, opacity: .45, zIndex: 5,
+    filter: 'blur(2px)', rotateY: 22,
+    transition: { duration: .6, ease: [.22,1,.36,1] },
+  };
+  if (diff === 1) return {
+    x: '35%', scale: .82, opacity: .45, zIndex: 5,
+    filter: 'blur(2px)', rotateY: -22,
+    transition: { duration: .6, ease: [.22,1,.36,1] },
+  };
+  return {
+    x: '-50%', scale: .5, opacity: 0, zIndex: 0,
+    filter: 'blur(10px)', rotateY: 0,
+    transition: { duration: .4 },
+  };
+};
+
+const getDiff = (index, active, total) => {
+  let d = index - active;
+  if (d < -Math.floor(total / 2)) d += total;
+  if (d >  Math.floor(total / 2)) d -= total;
+  return d;
+};
+
+/* ═══════════════════════════════════════
+   COMPONENT
+═══════════════════════════════════════ */
 const StorePreview = () => {
-    const [activeIndex, setActiveIndex] = useState(1); // Start with middle product
-    const containerRef = useRef(null);
-    const cardsRef = useRef([]);
-    const titleRef = useRef(null);
-    const subtitleRef = useRef(null);
-    const actionsRef = useRef(null);
+  const [active, setActive] = useState(1);
+  const [mouse,  setMouse]  = useState({ x: 0.5, y: 0.5 });
+  const trackRef = useRef(null);
 
-    const products = [
-        {
-            id: 'debt-settler',
-            name: 'Debt Settler',
-            tagline: 'Financial Harmony',
-            description: 'The ultimate free application to manage shared expenses and settle debts with friends.',
-            price: 'Free',
-            icon: <FaMobileAlt />,
-            link: '/store/debt-settler',
-            color: '#8B5CF6',
-            image: debtSettlerImg,
-            rating: 4.9,
-            downloads: '10k+'
-        },
-        {
-            id: 'nishan-qr',
-            name: 'Nishan QR',
-            tagline: 'Professional Generator',
-            description: 'Generate unlimited custom QR codes with a sleek, modern interface for Windows.',
-            price: 'Free',
-            icon: <FaWindows />,
-            link: '/store/nishan-qr-generator',
-            color: '#0078D7',
-            image: nishanImg,
-            rating: 4.8,
-            downloads: '5k+'
-        },
-        {
-            id: 'flutter-web-emulator',
-            name: 'Flutter Emulator',
-            tagline: 'Dev Productivity',
-            description: 'Run, debug, and test Flutter Web apps directly inside VS Code.',
-            price: 'Free',
-            icon: <FaWindows />,
-            link: '/store/flutter-web-emulator',
-            color: '#007ACC',
-            image: flutterImg,
-            rating: 4.7,
-            downloads: '2k+'
-        }
-    ];
+  const next = useCallback(() => setActive(v => (v + 1) % PRODUCTS.length), []);
+  const prev = useCallback(() => setActive(v => (v - 1 + PRODUCTS.length) % PRODUCTS.length), []);
 
-    const nextProduct = () => {
-        setActiveIndex((prev) => (prev + 1) % products.length);
+  /* Mouse parallax for active card */
+  useEffect(() => {
+    const onMove = (e) => {
+      setMouse({ x: e.clientX / window.innerWidth, y: e.clientY / window.innerHeight });
     };
+    window.addEventListener('mousemove', onMove, { passive: true });
+    return () => window.removeEventListener('mousemove', onMove);
+  }, []);
 
-    const prevProduct = () => {
-        setActiveIndex((prev) => (prev - 1 + products.length) % products.length);
+  /* Keyboard navigation */
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === 'ArrowRight') next();
+      if (e.key === 'ArrowLeft')  prev();
     };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [next, prev]);
 
-    // Tilt Effect Logic
-    useEffect(() => {
-        const handleMouseMove = (e) => {
-            if (!containerRef.current) return;
+  /* Derived tilt from mouse */
+  const tiltX = ((mouse.x - .5) * 2) * 10;
+  const tiltY = ((mouse.y - .5) * 2) * -10;
 
-            // Only tilt the active card
-            const activeCard = cardsRef.current[activeIndex];
-            if (!activeCard) return;
+  return (
+    <section
+      className="store-preview-section"
+      id="products"
+      aria-label="Featured Minderfly products"
+    >
+      {/* Structured data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
+      />
 
-            const inner = activeCard.querySelector('.card-tilt-inner');
-            if (!inner) return;
+      <div className="sp-inner">
 
-            const { clientX, clientY } = e;
-            const { innerWidth, innerHeight } = window;
-
-            // Calculate percentage from center (-1 to 1)
-            const xPos = (clientX / innerWidth - 0.5) * 2;
-            const yPos = (clientY / innerHeight - 0.5) * 2;
-
-            // Tilt intensity
-            const intensity = 15;
-
-            gsap.to(inner, {
-                rotationY: xPos * intensity,
-                rotationX: -yPos * intensity,
-                ease: "power2.out",
-                duration: 1
-            });
-        };
-
-        window.addEventListener('mousemove', handleMouseMove);
-        return () => window.removeEventListener('mousemove', handleMouseMove);
-    }, [activeIndex]);
-
-    // GSAP Layout Logic
-    useLayoutEffect(() => {
-        let ctx = gsap.context(() => {
-            // Header Animations
-            const headerTl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: containerRef.current,
-                    start: "top 70%",
-                }
-            });
-
-            headerTl.fromTo(titleRef.current,
-                { y: 50, opacity: 0 },
-                { y: 0, opacity: 1, duration: 1, ease: "power3.out" }
-            )
-                .fromTo(subtitleRef.current,
-                    { y: 30, opacity: 0 },
-                    { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" },
-                    "-=0.6"
-                )
-                .fromTo(actionsRef.current,
-                    { y: 20, opacity: 0, scale: 0.9 },
-                    { y: 0, opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.7)" },
-                    "-=0.4"
-                );
-
-            // Card Animations based on activeIndex
-            products.forEach((_, i) => {
-                const card = cardsRef.current[i];
-                if (!card) return;
-                const inner = card.querySelector('.card-tilt-inner');
-
-                let diff = i - activeIndex;
-                if (diff === -2) diff = 1;
-                if (diff === 2) diff = -1;
-
-                // Animation State
-                let state = {};
-
-                // Reset tilt on non-active cards or when switching
-                if (inner) {
-                    if (diff !== 0) {
-                        gsap.to(inner, { rotationY: 0, rotationX: 0, duration: 0.5 });
-                    }
-                }
-
-                if (diff === 0) {
-                    // Active Center
-                    state = {
-                        xPercent: -50,
-                        scale: 1.1,
-                        zIndex: 10,
-                        opacity: 1,
-                        filter: "blur(0px)",
-                        rotationY: 0, // Reset carousel rotation, tilt handles inner
-                        duration: 0.8,
-                        ease: "power3.out"
-                    };
-
-                    // Reveal details
-                    gsap.to(card.querySelector('.active-details'), {
-                        height: 'auto',
-                        opacity: 1,
-                        duration: 0.6,
-                        delay: 0.2,
-                        ease: "power2.out"
-                    });
-
-                } else if (diff === -1) {
-                    // Left Side
-                    state = {
-                        xPercent: -130, // Slightly less spacing for 3D look
-                        scale: 0.85,
-                        zIndex: 5,
-                        opacity: 0.5,
-                        filter: "blur(2px)",
-                        rotationY: 25, // Rotate inwards
-                        duration: 0.8,
-                        ease: "power3.out"
-                    };
-
-                    gsap.to(card.querySelector('.active-details'), { height: 0, opacity: 0, duration: 0.4 });
-
-                } else if (diff === 1) {
-                    // Right Side
-                    state = {
-                        xPercent: 30, // Slightly less spacing
-                        scale: 0.85,
-                        zIndex: 5,
-                        opacity: 0.5,
-                        filter: "blur(2px)",
-                        rotationY: -25, // Rotate inwards
-                        duration: 0.8,
-                        ease: "power3.out"
-                    };
-
-                    gsap.to(card.querySelector('.active-details'), { height: 0, opacity: 0, duration: 0.4 });
-
-                } else {
-                    // Hidden
-                    state = {
-                        scale: 0.5,
-                        opacity: 0,
-                        zIndex: 0,
-                        filter: "blur(10px)",
-                        rotationY: 0,
-                        duration: 0.6
-                    };
-                }
-
-                gsap.to(card, state);
-            });
-
-        }, containerRef);
-
-        return () => ctx.revert();
-    }, [activeIndex]);
-
-    return (
-        <section className="store-preview-section" id="products" ref={containerRef}>
-            <div className="container">
-                <div className="store-header">
-                    <h2 className="store-title font-display" ref={titleRef}>
-                        Discover the Digital <span className="highlight">Excellence</span> <br />
-                        Experience with <span className="brand-name">Minderfly</span>
-                    </h2>
-                    <p className="store-subtitle" ref={subtitleRef}>
-                        Our expert developers prepare amazing and trending tools for you to use online and priceless.
-                    </p>
-
-                    <div className="header-actions" ref={actionsRef}>
-                        <Link to="/store" className="btn btn-primary btn-glow">
-                            Get Started
-                        </Link>
-                        <button className="btn btn-icon-only">
-                            <FaArrowRight />
-                        </button>
-                    </div>
-                </div>
-
-                <div className="carousel-container">
-                    <button className="nav-btn prev" onClick={prevProduct}>
-                        <FaChevronLeft />
-                    </button>
-
-                    <div className="carousel-track">
-                        {products.map((product, index) => {
-                            const isActive = index === activeIndex;
-
-                            return (
-                                <div
-                                    key={product.id}
-                                    className={`carousel-card ${isActive ? 'active' : ''}`}
-                                    ref={el => cardsRef.current[index] = el}
-                                    onClick={() => setActiveIndex(index)}
-                                >
-                                    {/* Tilt Wrapper */}
-                                    <div className="card-tilt-inner">
-                                        <div className="card-background">
-                                            <img src={product.image} alt={product.name} className="product-image" />
-                                            <div className="card-overlay" />
-
-                                            {product.id === 'nishan-qr' && (
-                                                <div className="brand-logo-overlay">
-                                                    <FaWindows />
-                                                </div>
-                                            )}
-                                        </div>
-
-                                        <div className="card-content">
-                                            <div className="card-header-row">
-                                                <h3>{product.name}</h3>
-
-                                                <div className="meta-badges">
-                                                    <div className="meta-badge">
-                                                        <FaStar className="star-icon" /> {product.rating}
-                                                    </div>
-                                                    <div className="meta-badge">
-                                                        <FaDownload className="download-icon" /> {product.downloads}
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div className="active-details">
-                                                <p>{product.description}</p>
-                                                <Link to={product.link} className="btn-view-details">
-                                                    View Details
-                                                </Link>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            );
-                        })}
-                    </div>
-
-                    <button className="nav-btn next" onClick={nextProduct}>
-                        <FaChevronRight />
-                    </button>
-                </div>
-
-                {/* Pagination Dots */}
-                <div className="carousel-dots">
-                    {products.map((_, idx) => (
-                        <button
-                            key={idx}
-                            className={`dot ${idx === activeIndex ? 'active' : ''}`}
-                            onClick={() => setActiveIndex(idx)}
-                        />
-                    ))}
-                </div>
+        {/* ── Header ── */}
+        <motion.div
+          className="sp-header"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: .75, ease: [.22,1,.36,1] }}
+        >
+          <div className="sp-header-left">
+            <div className="sp-eyebrow" aria-hidden="true">
+              <span className="sp-eyebrow-num">02 /</span>
+              <span className="sp-eyebrow-line"/>
+              <span className="sp-eyebrow-label">Our Products</span>
             </div>
-        </section>
-    );
+            <h2 className="sp-title">
+              Digital tools.<br/>
+              <span className="sp-title-stroke">Built to last.</span>
+            </h2>
+            <p className="sp-sub">
+              Every app in the Minderfly store is free to start, privacy-first, and built to solve a real problem we couldn't find a good solution to.
+            </p>
+          </div>
+
+          <div className="sp-header-right">
+            <Link to="/store" className="sp-cta-link" aria-label="Browse all Minderfly apps">
+              Browse all apps
+              <FaArrowRight aria-hidden="true"/>
+            </Link>
+            <span className="sp-cta-count">{PRODUCTS.length} free apps available</span>
+          </div>
+        </motion.div>
+
+        {/* ── Carousel ── */}
+        <div className="sp-carousel-wrap">
+          <button
+            className="sp-nav prev"
+            onClick={prev}
+            aria-label="Previous product"
+          >
+            <FaChevronLeft aria-hidden="true"/>
+          </button>
+
+          <div
+            ref={trackRef}
+            className="sp-track"
+            role="region"
+            aria-label="Product carousel"
+            aria-live="polite"
+          >
+            {PRODUCTS.map((product, index) => {
+              const diff    = getDiff(index, active, PRODUCTS.length);
+              const isActive = diff === 0;
+              const style   = cardStyle(diff);
+              const { PlatformIcon } = product;
+
+              /* Only apply mouse tilt to active card */
+              const rotateY = isActive ? tiltX  : style.rotateY;
+              const rotateX = isActive ? tiltY  : 0;
+
+              return (
+                <motion.article
+                  key={product.id}
+                  className={`sp-card${isActive ? ' is-active' : ''}`}
+                  style={{ left: '50%' }}
+                  animate={{
+                    x:       style.x,
+                    scale:   style.scale,
+                    opacity: style.opacity,
+                    zIndex:  style.zIndex,
+                    filter:  style.filter,
+                    rotateY,
+                    rotateX,
+                  }}
+                  transition={style.transition}
+                  onClick={() => !isActive && setActive(index)}
+                  tabIndex={0}
+                  role="button"
+                  aria-label={isActive ? `${product.name} — ${product.tagline}` : `Switch to ${product.name}`}
+                  aria-pressed={isActive}
+                  onKeyDown={e => e.key === 'Enter' && setActive(index)}
+                  itemScope
+                  itemType="https://schema.org/SoftwareApplication"
+                >
+                  <meta itemProp="name"              content={product.name}     />
+                  <meta itemProp="description"       content={product.desc}     />
+                  <meta itemProp="operatingSystem"   content={product.platform} />
+                  <meta itemProp="applicationCategory" content={product.tagline}/>
+
+                  <div className="sp-card-inner">
+                    {/* Background image */}
+                    <div className="sp-card-img-wrap" aria-hidden="true">
+                      <img
+                        src={product.image}
+                        alt={`${product.name} preview screenshot`}
+                        loading={isActive ? 'eager' : 'lazy'}
+                        itemProp="screenshot"
+                      />
+                      <div className="sp-card-overlay"/>
+                    </div>
+
+                    {/* Top badges */}
+                    <div className="sp-card-badges">
+                      <span className="sp-badge">{product.tagline}</span>
+                      <span className="sp-badge" style={{ display:'flex', alignItems:'center', gap:5 }}>
+                        <PlatformIcon aria-hidden="true" style={{ fontSize:'.65rem' }}/>
+                        {product.platform}
+                      </span>
+                      <span className="sp-badge sp-badge-ac">{product.price}</span>
+                    </div>
+
+                    {/* Content */}
+                    <div className="sp-card-body">
+                      <h3 className="sp-card-name">{product.name}</h3>
+
+                      <div className="sp-card-meta">
+                        <span className="sp-card-meta-item">
+                          <FaStar aria-hidden="true"/>
+                          <span className="sp-card-rating">{product.rating}</span>
+                        </span>
+                        <span aria-hidden="true" style={{ opacity:.3 }}>·</span>
+                        <span className="sp-card-meta-item">
+                          <FaDownload aria-hidden="true"/>
+                          {product.downloads}
+                        </span>
+                      </div>
+
+                      {/* Expanded details — only visible when active */}
+                      <div className={`sp-card-details${isActive ? ' is-visible' : ''}`}>
+                        <p>{product.desc}</p>
+                        <Link
+                          to={product.link}
+                          className="sp-view-btn"
+                          aria-label={`View ${product.name} details`}
+                          tabIndex={isActive ? 0 : -1}
+                        >
+                          View App
+                          <FaArrowRight aria-hidden="true" style={{ fontSize:'.72rem' }}/>
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </motion.article>
+              );
+            })}
+          </div>
+
+          <button
+            className="sp-nav next"
+            onClick={next}
+            aria-label="Next product"
+          >
+            <FaChevronRight aria-hidden="true"/>
+          </button>
+        </div>
+
+        {/* ── Dots ── */}
+        <div className="sp-dots" role="tablist" aria-label="Product navigation">
+          {PRODUCTS.map((p, i) => (
+            <button
+              key={p.id}
+              role="tab"
+              aria-selected={i === active}
+              aria-label={`Select ${p.name}`}
+              className={`sp-dot${i === active ? ' is-active' : ''}`}
+              onClick={() => setActive(i)}
+            />
+          ))}
+        </div>
+
+      </div>
+    </section>
+  );
 };
 
 export default StorePreview;

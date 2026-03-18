@@ -8,6 +8,7 @@ export const projectsData = [
         thumbnail: '/quranoitratacademy/thumnail.png',
         link: '/work/quran-o-itrat-academy',
         isExternal: false,
+        colSpan: 2,
         screenshots: [
             '/quranoitratacademy/screencapture-quranoitratacademy-2026-03-17-17_28_44.png',
             '/quranoitratacademy/screencapture-quranoitratacademy-courses-2026-03-17-17_29_09.png',
@@ -34,7 +35,8 @@ export const projectsData = [
         stats: '4,000+ Users',
         thumbnail: '/vscode_preview.png',
         link: 'https://marketplace.visualstudio.com/items?itemName=HafizRizwanUmar.flutter-web-emulator',
-        isExternal: true
+        isExternal: true,
+        colSpan: 1
     },
     {
         id: 'pastel-aurora',
@@ -44,7 +46,8 @@ export const projectsData = [
         stats: '450+ Users',
         thumbnail: '/og-image.png',
         link: 'https://chromewebstore.google.com/detail/lmggijfeinibhlmbnjlkiobndeiogimo',
-        isExternal: true
+        isExternal: true,
+        colSpan: 1
     },
     {
         id: 'knights-engineering',
@@ -54,7 +57,8 @@ export const projectsData = [
         stats: 'Enterprise Client',
         thumbnail: '/sanad_preview.svg',
         link: 'https://knightsengineering.ae/',
-        isExternal: true
+        isExternal: true,
+        colSpan: 2
     },
     {
         id: 'nishan-qr',
@@ -64,7 +68,8 @@ export const projectsData = [
         stats: 'Microsoft Store',
         thumbnail: '/og-image.png',
         link: 'https://apps.microsoft.com/detail/9njf5mhwhhps?hl=en-US&gl=PK',
-        isExternal: true
+        isExternal: true,
+        colSpan: 1
     },
     {
         id: 'campus-skill-share',
@@ -74,6 +79,7 @@ export const projectsData = [
         stats: 'Education Platform',
         thumbnail: '/og-image.png',
         link: '/work',
-        isExternal: false
+        isExternal: false,
+        colSpan: 1
     }
 ];

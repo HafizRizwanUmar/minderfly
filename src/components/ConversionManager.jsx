@@ -1,8 +1,50 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import SocialProofToast from './SocialProofToast';
-import SmartConversionPopup from './SmartConversionPopup';
 import { FaRocket, FaLightbulb, FaGift } from 'react-icons/fa';
+import { motion, AnimatePresence } from 'framer-motion';
+
+const SmartConversionPopup = ({ isOpen, onClose, data }) => {
+    if (!data) return null;
+    return (
+        <AnimatePresence>
+            {isOpen && (
+                <motion.div 
+                    initial={{ opacity: 0, y: 100 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 100 }}
+                    style={{ position: 'fixed', bottom: 20, right: 20, zIndex: 1000, width: 320 }}
+                    className="smart-popup-wrapper"
+                >
+                    <div style={{ background: '#111', border: '1px solid rgba(255,255,255,.1)', borderRadius: 16, padding: '24px 20px 20px', boxShadow: '0 10px 40px rgba(0,0,0,.6)', position: 'relative' }}>
+                        <button 
+                            onClick={onClose} 
+                            style={{ position: 'absolute', top: 12, right: 12, background: 'none', border: 'none', color: 'rgba(255,255,255,.3)', cursor: 'pointer', fontSize: 16 }}
+                            aria-label="Close"
+                        >✕</button>
+                        <div style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
+                            <div style={{ width: 42, height: 42, borderRadius: 12, background: 'rgba(200,242,58,.1)', color: '#c8f23a', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, flexShrink: 0 }}>
+                                {data.icon || '✨'}
+                            </div>
+                            <div style={{ overflow: 'hidden' }}>
+                                <h4 style={{ margin: '0 0 6px', fontSize: 15, fontWeight: 700, color: '#fff', letterSpacing: '-0.01em' }}>{data.title}</h4>
+                                <p style={{ margin: '0 0 16px', fontSize: 13, color: 'rgba(255,255,255,.55)', lineHeight: 1.5 }}>{data.message}</p>
+                                <button 
+                                    onClick={data.onAction}
+                                    style={{ background: '#c8f23a', color: '#000', border: 'none', borderRadius: 10, padding: '10px 16px', fontSize: 13, fontWeight: 700, cursor: 'pointer', width: '100%', transition: 'transform .2s' }}
+                                    onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.02)'}
+                                    onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+                                >
+                                    {data.ctaText}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </motion.div>
+            )}
+        </AnimatePresence>
+    );
+};
 
 const SOCIAL_PROOF_DATA = [
     { name: "Ahmed", action: "booked a demo", timeAgo: "2m ago", image: "" },
@@ -51,14 +93,9 @@ const ConversionManager = ({ onOpenContactForm }) => {
 
     // --- Smart Triggers ---
     useEffect(() => {
-        // Reset triggers on route change if desired (optional, maybe keep global state)
-        // For now, we keep flags consistent per session to avoid annoying user.
-
         const handleScroll = () => {
             if (hasSeenScrollPopup || showPopup) return;
-
             const scrollPercentage = (window.scrollY + window.innerHeight) / document.documentElement.scrollHeight;
-
             if (scrollPercentage > 0.6) {
                 triggerPopup('scroll');
             }
@@ -83,7 +120,6 @@ const ConversionManager = ({ onOpenContactForm }) => {
     const triggerPopup = (type) => {
         let content = null;
 
-        // Dynamic Content based on Page and Trigger
         if (type === 'scroll') {
             content = {
                 title: "Looks like you're interested! 👀",

@@ -1,167 +1,218 @@
-import { motion } from 'framer-motion';
-import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope } from 'react-icons/fa';
-import MagneticButton from './MagneticButton';
-import './Footer.css';
 import { useState } from 'react';
-import { AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import {
+  FaGithub, FaLinkedin, FaTwitter, FaEnvelope,
+  FaDribbble, FaArrowRight,
+} from 'react-icons/fa';
+import './Footer.css';
 
-const Footer = () => {
-    const [open, setOpen] = useState(false);
-    const [submitted, setSubmitted] = useState(false);
-    const [error, setError] = useState('');
-    const [form, setForm] = useState({ name: '', email: '', message: '' });
+/* ═══════════════════════════════════════
+   FOOTER — Minderfly
+   Sections: CTA · Links grid · Bottom bar
+   + Animated contact modal (backend wired)
+═══════════════════════════════════════ */
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setForm((s) => ({ ...s, [name]: value }));
-    };
+/* ── Structured data ── */
+const orgSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Minderfly',
+  url: 'https://minderfly.com',
+  logo: 'https://minderfly.com/logo.png',
+  description: 'Minderfly is a digital agency and product studio building Chrome extensions, VS Code tools, Windows apps, and full-stack web experiences.',
+  contactPoint: {
+    '@type': 'ContactPoint',
+    contactType: 'Customer Support',
+    email: 'hello@minderfly.com',
+    availableLanguage: 'English',
+  },
+  sameAs: [
+    'https://github.com/minderfly',
+    'https://linkedin.com/company/minderfly',
+    'https://twitter.com/minderfly',
+  ],
+};
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setError('');
+const NAV = [
+  {
+    label: 'Company',
+    links: [
+      { text: 'Services',   href: '/services' },
+      { text: 'Work',       href: '/#work' },
+      { text: 'Team',       href: '/team' },
+      { text: 'Articles',   href: '/articles' },
+      { text: 'Contact',    href: '/contact' },
+    ],
+  },
+  {
+    label: 'Products',
+    links: [
+      { text: 'App Store',             href: '/store' },
+      { text: 'Debt Settler',          href: '/store/debt-settler' },
+      { text: 'Cinemafly',             href: '/store/cinemafly', badge: 'Free' },
+      { text: 'Sanad PDF Editor',      href: '/store/sanad-pdf-editor' },
+      { text: 'Nishan QR Generator',   href: '/store/nishan-qr-generator' },
+    ],
+  },
+  {
+    label: 'Services',
+    links: [
+      { text: 'Chrome Extensions',    href: '/services/chrome-extension-development' },
+      { text: 'VS Code Extensions',   href: '/services/vscode-extension-development' },
+      { text: 'Mobile Apps',          href: '/services/mobile-app-development' },
+      { text: 'Web Development',      href: '/services/web-development' },
+      { text: 'Antigravity Masterclass', href: '/antigravity-masterclass', badge: 'New' },
+    ],
+  },
+];
 
-        if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
-            setError('Please complete all fields before sending.');
-            return;
-        }
+const SOCIALS = [
+  { Icon: FaGithub,   href: 'https://github.com/minderfly',           label: 'GitHub'   },
+  { Icon: FaLinkedin, href: 'https://linkedin.com/company/minderfly', label: 'LinkedIn' },
+  { Icon: FaTwitter,  href: 'https://twitter.com/minderfly',          label: 'Twitter'  },
+  { Icon: FaEnvelope, href: 'mailto:hello@minderfly.com',             label: 'Email'    },
+];
 
-        const emailRe = /\S+@\S+\.\S+/;
-        if (!emailRe.test(form.email)) {
-            setError('Please enter a valid email address.');
-            return;
-        }
+/* ═══════════════════════════════════════
+   MAIN FOOTER COMPONENT
+   Sections: CTA · Links grid · Bottom bar
+═══════════════════════════════════════ */
+const Footer = ({ onContactClick }) => {
+  return (
+    <>
+      {/* Structured data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }}
+      />
 
-        // Send to backend
-        try {
-            const response = await fetch("https://minderfly-backend.vercel.app/api/send-email", {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    name: form.name,
-                    email: form.email,
-                    phone: 'Not provided (Footer Contact)',
-                    projectType: 'General Inquiry',
-                    details: form.message
-                })
-            });
+      <footer className="footer" id="contact" aria-label="Site footer and contact">
+        <div className="footer-rule-top" aria-hidden="true"/>
 
-            const data = await response.json();
+        <div className="footer-inner">
 
-            if (response.ok && data.success) {
-                setSubmitted(true);
-                setForm({ name: '', email: '', message: '' });
-            } else {
-                setError('Failed to send message. Please try again.');
-                console.error("Backend error:", data);
-            }
-        } catch (err) {
-            console.error("Error sending message:", err);
-            setError('Something went wrong. Please check your connection.');
-        }
-    };
+          {/* ── CTA SECTION ── */}
+          <section className="footer-cta-section" aria-label="Contact call-to-action">
+            <div>
+              <div className="footer-eyebrow" aria-hidden="true">
+                <span className="footer-eyebrow-num">05 /</span>
+                <span className="footer-eyebrow-line"/>
+                <span className="footer-eyebrow-label">Let's collaborate</span>
+              </div>
 
-    return (
-        <footer className="footer" id="contact">
-            <div className="footer-grid-bg"></div>
-            <div className="container footer-container">
-                <motion.div
-                    className="footer-hero"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8 }}
-                >
-                    <h2 className="footer-title">
-                        LET'S <span className="highlight-accent">BUILD</span>
-                        <br />
-                        TOGETHER
-                    </h2>
+              <h2 className="footer-headline">
+                LET'S{' '}
+                <span className="footer-headline-accent">BUILD</span>
+                <br/>
+                <span className="footer-headline-stroke">TOGETHER</span>
+              </h2>
 
-                    <p className="footer-subtitle">
-                        Transforming ideas into exceptional digital experiences. Ready to bring your vision to life?
-                    </p>
-
-                    <div className="footer-cta-wrapper">
-                        <button onClick={() => setOpen(true)} className="circle-cta">
-                            Book a call
-                        </button>
-                    </div>
-
-                    <AnimatePresence>
-                        {open && (
-                            <motion.div
-                                className="contact-modal-overlay"
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                exit={{ opacity: 0 }}
-                                transition={{ duration: 0.18 }}
-                            >
-                                <motion.div
-                                    className="contact-modal"
-                                    initial={{ y: 20, opacity: 0 }}
-                                    animate={{ y: 0, opacity: 1 }}
-                                    exit={{ y: 10, opacity: 0 }}
-                                    transition={{ duration: 0.22 }}
-                                >
-                                    <button className="contact-close" onClick={() => setOpen(false)} aria-label="Close contact form">×</button>
-                                    {!submitted ? (
-                                        <form className="contact-form" onSubmit={handleSubmit} noValidate>
-                                            <h3>Start a conversation</h3>
-                                            <p className="muted">Tell us about your project and we'll respond within one business day.</p>
-
-                                            <label className="field">
-                                                <span className="label-text">Name</span>
-                                                <input type="text" name="name" value={form.name} onChange={handleChange} required />
-                                            </label>
-
-                                            <label className="field">
-                                                <span className="label-text">Email</span>
-                                                <input type="email" name="email" value={form.email} onChange={handleChange} required />
-                                            </label>
-
-                                            <label className="field">
-                                                <span className="label-text">Message</span>
-                                                <textarea name="message" value={form.message} onChange={handleChange} rows={6} required />
-                                            </label>
-
-                                            {error && <div className="form-error" role="alert">{error}</div>}
-
-                                            <div className="form-actions">
-                                                <button type="submit" className="btn btn-primary">Send message</button>
-                                            </div>
-                                        </form>
-                                    ) : (
-                                        <div className="contact-success">
-                                            <h3>Thanks — message sent</h3>
-                                            <p className="muted">We'll review your request and get back to you shortly.</p>
-                                            <div className="form-actions">
-                                                <button className="btn btn-primary" onClick={() => { setSubmitted(false); setOpen(false); }}>Close</button>
-                                            </div>
-                                        </div>
-                                    )}
-                                </motion.div>
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
-                </motion.div>
-
-                {/* Minimal Footer Bottom */}
-                <div className="footer-bottom">
-                    <div className="footer-links-minimal">
-                        <a href="#services">Services</a>
-                        <a href="#work">Work</a>
-                        <a href="#team">Team</a>
-                        <a href="/articles">Articles</a>
-                        <a href="/game">Play Neon Rush</a>
-                        <a href="/antigravity-masterclass" className="highlight-accent">Masterclass</a>
-                    </div>
-                    <p className="copyright">&copy; 2024 Minderfly. Crafted with passion.</p>
-                </div>
+              <p className="footer-sub">
+                Transforming ideas into exceptional digital experiences. From Chrome extensions to full-stack platforms — we bring your vision to life with precision and craft.
+              </p>
             </div>
-        </footer>
-    );
+
+            <div className="footer-cta-right">
+              {onContactClick ? (
+                <button
+                  className="circle-cta"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onContactClick();
+                  }}
+                  aria-label="Open contact modal"
+                  style={{ background: 'none', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}
+                >
+                  Book<br/>a call
+                </button>
+              ) : (
+                <Link
+                  to="/contact"
+                  className="circle-cta"
+                  aria-label="Visit contact page to book a call"
+                  style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                >
+                  Book<br/>a call
+                </Link>
+              )}
+
+              <div className="footer-availability" aria-live="polite">
+                <span className="footer-availability-dot" aria-hidden="true"/>
+                Available for new projects
+              </div>
+            </div>
+          </section>
+
+          {/* ── LINKS SECTION ── */}
+          <nav className="footer-links-section" aria-label="Footer navigation">
+
+            {/* Brand column */}
+            <div className="footer-brand">
+              <Link to="/" className="footer-brand-logo">
+                Minder<span>fly</span>
+              </Link>
+              <p className="footer-brand-desc">
+                A digital agency and product studio building Chrome extensions, developer tools, and full-stack experiences for clients worldwide.
+              </p>
+              <div className="footer-social" role="list" aria-label="Social media links">
+                {SOCIALS.map(({ Icon, href, label }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    className="footer-social-link"
+                    target={href.startsWith('mailto') ? undefined : '_blank'}
+                    rel={href.startsWith('mailto') ? undefined : 'noopener noreferrer'}
+                    aria-label={label}
+                    role="listitem"
+                  >
+                    <Icon aria-hidden="true"/>
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            {/* Nav columns */}
+            {NAV.map(col => (
+              <div key={col.label} className="footer-nav-col">
+                <span className="footer-nav-label">{col.label}</span>
+                <ul className="footer-nav-list">
+                  {col.links.map(link => (
+                    <li key={link.text}>
+                      <Link to={link.href} style={{ textDecoration: 'none' }}>
+                        {link.text}
+                        {link.badge && (
+                          <span className="footer-nav-badge">{link.badge}</span>
+                        )}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </nav>
+
+          {/* ── BOTTOM BAR ── */}
+          <div className="footer-bottom">
+            <div className="footer-bottom-left">
+              <p className="copyright">
+                © {new Date().getFullYear()} Minderfly. All rights reserved.
+              </p>
+              <a href="/privacy" className="footer-bottom-link">Privacy</a>
+              <a href="/terms"   className="footer-bottom-link">Terms</a>
+            </div>
+
+            <div className="footer-bottom-right">
+              <div className="footer-made-tag">
+                Crafted with <span aria-label="love">♥</span> by Minderfly
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </footer>
+    </>
+  );
 };
 
 export default Footer;

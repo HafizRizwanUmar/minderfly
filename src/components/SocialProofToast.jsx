@@ -1,7 +1,6 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaCheckCircle } from 'react-icons/fa';
-import './SocialProofToast.css';
 
 const SocialProofToast = ({ isVisible, data, onClose }) => {
     if (!data) return null;

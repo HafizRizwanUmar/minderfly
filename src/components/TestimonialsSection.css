@@ -1,138 +1,295 @@
-.testimonials-section {
-    padding: 80px 0;
-    background: #080808;
-    overflow: hidden;
-    position: relative;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+/* ═══════════════════════════════════════════════════
+   TestimonialsSection.css — Minderfly Homepage
+   Aesthetic: Dark editorial · seamless marquee
+   Syne heading + DM Sans body · Acid-green accent
+═══════════════════════════════════════════════════ */
+
+.testi-section {
+  padding: 100px 0 110px;
+  background: #050505;
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid rgba(255,255,255,.07);
 }
 
-.testimonials-header {
-    text-align: center;
-    margin-bottom: 50px;
+/* ─── Grain overlay ─── */
+.testi-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.88' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  opacity: .45;
+  z-index: 0;
 }
 
-.testimonials-header h2 {
-    font-size: 2.5rem;
-    color: #fff;
-    margin-bottom: 10px;
+/* ─── Inner container ─── */
+.testi-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 3rem;
 }
 
-.testimonials-header p {
-    color: #888;
+/* ─── Header ─── */
+.testi-header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 3rem;
+  align-items: flex-end;
+  margin-bottom: 64px;
 }
 
-/* Marquee Container */
-.marquee-wrapper {
-    position: relative;
-    width: 100%;
-    display: flex;
-    overflow: hidden;
-    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+.testi-header-left {}
+
+.testi-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 1.5rem;
 }
 
-.marquee-track {
-    display: flex;
-    gap: 30px;
-    padding: 20px 0;
-    min-width: 100%;
-    animation: scroll 30s linear infinite;
+.testi-eyebrow-num {
+  font-family: 'JetBrains Mono','Fira Code',monospace;
+  font-size: .58rem;
+  color: rgba(255,255,255,.2);
+  letter-spacing: .06em;
 }
 
-.marquee-track:hover {
-    animation-play-state: paused;
+.testi-eyebrow-line {
+  width: 40px;
+  height: 1px;
+  background: #c8f23a;
+  display: block;
 }
 
-@keyframes scroll {
-    0% {
-        transform: translateX(0);
-    }
-
-    100% {
-        transform: translateX(calc(-100% - 30px));
-        /* Adjust based on content width logic */
-    }
-
-    /* 
-       Note: For perfect infinite scroll with CSS only, content needs to be doubled and translate correctly.
-       A simpler way is usually 0 to -50% if content is perfectly doubled.
-       Let's try -50% assumption for doubled content.
-    */
-    100% {
-        transform: translateX(-50%);
-    }
+.testi-eyebrow-label {
+  font-size: .58rem;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: #c8f23a;
 }
 
-/* Review Card */
-.review-card {
-    flex: 0 0 350px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    padding: 25px;
-    border-radius: 16px;
-    transition: all 0.3s ease;
+.testi-title {
+  font-family: var(--font-heading, 'Syne', sans-serif);
+  font-size: clamp(2.2rem, 4.5vw, 4rem);
+  font-weight: 800;
+  line-height: .95;
+  letter-spacing: -.05em;
+  color: #fff;
+  margin-bottom: 0;
 }
 
-.review-card:hover {
-    background: rgba(255, 255, 255, 0.05);
-    transform: translateY(-5px);
-    border-color: var(--color-accent);
+.testi-title-stroke {
+  -webkit-text-stroke: 1.5px rgba(255,255,255,.2);
+  color: transparent;
+  display: block;
 }
 
-.review-header {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 20px;
+.testi-title-ac { color: #c8f23a; }
+
+.testi-header-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+  padding-bottom: .25rem;
+  flex-shrink: 0;
 }
 
-.review-avatar {
-    width: 50px;
-    height: 50px;
-    background: linear-gradient(135deg, var(--color-accent), #00A3FF);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    /* Ensure image stays in circle */
-    flex-shrink: 0;
+.testi-sub {
+  font-size: .9rem;
+  font-weight: 300;
+  color: rgba(255,255,255,.38);
+  line-height: 1.72;
+  max-width: 320px;
+  text-align: right;
 }
 
-.review-avatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+/* Star summary pill */
+.testi-stars-pill {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 16px;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 100px;
+  font-size: .72rem;
+  color: rgba(255,255,255,.55);
+  letter-spacing: .02em;
 }
 
-.review-info h4 {
-    margin: 0;
-    font-size: 1rem;
-    color: #fff;
+.testi-stars {
+  display: flex;
+  gap: 2px;
+  color: #fbbf24;
+  font-size: .72rem;
 }
 
-.review-info span {
-    font-size: 0.85rem;
-    color: #888;
+/* ─── Marquee rows ─── */
+.testi-marquee-area {
+  position: relative;
+  /* Fade edges */
+  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  overflow: hidden;
+  margin: 0 -3rem; /* bleed past inner padding */
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-.review-rating {
-    margin-left: auto;
-    color: #FFD700;
-    font-size: 0.9rem;
-    display: flex;
-    gap: 2px;
+.testi-track {
+  display: flex;
+  gap: 18px;
+  width: max-content;
+  padding: 4px 0;
 }
 
-.review-content {
-    color: #ccc;
-    font-size: 0.95rem;
-    line-height: 1.6;
-    margin: 0;
-    font-style: italic;
+.testi-track.row-1 {
+  animation: marquee-fwd 36s linear infinite;
 }
 
+.testi-track.row-2 {
+  animation: marquee-rev 42s linear infinite;
+}
+
+.testi-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes marquee-fwd {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes marquee-rev {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+
+/* ─── Review card ─── */
+.testi-card {
+  flex: 0 0 360px;
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 18px;
+  padding: 26px;
+  transition: background .28s, border-color .28s, transform .32s cubic-bezier(.22,1,.36,1);
+  cursor: default;
+  position: relative;
+  overflow: hidden;
+}
+
+.testi-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(200,242,58,.2), transparent);
+  opacity: 0;
+  transition: opacity .28s;
+}
+
+.testi-card:hover {
+  background: rgba(255,255,255,.048);
+  border-color: rgba(200,242,58,.18);
+  transform: translateY(-4px);
+}
+
+.testi-card:hover::before { opacity: 1; }
+
+/* Card header */
+.testi-card-head {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-bottom: 1.1rem;
+}
+
+.testi-avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 1px solid rgba(255,255,255,.1);
+}
+
+.testi-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.testi-card-info { flex: 1; }
+
+.testi-card-name {
+  font-family: var(--font-heading, 'Syne', sans-serif);
+  font-size: .88rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -.015em;
+  margin-bottom: 2px;
+  display: block;
+}
+
+.testi-card-role {
+  font-size: .72rem;
+  font-weight: 300;
+  color: rgba(255,255,255,.32);
+  display: block;
+  letter-spacing: .01em;
+}
+
+.testi-card-stars {
+  display: flex;
+  gap: 2px;
+  color: #fbbf24;
+  font-size: .68rem;
+  flex-shrink: 0;
+}
+
+/* Quote mark */
+.testi-card-quote-icon {
+  position: absolute;
+  top: 22px;
+  right: 24px;
+  font-size: 1.4rem;
+  color: rgba(200,242,58,.12);
+  pointer-events: none;
+  transition: color .28s;
+}
+
+.testi-card:hover .testi-card-quote-icon { color: rgba(200,242,58,.22); }
+
+/* Content */
+.testi-card-text {
+  font-size: .83rem;
+  font-weight: 300;
+  color: rgba(255,255,255,.5);
+  line-height: 1.72;
+  margin: 0;
+  font-style: italic;
+}
+
+/* ─── Responsive ─── */
 @media (max-width: 768px) {
-    .review-card {
-        flex: 0 0 300px;
-    }
+  .testi-inner { padding: 0 1.5rem; }
+  .testi-section { padding: 72px 0 80px; }
+  .testi-header {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-bottom: 48px;
+  }
+  .testi-header-right {
+    align-items: flex-start;
+  }
+  .testi-sub { text-align: left; max-width: 100%; }
+  .testi-marquee-area { margin: 0 -1.5rem; }
+  .testi-card { flex: 0 0 300px; }
 }

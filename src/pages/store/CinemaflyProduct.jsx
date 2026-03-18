@@ -1,382 +1,339 @@
-import React, { useState, useRef, useLayoutEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
-import { FaWindows, FaPlay, FaShieldAlt, FaBolt, FaMoon, FaFileVideo, FaMagic, FaClosedCaptioning, FaList, FaExpand, FaVolumeUp, FaVolumeMute } from 'react-icons/fa';
-import ProductNavbar from '../../components/ProductNavbar';
-import ProductFooter from '../../components/ProductFooter';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { Stars, Float } from '@react-three/drei';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { Link } from 'react-router-dom';
 
-gsap.registerPlugin(ScrollTrigger);
+const AC='#a855f7',BG='#050505',WIRE='rgba(255,255,255,0.07)',MW='1280px',PAD={padding:'0 3rem'};
+const DL_URL='https://apps.microsoft.com/detail/9P5XW3MZLQB0?hl=en-us&gl=PK&ocid=pdpshare';
 
-const AnimatedStars = () => {
-    const starsRef = useRef();
+const useReveal=(t=0.12)=>{const ref=useRef(null);const[v,sv]=useState(false);useEffect(()=>{const obs=new IntersectionObserver(([e])=>{if(e.isIntersecting){sv(true);obs.disconnect();}},{threshold:t});if(ref.current)obs.observe(ref.current);return()=>obs.disconnect();},[]);return[ref,v];};
+const fade=(v,d=0)=>({opacity:v?1:0,transform:v?'none':'translateY(24px)',transition:`opacity .72s ease ${d}ms, transform .72s cubic-bezier(.22,1,.36,1) ${d}ms`});
 
-    useFrame(({ clock }) => {
-        const elapsed = clock.getElapsedTime();
-        if (starsRef.current) {
-            starsRef.current.rotation.y = elapsed * 0.05;
-            starsRef.current.rotation.x = elapsed * 0.02;
-        }
-    });
+const FORMATS=[{name:'HEVC / H.265',hot:true},{name:'4K HDR',hot:true},{name:'AV1',hot:false},{name:'MKV',hot:false},{name:'H.264',hot:false},{name:'VP9',hot:false},{name:'WEBM',hot:false},{name:'MOV',hot:false},{name:'FLV',hot:false},{name:'MP4',hot:false},{name:'OGG',hot:false},{name:'TS',hot:false}];
+const HIGHLIGHTS=[{icon:'⚡',label:'DirectX 12 GPU Decoding',desc:'Hardware-accelerated playback of 4K HDR and HEVC. Smooth on any modern Windows device with minimal CPU load.'},{icon:'🔒',label:'100% Offline & Private',desc:'No telemetry, no accounts, no internet required. Your personal video library stays completely private.'},{icon:'◐',label:'Disappearing UI',desc:'Controls fade away during playback so your content fills the screen. The interface never gets in the way.'},{icon:'🖥',label:'Windows 11 Native',desc:'WinUI design system with dark mode, touch controls, media keys, and taskbar thumbnail previews.'}];
+const FEATURES=[{icon:'◷',title:'Smart Subtitles',desc:'Auto-detects .srt/.ass files and embedded tracks. Customise font, size, colour, and position live during playback.'},{icon:'☰',title:'Playlist Manager',desc:'Build and save playlists. Drag to reorder. Your playback position in every file is automatically remembered.'},{icon:'⧉',title:'Picture-in-Picture',desc:'Float the player over any window. Keep watching while you work, browse, or code without losing your place.'},{icon:'♪',title:'Audio Boost & EQ',desc:'Amplify quiet dialogue up to 200%. Dial a 10-band equaliser or choose from cinematic presets.'},{icon:'⤻',title:'Auto-Resume',desc:'Every file remembers its last position. Close and reopen a video days later and continue exactly where you stopped.'},{icon:'⊞',title:'Drag & Drop Open',desc:'Drop any file or entire folder onto the window. Cinemafly builds a full playlist immediately, no dialogs.'}];
+const FAQS=[{q:'Does Cinemafly play HEVC without buying the Windows codec extension?',a:'Yes. Cinemafly includes native HEVC and H.265 support. You do not need to purchase the Windows HEVC Video Extensions from the Microsoft Store.'},{q:'Is Cinemafly free?',a:'Yes, completely free. No in-app purchases, no subscription, no hidden fees.'},{q:'Does Cinemafly collect usage data?',a:'No. It works fully offline. No analytics, no account required, no data transmitted to any server.'},{q:'What Windows versions are supported?',a:'Windows 10 (version 1903+) and Windows 11. Optimised for Windows 11 with WinUI and DirectX 12.'}];
 
-    return (
-        <Stars ref={starsRef} radius={100} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
-    );
+const appSchema={'@context':'https://schema.org','@type':'SoftwareApplication',name:'Cinemafly',applicationCategory:'MultimediaApplication',operatingSystem:'Windows 10, Windows 11',description:'Free Windows media player. Plays HEVC, H.265, MKV, 4K HDR, AV1, and 30+ formats without codec packs. GPU accelerated, privacy-first.',url:'https://minderfly.com/store/cinemafly',downloadUrl:DL_URL,offers:{'@type':'Offer',price:'0',priceCurrency:'USD'},aggregateRating:{'@type':'AggregateRating',ratingValue:'4.8',reviewCount:'156'},author:{'@type':'Organization',name:'Minderfly',url:'https://minderfly.com'}};
+const faqSchema={'@context':'https://schema.org','@type':'FAQPage',mainEntity:FAQS.map(f=>({'@type':'Question',name:f.q,acceptedAnswer:{'@type':'Answer',text:f.a}}))};
+const bcSchema={'@context':'https://schema.org','@type':'BreadcrumbList',itemListElement:[{'@type':'ListItem',position:1,name:'Home',item:'https://minderfly.com/'},{'@type':'ListItem',position:2,name:'Store',item:'https://minderfly.com/store'},{'@type':'ListItem',position:3,name:'Cinemafly',item:'https://minderfly.com/store/cinemafly'}]};
+
+const btn=(bg,fg,hover_bg,hover_fg)=>({display:'inline-flex',alignItems:'center',gap:9,padding:'12px 26px',borderRadius:10,background:bg,color:fg,fontSize:'.82rem',fontWeight:700,textDecoration:'none',border:'none',cursor:'pointer',fontFamily:'var(--font-body)',letterSpacing:'.02em',transition:'all .2s',whiteSpace:'nowrap'});
+
+/* ── Video Demo ── */
+const VideoDemo=()=>{
+  const[file,setFile]=useState(null);
+  const[url,setUrl]=useState(null);
+  const[muted,setMuted]=useState(true);
+  const[drag,setDrag]=useState(false);
+  const[err,setErr]=useState('');
+  const[played,setPlayed]=useState(false);
+  const vRef=useRef(null);
+  const iRef=useRef(null);
+
+  const load=useCallback((f)=>{
+    if(!f)return;
+    if(!f.type.startsWith('video/')&&!f.name.match(/\.(mp4|mkv|webm|mov|avi|flv|ogg|ts|hevc|265)$/i)){setErr('Please select a video file');return;}
+    setErr('');setFile(f);
+    setUrl(p=>{if(p)URL.revokeObjectURL(p);return URL.createObjectURL(f);});
+    setPlayed(false);
+  },[]);
+
+  useEffect(()=>()=>{if(url)URL.revokeObjectURL(url);},[url]);
+
+  const isH=!!(file?.name?.match(/\.(hevc|265)$/i)||file?.name?.toUpperCase().includes('HEVC'));
+  const is4=!!(file?.name?.includes('4K')||file?.name?.includes('4k')||file?.name?.toUpperCase().includes('UHD'));
+  const toggleMute=()=>{setMuted(v=>!v);if(vRef.current)vRef.current.muted=!muted;};
+  const reset=()=>{setFile(null);setUrl(null);setErr('');setPlayed(false);};
+
+  if(!url)return(
+    <div onDragOver={e=>{e.preventDefault();setDrag(true);}} onDragLeave={()=>setDrag(false)}
+      onDrop={e=>{e.preventDefault();setDrag(false);load(e.dataTransfer.files[0]);}}
+      onClick={()=>iRef.current?.click()} tabIndex={0} role="button"
+      aria-label="Drop or click to open a video file"
+      onKeyDown={e=>e.key==='Enter'&&iRef.current?.click()}
+      style={{minHeight:360,borderRadius:18,cursor:'pointer',textAlign:'center',border:`2px dashed ${drag?AC:'rgba(255,255,255,.12)'}`,background:drag?'rgba(168,85,247,.06)':'rgba(255,255,255,.02)',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',gap:18,padding:'2.5rem 2rem',transition:'all .25s'}}>
+      <input ref={iRef} type="file" accept="video/*,.mkv,.hevc,.265" style={{display:'none'}} onChange={e=>load(e.target.files[0])}/>
+      <motion.div animate={{y:[0,-7,0]}} transition={{repeat:Infinity,duration:3,ease:'easeInOut'}}>
+        <div style={{width:72,height:72,borderRadius:20,background:'rgba(168,85,247,.12)',border:'1px solid rgba(168,85,247,.25)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:'2rem'}}>▶</div>
+      </motion.div>
+      <div>
+        <p style={{fontFamily:'var(--font-heading)',fontSize:'1.12rem',fontWeight:800,color:'#fff',letterSpacing:'-.02em',marginBottom:'.4rem'}}>Drop a video file here</p>
+        <p style={{fontSize:'.8rem',fontWeight:300,color:'rgba(255,255,255,.36)',lineHeight:1.6}}>HEVC · MKV · MP4 · WEBM · MOV · AVI and more<br/><span style={{fontSize:'.7rem',color:'rgba(255,255,255,.2)'}}>Click to browse · File stays on your device</span></p>
+      </div>
+      {err&&<p style={{fontSize:'.76rem',color:'#f87171'}}>{err}</p>}
+      <div style={{display:'flex',gap:6,flexWrap:'wrap',justifyContent:'center'}}>
+        {['HEVC','4K HDR','MKV','AV1','H.264'].map(f=>(
+          <span key={f} style={{padding:'3px 10px',borderRadius:100,background:'rgba(255,255,255,.05)',border:'1px solid rgba(255,255,255,.09)',fontSize:'.62rem',color:'rgba(255,255,255,.35)'}}>{f}</span>
+        ))}
+      </div>
+    </div>
+  );
+
+  return(
+    <div>
+      <div style={{display:'flex',flexWrap:'wrap',gap:6,marginBottom:10}}>
+        <span style={{padding:'3px 11px',borderRadius:100,background:'rgba(255,255,255,.06)',border:'1px solid rgba(255,255,255,.1)',fontSize:'.65rem',color:'rgba(255,255,255,.5)',maxWidth:220,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>📄 {file.name}</span>
+        {isH&&<span style={{padding:'3px 11px',borderRadius:100,background:'rgba(168,85,247,.12)',border:'1px solid rgba(168,85,247,.3)',fontSize:'.65rem',color:AC,fontWeight:700}}>HEVC</span>}
+        {is4&&<span style={{padding:'3px 11px',borderRadius:100,background:'rgba(251,191,36,.1)',border:'1px solid rgba(251,191,36,.3)',fontSize:'.65rem',color:'#fbbf24',fontWeight:700}}>4K</span>}
+      </div>
+      <div style={{borderRadius:14,overflow:'hidden',border:'1px solid rgba(255,255,255,.1)',background:'#000',boxShadow:'0 24px 60px rgba(0,0,0,.6)'}}>
+        <div style={{height:36,background:'#111',borderBottom:'1px solid rgba(255,255,255,.07)',display:'flex',alignItems:'center',justifyContent:'space-between',padding:'0 12px'}}>
+          <div style={{display:'flex',gap:6}}>{['#ff5f56','#ffbd2e','#27c93f'].map(c=><span key={c} style={{width:9,height:9,borderRadius:'50%',background:c,display:'block'}}/>)}</div>
+          <span style={{fontSize:'.6rem',color:'rgba(255,255,255,.28)',fontFamily:'monospace'}}>Browser Preview</span>
+          <button onClick={toggleMute} style={{background:'none',border:'none',cursor:'pointer',color:'rgba(255,255,255,.45)',fontSize:'.9rem',padding:2}} aria-label={muted?'Unmute':'Mute'}>{muted?'🔇':'🔊'}</button>
+        </div>
+        <video ref={vRef} src={url} controls autoPlay muted={muted} playsInline onPlay={()=>setPlayed(true)} style={{width:'100%',maxHeight:340,display:'block',background:'#000'}}/>
+      </div>
+      {played&&(
+        <div style={{marginTop:12,padding:'16px 18px',background:'rgba(168,85,247,.06)',border:'1px solid rgba(168,85,247,.18)',borderRadius:12}}>
+          <p style={{fontSize:'.8rem',fontWeight:600,color:'#fff',marginBottom:'.3rem'}}>{isH?'⚠️ HEVC browser support is limited':'🎬 Enjoying the preview?'}</p>
+          <p style={{fontSize:'.75rem',fontWeight:300,color:'rgba(255,255,255,.42)',lineHeight:1.6,marginBottom:'.75rem'}}>{isH?'Browsers often lack hardware HEVC decoding. Cinemafly plays every HEVC and H.265 file on Windows with full GPU acceleration — no codec extension required.':'Cinemafly gives you GPU-accelerated 4K, smart subtitles, audio boost, and an immersive dark UI that a browser cannot replicate.'}</p>
+          <div style={{display:'flex',gap:9,flexWrap:'wrap',alignItems:'center'}}>
+            <a href={DL_URL} target="_blank" rel="noopener noreferrer" style={{...btn(AC,'#fff')}}
+              onMouseEnter={e=>{e.currentTarget.style.background='#fff';e.currentTarget.style.color='#000';}}
+              onMouseLeave={e=>{e.currentTarget.style.background=AC;e.currentTarget.style.color='#fff';}}>⊞ Download Cinemafly Free</a>
+            <button onClick={reset} style={{background:'none',border:'1px solid rgba(255,255,255,.12)',borderRadius:8,padding:'9px 16px',color:'rgba(255,255,255,.42)',fontSize:'.74rem',cursor:'pointer',fontFamily:'var(--font-body)',transition:'all .2s'}}
+              onMouseEnter={e=>{e.currentTarget.style.borderColor='rgba(255,255,255,.3)';e.currentTarget.style.color='#fff';}}
+              onMouseLeave={e=>{e.currentTarget.style.borderColor='rgba(255,255,255,.12)';e.currentTarget.style.color='rgba(255,255,255,.42)';}}>Open another file</button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 };
 
-const CinemaflyProduct = () => {
-    const fadeIn = {
-        hidden: { opacity: 0, y: 30 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
-    };
+/* ── Page ── */
+const CinemaflyProduct=()=>{
+  const[muted,setMuted]=useState(true);
+  const promoRef=useRef(null);
+  const toggleMute=()=>{setMuted(v=>!v);if(promoRef.current)promoRef.current.muted=!muted;};
+  const[heroRef,heroV]=useReveal(0.05);
+  const[fmtRef,fmtV]=useReveal(0.08);
+  const[demoRef,demoV]=useReveal(0.06);
+  const[hlRef,hlV]=useReveal(0.08);
+  const[featRef,featV]=useReveal(0.08);
+  const[faqRef,faqV]=useReveal(0.08);
+  const[ctaRef,ctaV]=useReveal(0.12);
 
-    const staggerContainer = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: {
-                staggerChildren: 0.2
-            }
-        }
-    };
+  const NavBtn=(props)=>(
+    <a {...props} style={{display:'inline-flex',alignItems:'center',gap:8,padding:'8px 20px',borderRadius:8,background:AC,color:'#fff',fontSize:'.76rem',fontWeight:700,textDecoration:'none',letterSpacing:'.02em',transition:'all .2s',...props.style}}
+      onMouseEnter={e=>{e.currentTarget.style.background='#fff';e.currentTarget.style.color='#000';}}
+      onMouseLeave={e=>{e.currentTarget.style.background=AC;e.currentTarget.style.color='#fff';}}/>
+  );
 
-    const [isMuted, setIsMuted] = useState(true);
-    const videoRef = useRef(null);
-    const mobileVideoRef = useRef(null);
-    const mainRef = useRef(null);
-    const titleRef = useRef(null);
+  const sLabel=()=>({display:'inline-flex',alignItems:'center',gap:10,fontSize:'.6rem',fontWeight:700,letterSpacing:'.2em',textTransform:'uppercase',color:AC,marginBottom:'1rem'});
+  const sLine=()=>({width:20,height:1,background:AC,display:'block'});
+  const sH2=()=>({fontFamily:'var(--font-heading)',fontSize:'clamp(1.8rem,3.5vw,3rem)',fontWeight:800,lineHeight:.97,letterSpacing:'-.04em',color:'#fff'});
 
-    const toggleMute = () => {
-        setIsMuted(!isMuted);
-        if (videoRef.current) videoRef.current.muted = !isMuted;
-        if (mobileVideoRef.current) mobileVideoRef.current.muted = !isMuted;
-    };
+  return(
+    <>
+      <Helmet>
+        <title>Cinemafly — Free HEVC & 4K Media Player for Windows 10/11 | Minderfly</title>
+        <meta name="description" content="Download Cinemafly free on Windows. Plays HEVC, H.265, MKV, 4K HDR, AV1, and 30+ formats without codec packs. GPU accelerated, fully offline, designed for Windows 11." />
+        <meta name="keywords" content="Cinemafly, free HEVC player Windows, H.265 media player Windows 11, 4K HDR player Windows, MKV player free, video player no codec Windows, free media player Windows 11, AV1 player Windows, play HEVC without codec" />
+        <link rel="canonical" href="https://minderfly.com/store/cinemafly"/>
+        <meta property="og:title" content="Cinemafly — Free HEVC & 4K Media Player for Windows"/>
+        <meta property="og:description" content="Play every video format on Windows without codec hunting. Free on the Microsoft Store."/>
+        <meta property="og:type" content="website"/>
+        <meta name="twitter:card" content="summary_large_image"/>
+        <script type="application/ld+json">{JSON.stringify(appSchema)}</script>
+        <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
+        <script type="application/ld+json">{JSON.stringify(bcSchema)}</script>
+      </Helmet>
 
-    useLayoutEffect(() => {
-        let ctx = gsap.context(() => {
-            // Hero Title Animation
-            gsap.fromTo(titleRef.current,
-                { y: 100, opacity: 0 },
-                { y: 0, opacity: 1, duration: 1.5, ease: "power4.out", delay: 0.5 }
-            );
+      {/* NAV */}
+      <nav style={{position:'fixed',top:0,left:0,right:0,height:64,background:'rgba(5,5,5,.9)',backdropFilter:'blur(24px)',borderBottom:`1px solid ${WIRE}`,display:'flex',alignItems:'center',zIndex:1000}}>
+        <div style={{maxWidth:MW,margin:'0 auto',...PAD,width:'100%',display:'flex',alignItems:'center',justifyContent:'space-between'}}>
+          <Link to="/store" style={{fontSize:'.76rem',fontWeight:500,color:'rgba(255,255,255,.32)',textDecoration:'none',transition:'color .2s'}}
+            onMouseEnter={e=>e.currentTarget.style.color='rgba(255,255,255,.7)'}
+            onMouseLeave={e=>e.currentTarget.style.color='rgba(255,255,255,.32)'}>← Store</Link>
+          <span style={{fontFamily:'var(--font-heading)',fontSize:'1.2rem',fontWeight:800,letterSpacing:'-.03em',color:'#fff'}}>Cinema<span style={{color:AC}}>fly</span></span>
+          <NavBtn href={DL_URL} target="_blank" rel="noopener noreferrer">⊞ Free Download</NavBtn>
+        </div>
+      </nav>
 
-            // ScrollTrigger for Sections
-            gsap.utils.toArray('.gsap-fade-up').forEach((elem) => {
-                gsap.fromTo(elem,
-                    { y: 50, opacity: 0 },
-                    {
-                        y: 0,
-                        opacity: 1,
-                        duration: 1,
-                        ease: "power3.out",
-                        scrollTrigger: {
-                            trigger: elem,
-                            start: "top 80%",
-                        }
-                    }
-                );
-            });
+      <main style={{background:BG,color:'#fff',fontFamily:'var(--font-body)',paddingTop:64}}>
 
-        }, mainRef);
-
-        return () => ctx.revert();
-    }, []);
-
-    const bentoItems = [
-        { title: "HEVC", color: "from-purple-500 to-indigo-500", size: "col-span-1 row-span-2" },
-        { title: "MKV", color: "from-blue-500 to-cyan-500", size: "col-span-1" },
-        { title: "4K HDR", color: "from-pink-500 to-rose-500", size: "col-span-2" },
-        { title: "MP4", color: "from-emerald-500 to-teal-500", size: "col-span-1" },
-        { title: "AV1", color: "from-orange-500 to-amber-500", size: "col-span-1" },
-    ];
-
-    const detailedFeatures = [
-        {
-            icon: <FaClosedCaptioning />,
-            title: "Smart Subtitles",
-            desc: "Auto-detects and loads subtitles. Customize font, size, and color."
-        },
-        {
-            icon: <FaList />,
-            title: "Playlist Management",
-            desc: "Create, edit, and save playlists for your binge-watching sessions."
-        },
-        {
-            icon: <FaExpand />,
-            title: "Picture-in-Picture",
-            desc: "Multitask like a pro. Keep watching while you work."
-        },
-        {
-            icon: <FaVolumeUp />,
-            title: "Audio Boost",
-            desc: "Enhance quiet dialogue or boost the bass for action scenes."
-        },
-        {
-            icon: <FaMagic />,
-            title: "Auto-Resume",
-            desc: "Pick up exactly where you left off, every time."
-        },
-        {
-            icon: <FaFileVideo />,
-            title: "Drag & Drop",
-            desc: "Simple, intuitive interface. Just drop your files and play."
-        }
-    ];
-
-    return (
-        <>
-            <Helmet>
-                <title>Cinemafly - Design without limits | Minderfly</title>
-                <meta name="description" content="Cinemafly is the next-generation media player for Windows. Play HEVC, MKV, and 4K natively. No codecs required." />
-                <link rel="canonical" href="https://minderfly.com/products/cinemafly" />
-            </Helmet>
-
-            <ProductNavbar productName="Cinemafly" ctaLink="https://apps.microsoft.com/detail/9P5XW3MZLQB0?hl=en-us&gl=PK&ocid=pdpshare" />
-
-            <div ref={mainRef} className="min-h-screen bg-black text-white overflow-hidden selection:bg-purple-500/30 font-body">
-
-                {/* Hero Section */}
-                {/* Hero Section */}
-                <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 px-6 overflow-hidden">
-                    <div className="absolute inset-0 pointer-events-none z-0">
-                        <Canvas camera={{ position: [0, 0, 1] }}>
-                            <Float speed={2} rotationIntensity={1} floatIntensity={1}>
-                                <AnimatedStars />
-                            </Float>
-                        </Canvas>
-                    </div>
-                    <div className="absolute top-0 left-0 w-full h-[500px] bg-gradient-to-b from-purple-900/20 to-transparent pointer-events-none"></div>
-
-                    <div className="container mx-auto max-w-7xl relative z-10 text-center font-lato">
-                        {/* Hero Video Container - NOW FIRST -- keeping mute functionality */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 50, scale: 0.95 }}
-                            animate={{ opacity: 1, y: 0, scale: 1 }}
-                            transition={{ duration: 1, ease: "easeOut" }}
-                            className="relative max-w-6xl mx-auto mb-16"
-                        >
-                            <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl blur opacity-30 animate-pulse"></div>
-                            <div className="relative rounded-xl overflow-hidden bg-[#0a0a0a] border border-white/10 shadow-2xl">
-                                <video
-                                    ref={videoRef}
-                                    src="/cinemafly_launch.mp4"
-                                    autoPlay
-                                    loop
-                                    muted={isMuted}
-                                    playsInline
-                                    className="w-full h-auto object-cover"
-                                />
-                                {/* UI Overlay Mockup */}
-                                <div className="absolute top-0 left-0 w-full h-12 bg-black/50 backdrop-blur-md flex items-center px-4 justify-between border-b border-white/5 z-20">
-                                    <div className="flex space-x-2">
-                                        <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                                        <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                                        <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                                    </div>
-                                    <div className="text-xs text-gray-500 font-mono">Cinemafly Player</div>
-                                    <button
-                                        onClick={toggleMute}
-                                        className="text-white/70 hover:text-white transition-colors p-1"
-                                        aria-label={isMuted ? "Unmute" : "Mute"}
-                                    >
-                                        {isMuted ? <FaVolumeMute /> : <FaVolumeUp />}
-                                    </button>
-                                </div>
-                            </div>
-                        </motion.div>
-
-                        <div className="max-w-4xl mx-auto relative z-20">
-                            <h1 ref={titleRef} className="text-5xl md:text-7xl lg:text-8xl font-bold font-poppins tracking-tight mb-6 opacity-0">
-                                Playback <br className="hidden md:block" />
-                                <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-200 to-gray-500">
-                                    without limits
-                                </span>
-                            </h1>
-                            <p className="text-xl text-gray-400 max-w-2xl mx-auto font-lato gsap-fade-up">
-                                The high-performance media player that handles everything you throw at it. HEVC, 4K, MKV—no codecs needed.
-                            </p>
-                        </div>
-                    </div>
-                </section>
-
-                {/* Mobile Video Section (Visible only on small screens) */}
-                <section className="lg:hidden px-6 pb-20 relative">
-                    <div className="rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-black relative group">
-                        <video
-                            ref={mobileVideoRef}
-                            src="/cinemafly_launch.mp4"
-                            autoPlay
-                            loop
-                            muted={isMuted}
-                            playsInline
-                            className="w-full h-auto object-cover"
-                        />
-                        <button
-                            onClick={toggleMute}
-                            className="absolute bottom-4 right-4 bg-black/50 backdrop-blur-md p-3 rounded-full text-white/90 border border-white/10 hover:bg-black/70 transition-all z-20"
-                            aria-label={isMuted ? "Unmute" : "Mute"}
-                        >
-                            {isMuted ? <FaVolumeMute /> : <FaVolumeUp />}
-                        </button>
-                    </div>
-                </section>
-
-                {/* Bento Grid Section */}
-                <section className="py-32 bg-black relative">
-                    <div className="container mx-auto max-w-6xl px-6">
-                        <div className="text-center mb-16 gsap-fade-up">
-                            <span className="text-purple-500 font-bold tracking-wider text-sm uppercase mb-4 block">Universal Compatibility</span>
-                            <h2 className="text-4xl md:text-5xl font-bold font-display">Plays everything. Literally.</h2>
-                        </div>
-
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[200px] gsap-fade-up">
-                            {bentoItems.map((item, index) => (
-                                <div
-                                    key={index}
-                                    className={`${item.size} rounded-3xl relative overflow-hidden group bg-[#111] border border-white/5 hover:border-white/20 transition-colors`}
-                                >
-                                    <div className={`absolute inset-0 bg-gradient-to-br ${item.color} opacity-10 group-hover:opacity-20 transition-opacity`}></div>
-                                    <div className="absolute inset-0 flex items-center justify-center p-6">
-                                        <span className="text-3xl md:text-5xl font-bold font-display text-white/90 group-hover:scale-110 transition-transform duration-500">
-                                            {item.title}
-                                        </span>
-                                    </div>
-                                </div>
-                            ))}
-                            <div
-                                className="col-span-2 row-span-2 rounded-3xl bg-[#111] border border-white/5 overflow-hidden relative flex flex-col items-center justify-center text-center p-8"
-                            >
-                                <div className="absolute inset-0 bg-[url('/cinemafly_logo.png')] bg-center bg-no-repeat opacity-5 blur-sm bg-contain transform scale-150"></div>
-                                <h3 className="text-2xl font-bold mb-2 relative z-10">And much more...</h3>
-                                <p className="text-gray-400 relative z-10">FLV, WEBM, MOV, VOB, OGG, WAV</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                {/* Zig-Zag Features */}
-                <section className="py-20 overflow-hidden">
-                    <div className="container mx-auto max-w-7xl px-6 space-y-32">
-
-                        {/* Feature 1 */}
-                        <div className="grid md:grid-cols-2 gap-16 items-center">
-                            <div className="gsap-fade-up">
-                                <h2 className="text-4xl md:text-6xl font-bold font-poppins mb-6">Lightning speed</h2>
-                                <p className="text-xl text-gray-400 leading-relaxed mb-8 font-lato">
-                                    Optimized for modern hardware. Cinemafly uses tailored acceleration to play high-bitrate 4K HDR content smoothly, without draining your battery or overheating your device.
-                                </p>
-                                <ul className="space-y-4 text-gray-300 font-lato">
-                                    <li className="flex items-center gap-3"><FaBolt className="text-yellow-400" /> GPU Acceleration</li>
-                                    <li className="flex items-center gap-3"><FaBolt className="text-yellow-400" /> Low CPU Usage</li>
-                                    <li className="flex items-center gap-3"><FaBolt className="text-yellow-400" /> Instant Startup</li>
-                                </ul>
-                            </div>
-                            <div className="relative h-[400px] md:h-[500px] rounded-3xl overflow-hidden border border-white/10 bg-[#0a0a0a] gsap-fade-up">
-                                <div className="absolute inset-0 bg-gradient-to-tr from-yellow-500/10 to-transparent"></div>
-                                {/* Abstract Visualization */}
-                                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 bg-yellow-500/20 blur-[100px] rounded-full animate-pulse"></div>
-                                <div className="relative z-10 h-full flex items-center justify-center">
-                                    <span className="text-9xl font-bold text-white/5 select-none font-display">FAST</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Feature 2 */}
-                        <div className="grid md:grid-cols-2 gap-16 items-center">
-                            <div className="order-2 md:order-1 relative h-[400px] md:h-[500px] rounded-3xl overflow-hidden border border-white/10 bg-[#0a0a0a] gsap-fade-up">
-                                <div className="absolute inset-0 bg-gradient-to-bl from-purple-500/10 to-transparent"></div>
-                                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 bg-purple-500/20 blur-[100px] rounded-full animate-pulse"></div>
-                                <div className="relative z-10 h-full flex items-center justify-center">
-                                    <FaMoon className="text-9xl text-white/5" />
-                                </div>
-                            </div>
-                            <div className="order-1 md:order-2 gsap-fade-up">
-                                <span className="text-purple-500 font-bold mb-2 block font-lato">Immersion</span>
-                                <h2 className="text-4xl md:text-6xl font-bold font-poppins mb-6">Combine creativity and productivity</h2>
-                                <p className="text-xl text-gray-400 leading-relaxed mb-8 font-lato">
-                                    Our interface is designed to disappear. The dark, minimal UI ensures your focus stays 100% on the content. Controls appear only when you need them.
-                                </p>
-                            </div>
-                        </div>
-
-                        {/* Feature 3 */}
-                        <div className="grid md:grid-cols-2 gap-16 items-center">
-                            <div className="gsap-fade-up">
-                                <span className="text-blue-500 font-bold mb-2 block font-lato">Security</span>
-                                <h2 className="text-4xl md:text-6xl font-bold font-poppins mb-6">Under your control</h2>
-                                <p className="text-xl text-gray-400 leading-relaxed mb-8 font-lato">
-                                    Your personal videos are private. Cinemafly works completely offline. We don't track your viewing habits, collect metadata, or require an account.
-                                </p>
-                            </div>
-                            <div className="relative h-[400px] md:h-[500px] rounded-3xl overflow-hidden border border-white/10 bg-[#0a0a0a] gsap-fade-up">
-                                <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/10 to-transparent"></div>
-                                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 bg-blue-500/20 blur-[100px] rounded-full animate-pulse"></div>
-                                <div className="relative z-10 h-full flex items-center justify-center">
-                                    <FaShieldAlt className="text-9xl text-white/5" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                {/* Go Further / Windows Section */}
-                <section className="py-32">
-                    <div className="container mx-auto max-w-7xl px-6 text-center gsap-fade-up">
-                        <span className="text-green-400 font-bold mb-4 block flex justify-center items-center gap-2 font-lato"><FaWindows /> Built for Windows</span>
-                        <h2 className="text-5xl md:text-7xl font-bold font-poppins mb-12">Go further, together</h2>
-
-                        <div className="relative rounded-[2rem] overflow-hidden border border-white/10 shadow-2xl bg-[#111] max-w-5xl mx-auto">
-                            <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/80 z-10"></div>
-                            <img src="/launch_screen_clean.png" alt="Windows Integration" className="w-full opacity-50" onError={(e) => e.target.style.display = 'none'} />
-                            <div className="absolute bottom-0 left-0 w-full z-20 p-20">
-                                <p className="text-2xl text-gray-300 max-w-2xl mx-auto mb-10 font-lato">
-                                    Native integration with Windows 11. Supports dark mode, touch controls, and media keys out of the box.
-                                </p>
-                                <a
-                                    href="https://apps.microsoft.com/detail/9P5XW3MZLQB0?hl=en-us&gl=PK&ocid=pdpshare"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="px-12 py-5 bg-white text-black text-xl font-bold rounded-full hover:scale-105 transition-transform duration-300 inline-block font-body"
-                                >
-                                    Get it on Microsoft Store
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                {/* Detailed Features Grid (But wait, there's more) */}
-                <section className="py-32 bg-black border-t border-white/5">
-                    <div className="container mx-auto max-w-7xl px-6">
-                        <div className="text-center mb-20 gsap-fade-up">
-                            <span className="text-pink-500 font-bold text-sm tracking-wider uppercase font-lato">Features</span>
-                            <h2 className="text-4xl md:text-5xl font-bold font-poppins mt-4">But wait, there's more...</h2>
-                        </div>
-
-                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                            {detailedFeatures.map((feature, index) => (
-                                <div
-                                    key={index}
-                                    className="p-8 rounded-3xl bg-[#0a0a0a] border border-white/5 hover:border-white/10 hover:bg-[#111] transition-all group gsap-fade-up"
-                                >
-                                    <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center mb-6 text-xl text-white group-hover:scale-110 transition-transform">
-                                        {feature.icon}
-                                    </div>
-                                    <h3 className="text-xl font-bold mb-3 font-poppins">{feature.title}</h3>
-                                    <p className="text-gray-400 text-sm leading-relaxed font-lato">{feature.desc}</p>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </section>
-
+        {/* HERO */}
+        <section style={{padding:'80px 0 56px',position:'relative',overflow:'hidden'}} aria-label="Cinemafly hero">
+          <div aria-hidden="true" style={{position:'absolute',top:'-15%',left:'50%',transform:'translateX(-50%)',width:'80%',height:'100%',background:'radial-gradient(ellipse at 50% 0%,rgba(168,85,247,.11) 0%,transparent 62%)',pointerEvents:'none'}}/>
+          <div aria-hidden="true" style={{position:'absolute',inset:0,backgroundImage:'radial-gradient(rgba(255,255,255,.022) 1px,transparent 1px)',backgroundSize:'40px 40px',pointerEvents:'none',maskImage:'radial-gradient(ellipse 70% 60% at 50% 0%,black,transparent)'}}/>
+          <div style={{maxWidth:MW,margin:'0 auto',...PAD}}>
+            <nav aria-label="Breadcrumb" style={{display:'flex',alignItems:'center',gap:8,fontSize:'.7rem',color:'rgba(255,255,255,.26)',marginBottom:'2.5rem'}}>
+              <Link to="/" style={{color:'rgba(255,255,255,.3)',textDecoration:'none'}}>Home</Link><span>›</span>
+              <Link to="/store" style={{color:'rgba(255,255,255,.3)',textDecoration:'none'}}>Store</Link><span>›</span>
+              <span aria-current="page" style={{color:'rgba(255,255,255,.52)'}}>Cinemafly</span>
+            </nav>
+            <div ref={heroRef} style={{textAlign:'center',maxWidth:800,margin:'0 auto',marginBottom:'4rem'}}>
+              <div style={{...fade(heroV),display:'inline-flex',alignItems:'center',gap:8,padding:'5px 16px',borderRadius:8,background:'rgba(168,85,247,.1)',border:'1px solid rgba(168,85,247,.25)',color:AC,fontSize:'.63rem',fontWeight:700,letterSpacing:'.18em',textTransform:'uppercase',marginBottom:'1.5rem'}}>▶ Free · Windows 10/11 · Microsoft Store</div>
+              <h1 style={{...fade(heroV,55),fontFamily:'var(--font-heading)',fontSize:'clamp(3rem,7vw,6rem)',fontWeight:800,lineHeight:.93,letterSpacing:'-.055em',color:'#fff',marginBottom:'1.25rem'}}>Playback<br/><span style={{WebkitTextStroke:'1.5px rgba(255,255,255,.17)',color:'transparent'}}>without limits.</span></h1>
+              <p style={{...fade(heroV,110),fontSize:'1.05rem',fontWeight:300,color:'rgba(255,255,255,.43)',lineHeight:1.7,marginBottom:'2.5rem'}}>The Windows media player that plays everything — HEVC, MKV, 4K HDR, AV1, and 30+ formats — without codec packs, without complexity, without touching your privacy.</p>
+              <div style={{...fade(heroV,155),display:'flex',alignItems:'center',justifyContent:'center',gap:14,flexWrap:'wrap'}}>
+                <a href={DL_URL} target="_blank" rel="noopener noreferrer"
+                  style={{display:'inline-flex',alignItems:'center',gap:10,padding:'13px 30px',borderRadius:10,background:AC,color:'#fff',fontSize:'.9rem',fontWeight:700,textDecoration:'none',letterSpacing:'.02em',transition:'all .22s'}}
+                  onMouseEnter={e=>{e.currentTarget.style.background='#fff';e.currentTarget.style.color='#000';e.currentTarget.style.transform='translateY(-2px)';}}
+                  onMouseLeave={e=>{e.currentTarget.style.background=AC;e.currentTarget.style.color='#fff';e.currentTarget.style.transform='none';}}>⊞ Download Free — Microsoft Store</a>
+                <div style={{display:'flex',alignItems:'center',gap:9,fontSize:'.76rem',color:'rgba(255,255,255,.33)'}}>
+                  <span style={{color:'#fbbf24'}}>★ 4.8</span><span style={{opacity:.4}}>·</span><span>1,000+ Downloads</span><span style={{opacity:.4}}>·</span><span>Free</span>
+                </div>
+              </div>
             </div>
-            <ProductFooter productName="Cinemafly" />
-        </>
-    );
-};
+            {/* Promo video */}
+            <motion.div initial={{opacity:0,y:28,scale:.97}} animate={{opacity:1,y:0,scale:1}} transition={{duration:1.1,delay:.2,ease:[.22,1,.36,1]}} style={{maxWidth:980,margin:'0 auto',position:'relative'}}>
+              <div aria-hidden="true" style={{position:'absolute',inset:-24,background:'radial-gradient(ellipse at 50% 50%,rgba(168,85,247,.13) 0%,transparent 60%)',pointerEvents:'none'}}/>
+              <div style={{position:'relative',borderRadius:18,overflow:'hidden',border:'1px solid rgba(255,255,255,.1)',boxShadow:'0 48px 96px rgba(0,0,0,.75)'}}>
+                <div style={{height:44,background:'#0e0e0e',borderBottom:'1px solid rgba(255,255,255,.07)',display:'flex',alignItems:'center',justifyContent:'space-between',padding:'0 16px'}}>
+                  <div style={{display:'flex',gap:7}}>{['#ff5f56','#ffbd2e','#27c93f'].map(c=><span key={c} style={{width:10,height:10,borderRadius:'50%',background:c,display:'block'}}/>)}</div>
+                  <span style={{fontSize:'.66rem',color:'rgba(255,255,255,.26)',fontFamily:'monospace'}}>Cinemafly Player</span>
+                  <button onClick={toggleMute} aria-label={muted?'Unmute':'Mute'} style={{background:'none',border:'none',cursor:'pointer',color:'rgba(255,255,255,.42)',fontSize:'1rem',padding:4}}>{muted?'🔇':'🔊'}</button>
+                </div>
+                <video ref={promoRef} src="/cinemafly_launch.mp4" autoPlay loop muted={muted} playsInline style={{width:'100%',height:'auto',display:'block',background:'#000',aspectRatio:'16/9'}}/>
+              </div>
+            </motion.div>
+          </div>
+        </section>
 
+        {/* FORMAT GRID */}
+        <section ref={fmtRef} style={{padding:'96px 0',background:'rgba(255,255,255,.013)',borderTop:`1px solid ${WIRE}`,borderBottom:`1px solid ${WIRE}`}} aria-label="Supported video formats">
+          <div style={{maxWidth:MW,margin:'0 auto',...PAD}}>
+            <div style={{textAlign:'center',marginBottom:'3.5rem',...fade(fmtV)}}>
+              <div style={sLabel()}><span style={sLine()}/>Universal Compatibility</div>
+              <h2 style={{...sH2(),marginBottom:'.75rem'}}>Plays everything.<br/><span style={{color:'rgba(255,255,255,.24)'}}>Literally.</span></h2>
+              <p style={{fontSize:'.88rem',fontWeight:300,color:'rgba(255,255,255,.35)',maxWidth:420,margin:'0 auto'}}>No codec packs. No $0.99 extension. Drop the file — it plays.</p>
+            </div>
+            <div style={{display:'grid',gridTemplateColumns:'repeat(6,1fr)',gap:8}}>
+              {FORMATS.map((f,i)=>(
+                <div key={f.name} style={{...fade(fmtV,i*28),position:'relative',background:'rgba(255,255,255,.03)',border:`1px solid ${f.hot?'rgba(168,85,247,.22)':'rgba(255,255,255,.07)'}`,borderRadius:12,padding:'18px 8px',textAlign:'center',transition:'all .22s',cursor:'default'}}
+                  onMouseEnter={e=>{e.currentTarget.style.background='rgba(168,85,247,.09)';e.currentTarget.style.borderColor='rgba(168,85,247,.35)';e.currentTarget.style.transform='translateY(-3px)';}}
+                  onMouseLeave={e=>{e.currentTarget.style.background='rgba(255,255,255,.03)';e.currentTarget.style.borderColor=f.hot?'rgba(168,85,247,.22)':'rgba(255,255,255,.07)';e.currentTarget.style.transform='none';}}>
+                  {f.hot&&<span style={{position:'absolute',top:-1,right:-1,fontSize:'.52rem',fontWeight:700,color:'#000',background:AC,borderRadius:'0 10px 0 6px',padding:'2px 6px',letterSpacing:'.06em'}}>HOT</span>}
+                  <span style={{fontFamily:'var(--font-heading)',fontSize:'.82rem',fontWeight:800,color:'#fff',letterSpacing:'-.02em'}}>{f.name}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* INTERACTIVE DEMO */}
+        <section ref={demoRef} style={{padding:'100px 0'}} aria-label="Try Cinemafly — open a video file">
+          <div style={{maxWidth:MW,margin:'0 auto',...PAD}}>
+            <div style={{display:'grid',gridTemplateColumns:'1fr 1.1fr',gap:'5rem',alignItems:'start'}}>
+              <div style={fade(demoV)}>
+                <div style={sLabel()}><span style={sLine()}/>Try It Now</div>
+                <h2 style={{...sH2(),marginBottom:'1rem'}}>Open a video<br/><span style={{color:'rgba(255,255,255,.24)'}}>right here.</span></h2>
+                <p style={{fontSize:'.88rem',fontWeight:300,color:'rgba(255,255,255,.42)',lineHeight:1.72,marginBottom:'1.75rem'}}>Drop any video file — including HEVC, MKV, and 4K — into the player on the right. The full Cinemafly experience runs natively on Windows with hardware GPU decoding.</p>
+                {[['Native HEVC / H.265 playback','No $0.99 Windows codec extension'],['4K HDR with DirectX 12 GPU','Smooth on any modern Windows device'],['Immersive full-screen dark UI','Controls vanish while you\'re watching'],['Drop any file or folder','Instant playlist, no dialogs']].map(([t,s])=>(
+                  <div key={t} style={{display:'flex',alignItems:'flex-start',gap:11,marginBottom:11}}>
+                    <div style={{width:19,height:19,borderRadius:'50%',background:'rgba(168,85,247,.12)',border:'1px solid rgba(168,85,247,.28)',display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0,marginTop:2}}>
+                      <span style={{fontSize:'.52rem',color:AC,fontWeight:700}}>✓</span>
+                    </div>
+                    <div><div style={{fontSize:'.83rem',fontWeight:500,color:'#fff'}}>{t}</div><div style={{fontSize:'.73rem',fontWeight:300,color:'rgba(255,255,255,.3)'}}>{s}</div></div>
+                  </div>
+                ))}
+                <div style={{marginTop:'1.5rem',padding:'20px 22px',background:'rgba(168,85,247,.06)',border:'1px solid rgba(168,85,247,.18)',borderRadius:13}}>
+                  <p style={{fontSize:'.8rem',fontWeight:600,color:'#fff',marginBottom:'.32rem'}}>This preview has browser limitations.</p>
+                  <p style={{fontSize:'.75rem',fontWeight:300,color:'rgba(255,255,255,.4)',lineHeight:1.62,marginBottom:'.9rem'}}>For full HEVC decoding, 4K HDR, subtitles, playlists, audio boost, and hardware acceleration — download the full Cinemafly app free.</p>
+                  <a href={DL_URL} target="_blank" rel="noopener noreferrer"
+                    style={{display:'inline-flex',alignItems:'center',gap:8,padding:'9px 20px',borderRadius:8,background:AC,color:'#fff',fontSize:'.78rem',fontWeight:700,textDecoration:'none',transition:'all .2s'}}
+                    onMouseEnter={e=>{e.currentTarget.style.background='#fff';e.currentTarget.style.color='#000';}}
+                    onMouseLeave={e=>{e.currentTarget.style.background=AC;e.currentTarget.style.color='#fff';}}>⊞ Download Cinemafly Free</a>
+                </div>
+              </div>
+              <div style={fade(demoV,100)}><VideoDemo/></div>
+            </div>
+          </div>
+        </section>
+
+        {/* HIGHLIGHTS */}
+        <section ref={hlRef} style={{padding:'96px 0',background:'rgba(255,255,255,.013)',borderTop:`1px solid ${WIRE}`,borderBottom:`1px solid ${WIRE}`}} aria-label="Key advantages">
+          <div style={{maxWidth:MW,margin:'0 auto',...PAD}}>
+            <div style={{display:'grid',gridTemplateColumns:'repeat(2,1fr)',gap:12}}>
+              {HIGHLIGHTS.map((h,i)=>(
+                <div key={h.label} style={{...fade(hlV,i*80),background:'rgba(255,255,255,.03)',border:`1px solid ${WIRE}`,borderRadius:18,padding:'32px',display:'flex',gap:18,alignItems:'flex-start',transition:'all .25s',cursor:'default'}}
+                  onMouseEnter={e=>{e.currentTarget.style.background='rgba(168,85,247,.055)';e.currentTarget.style.borderColor='rgba(168,85,247,.22)';e.currentTarget.style.transform='translateY(-3px)';}}
+                  onMouseLeave={e=>{e.currentTarget.style.background='rgba(255,255,255,.03)';e.currentTarget.style.borderColor=WIRE;e.currentTarget.style.transform='none';}}>
+                  <div style={{width:48,height:48,borderRadius:13,background:'rgba(168,85,247,.1)',border:'1px solid rgba(168,85,247,.2)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:'1.3rem',flexShrink:0}}>{h.icon}</div>
+                  <div>
+                    <h3 style={{fontFamily:'var(--font-heading)',fontSize:'.97rem',fontWeight:700,color:'#fff',marginBottom:'.45rem',letterSpacing:'-.01em'}}>{h.label}</h3>
+                    <p style={{fontSize:'.8rem',fontWeight:300,color:'rgba(255,255,255,.4)',lineHeight:1.7,margin:0}}>{h.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* FEATURES */}
+        <section ref={featRef} style={{padding:'96px 0'}} aria-label="Full features">
+          <div style={{maxWidth:MW,margin:'0 auto',...PAD}}>
+            <div style={{textAlign:'center',marginBottom:'3.5rem',...fade(featV)}}>
+              <div style={sLabel()}><span style={sLine()}/>Features</div>
+              <h2 style={sH2()}>But wait, there's more.</h2>
+            </div>
+            <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:12}}>
+              {FEATURES.map((f,i)=>(
+                <article key={f.title} style={{...fade(featV,i*50),background:'rgba(255,255,255,.03)',border:`1px solid ${WIRE}`,borderRadius:15,padding:'24px',transition:'all .25s',cursor:'default'}}
+                  onMouseEnter={e=>{e.currentTarget.style.background='rgba(255,255,255,.05)';e.currentTarget.style.borderColor='rgba(168,85,247,.22)';e.currentTarget.style.transform='translateY(-3px)';}}
+                  onMouseLeave={e=>{e.currentTarget.style.background='rgba(255,255,255,.03)';e.currentTarget.style.borderColor=WIRE;e.currentTarget.style.transform='none';}}>
+                  <div style={{width:40,height:40,borderRadius:11,background:'rgba(168,85,247,.1)',border:'1px solid rgba(168,85,247,.2)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:'1rem',color:AC,marginBottom:'.9rem'}}>{f.icon}</div>
+                  <h3 style={{fontFamily:'var(--font-heading)',fontSize:'.92rem',fontWeight:700,color:'#fff',marginBottom:'.4rem',letterSpacing:'-.01em'}}>{f.title}</h3>
+                  <p style={{fontSize:'.78rem',fontWeight:300,color:'rgba(255,255,255,.38)',lineHeight:1.7,margin:0}}>{f.desc}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ */}
+        <section ref={faqRef} style={{padding:'96px 0',background:'rgba(255,255,255,.013)',borderTop:`1px solid ${WIRE}`,borderBottom:`1px solid ${WIRE}`}} aria-label="FAQ">
+          <div style={{maxWidth:MW,margin:'0 auto',...PAD}}>
+            <div style={{display:'grid',gridTemplateColumns:'1fr 1.5fr',gap:'5rem',alignItems:'start'}}>
+              <div style={fade(faqV)}>
+                <div style={sLabel()}><span style={sLine()}/>FAQ</div>
+                <h2 style={{...sH2(),marginBottom:'1rem'}}>Common<br/><span style={{color:'rgba(255,255,255,.24)'}}>questions.</span></h2>
+                <p style={{fontSize:'.82rem',fontWeight:300,color:'rgba(255,255,255,.32)',lineHeight:1.72}}>More? <a href="mailto:hello@minderfly.com" style={{color:AC,textDecoration:'none',borderBottom:'1px solid rgba(168,85,247,.35)',paddingBottom:1}}>Email us</a>.</p>
+              </div>
+              <div style={{borderTop:`1px solid ${WIRE}`,...fade(faqV,80)}}>
+                {FAQS.map(f=>(
+                  <div key={f.q} style={{borderBottom:`1px solid ${WIRE}`,padding:'1.1rem 0'}}>
+                    <p style={{fontSize:'.85rem',fontWeight:600,color:'#fff',marginBottom:'.38rem',letterSpacing:'-.01em'}}>{f.q}</p>
+                    <p style={{fontSize:'.8rem',fontWeight:300,color:'rgba(255,255,255,.38)',lineHeight:1.7,margin:0}}>{f.a}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* CTA */}
+        <section ref={ctaRef} style={{padding:'64px 0 110px'}} aria-label="Download Cinemafly">
+          <div style={{maxWidth:MW,margin:'0 auto',...PAD}}>
+            <div style={{...fade(ctaV),position:'relative',borderRadius:20,overflow:'hidden',padding:'80px',background:'linear-gradient(135deg,#1a0a2e 0%,#0d0d0d 60%)'}}>
+              <div aria-hidden="true" style={{position:'absolute',inset:0,background:'radial-gradient(ellipse 55% 85% at 82% 50%,rgba(168,85,247,.24) 0%,transparent 60%)',pointerEvents:'none'}}/>
+              <div aria-hidden="true" style={{position:'absolute',top:0,left:0,right:0,height:1,background:'linear-gradient(90deg,transparent,rgba(168,85,247,.5),transparent)'}}/>
+              <div style={{position:'relative',zIndex:1,display:'grid',gridTemplateColumns:'1fr auto',gap:48,alignItems:'center'}}>
+                <div>
+                  <div style={sLabel()}><span style={sLine()}/>Available Now · Free</div>
+                  <h2 style={{fontFamily:'var(--font-heading)',fontSize:'clamp(1.8rem,3.5vw,3.2rem)',fontWeight:800,lineHeight:.97,letterSpacing:'-.04em',color:'#fff',marginBottom:'.85rem'}}>Your media.<br/>Finally free to play.</h2>
+                  <p style={{fontSize:'.92rem',fontWeight:300,color:'rgba(255,255,255,.42)',lineHeight:1.72,maxWidth:450}}>Download Cinemafly free from the Microsoft Store. No trials, no paywalls, no codec hunting. Open your files and watch.</p>
+                </div>
+                <div style={{display:'flex',flexDirection:'column',gap:10,flexShrink:0}}>
+                  <a href={DL_URL} target="_blank" rel="noopener noreferrer"
+                    style={{display:'inline-flex',alignItems:'center',gap:10,padding:'12px 28px',borderRadius:10,background:AC,color:'#fff',fontSize:'.86rem',fontWeight:700,textDecoration:'none',letterSpacing:'.02em',whiteSpace:'nowrap',transition:'all .2s'}}
+                    onMouseEnter={e=>{e.currentTarget.style.background='#fff';e.currentTarget.style.color='#000';e.currentTarget.style.transform='translateY(-2px)';}}
+                    onMouseLeave={e=>{e.currentTarget.style.background=AC;e.currentTarget.style.color='#fff';e.currentTarget.style.transform='none';}}>⊞ Get on Microsoft Store</a>
+                  <Link to="/store"
+                    style={{display:'inline-flex',alignItems:'center',justifyContent:'center',gap:8,padding:'12px 28px',borderRadius:10,background:'none',border:`1px solid rgba(255,255,255,.12)`,color:'rgba(255,255,255,.42)',fontSize:'.84rem',textDecoration:'none',letterSpacing:'.02em',transition:'all .2s'}}
+                    onMouseEnter={e=>{e.currentTarget.style.borderColor='rgba(255,255,255,.3)';e.currentTarget.style.color='#fff';}}
+                    onMouseLeave={e=>{e.currentTarget.style.borderColor='rgba(255,255,255,.12)';e.currentTarget.style.color='rgba(255,255,255,.42)';}}>← Back to Store</Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </>
+  );
+};
 export default CinemaflyProduct;

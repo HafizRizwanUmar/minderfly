@@ -1,15 +1,14 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { useEffect, useState } from 'react';
+// Force reload-2026-03-18
 
 // Main Pages
 import Home from './pages/Home';
 import WorkPage from './pages/WorkPage';
 import ProjectDetail from './pages/ProjectDetail';
-import AcademyAdmin from './pages/AcademyAdmin';
 import TeamPage from './pages/TeamPage';
-import AntigravitySession from './pages/AntigravitySession';
-import GameApp from './game/GameApp';
+import Contact from './pages/Contact';
 
 // Services
 import ServicesHub from './pages/services/ServicesHub';
@@ -20,24 +19,21 @@ import ChromeExtensionDev from './pages/services/ChromeExtensionDev';
 import ChromeThemeDev from './pages/services/ChromeThemeDev';
 
 // Store (Products)
-import ClawdDashboard from './pages/ClawdDashboard';
 import StoreHub from './pages/store/StoreHub';
-
 import SanadPdfEditor from './pages/store/SanadPdfEditor';
 import DebtSettler from './pages/store/DebtSettler';
 import NishanQr from './pages/store/NishanQr';
 import ChromeThemes from './pages/store/ChromeThemes';
-
 import FlutterWebEmulator from './pages/store/FlutterWebEmulator';
 import CinemaflyProduct from './pages/store/CinemaflyProduct';
 
 // Articles (Blog)
 import ArticlesIndex from './pages/articles/ArticlesIndex';
 import ArticleDetail from './pages/articles/ArticleDetail';
-
 import { initGA, logPageView } from './utils/analytics';
-import ConversionManager from './components/ConversionManager';
 import SpecialOfferModal from './components/SpecialOfferModal';
+import ConversionManager from './components/ConversionManager';
+import { ModalProvider, useModal } from './context/ModalContext';
 import './App.css';
 
 // Component to track page views
@@ -58,15 +54,19 @@ function Analytics() {
   return null;
 }
 
-function App() {
-  const [isContactOpen, setIsContactOpen] = useState(false);
+function AppContent() {
+  const { isOfferModalOpen, selectedProject, closeModal, openModal } = useModal();
 
   return (
-    <HelmetProvider>
-      <Router>
-        <Analytics />
-        <ConversionManager onOpenContactForm={() => setIsContactOpen(true)} />
-        <SpecialOfferModal isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} />
+    <Router>
+      <Analytics />
+      <div className="main-content">
+        <SpecialOfferModal 
+          isOpen={isOfferModalOpen} 
+          onClose={closeModal} 
+          initialProjectType={selectedProject} 
+        />
+        <ConversionManager onOpenContactForm={() => openModal('Smart Suggestion')} />
         <Routes>
           {/* Main Routes */}
           <Route path="/" element={<Home />} />
@@ -80,26 +80,13 @@ function App() {
           <Route path="/services/chrome-theme-development" element={<ChromeThemeDev />} />
 
           {/* Store Routes */}
-          <Route path="/clawd" element={<ClawdDashboard />} />
           <Route path="/store" element={<StoreHub />} />
-          <Route path="/products/sanad-pdf-editor" element={<SanadPdfEditor />} /> {/* Sitemap Req */}
           <Route path="/store/sanad-pdf-editor" element={<SanadPdfEditor />} /> {/* Alias */}
-
-          <Route path="/products/debt-settler" element={<DebtSettler />} /> {/* Sitemap Req */}
           <Route path="/store/debt-settler" element={<DebtSettler />} /> {/* Alias/Legacy */}
-
-          <Route path="/products/nishan-qr" element={<NishanQr />} /> {/* Sitemap Req */}
           <Route path="/store/nishan-qr" element={<NishanQr />} /> {/* Alias */}
           <Route path="/store/nishan-qr-generator" element={<NishanQr />} /> {/* Legacy */}
-
-          <Route path="/products/chrome-themes" element={<ChromeThemes />} /> {/* Sitemap Req */}
           <Route path="/store/chrome-themes" element={<ChromeThemes />} /> {/* Alias */}
-
-          <Route path="/products/flutter-web-emulator" element={<FlutterWebEmulator />} /> {/* Sitemap Req */}
-
           <Route path="/store/flutter-web-emulator" element={<FlutterWebEmulator />} /> {/* Alias */}
-
-          <Route path="/products/cinemafly" element={<CinemaflyProduct />} />
           <Route path="/store/cinemafly" element={<CinemaflyProduct />} />
 
           {/* Articles Routes */}
@@ -109,14 +96,22 @@ function App() {
 
           {/* Other Pages */}
           <Route path="/work" element={<WorkPage />} />
-          <Route path="/work/:id" element={<ProjectDetail />} />
-          <Route path="/quran-o-itrat/admin" element={<AcademyAdmin />} />
+          <Route path="/work/:id" element={<ProjectDetail />} /> 
           <Route path="/team" element={<TeamPage />} />
-          <Route path="/antigravity-masterclass" element={<AntigravitySession />} />
-          <Route path="/game" element={<GameApp />} />
+          <Route path="/contact" element={<Contact />} />
 
         </Routes>
-      </Router>
+      </div>
+    </Router>
+  );
+}
+
+function App() {
+  return (
+    <HelmetProvider>
+      <ModalProvider>
+        <AppContent />
+      </ModalProvider>
     </HelmetProvider>
   );
 }

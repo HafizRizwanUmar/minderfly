@@ -1,192 +1,350 @@
-import React, { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
-import { FaArrowLeft, FaExternalLinkAlt, FaCheckCircle, FaCode, FaRocket } from 'react-icons/fa';
+import {
+  FaArrowLeft, FaExternalLinkAlt, FaCheckCircle,
+  FaCode, FaRocket, FaArrowRight,
+} from 'react-icons/fa';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import SEOHead from '../components/SEOHead';
-import Reveal from '../components/Reveal';
 import { projectsData } from '../data/projects';
 import './ProjectDetail.css';
 
+/* ═══════════════════════════════════════════════
+   ProjectDetail — Minderfly Case Study
+   Bold editorial dark design · no Tailwind
+   Full SEO: SoftwareApplication + BreadcrumbList
+   Dynamic accent colour per project
+═══════════════════════════════════════════════ */
+
+/* ── Default per-category accent colours ── */
+const CATEGORY_ACCENT = {
+  'Chrome Extension':    '#f97316',
+  'VS Code Extension':   '#06b6d4',
+  'Desktop App':         '#a855f7',
+  'Mobile App':          '#c8f23a',
+  'MERN Stack':          '#3b82f6',
+  'React':               '#3b82f6',
+  'Website':             '#c8f23a',
+  default:               '#c8f23a',
+};
+
+const getAccent = (category = '') => {
+  const key = Object.keys(CATEGORY_ACCENT).find(k => category.includes(k));
+  return key ? CATEGORY_ACCENT[key] : CATEGORY_ACCENT.default;
+};
+
+const hexToRgba = (hex, a) => {
+  const r = parseInt(hex.slice(1,3),16);
+  const g = parseInt(hex.slice(3,5),16);
+  const b = parseInt(hex.slice(5,7),16);
+  return `rgba(${r},${g},${b},${a})`;
+};
+
+/* ── Reveal helper ── */
+const Fade = ({ children, delay = 0 }) => (
+  <motion.div
+    initial={{ opacity:0, y:20 }}
+    whileInView={{ opacity:1, y:0 }}
+    viewport={{ once:true, margin:'-50px' }}
+    transition={{ duration:.6, delay, ease:[.22,1,.36,1] }}
+  >
+    {children}
+  </motion.div>
+);
+
+/* ═══════════════════════════════════════════════
+   COMPONENT
+═══════════════════════════════════════════════ */
 const ProjectDetail = () => {
-    const { id } = useParams();
-    const project = projectsData.find(p => p.id === id);
+  const { id } = useParams();
+  const project = projectsData.find(p => p.id === id);
+  const [imgError, setImgError] = useState(false);
 
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, [id]);
+  useEffect(() => { window.scrollTo(0, 0); }, [id]);
 
-    if (!project) {
-        return (
-            <div className="min-h-screen bg-[#050505] text-white flex flex-col items-center justify-center p-6">
-                <h1 className="text-4xl font-bold mb-4">Project Not Found</h1>
-                <Link to="/work" className="text-accent flex items-center gap-2 hover:underline">
-                    <FaArrowLeft /> Back to Portfolio
-                </Link>
-            </div>
-        );
-    }
-
+  /* ── Not found state ── */
+  if (!project) {
     return (
-        <>
-            <SEOHead 
-                title={`${project.title} - Project Case Study | Minderfly`}
-                description={project.description}
-            />
-            <Navbar />
-            
-            <div className="project-detail-page bg-[#050505] text-white pt-32 pb-20">
-                <div className="container mx-auto px-6">
-                    {/* Back Link */}
-                    <motion.div 
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        className="mb-12"
-                    >
-                        <Link to="/work" className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors group">
-                            <FaArrowLeft className="group-hover:-translate-x-1 transition-transform" /> Back to Portfolio
-                        </Link>
-                    </motion.div>
-
-                    {/* Hero Section */}
-                    <div className="grid lg:grid-cols-2 gap-16 items-center mb-24">
-                        <motion.div
-                            initial={{ opacity: 0, y: 30 }}
-                            animate={{ opacity: 1, y: 0 }}
-                        >
-                            <span className="text-accent font-bold uppercase tracking-wider text-sm mb-4 block">
-                                {project.category}
-                            </span>
-                            <h1 className="text-5xl md:text-7xl font-extrabold mb-8 leading-tight">
-                                {project.title}
-                            </h1>
-                            <p className="text-xl text-slate-400 leading-relaxed mb-10">
-                                {project.details || project.description}
-                            </p>
-                            
-                            <div className="flex flex-wrap gap-6">
-                                {project.isExternal ? (
-                                    <a 
-                                        href={project.link} 
-                                        target="_blank" 
-                                        rel="noopener noreferrer"
-                                        className="btn btn-primary inline-flex items-center gap-2"
-                                    >
-                                        Live Preview <FaExternalLinkAlt size={14} />
-                                    </a>
-                                ) : (
-                                    <button className="btn btn-primary opacity-50 cursor-not-allowed">
-                                        Internal Project
-                                    </button>
-                                )}
-                                <div className="flex items-center gap-3 px-6 py-3 bg-white/5 rounded-full border border-white/10">
-                                    <span className="text-accent font-bold">{project.stats}</span>
-                                </div>
-                            </div>
-                        </motion.div>
-
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ delay: 0.2 }}
-                            className="relative"
-                        >
-                            <div className="aspect-video rounded-2xl overflow-hidden border border-white/10 shadow-2xl relative z-10">
-                                <img 
-                                    src={project.thumbnail} 
-                                    alt={project.title} 
-                                    className="w-full h-full object-cover"
-                                />
-                            </div>
-                            <div className="absolute -inset-4 bg-accent/20 blur-3xl rounded-full z-0 opacity-50"></div>
-                        </motion.div>
-                    </div>
-
-                    {/* Key Features & Tech Stack */}
-                    <div className="grid md:grid-cols-2 gap-16 mb-24">
-                        <motion.div
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            className="bg-white/5 p-10 rounded-3xl border border-white/10"
-                        >
-                            <h2 className="text-3xl font-bold mb-8 flex items-center gap-3">
-                                <FaRocket className="text-accent" /> Key Features
-                            </h2>
-                            <ul className="space-y-4">
-                                {(project.features || ['Custom UI/UX', 'Mobile Responsive', 'SEO Optimized', 'High Performance']).map((feature, idx) => (
-                                    <li key={idx} className="flex items-start gap-3 text-slate-300">
-                                        <FaCheckCircle className="text-accent mt-1 flex-shrink-0" />
-                                        <span>{feature}</span>
-                                    </li>
-                                ))}
-                            </ul>
-                        </motion.div>
-
-                        <motion.div
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: 0.1 }}
-                            className="bg-white/5 p-10 rounded-3xl border border-white/10"
-                        >
-                            <h2 className="text-3xl font-bold mb-8 flex items-center gap-3">
-                                <FaCode className="text-accent" /> Technologies
-                            </h2>
-                            <div className="flex flex-wrap gap-3">
-                                {(project.technologies || ['React', 'Framer Motion', 'Tailwind CSS', 'Vite']).map((tech, idx) => (
-                                    <span key={idx} className="px-5 py-2 bg-white/10 rounded-full text-sm font-medium border border-white/10 text-slate-300">
-                                        {tech}
-                                    </span>
-                                ))}
-                            </div>
-                        </motion.div>
-                    </div>
-
-                    {/* Screenshots Gallery */}
-                    {project.screenshots && project.screenshots.length > 0 && (
-                        <div className="mb-24">
-                            <Reveal>
-                                <h2 className="text-4xl font-bold mb-12 text-center">Visual <span className="text-accent">Showcase</span></h2>
-                            </Reveal>
-                            <div className="grid md:grid-cols-2 gap-8">
-                                {project.screenshots.map((screen, idx) => (
-                                    <motion.div
-                                        key={idx}
-                                        initial={{ opacity: 0, y: 20 }}
-                                        whileInView={{ opacity: 1, y: 0 }}
-                                        viewport={{ once: true }}
-                                        transition={{ delay: idx * 0.1 }}
-                                        className="rounded-2xl overflow-hidden border border-white/10 group cursor-pointer"
-                                    >
-                                        <img 
-                                            src={screen} 
-                                            alt={`${project.title} Screenshot ${idx + 1}`} 
-                                            className="w-full h-auto group-hover:scale-105 transition-transform duration-700"
-                                        />
-                                    </motion.div>
-                                ))}
-                            </div>
-                        </div>
-                    )}
-
-                    {/* Next Project CTA */}
-                    <div className="text-center py-20 bg-gradient-to-b from-transparent to-[#111] rounded-3xl border border-white/5">
-                        <h2 className="text-3xl md:text-5xl font-bold mb-6">Ready to start your project?</h2>
-                        <p className="text-slate-400 mb-10 text-xl max-w-2xl mx-auto">
-                            Let's collaborate to build something extraordinary for your business or academy.
-                        </p>
-                        <Link to="/" className="btn btn-primary text-lg px-10 py-4">
-                            Get Linked With Us
-                        </Link>
-                    </div>
-                </div>
-            </div>
-
-            <Footer />
-        </>
+      <>
+        <Navbar/>
+        <div className="pd-not-found">
+          <h1>Project Not Found</h1>
+          <p>We couldn't find a project matching that URL.</p>
+          <Link
+            to="/work"
+            style={{ display:'inline-flex', alignItems:'center', gap:8, padding:'12px 28px', borderRadius:10, background:'#c8f23a', color:'#000', textDecoration:'none', fontFamily:'var(--font-heading,"Syne",sans-serif)', fontWeight:700, fontSize:'.88rem', letterSpacing:'.03em' }}
+          >
+            <FaArrowLeft aria-hidden="true"/> Back to Portfolio
+          </Link>
+        </div>
+        <Footer/>
+      </>
     );
+  }
+
+  const accent    = getAccent(project.category);
+  const glowColor = hexToRgba(accent, .14);
+
+  /* ── Default values for optional fields ── */
+  const features     = project.features     || ['Custom UI/UX', 'Mobile Responsive', 'SEO Optimised', 'High Performance', 'Cross-browser Compatible'];
+  const technologies = project.technologies || ['React', 'Framer Motion', 'CSS Modules', 'Vite'];
+  const screenshots  = project.screenshots  || [];
+
+  /* ── Structured data ── */
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: project.title,
+    description: project.details || project.description,
+    applicationCategory: project.category,
+    url: project.isExternal ? project.link : `https://minderfly.com/work/${id}`,
+    creator: { '@type': 'Organization', name: 'Minderfly', url: 'https://minderfly.com' },
+    ...(project.thumbnail ? { screenshot: project.thumbnail } : {}),
+    ...(technologies?.length ? { runtimePlatform: technologies.join(', ') } : {}),
+  };
+
+  const breadcrumb = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position:1, name:'Home',      item:'https://minderfly.com/' },
+      { '@type': 'ListItem', position:2, name:'Portfolio', item:'https://minderfly.com/work' },
+      { '@type': 'ListItem', position:3, name:project.title, item:`https://minderfly.com/work/${id}` },
+    ],
+  };
+
+  return (
+    <>
+      <Helmet>
+        <title>{project.title} — Case Study | Minderfly</title>
+        <meta name="description" content={`${project.title}: ${project.description} Built by Minderfly — ${project.category} specialists.`} />
+        <meta name="keywords"    content={`${project.title}, ${project.category}, Minderfly portfolio, ${technologies.slice(0,5).join(', ')}, case study`} />
+        <link rel="canonical"    href={`https://minderfly.com/work/${id}`} />
+        <meta property="og:title"       content={`${project.title} — Minderfly Case Study`} />
+        <meta property="og:description" content={project.description} />
+        <meta property="og:type"        content="article" />
+        {project.thumbnail && <meta property="og:image" content={project.thumbnail} />}
+        <meta name="twitter:card"       content="summary_large_image" />
+        <script type="application/ld+json">{JSON.stringify(schema)}</script>
+        <script type="application/ld+json">{JSON.stringify(breadcrumb)}</script>
+      </Helmet>
+
+      <Navbar/>
+
+      {/* CSS custom property for accent throughout */}
+      <style>{`
+        .pd-page { --pd-accent: ${accent}; --pd-glow: ${glowColor}; }
+      `}</style>
+
+      <div className="pd-page">
+        <div className="pd-container">
+
+          {/* Breadcrumb */}
+          <nav aria-label="Breadcrumb" className="pd-breadcrumb">
+            <Link to="/">Home</Link>
+            <span aria-hidden="true">›</span>
+            <Link to="/work">Portfolio</Link>
+            <span aria-hidden="true">›</span>
+            <span aria-current="page">{project.title}</span>
+          </nav>
+
+          {/* Back link */}
+          <motion.div
+            initial={{ opacity:0, x:-16 }}
+            animate={{ opacity:1, x:0 }}
+            transition={{ duration:.5, ease:[.22,1,.36,1] }}
+          >
+            <Link to="/work" className="pd-back" aria-label="Back to portfolio">
+              <FaArrowLeft aria-hidden="true"/> Back to Portfolio
+            </Link>
+          </motion.div>
+
+          {/* ── HERO ── */}
+          <section className="pd-hero" aria-label={`${project.title} overview`}>
+
+            {/* Copy */}
+            <motion.div
+              className="pd-hero-copy"
+              initial={{ opacity:0, y:24 }}
+              animate={{ opacity:1, y:0 }}
+              transition={{ duration:.7, ease:[.22,1,.36,1] }}
+              itemScope
+              itemType="https://schema.org/SoftwareApplication"
+            >
+              <meta itemProp="name"        content={project.title} />
+              <meta itemProp="description" content={project.description} />
+
+              <div className="pd-eyebrow">
+                <span className="pd-eyebrow-line" aria-hidden="true"/>
+                <span className="pd-category-tag" itemProp="applicationCategory">{project.category}</span>
+              </div>
+
+              <h1 className="pd-title" itemProp="name">{project.title}</h1>
+
+              <p className="pd-description" itemProp="description">
+                {project.details || project.description}
+              </p>
+
+              {project.stats && (
+                <div className="pd-stats-badge">
+                  <span className="pd-stats-badge-dot" aria-hidden="true"/>
+                  {project.stats}
+                </div>
+              )}
+
+              <div className="pd-hero-actions">
+                {project.isExternal ? (
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="pd-btn-primary"
+                    aria-label={`View ${project.title} live project`}
+                    itemProp="url"
+                  >
+                    Live Preview <FaExternalLinkAlt style={{ fontSize:'.7rem' }} aria-hidden="true"/>
+                  </a>
+                ) : (
+                  <span className="pd-btn-ghost" aria-label="Internal project — no public link">
+                    Internal Project
+                  </span>
+                )}
+              </div>
+            </motion.div>
+
+            {/* Thumbnail */}
+            <motion.div
+              className="pd-hero-visual"
+              initial={{ opacity:0, scale:.96 }}
+              animate={{ opacity:1, scale:1 }}
+              transition={{ duration:.85, delay:.15, ease:[.22,1,.36,1] }}
+            >
+              <div className="pd-thumbnail-glow" aria-hidden="true"/>
+              <div className="pd-thumbnail-frame">
+                {project.thumbnail && !imgError ? (
+                  <img
+                    src={project.thumbnail}
+                    alt={`${project.title} — project screenshot`}
+                    loading="eager"
+                    onError={() => setImgError(true)}
+                    itemProp="screenshot"
+                  />
+                ) : (
+                  /* Fallback pattern */
+                  <div style={{ width:'100%', height:'100%', background:'repeating-linear-gradient(45deg, #111 0px, #111 12px, #0d0c0a 12px, #0d0c0a 24px)', display:'flex', alignItems:'center', justifyContent:'center' }}>
+                    <span style={{ fontFamily:'var(--font-heading,"Syne",sans-serif)', fontSize:'1.5rem', fontWeight:800, color:'rgba(255,255,255,.08)', letterSpacing:'-.02em' }}>{project.title}</span>
+                  </div>
+                )}
+              </div>
+            </motion.div>
+          </section>
+
+          {/* ── FEATURES + TECH STACK ── */}
+          <section
+            className="pd-info-grid"
+            aria-label="Features and technology stack"
+          >
+            {/* Features */}
+            <Fade>
+              <div className="pd-card">
+                <div className="pd-card-header">
+                  <div className="pd-card-icon" aria-hidden="true"><FaRocket/></div>
+                  <h2 className="pd-card-title">Key Features</h2>
+                </div>
+                <ul className="pd-feature-list">
+                  {features.map((f, i) => (
+                    <li key={i} className="pd-feature-item">
+                      <FaCheckCircle className="pd-feature-check" aria-hidden="true"/>
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </Fade>
+
+            {/* Technologies */}
+            <Fade delay={.08}>
+              <div className="pd-card">
+                <div className="pd-card-header">
+                  <div className="pd-card-icon" aria-hidden="true"><FaCode/></div>
+                  <h2 className="pd-card-title">Technologies Used</h2>
+                </div>
+                <div className="pd-tech-grid">
+                  {technologies.map((t, i) => (
+                    <span key={i} className="pd-tech-pill">{t}</span>
+                  ))}
+                </div>
+              </div>
+            </Fade>
+          </section>
+
+          {/* ── SCREENSHOTS GALLERY ── */}
+          {screenshots.length > 0 && (
+            <section className="pd-gallery-section" aria-label="Project screenshots">
+              <Fade>
+                <div className="pd-gallery-header">
+                  <span style={{ width:24, height:1, background:accent, display:'block' }} aria-hidden="true"/>
+                  <h2 className="pd-gallery-title">Visual Showcase</h2>
+                </div>
+              </Fade>
+              <div className="pd-gallery-grid">
+                {screenshots.map((src, i) => (
+                  <motion.div
+                    key={i}
+                    className="pd-screenshot"
+                    initial={{ opacity:0, y:18 }}
+                    whileInView={{ opacity:1, y:0 }}
+                    viewport={{ once:true, margin:'-40px' }}
+                    transition={{ duration:.55, delay:i*.08, ease:[.22,1,.36,1] }}
+                  >
+                    <img
+                      src={src}
+                      alt={`${project.title} screenshot ${i + 1}`}
+                      loading="lazy"
+                    />
+                  </motion.div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* ── BOTTOM CTA ── */}
+          <Fade>
+            <div className="pd-cta-banner" aria-label="Start a project">
+              <h2 className="pd-cta-title">Ready to build something like this?</h2>
+              <p className="pd-cta-sub">
+                Let's collaborate to build an exceptional digital product for your business. Tell us your problem and we'll send a fixed-price proposal within 24 hours.
+              </p>
+              <div style={{ display:'flex', gap:12, justifyContent:'center', flexWrap:'wrap' }}>
+                <Link
+                  to="/contact"
+                  style={{ display:'inline-flex', alignItems:'center', gap:9, padding:'13px 30px', borderRadius:10, background:accent, color:'#000', textDecoration:'none', fontFamily:'var(--font-heading,"Syne",sans-serif)', fontWeight:700, fontSize:'.88rem', letterSpacing:'.02em', transition:'transform .2s, background .2s' }}
+                  onMouseEnter={e => { e.currentTarget.style.transform='translateY(-2px)'; }}
+                  onMouseLeave={e => { e.currentTarget.style.transform='none'; }}
+                >
+                  Start Your Project
+                  <FaArrowRight style={{ fontSize:'.75rem' }} aria-hidden="true"/>
+                </Link>
+                <Link
+                  to="/work"
+                  style={{ display:'inline-flex', alignItems:'center', gap:8, padding:'13px 26px', borderRadius:10, background:'rgba(255,255,255,.06)', border:'1px solid rgba(255,255,255,.1)', color:'rgba(237,232,222,.6)', textDecoration:'none', fontSize:'.86rem', letterSpacing:'.02em', transition:'all .2s' }}
+                  onMouseEnter={e => { e.currentTarget.style.background='rgba(255,255,255,.1)'; e.currentTarget.style.color='#fff'; }}
+                  onMouseLeave={e => { e.currentTarget.style.background='rgba(255,255,255,.06)'; e.currentTarget.style.color='rgba(237,232,222,.6)'; }}
+                >
+                  View More Work
+                </Link>
+              </div>
+            </div>
+          </Fade>
+
+        </div>
+      </div>
+
+      <Footer/>
+    </>
+  );
 };
 
 export default ProjectDetail;

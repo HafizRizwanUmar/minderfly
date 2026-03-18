@@ -29,7 +29,11 @@ const MagneticButton = ({ children, className, onClick, href }) => {
         <Component
             ref={ref}
             href={href}
-            onClick={onClick}
+            onClick={(e) => {
+                console.log('MagneticButton: internal onClick triggered');
+                if (onClick) onClick(e);
+            }}
+            type={href ? undefined : "button"}
             className={className}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
