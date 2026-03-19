@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import SocialProofToast from './SocialProofToast';
 import { FaRocket, FaLightbulb, FaGift } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -46,20 +45,10 @@ const SmartConversionPopup = ({ isOpen, onClose, data }) => {
     );
 };
 
-const SOCIAL_PROOF_DATA = [
-    { name: "Ahmed", action: "booked a demo", timeAgo: "2m ago", image: "" },
-    { name: "Sarah", action: "purchased Pro plan", timeAgo: "5m ago", image: "" },
-    { name: "Mike", action: "downloaded the guide", timeAgo: "12m ago", image: "" },
-    { name: "Fatima", action: "started a free trial", timeAgo: "1m ago", image: "" },
-    { name: "John", action: "requested a quote", timeAgo: "8m ago", image: "" },
-];
-
 const ConversionManager = ({ onOpenContactForm }) => {
     const location = useLocation();
     const [popupData, setPopupData] = useState(null);
     const [showPopup, setShowPopup] = useState(false);
-    const [toastData, setToastData] = useState(null);
-    const [showToast, setShowToast] = useState(false);
 
     // Use localStorage to persist dismissal across sessions
     const [hasSeenScrollPopup, setHasSeenScrollPopup] = useState(
@@ -72,24 +61,6 @@ const ConversionManager = ({ onOpenContactForm }) => {
     const handleClosePopup = () => {
         setShowPopup(false);
     };
-
-    // --- Social Proof Logic ---
-    useEffect(() => {
-        const interval = setInterval(() => {
-            const randomUser = SOCIAL_PROOF_DATA[Math.floor(Math.random() * SOCIAL_PROOF_DATA.length)];
-            setToastData(randomUser);
-            setShowToast(true);
-
-            // Hide toast after 5 seconds
-            setTimeout(() => {
-                setShowToast(false);
-            }, 5000);
-
-        }, 45000); // Show every 45 seconds
-
-        return () => clearInterval(interval);
-    }, []);
-
 
     // --- Smart Triggers ---
     useEffect(() => {
@@ -167,14 +138,11 @@ const ConversionManager = ({ onOpenContactForm }) => {
     };
 
     return (
-        <>
-            <SocialProofToast isVisible={showToast} data={toastData} onClose={() => setShowToast(false)} />
-            <SmartConversionPopup
-                isOpen={showPopup}
-                onClose={handleClosePopup}
-                data={popupData}
-            />
-        </>
+        <SmartConversionPopup
+            isOpen={showPopup}
+            onClose={handleClosePopup}
+            data={popupData}
+        />
     );
 };
 
