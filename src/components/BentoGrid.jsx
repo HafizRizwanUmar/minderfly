@@ -68,7 +68,7 @@ const ProjectCard = ({ project, index, isCtaCard = false }) => {
       {/* Background image (if thumbnail) */}
       {project.thumbnail && !isCtaCard && (
         <div className="bento-card-img-wrap" aria-hidden="true">
-          <img src={project.thumbnail} alt="" loading="lazy" />
+          <img src={project.thumbnail} alt={`${project.title} — ${project.category} project preview`} loading="lazy" />
           <div className="bento-card-overlay"/>
         </div>
       )}

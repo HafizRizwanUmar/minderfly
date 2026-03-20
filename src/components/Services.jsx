@@ -207,7 +207,7 @@ const Services = () => {
                                 onKeyDown={(e) => e.key === 'Enter' && goTo(index)}
                             >
                                 <div className="thumb-bg">
-                                    <img src={service.image} alt="" loading="lazy" />
+                                    <img src={service.image} alt={`${service.title} — ${service.tag} service`} loading="lazy" />
                                     <div className="thumb-overlay" />
                                 </div>
                                 <div className="thumb-content">

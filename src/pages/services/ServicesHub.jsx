@@ -196,7 +196,7 @@ const ServicesHub = () => {
                                                 style={{ position: 'absolute', top: '50%', right: '8%', transform: 'translateY(-50%)', width: 360, height: 240, borderRadius: 14, overflow: 'hidden', pointerEvents: 'none', zIndex: 10, boxShadow: '0 24px 60px rgba(0,0,0,.6)', border: '1px solid rgba(255,255,255,.1)' }}
                                                 aria-hidden="true"
                                             >
-                                                <img src={service.image} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(.8) saturate(1.1)' }} />
+                                                <img src={service.image} alt={`${service.title} — service showcase featuring ${service.tag}`} style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(.8) saturate(1.1)' }} />
                                                 <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(5,5,5,.3) 0%, transparent 60%)' }} />
                                                 <div style={{ position: 'absolute', bottom: 14, left: 14, padding: '5px 12px', borderRadius: 100, background: 'rgba(5,5,5,.8)', border: '1px solid rgba(255,255,255,.12)', backdropFilter: 'blur(8px)', fontSize: '0.72rem', fontWeight: 600, color: ACCENT, letterSpacing: '0.06em' }}>
                                                     {service.tag}

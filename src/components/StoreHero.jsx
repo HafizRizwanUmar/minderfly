@@ -133,7 +133,7 @@ const StoreHero = ({ product }) => {
                   <img
                     key={i}
                     src={src}
-                    alt=""
+                    alt={`${defaultProduct.name} user avatar ${i + 1}`}
                     loading="lazy"
                     style={{ width: 30, height: 30, borderRadius: '50%', border: '2px solid rgba(10,10,10,.9)', marginLeft: i === 0 ? 0 : -10, objectFit: 'cover' }}
                   />
