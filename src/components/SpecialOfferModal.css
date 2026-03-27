@@ -342,24 +342,72 @@
 
 /* ── Responsive ── */
 @media (max-width: 900px) {
+    .som-overlay {
+        padding: 10px;
+    }
+
     .som-modal {
         flex-direction: column;
         min-height: auto;
-        max-height: 90vh;
+        max-height: 95vh;
         overflow-y: auto;
+        border-radius: 20px;
     }
 
     .som-left {
-        padding: 40px 30px;
+        flex: 0 0 auto;
+        padding: 35px 25px;
         border-right: none;
         border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        text-align: center;
+        align-items: center;
     }
 
-    .som-right {
-        padding: 40px 30px;
+    .som-left-eyebrow {
+        justify-content: center;
     }
 
     .som-left-title {
-        font-size: 2.2rem;
+        font-size: 2rem;
+        margin-bottom: 12px;
     }
-}
+
+    .som-left-desc {
+        font-size: 0.88rem;
+        margin-bottom: 24px;
+    }
+
+    .som-features {
+        display: none; /* Hide detailed features on small mobile to save vertical space */
+    }
+
+    .som-right {
+        padding: 30px 25px;
+        max-height: none;
+        overflow: visible;
+    }
+
+    .som-form-title {
+        font-size: 1.5rem;
+    }
+
+    .som-row {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    
+    .som-submit {
+        position: relative; /* On mobile, let it flow naturally if max-height is tight */
+        margin-top: 20px;
+    }
+}
+
+@media (max-height: 700px) and (max-width: 900px) {
+    .som-left {
+        padding: 24px;
+    }
+    .som-right {
+        padding: 24px;
+    }
+}
+

@@ -183,11 +183,11 @@ const ArticleDetail = () => {
             <ReadingProgress />
             <Navbar />
 
-            <main style={{ background: '#050505', color: '#fff', fontFamily: 'var(--font-body)' }}>
-                <div style={{ maxWidth: 1280, margin: '0 auto', padding: '0 3rem' }}>
+            <main className="article-main-container">
+                <div className="article-content-wrapper">
 
                     {/* ── Breadcrumb + back ── */}
-                    <div style={{ paddingTop: 120 }}>
+                    <div className="article-top-nav">
                         <motion.nav
                             aria-label="Breadcrumb"
                             initial={{ opacity: 0, y: -8 }}
@@ -219,7 +219,7 @@ const ArticleDetail = () => {
                         initial={{ opacity: 0, y: 22 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.65 }}
-                        style={{ maxWidth: 780, margin: '0 auto 3rem', textAlign: 'center' }}
+                        className="article-header"
                     >
                         {/* Category */}
                         <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '5px 16px', borderRadius: 100, background: 'rgba(200,242,58,.1)', border: '1px solid rgba(200,242,58,.25)', color: ACCENT, fontSize: '0.72rem', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '1.5rem' }}>
@@ -266,7 +266,7 @@ const ArticleDetail = () => {
                             initial={{ opacity: 0, scale: 0.97 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
-                            style={{ maxWidth: 980, margin: '0 auto 4rem', borderRadius: 20, overflow: 'hidden', border: '1px solid rgba(255,255,255,.08)' }}
+                            className="article-hero-image-wrapper"
                         >
                             <img
                                 src={article.image}
@@ -277,7 +277,7 @@ const ArticleDetail = () => {
                     )}
 
                     {/* ── Body layout: TOC + content ── */}
-                    <div style={{ display: 'grid', gridTemplateColumns: headings.length > 2 ? '1fr 260px' : '1fr', gap: '4rem', maxWidth: 1100, margin: '0 auto', alignItems: 'start', flexDirection: 'row-reverse' }}>
+                    <div className={`article-layout-grid ${headings.length > 2 ? 'has-toc' : 'no-toc'}`}>
 
                         {/* Content */}
                         <motion.div
@@ -285,7 +285,6 @@ const ArticleDetail = () => {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ duration: 0.8, delay: 0.15 }}
-                            style={{ gridColumn: headings.length > 2 ? '1 / 2' : '1 / -1', gridRow: 1 }}
                         >
                             <ReactMarkdown
                                 remarkPlugins={[remarkGfm]}
@@ -314,7 +313,7 @@ const ArticleDetail = () => {
                         {/* Table of contents (sticky sidebar) */}
                         {headings.length > 2 && (
                             <aside
-                                style={{ gridColumn: '2 / 3', gridRow: 1, position: 'sticky', top: 96, padding: '24px', background: 'rgba(255,255,255,.025)', border: '1px solid rgba(255,255,255,.07)', borderRadius: 16 }}
+                                className="article-sidebar"
                                 aria-label="Table of contents"
                             >
                                 <p style={{ fontSize: '0.68rem', fontWeight: 600, letterSpacing: '0.16em', textTransform: 'uppercase', color: ACCENT, marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -342,14 +341,14 @@ const ArticleDetail = () => {
                     </div>
 
                     {/* ── Author card ── */}
-                    <div style={{ maxWidth: 780, margin: '4rem auto', padding: '28px 32px', background: 'rgba(255,255,255,.025)', border: '1px solid rgba(255,255,255,.07)', borderRadius: 16, display: 'flex', alignItems: 'center', gap: 20 }}>
-                        <div style={{ width: 52, height: 52, borderRadius: '50%', background: 'rgba(200,242,58,.1)', border: '1px solid rgba(200,242,58,.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-heading)', fontSize: '1.2rem', fontWeight: 700, color: ACCENT, flexShrink: 0 }}>
+                    <div className="article-author-card">
+                        <div className="author-avatar">
                             {article.author?.charAt(0)}
                         </div>
                         <div>
-                            <p style={{ fontSize: '0.68rem', fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'rgba(255,255,255,.3)', marginBottom: '0.25rem' }}>Written by</p>
-                            <p style={{ fontSize: '1rem', fontWeight: 600, color: '#fff', marginBottom: '0.2rem' }}>{article.author}</p>
-                            <p style={{ fontSize: '0.82rem', fontWeight: 300, color: 'rgba(255,255,255,.38)' }}>Minderfly Team</p>
+                            <p className="author-label">Written by</p>
+                            <p className="author-name">{article.author}</p>
+                            <p className="author-dept">Minderfly Team</p>
                         </div>
                     </div>
 
@@ -383,7 +382,7 @@ const ArticleDetail = () => {
                                 </Link>
                             </div>
 
-                            <div style={{ display: 'grid', gridTemplateColumns: `repeat(${Math.min(relatedArticles.length, 3)},1fr)`, gap: 20 }}>
+                            <div className="related-articles-grid">
                                 {relatedArticles.slice(0, 3).map((r) => (
                                     <RelatedCard key={r.id} article={r} />
                                 ))}

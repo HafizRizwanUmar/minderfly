@@ -33,6 +33,7 @@ import ArticleDetail from './pages/articles/ArticleDetail';
 import { initGA, logPageView } from './utils/analytics';
 import SpecialOfferModal from './components/SpecialOfferModal';
 import ConversionManager from './components/ConversionManager';
+import FloatingWhatsApp from './components/FloatingWhatsApp';
 import { ModalProvider, useModal } from './context/ModalContext';
 import './App.css';
 
@@ -67,6 +68,7 @@ function AppContent() {
           initialProjectType={selectedProject} 
         />
         <ConversionManager onOpenContactForm={() => openModal('Smart Suggestion')} />
+        <FloatingWhatsApp />
         <Routes>
           {/* Main Routes */}
           <Route path="/" element={<Home />} />
