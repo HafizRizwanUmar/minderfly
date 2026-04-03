@@ -1,5 +1,4 @@
 import { useRef, useState, useEffect } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
@@ -68,17 +67,7 @@ const DebtSettler = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Debt Settler — Free Expense Splitting & Debt Tracking App | Minderfly</title>
-        <meta name="description" content="Download Debt Settler free for Android, Windows, and Fire OS. Split bills, track shared expenses, and settle debts with friends, roommates, and travel groups. No sign-up, no ads, completely free." />
-        <meta name="keywords" content="Debt Settler, free debt tracking app, expense splitter app, split bills friends, shared expense tracker, debt management app free, roommate expense split, travel expense app, Minderfly debt settler" />
-        <link rel="canonical" href="https://minderfly.com/store/debt-settler" />
-        <meta property="og:title"       content="Debt Settler — Free Expense Splitting App" />
-        <meta property="og:description" content="Split bills, track debts, and settle expenses with friends. Free on Android, Windows, and Amazon Fire." />
-        <meta property="og:type"        content="website" />
-        <meta name="twitter:card"       content="summary_large_image" />
-        <script type="application/ld+json">{JSON.stringify(schema)}</script>
-      </Helmet>
+
 
       {/* ── Navbar ── */}
       <nav style={{ position: 'fixed', top: 0, left: 0, right: 0, height: 64, background: 'rgba(5,5,5,0.88)', backdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(255,255,255,0.07)', display: 'flex', alignItems: 'center', zIndex: 1000 }}>

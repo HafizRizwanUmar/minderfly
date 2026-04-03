@@ -17,6 +17,7 @@ import MobileAppDevelopment from './pages/services/MobileAppDevelopment';
 import GraphicsDesign from './pages/services/GraphicsDesign';
 import ChromeExtensionDev from './pages/services/ChromeExtensionDev';
 import ChromeThemeDev from './pages/services/ChromeThemeDev';
+import AIAutomation from './pages/services/AIAutomation';
 
 // Store (Products)
 import StoreHub from './pages/store/StoreHub';
@@ -80,6 +81,7 @@ function AppContent() {
           <Route path="/services/graphics-design" element={<GraphicsDesign />} />
           <Route path="/services/chrome-extension-development" element={<ChromeExtensionDev />} />
           <Route path="/services/chrome-theme-development" element={<ChromeThemeDev />} />
+          <Route path="/services/ai-automation" element={<AIAutomation />} />
 
           {/* Store Routes */}
           <Route path="/store" element={<StoreHub />} />

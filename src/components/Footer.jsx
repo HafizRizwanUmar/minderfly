@@ -153,8 +153,35 @@ const Footer = ({ onContactClick }) => {
                 Minder<span>fly</span>
               </Link>
               <p className="footer-brand-desc">
-                A digital agency and product studio building Chrome extensions, developer tools, and full-stack experiences for clients worldwide.
+                A digital services agency building web platforms, mobile apps, AI automations, and Chrome tools for clients worldwide.
               </p>
+              {/* Store button */}
+              <Link
+                to="/store"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 8,
+                  marginTop: '1.1rem',
+                  marginBottom: '.25rem',
+                  padding: '8px 18px',
+                  borderRadius: 100,
+                  background: 'rgba(200,242,58,.08)',
+                  border: '1px solid rgba(200,242,58,.22)',
+                  color: '#c8f23a',
+                  fontSize: '0.8rem',
+                  fontWeight: 600,
+                  textDecoration: 'none',
+                  letterSpacing: '.03em',
+                  transition: 'background .2s, border-color .2s',
+                }}
+                onMouseEnter={e => { e.currentTarget.style.background = 'rgba(200,242,58,.15)'; e.currentTarget.style.borderColor = 'rgba(200,242,58,.45)'; }}
+                onMouseLeave={e => { e.currentTarget.style.background = 'rgba(200,242,58,.08)'; e.currentTarget.style.borderColor = 'rgba(200,242,58,.22)'; }}
+                aria-label="Browse free apps in the Minderfly App Store"
+              >
+                <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M2 6.5h9M6.5 2l4.5 4.5L6.5 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                Browse App Store
+              </Link>
               <div className="footer-social" role="list" aria-label="Social media links">
                 {SOCIALS.map(({ Icon, href, label }) => (
                   <a

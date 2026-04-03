@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
@@ -457,22 +456,7 @@ const StoreHub = () => {
 
   return (
     <>
-      <Helmet>
-        <title>App Store — Free Productivity & Developer Tools for Windows & Android | Minderfly</title>
-        <meta name="description" content="Download free apps by Minderfly: Debt Settler for expense splitting, Nishan QR Code Generator, Flutter Web Emulator for VS Code, Cinemafly HEVC media player, and Sanad PDF Editor. All free. All offline-capable. Windows, Android, and VS Code." />
-        <meta name="keywords" content="Minderfly store, free Windows apps, free Android apps, debt splitting app, QR code generator free, Flutter VS Code extension, HEVC media player Windows, offline PDF editor Windows, developer tools free, Minderfly software download" />
-        <link rel="canonical" href="https://minderfly.com/store" />
-        <meta property="og:title"       content="Minderfly App Store — Free Productivity & Developer Tools" />
-        <meta property="og:description" content="Download free tools built by Minderfly: expense tracking, QR generation, Flutter development, 4K video playback, and offline PDF editing." />
-        <meta property="og:type"        content="website" />
-        <meta property="og:url"         content="https://minderfly.com/store" />
-        <meta name="twitter:card"       content="summary_large_image" />
-        <meta name="twitter:title"      content="Minderfly App Store — Free Tools for Windows & Android" />
-        <meta name="twitter:description" content="5 free apps for productivity, development, and utilities. No subscriptions. No sign-ups." />
-        <script type="application/ld+json">{JSON.stringify(itemListSchema)}</script>
-        <script type="application/ld+json">{JSON.stringify(orgSchema)}</script>
-        <script type="application/ld+json">{JSON.stringify(breadcrumb)}</script>
-      </Helmet>
+      {/* Store is not indexed — products live on their own pages */}
 
       <Navbar />
 

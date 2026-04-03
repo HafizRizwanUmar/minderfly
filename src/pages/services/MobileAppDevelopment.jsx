@@ -1,80 +1,140 @@
 import React from 'react';
 import ServicePageLayout from '../../components/ServicePageLayout';
+import { articlesData } from '../../data/articles';
 
 const MobileAppDevelopment = () => {
     const features = [
         {
-            title: 'Flutter & Dart Expertise',
-            desc: 'We specialise exclusively in Flutter — not as an afterthought but as a primary discipline. Expect deep knowledge of state management, rendering, and platform channels.',
+            title: 'Flutter Cross-Platform',
+            desc: 'One codebase for iOS, Android, and Web with native-level performance. Flutter\'s widget engine delivers 60fps animations and pixel-perfect UI across every device.',
         },
         {
-            title: 'Single Codebase, Two Platforms',
-            desc: 'One Flutter codebase deploys to iOS and Android with native-quality performance. Significantly lower build and maintenance costs compared to separate native apps.',
+            title: 'React Native Development',
+            desc: 'Build iOS and Android apps with JavaScript and React. Share up to 95% of code while accessing native APIs for camera, GPS, biometrics, and push notifications.',
         },
         {
-            title: 'Native-Quality UI',
-            desc: 'Custom widgets, 60fps animations, and platform-adaptive components that respect Material Design on Android and Cupertino conventions on iOS.',
+            title: 'Native iOS & Android',
+            desc: 'Swift/SwiftUI for iOS, Kotlin for Android — when only native performance and platform-specific features will do. Ideal for hardware-intensive or App Store featured apps.',
+        },
+        {
+            title: 'App Store Submission',
+            desc: 'Full App Store (Apple) and Google Play submission including asset preparation, review correspondence, and resolving rejection feedback — we handle the entire process.',
+        },
+        {
+            title: 'Push Notifications & Analytics',
+            desc: 'Firebase Cloud Messaging, OneSignal, in-app analytics with Mixpanel or Amplitude. Know how users behave and re-engage them at the right moment.',
         },
         {
             title: 'Offline-First Architecture',
-            desc: 'Apps built with SQLite, Hive, or Isar for robust offline functionality — syncing intelligently when connectivity is restored.',
-        },
-        {
-            title: 'App Store & Play Store Deployment',
-            desc: 'Complete support for app signing, provisioning profiles, store listing setup, screenshot preparation, and review submission for both platforms.',
-        },
-        {
-            title: 'Ongoing Maintenance',
-            desc: 'Post-launch retainers covering Flutter SDK upgrades, OS compatibility fixes, crash monitoring, performance optimisation, and feature additions.',
+            desc: 'Local SQLite / Hive databases with background sync so your app works flawlessly even without a network connection — critical for field and enterprise apps.',
         },
     ];
 
+    const problems = [
+        {
+            icon: '📱',
+            problem: "You paid a developer to build an app that crashed on every other Android device and got rejected by the App Store three times in a row.",
+            solution: "We test on 15+ real devices and follow Apple/Google guidelines from day one. Our App Store acceptance rate is 100% on first submission.",
+        },
+        {
+            icon: '💰',
+            problem: "You were told you need separate iOS and Android teams. That's two codebases, twice the bugs, and double the cost to maintain anything.",
+            solution: "Flutter lets us ship to both platforms from a single codebase — saving you 40–60% in development and ongoing maintenance costs.",
+        },
+        {
+            icon: '🐢',
+            problem: "Your current app takes 4+ seconds to load, the UI is laggy, and users are leaving 1-star reviews about performance.",
+            solution: "We profile every app with Flutter DevTools — identifying jank, memory leaks, and slow network calls. Performance is built in, not bolted on.",
+        },
+        {
+            icon: '📡',
+            problem: "Your app breaks the moment a user goes underground on the subway. You lose their data and they lose trust in your product.",
+            solution: "We architect offline-first with local databases and background sync. Users always have full functionality, regardless of network state.",
+        },
+    ];
+
+    const stats = [
+        { value: '15+', label: 'Apps shipped' },
+        { value: '100%', label: 'App Store acceptance' },
+        { value: '2', label: 'Platforms one codebase' },
+        { value: '60fps', label: 'Animation performance' },
+    ];
+
+    const whyUs = [
+        { title: 'Platforms covered',  us: 'iOS + Android from 1 codebase', them: 'Separate teams / budgets' },
+        { title: 'App Store support',  us: 'Submission & review handling',   them: 'Extra charge per revision' },
+        { title: 'Design quality',     us: 'Custom-branded, pixel-perfect',  them: 'Default component libraries' },
+        { title: 'Testing devices',    us: '15+ real device testing',        them: 'Simulator only' },
+        { title: 'Performance target', us: '60fps, <3s cold start',          them: 'No stated target' },
+        { title: 'Ownership',          us: 'Full source code & IP yours',    them: 'License-locked SDKs' },
+    ];
+
+    const seoArticle = {
+        heading: 'Flutter vs React Native: what no one tells you before you start.',
+        paragraphs: [
+            { h3: 'The real cost of building two native apps' },
+            'Most founders don\'t realise that maintaining separate iOS and Android codebases means every bug fix, UI update, and feature addition must be done twice — by two different developers with different skill sets. That\'s not a development expense, it\'s a tax you pay forever.',
+            'Flutter eliminates this. One codebase. One team. One deployment pipeline. And because Flutter renders its own widgets rather than bridging to native components, the performance is genuinely indistinguishable from native on modern devices.',
+            { h3: 'Flutter vs React Native — a honest comparison' },
+            'Flutter compiles to native ARM code and uses its own rendering engine (Skia / Impeller), giving it a performance edge for UI-heavy apps. React Native bridges to native components, which means better platform fidelity but occasional bridging jank. If you\'re building a consumer app where animations and polish matter, choose Flutter. If you have an existing JavaScript team and need to move fast, React Native is the pragmatic choice.',
+            { h3: 'What gets your app rejected by Apple and Google' },
+            'The top three reasons for App Store rejection: missing privacy permissions justification, UI that doesn\'t follow Human Interface Guidelines, and crashes during Apple\'s review. We submit apps every month and know exactly what reviewers look for. Our rejection rate is zero — not because we\'re lucky, but because we pre-check against Apple\'s exact review criteria before submission.',
+            { h3: 'How long does it take to build a mobile app?' },
+            'An MVP with authentication, core features, and App Store submission: 6–10 weeks. A full consumer app with onboarding, payments, push notifications, and admin dashboard: 12–20 weeks. We never give you a timeline without a written specification first — vague estimates are how projects go 3x over budget.',
+        ],
+    };
+
     const processSteps = [
-        { title: 'Discovery',     desc: 'Define screens, user flows, data models, and platform-specific requirements.' },
-        { title: 'UI Design',     desc: 'High-fidelity Figma prototypes for all screens — including edge cases — before any code is written.' },
-        { title: 'Development',   desc: 'Iterative Flutter development with weekly TestFlight / Play Console builds for your feedback.' },
-        { title: 'QA',            desc: 'Device testing across iOS and Android, automated widget tests, and performance profiling.' },
-        { title: 'Store Launch',  desc: 'Submission, review handling, and post-launch monitoring for both stores.' },
+        { title: 'UX Blueprint', desc: 'User flows, wireframes, and an interactive prototype before a single line of code is written.' },
+        { title: 'Architecture',  desc: 'State management, API contracts, local storage strategy, and third-party SDK selection.' },
+        { title: 'Development',   desc: 'Weekly build drops on TestFlight (iOS) and Firebase App Distribution (Android) so you\'re always testing real code.' },
+        { title: 'QA & Testing',  desc: 'Automated testing with Flutter integration tests, manual QA on 15+ devices, and performance profiling.' },
+        { title: 'Store Launch',  desc: 'App Store and Google Play submission, review correspondence, and post-launch crash monitoring.' },
     ];
 
     const faqs = [
         {
-            q: 'Why Flutter over React Native?',
-            a: "Flutter renders its own UI widgets via the Skia/Impeller engine — it doesn't rely on native components bridged through JavaScript. This means consistent UI across platforms, smoother animations, and no bridge-related performance bottlenecks.",
+            q: 'How much does a mobile app cost to build?',
+            a: 'A simple utility app with authentication and core features: $4,000–9,000. A full consumer app with payments, notifications, and an admin dashboard: $10,000–25,000. We provide a detailed quote after a free discovery call — never a vague range that triples by launch.',
         },
         {
-            q: 'Can Flutter access native device hardware?',
-            a: 'Yes. Flutter uses platform channels to call native iOS and Android APIs — camera, GPS, Bluetooth, NFC, biometrics, push notifications, and more are all fully accessible.',
+            q: 'Do you handle App Store submission?',
+            a: 'Yes, entirely. We prepare all assets (icons, screenshots, descriptions), submit the app, respond to reviewer feedback, and handle any rejections. Our first-submission acceptance rate is 100%.',
         },
         {
-            q: 'Do you also build Flutter desktop apps?',
-            a: 'Yes — we offer Flutter desktop development for Windows and macOS. The same codebase can target mobile, desktop, and web simultaneously if your requirements allow it.',
+            q: 'Can you add features to my existing app?',
+            a: 'Yes. We audit the existing codebase first. Flutter and React Native codebases are our speciality — we can extend, refactor, or migrate native apps to cross-platform where it makes sense.',
         },
         {
-            q: 'How do you handle backend integration?',
-            a: "We integrate with REST APIs, GraphQL, Firebase, Supabase, and custom Node.js backends. If you don't have a backend yet, we can build one as part of your project.",
-        },
-        {
-            q: 'What state management do you use?',
-            a: 'Riverpod for most projects — it is type-safe, testable, and scales well. For larger or legacy codebases, we also work comfortably with Bloc and Provider.',
+            q: 'Do you build the backend too?',
+            a: 'Yes. Most mobile projects need an API, authentication, and a database. We build these with Node.js/Express or Firebase, designed specifically for mobile consumption patterns.',
         },
     ];
+
+    const relatedArticles = articlesData
+        ? articlesData.filter(a => a.category === 'Mobile' || a.category === 'Flutter').slice(0, 2)
+        : [];
 
     return (
         <ServicePageLayout
             title="Mobile App Development"
-            subtitle="Your idea, in everyone's pocket."
-            description="We build high-quality mobile applications with Flutter — Google's cross-platform UI toolkit. Get native performance, beautiful UI, and a single maintainable codebase for both iOS and Android, without paying for two separate development teams."
+            subtitle="iOS & Android apps that users actually keep on their phone."
+            description="We build cross-platform mobile apps with Flutter and React Native — pixel-perfect, performant, and ready for the App Store and Google Play. From fintech to productivity apps, we've shipped it all."
             features={features}
+            problems={problems}
+            stats={stats}
+            whyUs={whyUs}
+            seoArticle={seoArticle}
             processSteps={processSteps}
             faqs={faqs}
+            relatedArticles={relatedArticles}
             image="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&q=80&w=1200"
-            badgeText="Flutter Specialists"
-            ctaText="Get a Free Estimate"
+            badgeText="Flutter & React Native"
+            ctaText="Get an App Quote"
             ctaLink="/contact"
-            seoTitle="Flutter Mobile App Development Services — iOS & Android | Minderfly"
-            seoDescription="Expert Flutter mobile app development for iOS and Android. Cross-platform apps with native performance, beautiful UI, and a single codebase. App Store and Play Store deployment included. Request a free project estimate."
-            seoKeywords="Flutter app development, mobile app development, iOS app development, Android app development, cross-platform mobile app, Flutter developer, React Native alternative, Flutter iOS Android, custom mobile app, Flutter Riverpod, mobile app agency"
+            seoTitle="Flutter & React Native Mobile App Development | Minderfly"
+            seoDescription="Expert Flutter and React Native mobile app developers for iOS and Android. Custom apps with full App Store submission support. Get a free quote in 24 hours."
+            seoKeywords="Flutter app development, React Native developer for hire, iOS Android app development, cross platform mobile app, mobile app development agency, Flutter developer, build app for iOS and Android, custom mobile app development"
             canonicalUrl="/services/mobile-app-development"
         />
     );

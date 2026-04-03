@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
@@ -246,18 +245,7 @@ const SanadPdfEditor = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Sanad PDF Editor — Free Offline PDF Editor for Windows | No Uploads | Minderfly</title>
-        <meta name="description" content="Download Sanad PDF Editor free for Windows. Merge, split, annotate, sign, and convert PDFs without uploading to the cloud. 100% offline, privacy-first, no daily limits, no subscription required." />
-        <meta name="keywords" content="Sanad PDF Editor, free PDF editor Windows, offline PDF editor, PDF merge split Windows, sign PDF offline, annotate PDF Windows, edit PDF without internet, privacy PDF editor Windows 11, free PDF software Windows" />
-        <link rel="canonical" href="https://minderfly.com/store/sanad-pdf-editor" />
-        <meta property="og:title"       content="Sanad PDF Editor — Free Offline PDF Editor for Windows" />
-        <meta property="og:description" content="Merge, split, sign, and annotate PDFs offline. No uploads, no subscriptions, no daily limits." />
-        <meta property="og:type"        content="website" />
-        <meta name="twitter:card"       content="summary_large_image" />
-        <script type="application/ld+json">{JSON.stringify(appSchema)}</script>
-        <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
-      </Helmet>
+
 
       {/* ── NAV ── */}
       <nav style={{ position:'fixed', top:0, left:0, right:0, height:64, background:'rgba(5,5,5,.9)', backdropFilter:'blur(24px)', borderBottom:`1px solid ${WIRE}`, display:'flex', alignItems:'center', zIndex:1000 }}>

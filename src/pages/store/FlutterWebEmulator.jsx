@@ -1,5 +1,4 @@
 import { useRef, useState, useEffect } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { FaCheck, FaWindows } from 'react-icons/fa';
@@ -54,17 +53,7 @@ const FlutterWebEmulator = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Flutter Web Emulator — Run Flutter Apps Inside VS Code | Minderfly</title>
-        <meta name="description" content="Free VS Code extension that embeds a browser inside VS Code so you can run, debug, and test Flutter Web apps without switching tabs. Device simulation included. Download from VS Code Marketplace." />
-        <meta name="keywords" content="Flutter Web Emulator, VS Code Flutter extension, Flutter web development, run Flutter in VS Code, Flutter browser emulator, Flutter hot reload VS Code, Flutter device simulation, free Flutter tool" />
-        <link rel="canonical" href="https://minderfly.com/store/flutter-web-emulator" />
-        <meta property="og:title"       content="Flutter Web Emulator — Run Flutter Apps Inside VS Code" />
-        <meta property="og:description" content="Stop switching tabs. Embed your Flutter Web app directly in VS Code. Free VS Code extension." />
-        <meta property="og:type"        content="website" />
-        <meta name="twitter:card"       content="summary_large_image" />
-        <script type="application/ld+json">{JSON.stringify(schema)}</script>
-      </Helmet>
+
 
       {/* ── Navbar ── */}
       <nav className="nishan-nav">

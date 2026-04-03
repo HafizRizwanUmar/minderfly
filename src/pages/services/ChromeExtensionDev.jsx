@@ -1,97 +1,141 @@
 import React from 'react';
 import ServicePageLayout from '../../components/ServicePageLayout';
+import { articlesData } from '../../data/articles';
 
 const ChromeExtensionDev = () => {
     const features = [
         {
-            title: 'Workflow Automation',
-            desc: 'Eliminate repetitive browser tasks with intelligent automation scripts, background workers, and DOM interaction — saving your team hours every week.',
+            title: 'Manifest V3 Development',
+            desc: 'All extensions built to the latest Chrome MV3 standard — fully compliant with Google\'s 2024-2025 migration requirements, ensuring your extension stays in the Chrome Web Store.',
         },
         {
-            title: 'Data Extraction & Scraping',
-            desc: 'Build robust tools to capture, structure, and export web data. From lead generation to competitive analysis, we engineer scrapers that work reliably at scale.',
+            title: 'Content Script Automation',
+            desc: 'Inject scripts into any website to automate workflows, scrape data, modify page content, or add UI overlays. Ideal for internal tools and productivity extensions.',
         },
         {
-            title: 'Custom Popups & Sidebars',
-            desc: 'Design rich, React-powered popups and persistent sidebar panels that integrate seamlessly into the Chrome UI without friction.',
+            title: 'Browser Action & Popup UI',
+            desc: 'Beautiful, responsive popup UIs built with React or vanilla JS. Modern design that feels native to Chrome — not like an afterthought bolted onto a toolbar icon.',
         },
         {
-            title: 'Context Menu Integration',
-            desc: 'Add intelligent right-click actions that let users interact with selected content, trigger workflows, or pull in third-party data in one click.',
+            title: 'Background Service Workers',
+            desc: 'Persistent background logic using MV3 service workers: alarm scheduling, OAuth flows, cross-tab communication, and API polling — all without draining battery.',
         },
         {
-            title: 'Cross-Browser Compatibility',
-            desc: 'Built on Manifest v3 standards, your extension works across Chrome, Edge, Brave, Arc, and all Chromium-based browsers out of the box.',
+            title: 'Firefox & Edge Compatibility',
+            desc: 'Extensions built for Chrome can be adapted for Firefox (WebExtensions API) and Microsoft Edge with minimal additional work — broadening your reach significantly.',
         },
         {
             title: 'Chrome Web Store Publishing',
-            desc: 'End-to-end help preparing store listings, writing compelling descriptions, handling review submissions, and optimising for discoverability.',
+            desc: 'Full submission management: store listing, screenshots, privacy policy, review correspondence, and updating through the Chrome Web Store Developer Dashboard.',
         },
     ];
 
+    const problems = [
+        {
+            icon: '🚫',
+            problem: "Your Chrome extension got removed from the Web Store for policy violations. You've lost thousands of users overnight with no clear path back.",
+            solution: "We build MV3-compliant extensions from day one, audit against Chrome Web Store policies before submission, and handle review correspondence if issues arise.",
+        },
+        {
+            icon: '⏰',
+            problem: "Your team is wasting 3–4 hours per day on repetitive browser tasks — copying data between tabs, formatting reports, filling identical forms.",
+            solution: "We build automation extensions that eliminate repetitive browser work entirely. What takes your team 3 hours can become a one-click action.",
+        },
+        {
+            icon: '🔧',
+            problem: "You found a developer who built your extension but now it's broken on Manifest V3 and they've stopped responding to messages.",
+            solution: "We rescue MV3 migration projects daily. Send us your extension's source code and we'll audit it, fix the issues, and future-proof it within 1 week.",
+        },
+        {
+            icon: '📦',
+            problem: "You've got a great idea for a Chrome extension SaaS but have no idea how to monetise it, gate features, or handle subscriptions inside the browser.",
+            solution: "We've built subscription-gated extensions with Stripe integration, licence key validation, and usage-based feature unlocking. We've solved these problems before.",
+        },
+    ];
+
+    const stats = [
+        { value: '20+', label: 'Extensions shipped' },
+        { value: 'MV3', label: 'Fully compliant' },
+        { value: '5', label: 'Browsers supported' },
+        { value: '100%', label: 'Store approval rate' },
+    ];
+
+    const whyUs = [
+        { title: 'MV3 compliance',    us: 'Built-in from day one',      them: 'Migrate after the fact' },
+        { title: 'Store submission',  us: 'Full listing management',     them: 'Submission only, no support' },
+        { title: 'Browser coverage',  us: 'Chrome, Firefox, Edge, Brave', them: 'Chrome only' },
+        { title: 'UI quality',        us: 'React-powered modern UI',     them: 'Basic HTML popups' },
+        { title: 'Security review',   us: 'Included with every build',   them: 'On request, extra charge' },
+        { title: 'Monetisation',      us: 'Stripe/licence integration',  them: 'Front-end only' },
+    ];
+
+    const seoArticle = {
+        heading: 'Chrome extensions as a business: the most underrated SaaS distribution channel.',
+        paragraphs: [
+            { h3: 'Why Chrome extensions are an untapped growth channel' },
+            'There are over 3.2 billion Chrome users worldwide. The Chrome Web Store gets millions of daily visitors actively searching for tools to solve specific problems. Unlike the App Store or Google Play, it\'s dramatically less competitive — most categories are dominated by extensions built in 2016 that haven\'t been updated since.',
+            'A well-built, MV3-compliant Chrome extension in a specific niche can acquire thousands of users organically from Web Store search alone. Zero ad spend. Just SEO-optimised store listing and a product that solves a real problem.',
+            { h3: 'What Manifest V3 actually means for your extension' },
+            'Google has sunset Manifest V2. Any extension still using MV2 will be disabled in Chrome by June 2025. MV3 brings significant changes: background pages become service workers (no persistent state), remote code execution is banned, and the webRequest API is replaced by declarativeNetRequest. If your existing extension is on MV2, migration is not optional — it\'s urgent.',
+            { h3: 'The architecture of a modern Chrome extension' },
+            'A production Chrome extension has five key components: a manifest.json defining permissions and entry points, a background service worker for persistent logic, content scripts for page interaction, a popup UI for user interaction, and an options page for settings. Getting the permissions right is critical — over-requesting permissions triggers Web Store rejection and user distrust.',
+            { h3: 'How to monetise a Chrome extension in 2024' },
+            'The most reliable monetisation models are: a freemium model with feature-gated premium tiers, a Stripe-powered subscription validated server-side, a one-time licence key model for B2B tools, and enterprise site licences for internal tools. We\'ve implemented all four patterns and can advise on which fits your specific use case.',
+        ],
+    };
+
     const processSteps = [
-        { title: 'Discovery',    desc: 'We map your workflow problem and scope the extension architecture before writing a line of code.' },
-        { title: 'Design',       desc: 'Wireframes and UI prototypes for every popup, sidebar, and options page.' },
-        { title: 'Development',  desc: 'Manifest v3 development with TypeScript and React — clean, auditable code.' },
-        { title: 'QA & Review',  desc: 'Cross-browser testing plus a guided Chrome Web Store review submission.' },
-        { title: 'Launch',       desc: 'Live on the store with analytics, version control, and update documentation.' },
+        { title: 'Spec & Design',  desc: 'Extension architecture, permissions audit, popup/options UI wireframes, and policy compliance review before any code.' },
+        { title: 'Development',    desc: 'MV3-compliant build with React popup, service worker, content scripts, and storage layer. Weekly builds for review.' },
+        { title: 'Security Audit', desc: 'CSP validation, permission minimisation, and data handling review to pass Chrome Web Store security checks.' },
+        { title: 'Store Listing',  desc: 'Optimised title, description, screenshots, and promotional tiles to maximise Web Store discovery.' },
+        { title: 'Submission',     desc: 'Full Chrome Web Store submission and review management. Average review time: 1–3 business days.' },
     ];
 
     const faqs = [
         {
-            q: 'How long does Chrome extension development take?',
-            a: 'Most extensions ship in 3–6 weeks depending on complexity. Simple popup tools are faster; extensions with backend integrations or complex content scripts take longer. We give a fixed timeline after scoping.',
+            q: 'Does my extension need to be updated for Manifest V3?',
+            a: 'If it\'s currently on MV2, yes — urgently. Google has begun disabling MV2 extensions in Chrome. We offer a full MV3 migration service: code audit, rewrite of incompatible components, and re-submission.',
         },
         {
-            q: 'Do you use Manifest v3?',
-            a: 'Yes. All our extensions are built on Manifest v3 — the current Chrome standard. MV2 is deprecated by Google and will stop working in 2025, so we never build on it for new projects.',
+            q: 'Can you build extensions for Firefox and Edge too?',
+            a: 'Yes. Firefox uses the WebExtensions API (very similar to Chrome), and Edge is Chromium-based so Chrome extensions work with minimal adaptation. We can package your extension for all three with the same codebase.',
         },
         {
-            q: 'Can you add AI features to a Chrome extension?',
-            a: 'Absolutely. We regularly integrate OpenAI, Anthropic, and other LLM APIs directly into extensions — for summarisation, writing assistance, data analysis, and more.',
+            q: 'How do I charge users for a Chrome extension?',
+            a: 'The most reliable approach is server-side subscription validation with Stripe. Users pay on your website, get a licence key or account, and the extension validates their subscription status on each use. We build this full stack.',
         },
         {
-            q: 'Will the extension pass Chrome Web Store review?',
-            a: "Yes — we follow Google's developer policies closely and prepare your store listing to meet all requirements. We handle any review rejections at no extra cost.",
-        },
-        {
-            q: 'Can you maintain the extension after launch?',
-            a: 'Yes. We offer monthly maintenance retainers covering Chrome API changes, dependency updates, bug fixes, and new feature additions.',
+            q: 'How long does Chrome Web Store review take?',
+            a: 'Typically 1–3 business days for new submissions, 1–7 days for updates. New publisher accounts without a history can take up to 2 weeks. We\'ve optimised store listings to pass review on the first attempt.',
         },
     ];
 
-    const structuredData = {
-        '@context': 'https://schema.org',
-        '@type': 'Service',
-        name: 'Chrome Extension Development',
-        serviceType: 'Custom Browser Extension Development',
-        description: 'Professional Chrome extension development services using Manifest v3. We build productivity tools, automation extensions, data scrapers, and AI-powered browser tools published to the Chrome Web Store.',
-        provider: {
-            '@type': 'Organization',
-            name: 'Minderfly',
-            url: 'https://minderfly.com',
-        },
-        areaServed: 'Worldwide',
-        url: 'https://minderfly.com/services/chrome-extension-development',
-    };
+    const relatedArticles = articlesData
+        ? articlesData.filter(a => a.category === 'Chrome' || a.category === 'Extensions').slice(0, 2)
+        : [];
 
     return (
         <ServicePageLayout
             title="Chrome Extension Development"
-            subtitle="Supercharge every tab."
-            description="We build production-grade Chrome extensions that users actually keep installed. From workflow automation tools to AI-powered browser companions, our extensions are fast, secure, Manifest v3 compliant, and ready for the Chrome Web Store."
+            subtitle="Turn browser workflows into one-click superpowers."
+            description="We build Manifest V3-compliant Chrome extensions for productivity automation, SaaS tools, data scraping, and internal browser tooling. From concept to Chrome Web Store — fully handled."
             features={features}
+            problems={problems}
+            stats={stats}
+            whyUs={whyUs}
+            seoArticle={seoArticle}
             processSteps={processSteps}
             faqs={faqs}
-            image="https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&q=80&w=1200"
-            badgeText="Manifest v3 Certified"
-            ctaText="Get a Free Estimate"
+            relatedArticles={relatedArticles}
+            image="https://images.unsplash.com/photo-1480694313141-fce5e697ee25?auto=format&fit=crop&q=80&w=1200"
+            badgeText="MV3 · React · Web Store"
+            ctaText="Build My Extension"
             ctaLink="/contact"
-            seoTitle="Chrome Extension Development Services — Manifest v3 Experts | Minderfly"
-            seoDescription="Professional Chrome extension development using Manifest v3. We build workflow automation tools, data scrapers, AI browser extensions, and productivity tools — published to the Chrome Web Store. Get a free project estimate."
-            seoKeywords="Chrome extension development, Manifest v3 extension, custom Chrome extension, browser automation extension, Chrome Web Store development, productivity Chrome extension, AI Chrome extension, JavaScript browser extension, TypeScript Chrome extension"
+            seoTitle="Chrome Extension Development Service — Manifest V3 | Minderfly"
+            seoDescription="Expert Chrome extension development with Manifest V3 compliance, React-powered UI, and full Web Store submission support. Build automation tools, SaaS browser extensions, and internal productivity tools. Free quote in 24h."
+            seoKeywords="chrome extension development service, manifest v3 developer, chrome extension developer for hire, browser extension development, chrome web store submission, custom chrome extension, MV3 migration service, build chrome extension, productivity chrome extension, SaaS browser extension"
             canonicalUrl="/services/chrome-extension-development"
-            extraSchema={structuredData}
         />
     );
 };

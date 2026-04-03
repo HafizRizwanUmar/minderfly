@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
@@ -128,19 +127,7 @@ const CinemaflyProduct=()=>{
 
   return(
     <>
-      <Helmet>
-        <title>Cinemafly — Free HEVC & 4K Media Player for Windows 10/11 | Minderfly</title>
-        <meta name="description" content="Download Cinemafly free on Windows. Plays HEVC, H.265, MKV, 4K HDR, AV1, and 30+ formats without codec packs. GPU accelerated, fully offline, designed for Windows 11." />
-        <meta name="keywords" content="Cinemafly, free HEVC player Windows, H.265 media player Windows 11, 4K HDR player Windows, MKV player free, video player no codec Windows, free media player Windows 11, AV1 player Windows, play HEVC without codec" />
-        <link rel="canonical" href="https://minderfly.com/store/cinemafly"/>
-        <meta property="og:title" content="Cinemafly — Free HEVC & 4K Media Player for Windows"/>
-        <meta property="og:description" content="Play every video format on Windows without codec hunting. Free on the Microsoft Store."/>
-        <meta property="og:type" content="website"/>
-        <meta name="twitter:card" content="summary_large_image"/>
-        <script type="application/ld+json">{JSON.stringify(appSchema)}</script>
-        <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
-        <script type="application/ld+json">{JSON.stringify(bcSchema)}</script>
-      </Helmet>
+
 
       {/* NAV */}
       <nav style={{position:'fixed',top:0,left:0,right:0,height:64,background:'rgba(5,5,5,.9)',backdropFilter:'blur(24px)',borderBottom:`1px solid ${WIRE}`,display:'flex',alignItems:'center',zIndex:1000}}>

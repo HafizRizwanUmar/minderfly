@@ -30,6 +30,61 @@ const WebDevelopment = () => {
         },
     ];
 
+    const problems = [
+        {
+            icon: '😩',
+            problem: "You hired a cheap freelancer who disappeared mid-project, leaving half-built code you can't even open.",
+            solution: "We work in weekly sprints with a live staging URL. You see real progress every 7 days — no black-box development, no ghosting.",
+        },
+        {
+            icon: '🐌',
+            problem: "Your existing website takes 8+ seconds to load on mobile. Customers leave before the page even finishes loading.",
+            solution: "We audit and rebuild for Core Web Vitals. Our standard target is 90+ Lighthouse score, <2s LCP, and full mobile responsiveness.",
+        },
+        {
+            icon: '🔒',
+            problem: "Your web app has no proper authentication or security. You know it's a liability but don't know where to start fixing it.",
+            solution: "We implement industry-standard security: OAuth 2.0, JWT, bcrypt hashing, HTTPS, rate limiting, and injection protection.",
+        },
+        {
+            icon: '💸',
+            problem: "You've been quoted $20,000+ by a big agency for a project that should cost a fraction of that — and they can't start for 3 months.",
+            solution: "We offer transparent, milestone-based pricing with a first sprint starting within 5 business days of project kickoff.",
+        },
+    ];
+
+    const stats = [
+        { value: '40+', label: 'Projects delivered' },
+        { value: '<24h', label: 'Response time' },
+        { value: '90+', label: 'Lighthouse score' },
+        { value: '5★', label: 'Client satisfaction' },
+    ];
+
+    const whyUs = [
+        { title: 'Start date',         us: 'Within 5 business days',   them: '4–12 week waiting list' },
+        { title: 'Communication',       us: 'Direct Slack / WhatsApp',  them: 'Account manager middleman' },
+        { title: 'Code ownership',      us: '100% yours from day 1',    them: 'Locked-in retainers' },
+        { title: 'Revisions',           us: 'Unlimited in sprint',      them: 'Billable after 2 rounds' },
+        { title: 'Post-launch support', us: '30-day warranty included', them: 'Separate support contract' },
+        { title: 'Tech stack',          us: 'Best fit for your needs',  them: 'Whatever they specialise in' },
+    ];
+
+    const seoArticle = {
+        heading: 'How to hire a web developer who actually delivers.',
+        paragraphs: [
+            { h3: 'Why most web dev projects fail' },
+            "The #1 reason web projects fail is not technical — it is communication. Clients don't see progress until a big reveal that doesn't match expectations. By the time the disconnect surfaces, months and thousands of dollars are gone.",
+            "At Minderfly, we solve this with weekly sprint demos on a live staging URL. You interact with real, working software every 7 days. If the direction is wrong, we catch it in week 1, not week 12.",
+            { h3: 'MERN stack vs Next.js: which is right for your project?' },
+            "Choose MERN when you need a decoupled API serving multiple clients — mobile apps, third-party systems, and a web front-end all talking to the same back-end. Choose Next.js when SEO is critical, you want the simplest path to a full-stack React app, or you need static site generation for blazing-fast page loads.",
+            "Both stacks are production-proven and used by companies like Netflix, Airbnb, and TikTok. The right choice depends entirely on your specific use case — something we determine together in a free discovery call.",
+            { h3: 'What does a web development project actually cost?' },
+            "A landing page: $500–1,500. A business web app with authentication and a dashboard: $3,000–8,000. A full SaaS platform with subscriptions, multi-tenancy, and admin panel: $8,000–25,000. These are honest estimates — not 'it depends' non-answers. We scope every project in detail before you commit a single dollar.",
+            { h3: 'The Minderfly build process' },
+            "Every project begins with a discovery session where we map your requirements, define the tech stack, and produce a written specification. Sprint 1 is always a proof-of-concept: the core data model, authentication, and one key user flow — de-risking the entire project before significant investment is made.",
+        ],
+    };
+
     const processSteps = [
         { title: 'Discovery',    desc: 'Requirements mapping, tech stack selection, and a detailed project specification before anything is built.' },
         { title: 'Architecture', desc: 'Database schema, API design, component hierarchy, and deployment architecture signed off before sprint one.' },
@@ -71,6 +126,10 @@ const WebDevelopment = () => {
             subtitle="Building the digital foundation for your future."
             description="We create powerful, scalable, and visually refined web applications using the MERN stack and Next.js. Whether you need a complex SaaS platform, a high-conversion marketing site, or a custom business tool — our team delivers code that performs as good as it looks."
             features={features}
+            problems={problems}
+            stats={stats}
+            whyUs={whyUs}
+            seoArticle={seoArticle}
             processSteps={processSteps}
             faqs={faqs}
             relatedArticles={relatedArticles}
@@ -78,9 +137,9 @@ const WebDevelopment = () => {
             badgeText="MERN & Next.js Experts"
             ctaText="Start Your Project"
             ctaLink="/contact"
-            seoTitle="Full-Stack Web Development Services — MERN Stack & Next.js | Minderfly"
-            seoDescription="Expert MERN stack and Next.js web development services. We build scalable SaaS platforms, e-commerce solutions, and custom business applications with React, Node.js, MongoDB, and Express. Get a free project estimate."
-            seoKeywords="MERN stack development, Next.js development, React web development, Node.js backend development, full stack web development, SaaS platform development, MongoDB Express React Node, web application development, custom web development services, scalable web apps"
+            seoTitle="MERN Stack & Next.js Web Development Services | Minderfly"
+            seoDescription="Hire expert MERN stack and Next.js developers to build scalable SaaS platforms, e-commerce stores, and custom web apps. React, Node.js, MongoDB, and Express specialists. Get a free project estimate in 24 hours."
+            seoKeywords="MERN stack development service, Next.js developer for hire, React web development agency, Node.js backend development, full stack web development, SaaS platform development, custom web application development, web app development agency, MongoDB Express React Node developer"
             canonicalUrl="/services/web-development"
         />
     );

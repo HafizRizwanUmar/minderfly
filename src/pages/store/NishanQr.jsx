@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
 import { QRCodeCanvas } from 'qrcode.react';
 import {
   FaWindows, FaQrcode, FaInfinity, FaBolt,
@@ -102,22 +101,7 @@ const NishanQr = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Free QR Code Generator — Links, WiFi, Text & Email | Nishan QR · Minderfly</title>
-        <meta name="description" content="Create free QR codes instantly for URLs, text, WiFi networks, and email. Custom colours, instant PNG download, no sign-up, no watermarks. Works in your browser. Also available as a free Windows desktop app." />
-        <meta name="keywords" content="free QR code generator, QR code maker online, WiFi QR code generator, URL to QR code, custom QR code no watermark, QR code generator no account, Nishan QR, free QR code download PNG, QR code business card" />
-        <link rel="canonical" href="https://minderfly.com/store/nishan-qr-generator" />
-        <meta property="og:title"        content="Free QR Code Generator — Nishan QR by Minderfly" />
-        <meta property="og:description"  content="Unlimited free QR codes for links, WiFi, text & email. Custom colours, instant PNG. No sign-up." />
-        <meta property="og:type"         content="website" />
-        <meta property="og:url"          content="https://minderfly.com/store/nishan-qr-generator" />
-        <meta name="twitter:card"        content="summary_large_image" />
-        <meta name="twitter:title"       content="Free QR Code Generator — Nishan QR" />
-        <meta name="twitter:description" content="Unlimited free QR codes. No account. Instant PNG download." />
-        <script type="application/ld+json">{JSON.stringify(appSchema)}</script>
-        <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
-        <script type="application/ld+json">{JSON.stringify(bcSchema)}</script>
-      </Helmet>
+
 
       <div className="nishan-wrapper">
 
