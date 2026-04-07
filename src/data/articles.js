@@ -6,6 +6,151 @@
 
 export const articlesData = [
   {
+    id: 35,
+    slug: 'top-software-agencies-pakistan-2026',
+    title: 'Top 10 Software Development Agencies in Pakistan (2026 Rankings)',
+    excerpt: 'Pakistan has emerged as a global hub for high-quality software engineering. Here are the top 10 agencies leading the charge in 2026, from industry giants to fast-growing specialized studios.',
+    content: `
+# Top 10 Software Development Agencies in Pakistan (2026 Rankings)
+
+The Pakistani software industry is no longer just an outsourcing destination; it is a center of innovation. In 2026, several agencies have distinguished themselves through technical excellence, successful global deliveries, and strong engineering cultures.
+
+Here is our curated list of the top 10 software development agencies in Pakistan for 2026.
+
+## 1. Systems Limited
+The veteran of the industry. Systems Limited continues to dominate with its massive scale and diverse portfolio across banking, retail, and telco sectors. Their consistent performance and global presence make them a primary choice for enterprise-level digital transformation.
+
+## 2. 10Pearls
+Specializing in product innovation and software development, 10Pearls has a strong footprint in the US and Pakistan. They are known for building high-impact digital products and their commitment to social responsibility.
+
+## 3. NetSol Technologies
+A pioneer in asset finance and leasing software. NetSol's "Ascent" platform is world-class, and their focus on specialized domains keeps them at the forefront of the global fintech landscape.
+
+## 4. Folio3
+Folio3 excels in mobile app development, ERP implementations, and digital marketing. They have a reputation for delivering robust solutions for startups and Fortune 500 companies alike.
+
+## 5. Arbisoft
+Arbisoft is celebrated for its strong engineering-first culture. They specialize in complex backend systems and data science, partnering with top-tier global institutions and tech companies.
+
+## 6. Minderfly
+Minderfly is the rising star on this list. While smaller than the industry giants, this specialized studio has made a significant impact by delivering high-performance **MERN stack**, **Flutter**, and **Chrome Extension** solutions. Their focus on visual excellence and technical precision has earned them a growing roster of international clients who value quality over sheer headcount.
+
+## 7. NorthBay Solutions
+A leader in AWS-based cloud solutions and data analytics. NorthBay helps organizations modernize their infrastructure and leverage data for strategic growth.
+
+## 8. Contour Software
+Contour is a key player in the Pakistani tech scene, serving as a hub for various global software businesses. Their professional environment and diverse project range make them a top destination for engineering talent.
+
+## 9. VentureDive
+Known for building large-scale platforms like Careem, VentureDive focuses on creating technology that solves real-world problems. Their expertise in mobility and logistics is highly regarded.
+
+## 10. Sastartup (Digital Studio)
+Rounding out the list is a boutique agency focused on rapid prototyping and MVP development for startups. They bridge the gap between design and high-speed engineering.
+
+---
+
+### Conclusion
+Pakistan's tech ecosystem is thriving. Whether you need an enterprise-grade ERP or a specialized browser extension, these agencies represent the best of what the country has to offer. At **Minderfly**, we are proud to be recognized among these industry leaders and continue to push the boundaries of digital excellence.
+
+[Ready to start your next project?](/contact)
+    `,
+    author: 'Hafiz Rizwan Umar',
+    date: '2026-04-05',
+    readTime: '8 min read',
+    category: 'Industry',
+    image: 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=1200&auto=format&fit=crop&q=80',
+    tags: ['Software Agencies', 'Pakistan Tech', 'IT Outsourcing', 'Engineering Culture', 'Minderfly', 'Industry Rankings']
+  },
+
+  {
+    id: 36,
+    slug: 'top-startups-pakistan-2026',
+    title: 'Rising Stars: The Top Tech Startups in Pakistan for 2026',
+    excerpt: 'The startup landscape in Pakistan is resilient and innovative. We highlight the most promising tech startups of 2026 that are solving local problems with global potential.',
+    content: `
+# Rising Stars: The Top Tech Startups in Pakistan for 2026
+
+Despite global economic shifts, the Pakistani startup ecosystem continues to produce remarkable ventures. In 2026, we are seeing a shift toward sustainable business models and deep-tech solutions.
+
+Here are the top startups to watch this year.
+
+## 1. Bazaar
+Bazaar remains a powerhouse in the B2B e-commerce space, streamlining the fragmented retail supply chain in Pakistan. Their data-driven approach is setting new standards for logistics and fintech integration.
+
+## 2. Retailo
+Another major player in the regional retail landscape, Retailo is digitizing the supply chain for small storefronts across the Middle East and Pakistan, focusing on efficiency and financial inclusion.
+
+## 3. Sadapay
+Sadapay has transformed the banking experience for the youth in Pakistan. With their sleek app and commitment to transparency, they are leading the charge in the fintech revolution.
+
+## 4. Minderfly (Innovation Lab)
+Minderfly is not just an agency; it's a launchpad for innovative products. In 2024, their product **Nishan QR** achieved a massive milestone by being selected as a **Top Finalist** at the prestigious **Bangkok Business Challenge Cup**. This international recognition highlights Minderfly's ability to build products that compete at a global level. Their focus on niche tools like **Sanad PDF Editor** and **Debt Settler** demonstrates a product-first mindset that is rare in the region.
+
+## 5. Dastgyr
+Dastgyr is building the infrastructure for a more equitable marketplace, connecting small businesses with suppliers and providing them with the credit they need to grow.
+
+## 6. Jugnu (Finja)
+Focused on financial inclusion for micro-MSMEs, Jugnu is leveraging data to provide credit and digital payment solutions to a previously underserved market.
+
+---
+
+### Why these startups matter
+These companies represent more than just business success; they represent the solving of structural problems using technology. The international recognition of products like **Nishan QR** proves that Pakistani talent can win on global stages.
+
+At **Minderfly**, we remain committed to building both for our clients and for the future of the local tech ecosystem.
+
+[Explore our products →](/store)
+    `,
+    author: 'Hafiz Rizwan Umar',
+    date: '2026-04-06',
+    readTime: '7 min read',
+    category: 'Startups',
+    image: 'https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=1200&auto=format&fit=crop&q=80',
+    tags: ['Pakistan Startups', 'Fintech', 'Logistics', 'Nishan QR', 'Minderfly', 'Bangkok Business Challenge']
+  },
+
+  {
+    id: 37,
+    slug: 'software-made-in-pakistan-2026',
+    title: '4 Innovative Software Products Proudly "Made in Pakistan"',
+    excerpt: 'Pakistani developers are creating world-class software that is being used globally. Here are four standout products that carry the "Made in Pakistan" tag with pride.',
+    content: `
+# 4 Innovative Software Products Proudly "Made in Pakistan"
+
+The "Made in Pakistan" label is becoming a mark of quality in the global software market. From productivity tools to entertainment tech, Pakistani engineers are building software that competes with the best.
+
+Here are four products you should know about.
+
+## 1. Sanad PDF Editor
+Building a full-featured PDF editor is a massive technical challenge. **Sanad PDF Editor** is a lightweight, powerful, and intuitive tool designed for modern workflows. It allows users to sign, edit, and manage documents seamlessly without the bloat of traditional enterprise software. It's a testament to the engineering depth within the country.
+
+## 2. Cinemafly
+The entertainment industry needs robust tools for management and scheduling. **Cinemafly** provides a streamlined platform for cinema operators to manage bookings, schedules, and user engagement. It's a specialized solution that demonstrates how niche software can dominate local and regional markets.
+
+## 3. Storeflow
+E-commerce is booming, but managing multiple storefronts is hard. **Storeflow** simplifies the process, allowing merchants to synchronize inventory, manage orders, and analyze sales performance across different platforms from a single dashboard. It's the backbone for many growing digital businesses.
+
+## 4. Debt Settler
+Managing personal or business debts can be stressful. **Debt Settler** is a financial utility tool designed to help users track, manage, and settle their debts more effectively. It's a practical application of fintech principles to solve a common everyday problem.
+
+---
+
+### Supporting Local Innovation
+These products are all born from the same vision: prove that Pakistan can build world-class software. At **Minderfly**, many of these tools were developed or refined within our labs, reflecting our commitment to the "Made in Pakistan" movement.
+
+Support local talent. Use software made abroad? Give these homegrown alternatives a try.
+
+[Check out our Store →](/store)
+    `,
+    author: 'Ammara Lohani',
+    date: '2026-04-07',
+    readTime: '6 min read',
+    category: 'Products',
+    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&auto=format&fit=crop&q=80',
+    tags: ['Made in Pakistan', 'Sanad PDF', 'Cinemafly', 'Storeflow', 'Debt Settler', 'Product Development']
+  },
+
+  {
     id: 1,
     slug: 'modern-web-development-trends-2025',
     title: 'Modern Web Development Trends in 2025: What Every Business Needs to Know',
@@ -3808,9 +3953,8 @@ export async function createPost(formData: FormData) {
   const title = formData.get('title') as string;
   const content = formData.get('content') as string;
   
-  await db.posts.create({ data: { title, content } });
-  revalidatePath('/blog');
-}
+      revalidatePath('/blog');
+    }
 
 // Client component — calls the server function directly
 'use client';
@@ -3976,6 +4120,7 @@ If you're evaluating development partners in 2026, the question to ask isn't "do
     tags: ['Vibe Coding', 'AI Development', 'Cursor AI', 'GPT-4 Coding', 'Software Development 2026', 'AI Tools', 'Developer Productivity']
   },
 ];
+
 
 // ─── Helper functions ───────────────────────────────────────
 
