@@ -1,0 +1,146 @@
+/* ══════════════════════════════════════════════════
+   TeamPage.css — Minderfly Team Page
+   Mobile-first responsive styles
+══════════════════════════════════════════════════ */
+
+/* ── Page wrapper ── */
+.team-page-wrapper {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 3rem;
+}
+
+/* ── Hero section ── */
+.team-hero-section {
+  position: relative;
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  padding: 140px 0 90px;
+  overflow: hidden;
+}
+
+/* ── Stats bar ── */
+.team-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-left: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.team-stat-item {
+  padding: 2rem;
+  border-right: 1px solid rgba(255, 255, 255, 0.07);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ── Team members grid ── */
+.team-members-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+/* ── Values section ── */
+.team-values-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+/* ── Open roles section ── */
+.team-jobs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 80px;
+  align-items: start;
+}
+
+/* ── CTA banner ── */
+.team-cta-content {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 48px;
+  align-items: center;
+}
+
+.team-cta-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+/* ── Hero buttons ── */
+.team-hero-btns {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+/* ══ RESPONSIVE ══ */
+
+@media (max-width: 1024px) {
+  .team-page-wrapper {
+    padding: 0 2rem;
+  }
+  .team-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .team-jobs-grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+}
+
+@media (max-width: 768px) {
+  .team-page-wrapper {
+    padding: 0 1.5rem;
+  }
+  .team-hero-section {
+    padding: 110px 0 70px;
+    min-height: unset;
+  }
+  .team-members-grid {
+    grid-template-columns: 1fr;
+  }
+  .team-values-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .team-cta-content {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .team-cta-actions {
+    flex-shrink: 1;
+  }
+}
+
+@media (max-width: 520px) {
+  .team-page-wrapper {
+    padding: 0 1.1rem;
+  }
+  .team-hero-section {
+    padding: 95px 0 60px;
+  }
+  .team-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .team-values-grid {
+    grid-template-columns: 1fr;
+  }
+  .team-hero-btns {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .team-cta-actions a,
+  .team-cta-actions button {
+    width: 100%;
+    justify-content: center;
+  }
+}

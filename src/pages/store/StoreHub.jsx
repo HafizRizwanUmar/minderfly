@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import { useModal } from '../../context/ModalContext';
+import './StoreHub.css';
 
 /* ═══════════════════════════════════════
    DESIGN TOKENS
@@ -254,11 +255,7 @@ const FeaturedHero = ({ product }) => {
       initial={{ opacity: 0, y: 28 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: .9, ease: [.22, 1, .36, 1] }}
-      style={{
-        position: 'relative', width: '100%', height: 540, borderRadius: 22,
-        overflow: 'hidden', border: `1px solid rgba(255,255,255,.08)`,
-        marginBottom: '4rem', cursor: 'default',
-      }}
+      className="store-featured-hero"
     >
       {/* BG image */}
       <img src={product.image} alt={product.name} loading="eager"
@@ -272,9 +269,9 @@ const FeaturedHero = ({ product }) => {
       <div aria-hidden="true" style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '60%', background: 'linear-gradient(to top, rgba(5,5,5,.95), transparent)', pointerEvents: 'none' }}/>
 
       {/* Content */}
-      <div style={{ position: 'absolute', inset: 0, padding: '3rem', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
+      <div className="store-featured-content">
         {/* Badges top */}
-        <div style={{ position: 'absolute', top: '3rem', left: '3rem', display: 'flex', gap: 10 }}>
+        <div className="store-featured-badges">
           <span style={{ padding: '5px 14px', borderRadius: 100, background: AC, color: '#000', fontSize: '.62rem', fontWeight: 700, letterSpacing: '.12em', textTransform: 'uppercase' }}>
             ★ Editor's Choice
           </span>
@@ -284,7 +281,7 @@ const FeaturedHero = ({ product }) => {
         </div>
 
         {/* Bottom content */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: '2rem', alignItems: 'flex-end' }}>
+        <div className="store-featured-bottom">
           <div>
             <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: 'clamp(2rem,4vw,3.4rem)', fontWeight: 800, lineHeight: .95, letterSpacing: '-.04em', color: '#fff', marginBottom: '.75rem' }}>
               {product.name}
@@ -465,7 +462,7 @@ const StoreHub = () => {
         {/* ── dot grid atmosphere ── */}
         <div aria-hidden="true" style={{ position: 'fixed', inset: 0, backgroundImage: 'radial-gradient(rgba(255,255,255,.03) 1px, transparent 1px)', backgroundSize: '36px 36px', pointerEvents: 'none', zIndex: 0, maskImage: 'radial-gradient(ellipse 80% 60% at 50% 0%, black, transparent)' }}/>
 
-        <div style={{ position: 'relative', zIndex: 1, maxWidth: MW, margin: '0 auto', padding: '0 3rem', paddingTop: 120, paddingBottom: 100 }}>
+        <div className="store-page-wrapper">
 
           {/* ── Breadcrumb ── */}
           <nav aria-label="Breadcrumb" style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: '.76rem', color: 'rgba(255,255,255,.28)', marginBottom: '2.5rem' }}>
@@ -492,9 +489,9 @@ const StoreHub = () => {
           </div>
 
           {/* ── Stats bar ── */}
-          <div ref={statsRef} style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', borderLeft: `1px solid ${WIRE}`, marginBottom: '4rem', background: 'rgba(255,255,255,.018)', borderRadius: 16, overflow: 'hidden', border: `1px solid ${WIRE}` }}>
+          <div ref={statsRef} className="store-stats-grid">
             {STATS.map((s, i) => (
-              <div key={s.label} style={{ padding: '1.5rem 2rem', borderRight: `1px solid ${WIRE}`, textAlign: 'center', ...fade(statsV, i * 80) }}>
+              <div key={s.label} className="store-stat-item" style={{ ...fade(statsV, i * 80) }}>
                 <div style={{ fontFamily: 'var(--font-heading)', fontSize: 'clamp(1.6rem,2.5vw,2.2rem)', fontWeight: 800, letterSpacing: '-.04em', color: '#fff', lineHeight: 1, marginBottom: '.3rem' }}>
                   {s.value}<span style={{ color: AC }}>{s.suffix}</span>
                 </div>
@@ -509,7 +506,7 @@ const StoreHub = () => {
           {featured && <FeaturedHero product={featured} />}
 
           {/* ── Category filter ── */}
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem', marginBottom: '2rem' }}>
+          <div className="store-filter-bar">
             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
               <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.4rem', fontWeight: 800, color: '#fff', letterSpacing: '-.025em' }}>
                 All Apps
@@ -527,7 +524,7 @@ const StoreHub = () => {
               </AnimatePresence>
             </div>
 
-            <div role="tablist" aria-label="Filter apps by category" style={{ display: 'flex', flexWrap: 'wrap', gap: 7 }}>
+            <div role="tablist" aria-label="Filter apps by category" className="store-filter-tabs">
               {CATEGORIES.map(cat => {
                 const active = activeCategory === cat;
                 return (
@@ -561,7 +558,7 @@ const StoreHub = () => {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: .22 }}
-                style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 18 }}
+                className="store-products-grid"
               >
                 {filtered.map((p, i) => (
                   <ProductCard key={p.id} product={p} index={i} />
@@ -581,7 +578,7 @@ const StoreHub = () => {
 
           {/* ── Why Minderfly strip ── */}
           <section aria-label="Why Minderfly" style={{ marginBottom: '80px' }}>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 14 }}>
+            <div className="store-why-grid">
               {[
                 { icon: '🔒', title: 'Privacy-first always',    desc: 'Every product in this store works offline. Your data never leaves your device unless you explicitly share it.' },
                 { icon: '∞',  title: 'Free to start, forever',  desc: 'We believe useful tools shouldn\'t be gated. Every app here has a free tier with no time limit.' },
@@ -601,7 +598,7 @@ const StoreHub = () => {
           {/* ── Platform badges ── */}
           <div style={{ marginBottom: '80px', textAlign: 'center' }}>
             <p style={{ fontSize: '.68rem', fontWeight: 600, letterSpacing: '.18em', textTransform: 'uppercase', color: 'rgba(255,255,255,.25)', marginBottom: '1.25rem' }}>Available on</p>
-            <div style={{ display: 'flex', justifyContent: 'center', gap: 12, flexWrap: 'wrap' }}>
+            <div className="store-platforms">
               {[
                 { label: 'Microsoft Store',     icon: '⊞', href: 'https://apps.microsoft.com' },
                 { label: 'VS Code Marketplace', icon: '⌨', href: 'https://marketplace.visualstudio.com' },
@@ -622,7 +619,7 @@ const StoreHub = () => {
           <div ref={ctaRef}>
             <div style={{ ...fade(ctaV), position: 'relative', borderRadius: 22, overflow: 'hidden', padding: '72px', background: AC }}>
               <div aria-hidden="true" style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 55% 80% at 88% 50%, rgba(255,255,255,.16) 0%, transparent 60%)', pointerEvents: 'none' }}/>
-              <div style={{ position: 'relative', zIndex: 1, display: 'grid', gridTemplateColumns: '1fr auto', gap: 48, alignItems: 'center' }}>
+              <div className="store-cta-inner">
                 <div>
                   <div style={{ fontSize: '.62rem', fontWeight: 700, letterSpacing: '.2em', textTransform: 'uppercase', color: 'rgba(0,0,0,.45)', marginBottom: '1rem' }}>
                     Custom Development
@@ -634,7 +631,7 @@ const StoreHub = () => {
                     Minderfly builds Chrome extensions, VS Code tools, Windows apps, and mobile applications for teams worldwide. Everything in this store started as a custom build.
                   </p>
                 </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 11, flexShrink: 0 }}>
+                <div className="store-cta-actions">
                   <button
                     onClick={() => openModal('New Project Inquiry')}
                     style={{ display: 'inline-flex', alignItems: 'center', gap: 9, padding: '13px 28px', borderRadius: 10, background: '#000', border: 'none', color: '#fff', fontSize: '.88rem', fontWeight: 700, cursor: 'pointer', whiteSpace: 'nowrap', letterSpacing: '.02em', transition: 'all .2s' }}

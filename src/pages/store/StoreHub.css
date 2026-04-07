@@ -1,0 +1,212 @@
+/* ══════════════════════════════════════════════════
+   StoreHub.css — Minderfly Store Page
+   Mobile-first responsive styles
+══════════════════════════════════════════════════ */
+
+/* ── Page wrapper ── */
+.store-page-wrapper {
+  position: relative;
+  z-index: 1;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 3rem;
+  padding-top: 120px;
+  padding-bottom: 100px;
+}
+
+/* ── Featured hero card ── */
+.store-featured-hero {
+  position: relative;
+  width: 100%;
+  height: 540px;
+  border-radius: 22px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 4rem;
+  cursor: default;
+}
+
+.store-featured-content {
+  position: absolute;
+  inset: 0;
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.store-featured-badges {
+  position: absolute;
+  top: 3rem;
+  left: 3rem;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.store-featured-bottom {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2rem;
+  align-items: flex-end;
+}
+
+/* ── Stats bar ── */
+.store-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-left: 1px solid rgba(255, 255, 255, 0.07);
+  margin-bottom: 4rem;
+  background: rgba(255, 255, 255, 0.018);
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.store-stat-item {
+  padding: 1.5rem 2rem;
+  border-right: 1px solid rgba(255, 255, 255, 0.07);
+  text-align: center;
+}
+
+/* ── Products grid ── */
+.store-products-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+/* ── Category filter ── */
+.store-filter-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.store-filter-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+/* ── Why section ── */
+.store-why-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+/* ── Platform badges ── */
+.store-platforms {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* ── CTA banner ── */
+.store-cta-inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 48px;
+  align-items: center;
+}
+
+.store-cta-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  flex-shrink: 0;
+}
+
+/* ══ RESPONSIVE ══ */
+
+@media (max-width: 1024px) {
+  .store-page-wrapper {
+    padding: 0 2rem;
+    padding-top: 110px;
+    padding-bottom: 80px;
+  }
+  .store-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .store-products-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .store-why-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .store-page-wrapper {
+    padding: 0 1.5rem;
+    padding-top: 100px;
+    padding-bottom: 70px;
+  }
+  .store-featured-hero {
+    height: auto;
+    min-height: 420px;
+  }
+  .store-featured-content {
+    padding: 1.75rem;
+  }
+  .store-featured-badges {
+    top: 1.75rem;
+    left: 1.75rem;
+  }
+  .store-featured-bottom {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  .store-products-grid {
+    grid-template-columns: 1fr;
+  }
+  .store-why-grid {
+    grid-template-columns: 1fr;
+  }
+  .store-cta-inner {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .store-cta-actions {
+    flex-shrink: 1;
+  }
+  .store-filter-bar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 520px) {
+  .store-page-wrapper {
+    padding: 0 1.1rem;
+    padding-top: 90px;
+    padding-bottom: 60px;
+  }
+  .store-featured-hero {
+    min-height: 360px;
+    border-radius: 16px;
+  }
+  .store-featured-content {
+    padding: 1.25rem;
+    justify-content: flex-end;
+  }
+  .store-featured-badges {
+    top: 1.25rem;
+    left: 1.25rem;
+  }
+  .store-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .store-cta-actions a,
+  .store-cta-actions button {
+    width: 100%;
+    justify-content: center;
+  }
+}

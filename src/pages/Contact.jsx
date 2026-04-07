@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import './Contact.css';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
@@ -324,7 +325,7 @@ const ContactPage = () => {
         {/* Dot grid */}
         <div aria-hidden="true" style={{ position:'fixed', inset:0, backgroundImage:'radial-gradient(rgba(255,255,255,.025) 1px,transparent 1px)', backgroundSize:'36px 36px', pointerEvents:'none', zIndex:0, maskImage:'radial-gradient(ellipse 80% 60% at 50% 0%,black,transparent)' }}/>
 
-        <div style={{ position:'relative', zIndex:1, maxWidth:MW, margin:'0 auto', padding:'0 3rem', paddingTop:128, paddingBottom:100 }}>
+        <div className="contact-page-wrapper">
 
           {/* Breadcrumb */}
           <nav aria-label="Breadcrumb" style={{ display:'flex', alignItems:'center', gap:8, fontSize:'.75rem', color:'rgba(255,255,255,.28)', marginBottom:'2.5rem' }}>
@@ -334,7 +335,7 @@ const ContactPage = () => {
           </nav>
 
           {/* ── HERO ── */}
-          <div ref={heroRef} style={{ display:'grid', gridTemplateColumns:'1fr auto', gap:'4rem', alignItems:'flex-end', marginBottom:'80px' }}>
+          <div ref={heroRef} className="contact-hero-grid-inline">
             <div>
               <div style={{ ...fade(heroV), display:'inline-flex', alignItems:'center', gap:10, fontSize:'.6rem', fontWeight:700, letterSpacing:'.2em', textTransform:'uppercase', color:AC, marginBottom:'1.1rem' }}>
                 <span style={{ width:20, height:1, background:AC, display:'block' }}/>
@@ -398,7 +399,7 @@ const ContactPage = () => {
               </span>
             </div>
 
-            <div style={{ display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:14 }}
+            <div className="contact-problems-grid"
               itemScope itemType="https://schema.org/FAQPage">
               {PROBLEMS.map((item, i) => (
                 <ProblemCard
@@ -417,7 +418,7 @@ const ContactPage = () => {
               <span style={{ width:20, height:1, background:AC, display:'block' }}/>
               How it works
             </div>
-            <div style={{ display:'grid', gridTemplateColumns:'repeat(4,1fr)', gap:0, position:'relative' }}>
+            <div className="contact-steps-grid">
               {/* Connector line */}
               <div aria-hidden="true" style={{ position:'absolute', top:24, left:'12%', right:'12%', height:1, background:WIRE }}/>
               {STEPS.map((s, i) => (
@@ -438,7 +439,7 @@ const ContactPage = () => {
           <div ref={ctaRef}>
             <div style={{ ...fade(ctaV), position:'relative', borderRadius:22, overflow:'hidden', padding:'80px 72px', background:AC }}>
               <div aria-hidden="true" style={{ position:'absolute', inset:0, background:'radial-gradient(ellipse 55% 80% at 88% 50%,rgba(255,255,255,.16) 0%,transparent 60%)', pointerEvents:'none' }}/>
-              <div style={{ position:'relative', zIndex:1, display:'grid', gridTemplateColumns:'1fr auto', gap:48, alignItems:'center' }}>
+              <div className="contact-cta-inner">
                 <div>
                   <div style={{ fontSize:'.6rem', fontWeight:700, letterSpacing:'.2em', textTransform:'uppercase', color:'rgba(0,0,0,.4)', marginBottom:'1rem' }}>
                     Ready to start?
@@ -450,7 +451,7 @@ const ContactPage = () => {
                     We build custom software for any business problem. If it can be built, we can build it. Send us a message and we'll figure out the best solution together.
                   </p>
                 </div>
-                <div style={{ display:'flex', flexDirection:'column', gap:12, flexShrink:0 }}>
+                <div className="contact-cta-actions">
                   <button
                     onClick={() => openModal('General Inquiry')}
                     style={{ display:'inline-flex', alignItems:'center', gap:10, padding:'14px 32px', borderRadius:10, background:'#000', color:'#fff', fontSize:'.9rem', fontWeight:700, border:'none', cursor:'pointer', whiteSpace:'nowrap', letterSpacing:'.02em', fontFamily:'var(--font-heading,"Syne",sans-serif)', transition:'background .2s, transform .2s' }}

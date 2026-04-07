@@ -4,6 +4,7 @@ import SEOHead from '../components/SEOHead';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { useModal } from '../context/ModalContext';
+import './TeamPage.css';
 
 /* ─────────────────────────────────────────
    DESIGN TOKENS
@@ -236,6 +237,7 @@ const TeamPage = () => {
         <section
           style={{ position: 'relative', minHeight: '70vh', display: 'flex', alignItems: 'center', padding: '140px 0 90px', overflow: 'hidden' }}
           aria-label="Team overview"
+          className="team-hero-section"
         >
           {/* grid */}
           <div aria-hidden="true" style={{ position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px)', backgroundSize: '72px 72px', maskImage: 'radial-gradient(ellipse 80% 70% at 30% 50%,black,transparent)', pointerEvents: 'none' }}/>
@@ -244,7 +246,7 @@ const TeamPage = () => {
           {/* large decorative number */}
           <div aria-hidden="true" style={{ position: 'absolute', right: '5%', top: '50%', transform: 'translateY(-50%)', fontFamily: 'var(--font-heading)', fontSize: 'clamp(160px,18vw,260px)', fontWeight: 800, letterSpacing: '-0.05em', lineHeight: 1, color: 'rgba(255,255,255,.025)', userSelect: 'none', pointerEvents: 'none' }}>02</div>
 
-          <div style={{ maxWidth: MAX_W, margin: '0 auto', width: '100%', ...PAD }}>
+          <div style={{ maxWidth: MAX_W, margin: '0 auto', width: '100%' }} className="team-page-wrapper">
             {/* breadcrumb */}
             <nav aria-label="Breadcrumb" style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: '0.78rem', color: 'rgba(255,255,255,.3)', marginBottom: '2.5rem' }}>
               <Link to="/"     style={{ color: 'rgba(255,255,255,.35)', textDecoration: 'none' }}>Home</Link>
@@ -268,7 +270,7 @@ const TeamPage = () => {
                 Minderfly is a specialist software studio based in Lahore, Pakistan. We are a lean, focused team with a global client base — building web platforms, mobile apps, and developer tools that people actually use.
               </p>
 
-              <div style={{ ...reveal(heroVis, 180), display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap' }}>
+              <div style={{ ...reveal(heroVis, 180) }} className="team-hero-btns">
                 <button
                   onClick={() => openModal('General Inquiry')}
                   style={{ display: 'inline-flex', alignItems: 'center', gap: 10, padding: '13px 28px', borderRadius: 100, background: ACCENT, border: 'none', color: '#000', fontSize: '0.9rem', fontWeight: 600, cursor: 'pointer', transition: 'background .2s,transform .2s' }}
@@ -294,10 +296,10 @@ const TeamPage = () => {
             STATS BAR
         ════════════════════════════════ */}
         <div ref={statsRef} aria-label="Agency statistics" style={{ borderTop: `1px solid ${WIRE}`, borderBottom: `1px solid ${WIRE}`, background: 'rgba(255,255,255,.02)' }}>
-          <div style={{ maxWidth: MAX_W, margin: '0 auto', ...PAD }}>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', borderLeft: `1px solid ${WIRE}` }}>
+          <div style={{ maxWidth: MAX_W, margin: '0 auto' }} className="team-page-wrapper">
+            <div className="team-stats-grid">
               {STATS.map((s, i) => (
-                <div key={s.label} style={{ padding: '2rem 2rem', borderRight: `1px solid ${WIRE}`, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, ...reveal(statsVis, i * 80) }}>
+                <div key={s.label} className="team-stat-item" style={{ ...reveal(statsVis, i * 80) }}>
                   <strong style={{ fontFamily: 'var(--font-heading)', fontSize: '2.4rem', fontWeight: 800, letterSpacing: '-0.03em', color: '#fff', lineHeight: 1 }}>{s.value}</strong>
                   <span style={{ fontSize: '0.82rem', fontWeight: 500, color: 'rgba(255,255,255,.55)' }}>{s.label}</span>
                   <span style={{ fontSize: '0.72rem', fontWeight: 300, color: 'rgba(255,255,255,.28)', textAlign: 'center' }}>{s.sub}</span>
@@ -311,7 +313,7 @@ const TeamPage = () => {
             TEAM MEMBERS
         ════════════════════════════════ */}
         <section ref={teamRef} style={{ padding: '110px 0' }} aria-label="Team members">
-          <div style={{ maxWidth: MAX_W, margin: '0 auto', ...PAD }}>
+          <div style={{ maxWidth: MAX_W, margin: '0 auto' }} className="team-page-wrapper">
             <div style={{ marginBottom: '4rem', ...reveal(teamVis) }}>
               <div style={{ display: 'inline-flex', alignItems: 'center', gap: 10, fontSize: '0.68rem', fontWeight: 600, letterSpacing: '0.2em', textTransform: 'uppercase', color: ACCENT, marginBottom: '1rem' }}>
                 <span style={{ width: 18, height: 1, background: ACCENT, display: 'block' }}/>
@@ -323,7 +325,7 @@ const TeamPage = () => {
               </h2>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: 24 }}>
+            <div className="team-members-grid">
               {TEAM.map((member, i) => (
                 <article
                   key={member.name}
@@ -442,7 +444,7 @@ const TeamPage = () => {
             VALUES
         ════════════════════════════════ */}
         <section ref={valRef} style={{ padding: '110px 0' }} aria-label="Our values">
-          <div style={{ maxWidth: MAX_W, margin: '0 auto', ...PAD }}>
+          <div style={{ maxWidth: MAX_W, margin: '0 auto' }} className="team-page-wrapper">
             <div style={{ marginBottom: '4rem', ...reveal(valVis) }}>
               <div style={{ display: 'inline-flex', alignItems: 'center', gap: 10, fontSize: '0.68rem', fontWeight: 600, letterSpacing: '0.2em', textTransform: 'uppercase', color: ACCENT, marginBottom: '1rem' }}>
                 <span style={{ width: 18, height: 1, background: ACCENT, display: 'block' }}/>
@@ -454,7 +456,7 @@ const TeamPage = () => {
               </h2>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 20 }}>
+            <div className="team-values-grid">
               {VALUES.map((v, i) => (
                 <article
                   key={v.title}
@@ -481,8 +483,8 @@ const TeamPage = () => {
           style={{ padding: '110px 0', borderTop: `1px solid ${WIRE}`, borderBottom: `1px solid ${WIRE}`, background: 'rgba(255,255,255,.018)' }}
           aria-label="Open positions"
         >
-          <div style={{ maxWidth: MAX_W, margin: '0 auto', ...PAD }}>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.6fr', gap: 80, alignItems: 'start' }}>
+          <div style={{ maxWidth: MAX_W, margin: '0 auto' }} className="team-page-wrapper">
+            <div className="team-jobs-grid">
               {/* Left copy */}
               <div style={reveal(jobsVis)}>
                 <div style={{ display: 'inline-flex', alignItems: 'center', gap: 10, fontSize: '0.68rem', fontWeight: 600, letterSpacing: '0.2em', textTransform: 'uppercase', color: ACCENT, marginBottom: '1rem' }}>
@@ -539,11 +541,11 @@ const TeamPage = () => {
             CTA BANNER
         ════════════════════════════════ */}
         <section ref={ctaRef} style={{ padding: '80px 0 110px' }} aria-label="Start a project">
-          <div style={{ maxWidth: MAX_W, margin: '0 auto', ...PAD }}>
+          <div style={{ maxWidth: MAX_W, margin: '0 auto' }} className="team-page-wrapper">
             <div style={{ position: 'relative', borderRadius: 24, overflow: 'hidden', padding: '80px', background: ACCENT, ...reveal(ctaVis) }}>
               <div aria-hidden="true" style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 50% 80% at 90% 50%,rgba(255,255,255,.15) 0%,transparent 60%),radial-gradient(30% 50% at 5% 80%,rgba(0,0,0,.07) 0%,transparent 50%)', pointerEvents: 'none' }}/>
 
-              <div style={{ position: 'relative', zIndex: 1, display: 'grid', gridTemplateColumns: '1fr auto', gap: 48, alignItems: 'center' }}>
+              <div style={{ position: 'relative', zIndex: 1 }} className="team-cta-content">
                 <div>
                   <div style={{ display: 'inline-flex', alignItems: 'center', gap: 10, fontSize: '0.68rem', fontWeight: 600, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(0,0,0,.4)', marginBottom: '1rem' }}>
                     <span style={{ width: 18, height: 1, background: 'rgba(0,0,0,.4)', display: 'block' }}/>
@@ -556,7 +558,7 @@ const TeamPage = () => {
                     Tell us what you are building. We will scope it, price it fairly, and start within the week.
                   </p>
                 </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 12, flexShrink: 0 }}>
+                <div className="team-cta-actions">
                   <button
                     onClick={() => openModal('New Project Inquiry')}
                     style={{ display: 'inline-flex', alignItems: 'center', gap: 10, padding: '14px 32px', borderRadius: 100, background: '#000', border: 'none', color: '#fff', fontSize: '0.95rem', fontWeight: 600, cursor: 'pointer', whiteSpace: 'nowrap', transition: 'background .2s,transform .2s' }}

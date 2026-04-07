@@ -1,0 +1,111 @@
+/* ══════════════════════════════════════════════════
+   ArticlesIndex.css — Minderfly Articles Page
+   Mobile-first responsive styles
+══════════════════════════════════════════════════ */
+
+/* ── Page layout ── */
+.articles-page-pad {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 3rem;
+}
+
+.articles-content-pad {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 3rem 110px;
+}
+
+/* ── Featured card ── */
+.articles-featured-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border-radius: 20px;
+  overflow: hidden;
+  text-decoration: none;
+  margin-bottom: 3rem;
+  cursor: pointer;
+}
+
+.articles-featured-image {
+  position: relative;
+  overflow: hidden;
+  min-height: 340px;
+}
+
+.articles-featured-body {
+  background: rgba(255, 255, 255, 0.03);
+  padding: 48px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* ── Article cards grid ── */
+.articles-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+/* ── Category filters ── */
+.articles-filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-bottom: 1.5rem;
+}
+
+/* ══ RESPONSIVE ══ */
+
+@media (max-width: 1024px) {
+  .articles-page-pad,
+  .articles-content-pad {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+  .articles-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .articles-page-pad,
+  .articles-content-pad {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+  .articles-featured-card {
+    grid-template-columns: 1fr;
+  }
+  .articles-featured-image {
+    min-height: 240px;
+  }
+  .articles-featured-body {
+    padding: 32px 28px;
+  }
+  .articles-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 520px) {
+  .articles-page-pad,
+  .articles-content-pad {
+    padding-left: 1.1rem;
+    padding-right: 1.1rem;
+  }
+  .articles-grid {
+    grid-template-columns: 1fr;
+  }
+  .articles-featured-body {
+    padding: 24px 20px;
+  }
+  .articles-featured-image {
+    min-height: 200px;
+  }
+  .articles-filter-bar {
+    gap: 6px;
+  }
+}

@@ -5,6 +5,7 @@ import { Helmet } from 'react-helmet-async';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import { articlesData } from '../../data/articles';
+import './ArticlesIndex.css';
 
 /* ── helpers ── */
 const ACCENT = '#c8f23a';
@@ -177,20 +178,18 @@ const FeaturedCard = ({ article }) => {
             ref={ref}
             to={`/articles/${article.slug}`}
             aria-label={`Featured: ${article.title}`}
+            className="articles-featured-card"
             style={{
-                display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 0,
                 borderRadius: 20, overflow: 'hidden',
                 border: `1px solid ${hovered ? 'rgba(255,255,255,.16)' : 'rgba(255,255,255,.08)'}`,
-                textDecoration: 'none', marginBottom: '3rem',
                 opacity: vis ? 1 : 0, transform: vis ? 'none' : 'translateY(24px)',
                 transition: 'opacity .7s ease, transform .7s cubic-bezier(.22,1,.36,1), border-color .25s',
-                cursor: 'pointer',
             }}
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
         >
             {/* Image side */}
-            <div style={{ position: 'relative', overflow: 'hidden', minHeight: 340 }}>
+            <div className="articles-featured-image">
                 {article.image ? (
                     <img src={article.image} alt={article.title} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', transform: hovered ? 'scale(1.05)' : 'scale(1)', transition: 'transform .8s cubic-bezier(.22,1,.36,1)', filter: 'brightness(.65) saturate(1.1)' }} />
                 ) : (
@@ -203,7 +202,7 @@ const FeaturedCard = ({ article }) => {
             </div>
 
             {/* Content side */}
-            <div style={{ background: 'rgba(255,255,255,.03)', padding: '48px 40px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+            <div className="articles-featured-body">
                 <span style={{ fontSize: '0.68rem', fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase', color: ACCENT, display: 'block', marginBottom: '0.75rem' }}>{article.category}</span>
                 <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: 'clamp(1.5rem,2.2vw,2rem)', fontWeight: 800, lineHeight: 1.15, letterSpacing: '-0.03em', color: '#fff', marginBottom: '1rem' }}>{article.title}</h2>
                 <p style={{ fontSize: '0.92rem', fontWeight: 300, color: 'rgba(255,255,255,.45)', lineHeight: 1.7, marginBottom: '1.75rem', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{article.excerpt}</p>
@@ -264,7 +263,7 @@ const ArticlesIndex = () => {
                     <div aria-hidden="true" style={{ position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px)', backgroundSize: '68px 68px', maskImage: 'radial-gradient(ellipse 70% 70% at 50% 30%,black,transparent)', pointerEvents: 'none' }} />
                     <div aria-hidden="true" style={{ position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)', width: '60%', height: '60%', background: 'radial-gradient(ellipse at 50% 0%,rgba(200,242,58,.055) 0%,transparent 65%)', pointerEvents: 'none' }} />
 
-                    <div style={{ maxWidth: 1280, margin: '0 auto', padding: '0 3rem' }}>
+                    <div className="articles-page-pad">
                         {/* Breadcrumb */}
                         <nav aria-label="Breadcrumb" style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: '0.78rem', color: 'rgba(255,255,255,.3)', marginBottom: '2.5rem' }}>
                             <Link to="/" style={{ color: 'rgba(255,255,255,.35)', textDecoration: 'none' }}>Home</Link>
@@ -290,8 +289,8 @@ const ArticlesIndex = () => {
 
                 {/* ── Category filter ── */}
                 <div style={{ borderBottom: '1px solid rgba(255,255,255,.07)', marginBottom: '4rem' }}>
-                    <div style={{ maxWidth: 1280, margin: '0 auto', padding: '0 3rem' }}>
-                        <div role="tablist" aria-label="Filter articles by category" style={{ display: 'flex', flexWrap: 'wrap', gap: 8, paddingBottom: '1.5rem' }}>
+                    <div className="articles-page-pad">
+                        <div role="tablist" aria-label="Filter articles by category" className="articles-filter-bar">
                             {categories.map((cat) => (
                                 <button
                                     key={cat}
@@ -318,7 +317,7 @@ const ArticlesIndex = () => {
                 </div>
 
                 {/* ── Content ── */}
-                <div style={{ maxWidth: 1280, margin: '0 auto', padding: '0 3rem 110px' }}>
+                <div className="articles-content-pad">
 
                     {/* Featured (only when All is selected) */}
                     {selectedCategory === 'All' && featured && (
@@ -335,7 +334,7 @@ const ArticlesIndex = () => {
                             transition={{ duration: 0.3 }}
                         >
                             {(selectedCategory === 'All' ? rest : filtered).length > 0 ? (
-                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 20 }}>
+                                <div className="articles-grid">
                                     {(selectedCategory === 'All' ? rest : filtered).map((article, i) => (
                                         <ArticleCard key={article.id} article={article} index={i} />
                                     ))}
