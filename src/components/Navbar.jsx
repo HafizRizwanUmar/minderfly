@@ -37,6 +37,7 @@ const Navbar = ({ onContactClick }) => {
         { name: 'Store',    path: '/store' },
         { name: 'Team',     path: '/team' },
         { name: 'Articles', path: '/articles' },
+        { name: 'Affiliates', path: '/affiliates' },
         { name: 'Contact',  path: '/contact' },
     ];
 

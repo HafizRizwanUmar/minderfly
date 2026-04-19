@@ -43,6 +43,7 @@ const NAV = [
       { text: 'Team',       href: '/team' },
       { text: 'Articles',   href: '/articles' },
       { text: 'Contact',    href: '/contact' },
+      { text: 'Affiliate Program', href: '/affiliates' },
     ],
   },
   {

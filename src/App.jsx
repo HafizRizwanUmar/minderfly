@@ -9,6 +9,7 @@ import WorkPage from './pages/WorkPage';
 import ProjectDetail from './pages/ProjectDetail';
 import TeamPage from './pages/TeamPage';
 import Contact from './pages/Contact';
+import AffiliatePage from './pages/AffiliatePage';
 
 // Services
 import ServicesHub from './pages/services/ServicesHub';
@@ -103,6 +104,7 @@ function AppContent() {
           <Route path="/work/:id" element={<ProjectDetail />} /> 
           <Route path="/team" element={<TeamPage />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/affiliates" element={<AffiliatePage />} />
 
         </Routes>
       </div>
