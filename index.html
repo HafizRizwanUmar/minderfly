@@ -39,8 +39,17 @@
   <link rel="icon" type="image/png" href="/logo.png" sizes="48x48">
   <link rel="apple-touch-icon" href="/logo.png">
 
-  <!-- Google Search Console Verification Placeholder -->
-  <!-- <meta name="google-site-verification" content="YOUR_VERIFICATION_TAG_HERE" /> -->
+  <!-- Google Search Console Verification -->
+  <meta name="google-site-verification" content="INSERT_YOUR_GSC_VERIFICATION_CODE_HERE" />
+
+  <!-- Google Analytics (GA4) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-INSERT_YOUR_MEASUREMENT_ID"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-INSERT_YOUR_MEASUREMENT_ID');
+  </script>
 
   <!-- Organization Structured Data -->
   <script type="application/ld+json">
