@@ -272,6 +272,56 @@ const CinemaflyProduct=()=>{
           </div>
         </section>
 
+        {/* EXPERT INSIGHTS / SEO SECTION */}
+        <section style={{padding:'96px 0',background:'rgba(255,255,255,.005)',borderTop:`1px solid ${WIRE}`}} aria-label="Deep dive into Cinemafly technology">
+          <div style={{maxWidth:MW,margin:'0 auto',...PAD}}>
+            <div style={{display:'grid',gridTemplateColumns:'1fr 1.5fr',gap:'5rem',alignItems:'start'}}>
+              <div>
+                <div style={sLabel()}><span style={sLine()}/>Expert Insights</div>
+                <h2 style={{...sH2(),marginBottom:'1.5rem'}}>Why we built<br/><span style={{color:'rgba(255,255,255,.24)'}}>Cinemafly Pro.</span></h2>
+                <div style={{display:'flex',flexDirection:'column',gap:16}}>
+                  {[
+                    {t:'Technical Friction',d:'Stop struggling with "Missing Codec" errors and external extensions.'},
+                    {t:'Privacy First',d:'100% offline playback with zero data tracking or telemetry.'},
+                    {t:'Cinema Grade',d:'Professional audio passthrough for Dolby Atmos & DTS-HD.'}
+                  ].map(item=>(
+                    <div key={item.t} style={{padding:'16px',background:'rgba(255,255,255,.02)',border:`1px solid ${WIRE}`,borderRadius:12}}>
+                      <div style={{fontSize:'.85rem',fontWeight:700,color:'#fff',marginBottom:4}}>{item.t}</div>
+                      <div style={{fontSize:'.75rem',fontWeight:300,color:'rgba(255,255,255,.35)',lineHeight:1.5}}>{item.d}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div style={{color:'rgba(255,255,255,.45)',fontSize:'.92rem',lineHeight:1.8,fontWeight:300}}>
+                <h3 style={{fontFamily:'var(--font-heading)',fontSize:'1.5rem',fontWeight:700,color:'#fff',marginBottom:'1.5rem',letterSpacing:'-.02em'}}>The Modern Way to Experience 4K Media on Windows 11</h3>
+                <p style={{marginBottom:'1.5rem'}}>
+                  In an era where 4K Ultra HD and HEVC (H.265) are the standard, Windows users are often met with "Missing Codec" errors. 
+                  <strong> Cinemafly Pro</strong> eliminates this friction by providing a premium, lightweight engine designed specifically for high-efficiency video playback.
+                </p>
+                <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:32,marginBottom:'1.5rem'}}>
+                  <div>
+                    <h4 style={{fontSize:'.9rem',fontWeight:700,color:'#fff',marginBottom:8}}>Native Performance</h4>
+                    <p style={{fontSize:'.85rem'}}>Seamlessly play MKV, MP4, AV1, and HEVC files with full hardware acceleration. Enjoy smooth playback while using minimal system resources.</p>
+                  </div>
+                  <div>
+                    <h4 style={{fontSize:'.9rem',fontWeight:700,color:'#fff',marginBottom:8}}>Cinema-Grade Sound</h4>
+                    <p style={{fontSize:'.85rem'}}>Experience immersive audio with automatic passthrough for Dolby Atmos and DTS-HD. Perfect for professional home theater setups.</p>
+                  </div>
+                </div>
+                <p style={{marginBottom:'1.5rem'}}>
+                  Unlike many "free" players that bundle telemetry or drain battery life, Cinemafly is 100% privacy-first and optimized for Windows 11 Fluent UI. 
+                  It includes professional tools to trim and compress your files without losing quality, making it the ultimate native experience for 2026.
+                </p>
+                <div style={{padding:'20px',background:'rgba(168,85,247,.06)',border:'1px solid rgba(168,85,247,.2)',borderRadius:14}}>
+                  <p style={{fontSize:'.88rem',color:'#fff',margin:0}}>
+                    <strong>Keywords:</strong> HEVC Player, 4K Video Player, H.265 Codec, MKV Player, Dolby Atmos, Video Converter, AV1 Player
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* FAQ */}
         <section ref={faqRef} style={{padding:'96px 0',background:'rgba(255,255,255,.013)',borderTop:`1px solid ${WIRE}`,borderBottom:`1px solid ${WIRE}`}} aria-label="FAQ">
           <div style={{maxWidth:MW,margin:'0 auto',...PAD}}>
