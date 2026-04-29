@@ -39,7 +39,7 @@ const TEAM = [
     role:      'UI/UX Designer',
     location:  'Karachi, Pakistan',
     bio:       'Crafts intuitive, visually striking interfaces from wireframe to pixel-perfect handoff. Specialises in design systems and product identity.',
-    image:     teamMemberImg1,
+    image:     '/Team_Ammara_Lohani.jpeg',
     skills:    ['Figma', 'Design Systems', 'Prototyping', 'Brand Identity', 'Motion Design'],
     social: {
       linkedin: null,

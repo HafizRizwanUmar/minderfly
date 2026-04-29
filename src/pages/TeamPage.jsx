@@ -41,7 +41,7 @@ const TEAM = [
     skills: ['Figma', 'React', 'CSS Systems', 'UX Research', 'Design Systems'],
     avatar: 'AL',
     // Replace with your actual photo URL or local import path
-    photo: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=600&q=80',
+    photo: '/Team_Ammara_Lohani.jpeg',
     color: 'rgba(100,180,255,0.1)',
     border: 'rgba(100,180,255,0.22)',
     text: '#64b4ff',
