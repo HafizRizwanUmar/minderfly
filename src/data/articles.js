@@ -208,7 +208,7 @@ When evaluating a partner, look for:
 - A handoff process that includes documentation and source ownership
 - Post-launch support terms
 
-Minderfly is a specialist web development studio operating from Pakistan with a global client base. We build MERN stack and Next.js applications designed to perform, scale, and outlast market shifts. [Get in touch](/contact) to scope your next project.
+Minderfly is a specialist web development studio operating from Pakistan with a global client base. We build MERN stack and Next.js applications designed to perform, scale, and outlast market shifts. Our [web development services](/services/web-development) are optimized for both local startups in Lahore and international enterprises. [Get in touch](/contact) to scope your next project.
     `,
     author: 'Hafiz Rizwan Umar',
     date: '2025-01-10',
@@ -366,7 +366,7 @@ For applications requiring high-performance server-side rendering and partial hy
 
 Minderfly builds React and Next.js applications where performance is an acceptance criterion, not an afterthought. Every project we deliver includes a Core Web Vitals baseline and a post-launch monitoring setup.
 
-If your current React application has performance issues or you are starting a new project that cannot afford to be slow, [talk to our team](/contact).
+If your current React application has performance issues or you are starting a new project that cannot afford to be slow, our [expert React developers](/services/web-development) can help. [Talk to our team](/contact).
     `,
     author: 'Hafiz Rizwan Umar',
     date: '2025-01-18',
@@ -623,7 +623,7 @@ You cannot debug what you cannot see. Three pillars:
 
 ## Node.js Backend Development at Minderfly
 
-Minderfly builds Node.js backends for SaaS products, fintech APIs, and enterprise platforms. Our architecture decisions are driven by your growth trajectory — we build what you need today and make sure it doesn't need a rewrite at 10x scale. We often pair these backends with [high-performance React frontends](/articles/mastering-react-performance-optimization) for a complete full-stack solution.
+Minderfly builds Node.js backends for SaaS products, fintech APIs, and enterprise platforms. Our architecture decisions are driven by your growth trajectory — we build what you need today and make sure it doesn't need a rewrite at 10x scale. We often pair these backends with [high-performance React frontends](/services/web-development) for a complete full-stack solution.
 
 [Request a backend audit or project estimate](/contact).
     `,
@@ -1149,7 +1149,7 @@ We default to Flutter for most new client projects because:
 
 If a client has an existing React Native codebase, a JavaScript-fluent team, or specific marketplace requirements, we are equally comfortable in that ecosystem.
 
-The best framework is the one your best available team can execute to the highest quality. If you're just starting out, check our [Complete Flutter Guide for Beginners](/articles/complete-flutter-guide-beginners-2025) to get your environment ready. [Talk to us](/contact) about which makes sense for your product.
+The best framework is the one your best available team can execute to the highest quality. If you're just starting out, check our [Complete Flutter Guide for Beginners](/articles/complete-flutter-guide-beginners-2025) to get your environment ready. As a leading [mobile app development agency in Pakistan](/services/mobile-app-development), we can help you choose the right path. [Talk to us](/contact) about which makes sense for your product.
     `,
     author: 'Hafiz Rizwan Umar',
     date: '2025-04-22',
@@ -3810,7 +3810,7 @@ For a production MV3 extension with a React popup and subscription system, the r
 
 A complete bootstrapped extension SaaS can be built and launched in 4–8 weeks by a solo developer, or 2–4 weeks with a specialist team.
 
-That's exactly the kind of work Minderfly does. From architecture and development to Web Store submission and Stripe integration — we've shipped 20+ production extensions across productivity, developer tools, and B2B SaaS categories.
+That's exactly the kind of work Minderfly does. From architecture and development to Web Store submission and Stripe integration — our [Chrome extension development team in Lahore](/services/chrome-extension-development) has shipped 20+ production extensions across productivity, developer tools, and B2B SaaS categories.
 
 [Tell us about your extension idea →](/contact)
     `,

@@ -119,7 +119,7 @@ const MobileAppDevelopment = () => {
         <ServicePageLayout
             title="Mobile App Development"
             subtitle="iOS & Android apps that users actually keep on their phone."
-            description="We build cross-platform mobile apps with Flutter and React Native — pixel-perfect, performant, and ready for the App Store and Google Play. From fintech to productivity apps, we've shipped it all."
+            description="We are a specialized mobile app development agency in Pakistan, building cross-platform apps with Flutter and React Native. Based in Lahore, we deliver pixel-perfect, performant apps ready for the App Store and Google Play. From fintech to local utility apps, we serve both Pakistani and international markets."
             features={features}
             problems={problems}
             stats={stats}
@@ -132,9 +132,9 @@ const MobileAppDevelopment = () => {
             badgeText="Flutter & React Native"
             ctaText="Get an App Quote"
             ctaLink="/contact"
-            seoTitle="Flutter & React Native Mobile App Development | Minderfly"
-            seoDescription="Expert Flutter and React Native mobile app developers for iOS and Android. Custom apps with full App Store submission support. Get a free quote in 24 hours."
-            seoKeywords="Flutter app development, React Native developer for hire, iOS Android app development, cross platform mobile app, mobile app development agency, Flutter developer, build app for iOS and Android, custom mobile app development"
+            seoTitle="Mobile App Development Agency in Pakistan | Flutter & React Native | Minderfly"
+            seoDescription="Hire the best mobile app developers in Pakistan. Specialists in Flutter and React Native for iOS & Android. Based in Lahore, providing full-cycle app development and Store submission services."
+            seoKeywords="mobile app development Pakistan, Flutter developer Lahore, React Native agency Pakistan, hire mobile app developers Lahore, iOS Android app development Pakistan, custom mobile apps Lahore, software house in Pakistan for apps"
             canonicalUrl="/services/mobile-app-development"
         />
     );

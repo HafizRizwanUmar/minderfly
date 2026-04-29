@@ -119,7 +119,7 @@ const ChromeExtensionDev = () => {
         <ServicePageLayout
             title="Chrome Extension Development"
             subtitle="Turn browser workflows into one-click superpowers."
-            description="We build Manifest V3-compliant Chrome extensions for productivity automation, SaaS tools, data scraping, and internal browser tooling. From concept to Chrome Web Store — fully handled."
+            description="We are the leading Chrome extension development agency in Pakistan, building Manifest V3-compliant extensions for global SaaS tools and local business automation. Based in Lahore, we handle everything from concept to the Chrome Web Store."
             features={features}
             problems={problems}
             stats={stats}
@@ -132,9 +132,9 @@ const ChromeExtensionDev = () => {
             badgeText="MV3 · React · Web Store"
             ctaText="Build My Extension"
             ctaLink="/contact"
-            seoTitle="Chrome Extension Development Service — Manifest V3 | Minderfly"
-            seoDescription="Expert Chrome extension development with Manifest V3 compliance, React-powered UI, and full Web Store submission support. Build automation tools, SaaS browser extensions, and internal productivity tools. Free quote in 24h."
-            seoKeywords="chrome extension development service, manifest v3 developer, chrome extension developer for hire, browser extension development, chrome web store submission, custom chrome extension, MV3 migration service, build chrome extension, productivity chrome extension, SaaS browser extension"
+            seoTitle="Chrome Extension Development Agency in Pakistan | Manifest V3 | Minderfly"
+            seoDescription="Hire the best Chrome extension developers in Pakistan. Specialists in Manifest V3 (MV3), React-powered browser UI, and Web Store automation. Based in Lahore, serving international SaaS companies and local businesses."
+            seoKeywords="chrome extension development Pakistan, chrome extension developer Lahore, manifest v3 developer Pakistan, browser extension agency Lahore, hire extension developers Pakistan, custom chrome extensions Lahore, software house for browser tools Pakistan"
             canonicalUrl="/services/chrome-extension-development"
         />
     );

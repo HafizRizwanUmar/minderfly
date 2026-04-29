@@ -124,7 +124,7 @@ const WebDevelopment = () => {
         <ServicePageLayout
             title="Full-Stack Web Development"
             subtitle="Building the digital foundation for your future."
-            description="We create powerful, scalable, and visually refined web applications using the MERN stack and Next.js. Whether you need a complex SaaS platform, a high-conversion marketing site, or a custom business tool — our team delivers code that performs as good as it looks."
+            description="We are a top-tier web development agency in Lahore, Pakistan, creating powerful, scalable, and visually refined applications using the MERN stack and Next.js. Whether you need a complex SaaS platform, a high-conversion marketing site, or a custom business tool — our local team delivers global-standard code."
             features={features}
             problems={problems}
             stats={stats}
@@ -137,9 +137,9 @@ const WebDevelopment = () => {
             badgeText="MERN & Next.js Experts"
             ctaText="Start Your Project"
             ctaLink="/contact"
-            seoTitle="MERN Stack & Next.js Web Development Services | Minderfly"
-            seoDescription="Hire expert MERN stack and Next.js developers to build scalable SaaS platforms, e-commerce stores, and custom web apps. React, Node.js, MongoDB, and Express specialists. Get a free project estimate in 24 hours."
-            seoKeywords="MERN stack development service, Next.js developer for hire, React web development agency, Node.js backend development, full stack web development, SaaS platform development, custom web application development, web app development agency, MongoDB Express React Node developer"
+            seoTitle="Web Development Agency in Pakistan | MERN & Next.js Experts | Minderfly"
+            seoDescription="Hire the best web development agency in Pakistan. Specialists in MERN stack, Next.js, and custom SaaS platforms. Based in Lahore, serving international clients with high-performance React and Node.js solutions."
+            seoKeywords="web development agency Pakistan, MERN stack developers Lahore, software company in Pakistan, Next.js developer Pakistan, hire web developers Lahore, full stack web development Pakistan, SaaS development company Lahore"
             canonicalUrl="/services/web-development"
         />
     );
