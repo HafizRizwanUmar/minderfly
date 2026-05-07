@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 /* ── tokens ── */
 const AC   = '#f97316';
@@ -245,7 +246,11 @@ const SanadPdfEditor = () => {
 
   return (
     <>
-
+      <Helmet>
+        <title>Sanad PDF Editor — Offline PDF Editor for Windows | Minderfly Store</title>
+        <meta name="description" content="Free Windows PDF editor. Merge, split, annotate, sign, and convert PDFs offline — no uploads, no account, no daily limits." />
+        <link rel="canonical" href="https://minderfly.com/store/sanad-pdf-editor" />
+      </Helmet>
 
       {/* ── NAV ── */}
       <nav style={{ position:'fixed', top:0, left:0, right:0, height:64, background:'rgba(5,5,5,.9)', backdropFilter:'blur(24px)', borderBottom:`1px solid ${WIRE}`, display:'flex', alignItems:'center', zIndex:1000 }}>

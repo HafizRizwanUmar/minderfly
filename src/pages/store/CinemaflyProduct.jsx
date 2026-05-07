@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 const AC='#a855f7',BG='#050505',WIRE='rgba(255,255,255,0.07)',MW='1280px',PAD={padding:'0 3rem'};
 const DL_URL='https://apps.microsoft.com/detail/9P5XW3MZLQB0?hl=en-us&gl=PK&ocid=pdpshare';
@@ -127,7 +128,11 @@ const CinemaflyProduct=()=>{
 
   return(
     <>
-
+      <Helmet>
+        <title>Cinemafly — Media Player for HEVC, MKV, 4K HDR | Minderfly Store</title>
+        <meta name="description" content="Free Windows media player. Plays HEVC, H.265, MKV, 4K HDR, AV1, and 30+ formats without codec packs. GPU accelerated, privacy-first." />
+        <link rel="canonical" href="https://minderfly.com/store/cinemafly" />
+      </Helmet>
 
       {/* NAV */}
       <nav style={{position:'fixed',top:0,left:0,right:0,height:64,background:'rgba(5,5,5,.9)',backdropFilter:'blur(24px)',borderBottom:`1px solid ${WIRE}`,display:'flex',alignItems:'center',zIndex:1000}}>

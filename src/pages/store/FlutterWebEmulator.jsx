@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { FaCheck, FaWindows } from 'react-icons/fa';
 import './NishanProduct.css';
 
@@ -53,7 +54,11 @@ const FlutterWebEmulator = () => {
 
   return (
     <>
-
+      <Helmet>
+        <title>Flutter Web Emulator — VS Code Extension | Minderfly Store</title>
+        <meta name="description" content="Flutter Web Emulator is a free VS Code extension that lets Flutter developers run, debug, and test Flutter Web apps directly inside VS Code." />
+        <link rel="canonical" href="https://minderfly.com/store/flutter-web-emulator" />
+      </Helmet>
 
       {/* ── Navbar ── */}
       <nav className="nishan-nav">

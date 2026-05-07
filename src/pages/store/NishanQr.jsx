@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { QRCodeCanvas } from 'qrcode.react';
 import {
   FaWindows, FaQrcode, FaInfinity, FaBolt,
@@ -101,7 +102,11 @@ const NishanQr = () => {
 
   return (
     <>
-
+      <Helmet>
+        <title>Nishan QR Code Generator | Free Online Tool | Minderfly Store</title>
+        <meta name="description" content="Free online QR code generator. Create unlimited, custom QR codes for URLs, text, WiFi networks, and email — with full colour control and instant PNG download. No sign-up." />
+        <link rel="canonical" href="https://minderfly.com/store/nishan-qr-generator" />
+      </Helmet>
 
       <div className="nishan-wrapper">
 

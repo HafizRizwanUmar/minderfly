@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import { useModal } from '../../context/ModalContext';
@@ -453,6 +454,12 @@ const StoreHub = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Store — Minderfly</title>
+        <meta name="description" content="Free and premium productivity tools, developer utilities, and Windows apps built by Minderfly." />
+        <link rel="canonical" href="https://minderfly.com/store" />
+      </Helmet>
+
       {/* Store is not indexed — products live on their own pages */}
 
       <Navbar />
