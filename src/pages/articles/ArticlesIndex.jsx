@@ -89,7 +89,6 @@ const ArticleCard = ({ article, index }) => {
             style={{
                 opacity: vis ? 1 : 0,
                 transform: vis ? 'none' : 'translateY(22px)',
-                transform: vis ? 'none' : 'translateY(22px)',
                 background: hovered ? 'rgba(255,255,255,.05)' : 'rgba(255,255,255,.025)',
                 border: `1px solid ${hovered ? 'rgba(255,255,255,.14)' : 'rgba(255,255,255,.07)'}`,
                 borderRadius: 18,

@@ -3,6 +3,7 @@ import chromium from '@sparticuz/chromium';
 import express from 'express';
 import path from 'path';
 import fs from 'fs';
+import os from 'os';
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -12,17 +13,39 @@ const PORT = 3333;
 const DIST_PATH = path.join(__dirname, '..', 'dist');
 
 import { articlesData } from '../src/data/articles.js';
+import { projectsData } from '../src/data/projects.js';
 
-const ROUTES = [
+const STATIC_ROUTES = [
     '/',
     '/services',
-    '/products/cinemafly',
+    '/services/web-development',
+    '/services/mobile-app-development',
+    '/services/graphics-design',
+    '/services/chrome-extension-development',
+    '/services/chrome-theme-development',
+    '/services/ai-automation',
+    '/store',
+    '/store/sanad-pdf-editor',
+    '/store/debt-settler',
+    '/store/nishan-qr',
+    '/store/nishan-qr-generator',
+    '/store/chrome-themes',
+    '/store/flutter-web-emulator',
+    '/store/cinemafly',
+    '/articles',
+    '/blog',
     '/work',
-    '/work/quran-o-itrat-academy',
-    '/quran-o-itrat/admin',
     '/team',
-    '/articles'
+    '/contact',
+    '/affiliates'
 ];
+
+const ARTICLE_ROUTES = articlesData.map(article => `/articles/${article.slug}`);
+const PROJECT_ROUTES = projectsData
+    .filter(project => !project.isExternal)
+    .map(project => `/work/${project.id}`);
+
+const ROUTES = [...new Set([...STATIC_ROUTES, ...ARTICLE_ROUTES, ...PROJECT_ROUTES])];
 
 async function prerender() {
     console.log('🚀 Starting standalone prerender script...');
@@ -38,13 +61,35 @@ async function prerender() {
         console.log(`📡 Static server running on http://localhost:${PORT}`);
 
         // 2. Launch Puppeteer
-        console.log('🌐 Launching browser with @sparticuz/chromium...');
+        console.log('🌐 Launching browser...');
+
+        let executablePath;
+        if (process.platform === 'win32') {
+            const localPaths = [
+                'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
+                'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe',
+                path.join(os.homedir(), 'AppData\\Local\\Google\\Chrome\\Application\\chrome.exe')
+            ];
+            executablePath = localPaths.find(p => fs.existsSync(p));
+            console.log(`🪟 Windows detected. Using local Chrome: ${executablePath}`);
+        } else {
+            try {
+                executablePath = await chromium.executablePath();
+            } catch (err) {
+                console.log('⚠️ @sparticuz/chromium failed to get path.');
+            }
+        }
+
+        if (!executablePath) {
+            console.error('❌ Could not find a browser executable. Please install Chrome or set EXECUTABLE_PATH.');
+            process.exit(1);
+        }
 
         const browser = await puppeteer.launch({
-            args: chromium.args,
-            defaultViewport: chromium.defaultViewport,
-            executablePath: await chromium.executablePath(),
-            headless: chromium.headless,
+            args: process.platform === 'win32' ? [] : (chromium.args || []),
+            defaultViewport: process.platform === 'win32' ? null : (chromium.defaultViewport || null),
+            executablePath: executablePath,
+            headless: true,
         });
 
         const page = await browser.newPage();
