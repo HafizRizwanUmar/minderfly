@@ -11,6 +11,7 @@ const __dirname = path.dirname(__filename);
 
 const PORT = 3333;
 const DIST_PATH = path.join(__dirname, '..', 'dist');
+const CONCURRENCY = 5; // Prerender 5 pages at a time
 
 import { articlesData } from '../src/data/articles.js';
 import { projectsData } from '../src/data/projects.js';
@@ -47,10 +48,51 @@ const PROJECT_ROUTES = projectsData
 
 const ROUTES = [...new Set([...STATIC_ROUTES, ...ARTICLE_ROUTES, ...PROJECT_ROUTES])];
 
+async function prerenderRoute(browser, route) {
+    const url = `http://localhost:${PORT}${route}`;
+    const page = await browser.newPage();
+    
+    // Optimize performance by blocking unnecessary resources
+    await page.setRequestInterception(true);
+    page.on('request', (req) => {
+        const resourceType = req.resourceType();
+        if (['image', 'stylesheet', 'font'].includes(resourceType)) {
+            // We need stylesheets for correct HTML rendering, but images/fonts can be skipped for pure HTML structure
+            // Actually, for some React apps, stylesheets are needed to calculate dimensions if JS depends on it.
+            // Let's keep stylesheets but block images to save bandwidth/time.
+            if (resourceType === 'image') return req.abort();
+        }
+        req.continue();
+    });
+
+    try {
+        console.log(`🌐 Prerendering: ${route}`);
+        await page.goto(url, { waitUntil: 'networkidle0', timeout: 30000 });
+        
+        // Short wait for any client-side JS/animations to settle
+        await new Promise(r => setTimeout(r, 500));
+
+        const html = await page.content();
+
+        const folderPath = path.join(DIST_PATH, route);
+        if (!fs.existsSync(folderPath)) {
+            fs.mkdirSync(folderPath, { recursive: true });
+        }
+
+        const filePath = path.join(folderPath, 'index.html');
+        fs.writeFileSync(filePath, html);
+        console.log(`✅ Saved: ${route}`);
+    } catch (err) {
+        console.error(`❌ Failed ${route}:`, err.message);
+    } finally {
+        await page.close();
+    }
+}
+
 async function prerender() {
     console.log('🚀 Starting standalone prerender script...');
+    console.log(`📊 Total routes to prerender: ${ROUTES.length}`);
 
-    // 1. Start a temporary static server
     const app = express();
     app.use(express.static(DIST_PATH));
     app.use((req, res) => {
@@ -60,9 +102,6 @@ async function prerender() {
     const server = app.listen(PORT, async () => {
         console.log(`📡 Static server running on http://localhost:${PORT}`);
 
-        // 2. Launch Puppeteer
-        console.log('🌐 Launching browser...');
-
         let executablePath;
         if (process.platform === 'win32') {
             const localPaths = [
@@ -71,17 +110,16 @@ async function prerender() {
                 path.join(os.homedir(), 'AppData\\Local\\Google\\Chrome\\Application\\chrome.exe')
             ];
             executablePath = localPaths.find(p => fs.existsSync(p));
-            console.log(`🪟 Windows detected. Using local Chrome: ${executablePath}`);
         } else {
             try {
                 executablePath = await chromium.executablePath();
             } catch (err) {
-                console.log('⚠️ @sparticuz/chromium failed to get path.');
+                console.log('⚠️ @sparticuz/chromium failed.');
             }
         }
 
         if (!executablePath) {
-            console.error('❌ Could not find a browser executable. Please install Chrome or set EXECUTABLE_PATH.');
+            console.error('❌ No browser executable found.');
             process.exit(1);
         }
 
@@ -92,32 +130,10 @@ async function prerender() {
             headless: true,
         });
 
-        const page = await browser.newPage();
-
-        for (const route of ROUTES) {
-            const url = `http://localhost:${PORT}${route}`;
-            console.log(`🌐 Prerendering: ${route}`);
-
-            try {
-                await page.goto(url, { waitUntil: 'networkidle0', timeout: 30000 });
-
-                // Wait for specific content if needed (e.g., Hero section or similar)
-                await new Promise(r => setTimeout(r, 2000));
-
-                const html = await page.content();
-
-                // 3. Save the HTML
-                const folderPath = path.join(DIST_PATH, route);
-                if (!fs.existsSync(folderPath)) {
-                    fs.mkdirSync(folderPath, { recursive: true });
-                }
-
-                const filePath = path.join(folderPath, 'index.html');
-                fs.writeFileSync(filePath, html);
-                console.log(`✅ Saved: ${filePath}`);
-            } catch (err) {
-                console.error(`❌ Failed to prerender ${route}:`, err.message);
-            }
+        // Process in chunks
+        for (let i = 0; i < ROUTES.length; i += CONCURRENCY) {
+            const chunk = ROUTES.slice(i, i + CONCURRENCY);
+            await Promise.all(chunk.map(route => prerenderRoute(browser, route)));
         }
 
         await browser.close();

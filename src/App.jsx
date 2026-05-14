@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { useEffect, useState } from 'react';
+import { SpeedInsights } from "@vercel/speed-insights/react";
 // Force reload-2026-03-18
 
 // Main Pages
@@ -63,6 +64,7 @@ function AppContent() {
   return (
     <Router>
       <Analytics />
+      <SpeedInsights />
       <div className="main-content">
         <SpecialOfferModal 
           isOpen={isOfferModalOpen} 
