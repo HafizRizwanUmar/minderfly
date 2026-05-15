@@ -147,6 +147,32 @@ const PRODUCTS = [
       </svg>
     ),
   },
+  {
+    id: 'doc-signer',
+    name: 'Doc Signer',
+    tagline: 'Sign documents instantly — no cloud, no fuss.',
+    desc: 'A lightweight Windows app for digitally signing documents with ease. Add signatures, initials, and stamps to any document — fully offline and privacy-first.',
+    price: 'Free',
+    priceLabel: 'Free',
+    link: 'https://apps.microsoft.com/detail/9p4n2c9vj8qb?hl=en-US&gl=PK',
+    category: 'Productivity',
+    platform: 'Windows',
+    featured: false,
+    badge: 'New',
+    rating: 4.7,
+    reviews: 38,
+    downloads: '500+',
+    accent: '#10b981',
+    accentBg: 'rgba(16,185,129,0.1)',
+    accentBorder: 'rgba(16,185,129,0.22)',
+    image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&q=80&w=800',
+    isExternal: true,
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+      </svg>
+    ),
+  },
 ];
 
 const CATEGORIES = ['All', ...new Set(PRODUCTS.map(p => p.category))];
@@ -412,11 +438,19 @@ const ProductCard = ({ product, index }) => {
             <meta itemProp="priceCurrency" content="USD" />
             {product.priceLabel}
           </span>
-          <Link to={product.link}
-            style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '7px 16px', borderRadius: 8, background: hov ? product.accent : 'rgba(255,255,255,.07)', color: hov ? '#000' : 'rgba(255,255,255,.6)', fontSize: '.76rem', fontWeight: 600, textDecoration: 'none', letterSpacing: '.02em', transition: 'all .22s' }}>
-            View
-            <svg width="11" height="11" viewBox="0 0 11 11" fill="none" aria-hidden="true"><path d="M1.5 5.5h8M5.5 1.5l4 4-4 4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
-          </Link>
+          {product.isExternal ? (
+            <a href={product.link} target="_blank" rel="noopener noreferrer"
+              style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '7px 16px', borderRadius: 8, background: hov ? product.accent : 'rgba(255,255,255,.07)', color: hov ? '#000' : 'rgba(255,255,255,.6)', fontSize: '.76rem', fontWeight: 600, textDecoration: 'none', letterSpacing: '.02em', transition: 'all .22s' }}>
+              Get App
+              <svg width="11" height="11" viewBox="0 0 11 11" fill="none" aria-hidden="true"><path d="M1.5 5.5h8M5.5 1.5l4 4-4 4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            </a>
+          ) : (
+            <Link to={product.link}
+              style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '7px 16px', borderRadius: 8, background: hov ? product.accent : 'rgba(255,255,255,.07)', color: hov ? '#000' : 'rgba(255,255,255,.6)', fontSize: '.76rem', fontWeight: 600, textDecoration: 'none', letterSpacing: '.02em', transition: 'all .22s' }}>
+              View
+              <svg width="11" height="11" viewBox="0 0 11 11" fill="none" aria-hidden="true"><path d="M1.5 5.5h8M5.5 1.5l4 4-4 4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            </Link>
+          )}
         </div>
       </div>
     </motion.article>
