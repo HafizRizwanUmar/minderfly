@@ -15,6 +15,7 @@ const CONCURRENCY = 3; // Reduced to avoid memory pressure on VPS
 
 import { articlesData } from '../src/data/articles.js';
 import { projectsData } from '../src/data/projects.js';
+import { TEAM } from '../src/data/team.js';
 
 const STATIC_ROUTES = [
     '/',
@@ -45,8 +46,9 @@ const ARTICLE_ROUTES = articlesData.map(article => `/articles/${article.slug}`);
 const PROJECT_ROUTES = projectsData
     .filter(project => !project.isExternal)
     .map(project => `/work/${project.id}`);
+const TEAM_ROUTES = TEAM.map(member => `/team/${member.id}`);
 
-const ROUTES = [...new Set([...STATIC_ROUTES, ...ARTICLE_ROUTES, ...PROJECT_ROUTES])];
+const ROUTES = [...new Set([...STATIC_ROUTES, ...ARTICLE_ROUTES, ...PROJECT_ROUTES, ...TEAM_ROUTES])];
 
 // Resource types to block — block everything except scripts needed for React to render
 const BLOCKED_TYPES = new Set(['image', 'media', 'font', 'websocket', 'eventsource', 'manifest']);

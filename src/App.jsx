@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import WorkPage from './pages/WorkPage';
 import ProjectDetail from './pages/ProjectDetail';
 import TeamPage from './pages/TeamPage';
+import TeamMemberPage from './pages/TeamMemberPage';
 import Contact from './pages/Contact';
 import AffiliatePage from './pages/AffiliatePage';
 
@@ -103,6 +104,7 @@ function AppContent() {
           <Route path="/work" element={<WorkPage />} />
           <Route path="/work/:id" element={<ProjectDetail />} /> 
           <Route path="/team" element={<TeamPage />} />
+          <Route path="/team/:id" element={<TeamMemberPage />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/affiliates" element={<AffiliatePage />} />
 
