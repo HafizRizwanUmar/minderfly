@@ -1,6 +1,9 @@
-# https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Disallow:
+Allow: /
+
+# Block non-content paths
+Disallow: /assets/
+Disallow: /src/
 
 # Sitemap location
 Sitemap: https://minderfly.com/sitemap.xml

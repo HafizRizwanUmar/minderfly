@@ -20,7 +20,11 @@ const SEOHead = ({
     schema = null,
 }) => {
     const fullTitle = title.includes('Minderfly') ? title : `${title} | Minderfly`;
-    const url = canonical || `https://minderfly.com${window.location.pathname}`;
+    const url = canonical;
+
+    if (!url) {
+        console.warn(`SEOHead: Missing canonical URL for "${title}". This may hurt SEO.`);
+    }
 
     return (
         <Helmet>
