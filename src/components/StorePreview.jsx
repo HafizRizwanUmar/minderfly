@@ -95,22 +95,22 @@ const itemListSchema = {
 const cardStyle = (diff) => {
   if (diff === 0) return {
     x: '-50%', scale: 1.05, opacity: 1, zIndex: 10,
-    filter: 'blur(0px)', rotateY: 0,
+    rotateY: 0,
     transition: { duration: .6, ease: [.22,1,.36,1] },
   };
   if (diff === -1) return {
     x: '-135%', scale: .82, opacity: .45, zIndex: 5,
-    filter: 'blur(2px)', rotateY: 22,
+    rotateY: 22,
     transition: { duration: .6, ease: [.22,1,.36,1] },
   };
   if (diff === 1) return {
     x: '35%', scale: .82, opacity: .45, zIndex: 5,
-    filter: 'blur(2px)', rotateY: -22,
+    rotateY: -22,
     transition: { duration: .6, ease: [.22,1,.36,1] },
   };
   return {
     x: '-50%', scale: .5, opacity: 0, zIndex: 0,
-    filter: 'blur(10px)', rotateY: 0,
+    rotateY: 0,
     transition: { duration: .4 },
   };
 };

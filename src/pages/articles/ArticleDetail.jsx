@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
+import SEOHead from '../../components/SEOHead';
 import { getArticleBySlug, getRelatedArticles } from '../../data/articles';
 import './ArticleDetail.css';
 import ReactMarkdown from 'react-markdown';
@@ -154,31 +154,15 @@ const ArticleDetail = () => {
 
     return (
         <>
-            <Helmet>
-                <title>{article.title} — Minderfly Blog</title>
-                <meta name="description"   content={article.excerpt} />
-                <meta name="keywords"      content={article.tags?.join(', ')} />
-                <meta name="author"        content={article.author} />
-                <link rel="canonical"      href={`https://minderfly.com/articles/${article.slug}`} />
-
-                <meta property="og:type"                content="article" />
-                <meta property="og:url"                 content={`https://minderfly.com/articles/${article.slug}`} />
-                <meta property="og:title"               content={article.title} />
-                <meta property="og:description"         content={article.excerpt} />
-                {article.image && <meta property="og:image" content={`https://minderfly.com${article.image}`} />}
-                <meta property="article:published_time" content={article.date} />
-                <meta property="article:author"         content={article.author} />
-                <meta property="article:section"        content={article.category} />
-                {article.tags?.map((tag, i) => <meta key={i} property="article:tag" content={tag} />)}
-
-                <meta name="twitter:card"        content="summary_large_image" />
-                <meta name="twitter:title"       content={article.title} />
-                <meta name="twitter:description" content={article.excerpt} />
-                {article.image && <meta name="twitter:image" content={`https://minderfly.com${article.image}`} />}
-
-                <script type="application/ld+json">{JSON.stringify(articleSchema)}</script>
-                <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
-            </Helmet>
+            <SEOHead
+                title={`${article.title} — Minderfly Blog`}
+                description={article.excerpt}
+                keywords={article.tags?.join(', ')}
+                canonical={`https://minderfly.com/articles/${article.slug}`}
+                ogType="article"
+                ogImage={article.image ? `https://minderfly.com${article.image}` : undefined}
+                schema={[articleSchema, breadcrumbSchema]}
+            />
 
             <ReadingProgress />
             <Navbar />

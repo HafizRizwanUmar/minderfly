@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
+import SEOHead from '../../components/SEOHead';
 
 /* ─── tokens ─── */
 const ACCENT = '#c8f23a';
@@ -68,11 +68,14 @@ const DebtSettler = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Debt Settler — Free Expense Splitting App | Minderfly Store</title>
-        <meta name="description" content="Debt Settler is a free expense splitting and debt tracking app. Split bills, track shared costs, and settle debts with friends instantly." />
-        <link rel="canonical" href="https://minderfly.com/store/debt-settler" />
-      </Helmet>
+      <SEOHead
+        title="Debt Settler — Free Expense Splitting App | Minderfly Store"
+        description="Debt Settler is a free expense splitting and debt tracking app. Split bills, track shared costs, and settle debts with friends instantly. Available on Android and Windows."
+        keywords="expense splitting app, bill splitter, track debts, shared expenses app, Debt Settler, free finance app, roommate expense tracker"
+        canonical="https://minderfly.com/store/debt-settler"
+        ogType="website"
+        schema={[schema]}
+      />
 
       {/* ── Navbar ── */}
       <nav style={{ position: 'fixed', top: 0, left: 0, right: 0, height: 64, background: 'rgba(5,5,5,0.88)', backdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(255,255,255,0.07)', display: 'flex', alignItems: 'center', zIndex: 1000 }}>

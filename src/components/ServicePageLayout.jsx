@@ -1,9 +1,8 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Helmet } from 'react-helmet-async';
-import { Link } from 'react-router-dom';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import SEOHead from './SEOHead';
 
 /* ── Window width hook ── */
 const useWindowWidth = () => {
@@ -355,50 +354,23 @@ const ServicePageLayout = ({
 
     return (
         <>
-            <Helmet>
-                {/* ── Primary SEO ── */}
-                <title>{seoTitle || `${title} Services — Minderfly`}</title>
-                <meta name="description" content={seoDescription || description} />
-                {seoKeywords && <meta name="keywords" content={seoKeywords} />}
-                <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
-                <link rel="canonical" href={canonicalFull} />
+      <SEOHead 
+        title={seoTitle || `${title} Services — Minderfly`}
+        description={seoDescription || description}
+        keywords={seoKeywords}
+        canonical={canonicalFull}
+        ogImage={image || 'https://minderfly.com/og-image.png'}
+        ogType="website"
+        schema={[schema, breadcrumbSchema, ...(faqSchema ? [faqSchema] : []), ...(extraSchema ? [extraSchema] : [])]}
+      />
 
-                {/* ── Open Graph ── */}
-                <meta property="og:type"        content="website" />
-                <meta property="og:url"         content={canonicalFull} />
-                <meta property="og:title"       content={seoTitle || `${title} Services — Minderfly`} />
-                <meta property="og:description" content={seoDescription || description} />
-                <meta property="og:image"       content={image || 'https://minderfly.com/og-image.png'} />
-                <meta property="og:image:width"  content="1200" />
-                <meta property="og:image:height" content="630" />
-                <meta property="og:site_name"   content="Minderfly" />
-                <meta property="og:locale"      content="en_US" />
-                <meta property="article:publisher" content="https://minderfly.com" />
-
-                {/* ── Twitter Card ── */}
-                <meta name="twitter:card"        content="summary_large_image" />
-                <meta name="twitter:site"        content="@minderfly" />
-                <meta name="twitter:title"       content={seoTitle || `${title} Services — Minderfly`} />
-                <meta name="twitter:description" content={seoDescription || description} />
-                <meta name="twitter:image"       content={image || 'https://minderfly.com/og-image.png'} />
-
-                {/* ── Geo ── */}
-                <meta name="geo.region"         content="Worldwide" />
-
-                {/* ── Structured Data ── */}
-                <script type="application/ld+json">{JSON.stringify(schema)}</script>
-                <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
-                {faqSchema    && <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>}
-                {extraSchema  && <script type="application/ld+json">{JSON.stringify(extraSchema)}</script>}
-
-                <style>{`
-                    @keyframes spl-pulse {
-                        0%   { transform: scale(1);   opacity: .8; }
-                        70%  { transform: scale(2.4); opacity: 0; }
-                        100% { transform: scale(1);   opacity: 0; }
-                    }
-                `}</style>
-            </Helmet>
+      <style>{`
+          @keyframes spl-pulse {
+              0%   { transform: scale(1);   opacity: .8; }
+              70%  { transform: scale(2.4); opacity: 0; }
+              100% { transform: scale(1);   opacity: 0; }
+          }
+      `}</style>
 
             {/* HOOK 1: Urgency Banner */}
             <UrgencyBanner />

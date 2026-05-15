@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
+import SEOHead from '../components/SEOHead';
 import {
   FaArrowLeft, FaExternalLinkAlt, FaCheckCircle,
   FaCode, FaRocket, FaArrowRight,
@@ -117,19 +117,15 @@ const ProjectDetail = () => {
 
   return (
     <>
-      <Helmet>
-        <title>{project.title} — Case Study | Minderfly</title>
-        <meta name="description" content={`${project.title}: ${project.description} Built by Minderfly — ${project.category} specialists.`} />
-        <meta name="keywords"    content={`${project.title}, ${project.category}, Minderfly portfolio, ${technologies.slice(0,5).join(', ')}, case study`} />
-        <link rel="canonical"    href={`https://minderfly.com/work/${id}`} />
-        <meta property="og:title"       content={`${project.title} — Minderfly Case Study`} />
-        <meta property="og:description" content={project.description} />
-        <meta property="og:type"        content="article" />
-        {project.thumbnail && <meta property="og:image" content={project.thumbnail} />}
-        <meta name="twitter:card"       content="summary_large_image" />
-        <script type="application/ld+json">{JSON.stringify(schema)}</script>
-        <script type="application/ld+json">{JSON.stringify(breadcrumb)}</script>
-      </Helmet>
+      <SEOHead
+        title={`${project.title} — Case Study | Minderfly`}
+        description={`${project.title}: ${project.description} Built by Minderfly — ${project.category} specialists.`}
+        keywords={`${project.title}, ${project.category}, Minderfly portfolio, ${technologies.slice(0,5).join(', ')}, case study`}
+        canonical={`https://minderfly.com/work/${id}`}
+        ogImage={project.thumbnail}
+        ogType="article"
+        schema={[schema, breadcrumb]}
+      />
 
       <Navbar/>
 

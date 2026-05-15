@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
+import SEOHead from '../../components/SEOHead';
 import { useModal } from '../../context/ModalContext';
 
 const ACCENT = '#c8f23a';
@@ -107,18 +107,14 @@ const ServicesHub = () => {
 
     return (
         <>
-            <Helmet>
-                <title>Tech Services — Web, Mobile, AI Automation & Browser Tools | Minderfly</title>
-                <meta name="description" content="Minderfly offers professional web development (MERN, Next.js), Flutter mobile apps, AI workflow automation, graphics design, Chrome extension development, and Chrome theme design. End-to-end digital product services worldwide." />
-                <meta name="keywords" content="web development services, Flutter mobile app development, AI workflow automation, graphics design, Chrome extension development, Chrome theme design, MERN stack, Next.js, n8n automation, zapier alternative, digital agency services" />
-                <link rel="canonical" href="https://minderfly.com/services" />
-                <meta property="og:title"       content="Tech Services — Web, Mobile, AI Automation & Browser Tools | Minderfly" />
-                <meta property="og:description" content="Explore our full range of digital services: web development, mobile apps, AI automation, design, Chrome extensions, and themes." />
-                <meta property="og:type"        content="website" />
-                <meta name="twitter:card"       content="summary_large_image" />
-                <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
-                <script type="application/ld+json">{JSON.stringify(serviceListSchema)}</script>
-            </Helmet>
+            <SEOHead
+                title="Tech Services — Web, Mobile, AI Automation & Browser Tools | Minderfly"
+                description="Minderfly offers professional web development (MERN, Next.js), Flutter mobile apps, AI workflow automation, graphics design, Chrome extension development, and Chrome theme design. End-to-end digital product services worldwide."
+                keywords="web development services, Flutter mobile app development, AI workflow automation, graphics design, Chrome extension development, Chrome theme design, MERN stack, Next.js, n8n automation, zapier alternative, digital agency services"
+                canonical="https://minderfly.com/services"
+                ogType="website"
+                schema={[breadcrumbSchema, serviceListSchema]}
+            />
 
             <Navbar />
 

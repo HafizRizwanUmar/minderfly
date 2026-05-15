@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
 import './Contact.css';
-import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import SEOHead from '../components/SEOHead';
 import {
   FaStore, FaGraduationCap, FaHospital, FaHotel,
   FaUtensils, FaCar, FaBriefcase, FaCode,
@@ -303,20 +303,14 @@ const ContactPage = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Contact Minderfly — Custom Websites, Apps & Extensions | Get a Free Quote</title>
-        <meta name="description" content="Need a website, mobile app, Chrome extension, or VS Code tool built? Contact Minderfly. We help businesses in retail, education, healthcare, hospitality, restaurants, and more. Fixed prices, real deliverables." />
-        <meta name="keywords" content="contact Minderfly, custom website development, mobile app development Pakistan, Chrome extension developer, VS Code extension development, web development free quote, online academy website, POS system development, e-commerce website Pakistan" />
-        <link rel="canonical" href="https://minderfly.com/contact" />
-        <meta property="og:title"       content="Contact Minderfly — Get a Free Quote" />
-        <meta property="og:description" content="We solve real business problems with custom software. Tell us your problem, get a fixed-price proposal in 24 hours." />
-        <meta property="og:type"        content="website" />
-        <meta property="og:url"         content="https://minderfly.com/contact" />
-        <meta name="twitter:card"       content="summary_large_image" />
-        {schemas.map((s, i) => (
-          <script key={i} type="application/ld+json">{JSON.stringify(s)}</script>
-        ))}
-      </Helmet>
+      <SEOHead
+        title="Contact Minderfly — Custom Websites, Apps & Extensions | Get a Free Quote"
+        description="Need a website, mobile app, Chrome extension, or VS Code tool built? Contact Minderfly. We help businesses in retail, education, healthcare, hospitality, restaurants, and more. Fixed prices, real deliverables."
+        keywords="contact Minderfly, custom website development, mobile app development Pakistan, Chrome extension developer, VS Code extension development, web development free quote, online academy website, POS system development, e-commerce website Pakistan"
+        canonical="https://minderfly.com/contact"
+        ogType="website"
+        schema={schemas}
+      />
 
       <Navbar/>
 

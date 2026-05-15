@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
+import SEOHead from '../../components/SEOHead';
 import { articlesData } from '../../data/articles';
 import './ArticlesIndex.css';
 
@@ -236,21 +236,14 @@ const ArticlesIndex = () => {
 
     return (
         <>
-            <Helmet>
-                <title>Blog & Resources — Web Dev, Flutter, Chrome Extensions | Minderfly</title>
-                <meta name="description" content="In-depth articles on MERN stack development, Flutter mobile apps, Chrome extension development, VS Code tooling, and modern software engineering — by the Minderfly team." />
-                <meta name="keywords" content="web development blog, Flutter tutorials, Chrome extension development guide, MERN stack articles, software engineering blog, React tutorials, Node.js articles, mobile app development blog, developer resources" />
-                <link rel="canonical" href="https://minderfly.com/articles" />
-                <meta property="og:title"       content="Blog & Resources — Minderfly" />
-                <meta property="og:description" content="Deep dives into web development, Flutter, Chrome extensions, and software engineering." />
-                <meta property="og:type"        content="website" />
-                <meta property="og:url"         content="https://minderfly.com/articles" />
-                <meta name="twitter:card"       content="summary_large_image" />
-                <meta name="twitter:title"      content="Blog & Resources — Minderfly" />
-                <meta name="twitter:description" content="Deep dives into web development, Flutter, Chrome extensions, and software engineering." />
-                <script type="application/ld+json">{JSON.stringify(schema)}</script>
-                <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
-            </Helmet>
+            <SEOHead
+                title="Blog & Resources — Web Dev, Flutter, Chrome Extensions | Minderfly"
+                description="In-depth articles on MERN stack development, Flutter mobile apps, Chrome extension development, VS Code tooling, and modern software engineering — by the Minderfly team."
+                keywords="web development blog, Flutter tutorials, Chrome extension development guide, MERN stack articles, software engineering blog, React tutorials, Node.js articles, mobile app development blog, developer resources"
+                canonical="https://minderfly.com/articles"
+                ogType="website"
+                schema={[schema, breadcrumbSchema]}
+            />
 
             <Navbar />
 

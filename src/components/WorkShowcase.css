@@ -4,8 +4,6 @@
    Fonts     : Instrument Serif + Syne + IBM Plex Mono
    ════════════════════════════════════════════════════════════ */
 
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500;700&display=swap');
-
 /* ── Design tokens ─────────────────────────────────────── */
 :root {
   --film-bg:       #0a0908;
