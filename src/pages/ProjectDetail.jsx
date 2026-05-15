@@ -306,6 +306,69 @@ const ProjectDetail = () => {
             </section>
           )}
 
+          {/* ── PROBLEM / SOLUTION / RESULT ── */}
+          {(project.problem || project.solution || project.result) && (
+            <section className="pd-psr" aria-label="Project breakdown">
+              <Fade>
+                <div className="pd-gallery-header">
+                  <span style={{ width:24, height:1, background:accent, display:'block' }} aria-hidden="true"/>
+                  <h2 className="pd-gallery-title">Project Breakdown</h2>
+                </div>
+              </Fade>
+              <div className="pd-psr-grid">
+                {project.problem && (
+                  <Fade delay={0}>
+                    <div className="pd-psr-card">
+                      <div className="pd-psr-card__label">Challenge</div>
+                      <p className="pd-psr-card__text">{project.problem}</p>
+                    </div>
+                  </Fade>
+                )}
+                {project.solution && (
+                  <Fade delay={0.08}>
+                    <div className="pd-psr-card">
+                      <div className="pd-psr-card__label">Solution</div>
+                      <p className="pd-psr-card__text">{project.solution}</p>
+                    </div>
+                  </Fade>
+                )}
+                {project.result && (
+                  <Fade delay={0.16}>
+                    <div className="pd-psr-card pd-psr-card--result">
+                      <div className="pd-psr-card__label">Result</div>
+                      <p className="pd-psr-card__text">{project.result}</p>
+                    </div>
+                  </Fade>
+                )}
+              </div>
+            </section>
+          )}
+
+          {/* ── SERVICE LINK BANNER ── */}
+          {project.serviceLink && (
+            <Fade>
+              <div className="pd-service-banner" style={{ '--sb-ac': accent }}>
+                <div className="pd-service-banner__left">
+                  <div className="pd-service-banner__tag">Built Under</div>
+                  <h3 className="pd-service-banner__name">{project.serviceName || 'Our Services'}</h3>
+                  <p className="pd-service-banner__desc">
+                    Interested in a similar project? Explore everything we offer under {project.serviceName || 'this service category'}.
+                  </p>
+                </div>
+                <Link
+                  to={project.serviceLink}
+                  className="pd-service-banner__btn"
+                  aria-label={`Explore ${project.serviceName} service`}
+                >
+                  Explore Service
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                    <path d="M2.5 7h9M7.5 2.5l4.5 4.5-4.5 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </Link>
+              </div>
+            </Fade>
+          )}
+
           {/* ── BOTTOM CTA ── */}
           <Fade>
             <div className="pd-cta-banner" aria-label="Start a project">

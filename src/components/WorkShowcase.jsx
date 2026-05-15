@@ -1,428 +1,212 @@
-import { useRef, useState, useEffect, useCallback } from 'react';
-import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
+import { useState } from 'react';
+import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { projectsData } from '../data/projects';
 import './WorkShowcase.css';
 
-/* ════════════════════════════════════════════════════════════
-   WorkShowcase — "The Archive"
-   35mm filmstrip drag-to-scroll portfolio section
-   ─ All projectsData entries rendered
-   ─ Robust momentum drag (no library beyond Framer Motion)
-   ─ Full SEO: ItemList + CreativeWork schemas inline
-   ════════════════════════════════════════════════════════════ */
-
-/* ── SEO schemas ─────────────────────────────────────────── */
-const buildSchemas = (projects) => ({
-  itemList: {
-    '@context': 'https://schema.org',
-    '@type': 'ItemList',
-    name: 'Minderfly Portfolio — The Archive',
-    description: `${projects.length} selected digital projects by Minderfly spanning Chrome extensions, VS Code tools, mobile apps, and full-stack web platforms.`,
-    url: 'https://minderfly.com/#work',
-    numberOfItems: projects.length,
-    itemListElement: projects.map((p, i) => ({
-      '@type': 'ListItem',
-      position: i + 1,
-      item: {
-        '@type': 'CreativeWork',
-        name: p.title,
-        description: p.description,
-        url: p.isExternal ? p.link : `https://minderfly.com${p.link}`,
-        genre: p.category,
-      },
-    })),
-  },
+/* ────────────────────────────────────────────────────────────
+   SEO structured data
+──────────────────────────────────────────────────────────── */
+const buildSchema = (projects) => ({
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Minderfly Portfolio',
+  url: 'https://minderfly.com/#work',
+  numberOfItems: projects.length,
+  itemListElement: projects.map((p, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    item: {
+      '@type': 'CreativeWork',
+      name: p.title,
+      description: p.description,
+      url: p.isExternal ? p.link : `https://minderfly.com${p.link}`,
+    },
+  })),
 });
 
-/* ── Drag-to-scroll strip ────────────────────────────────── */
-const DragStrip = ({ children }) => {
-  const viewportRef = useRef(null);
-  const trackRef    = useRef(null);
-  const x           = useMotionValue(0);
-
-  /* Track pointer state */
-  const pointerRef  = useRef({ active: false, startX: 0, startVal: 0, velX: 0, lastX: 0, lastT: 0 });
-
-  /* Clamp x to valid range */
-  const clamp = useCallback(() => {
-    const vp = viewportRef.current;
-    const tr = trackRef.current;
-    if (!vp || !tr) return 0;
-    const max = 0;
-    const min = -(tr.scrollWidth - vp.offsetWidth);
-    return { min, max };
-  }, []);
-
-  const onPointerDown = useCallback((e) => {
-    /* Ignore right-click */
-    if (e.button !== 0) return;
-    const p = pointerRef.current;
-    p.active   = true;
-    p.startX   = e.clientX;
-    p.startVal = x.get();
-    p.velX     = 0;
-    p.lastX    = e.clientX;
-    p.lastT    = performance.now();
-    /* Stop any running animation */
-    x.stop?.();
-    e.preventDefault();
-  }, [x]);
-
-  const onPointerMove = useCallback((e) => {
-    const p = pointerRef.current;
-    if (!p.active) return;
-    const now = performance.now();
-    const dt  = now - p.lastT;
-    p.velX    = dt > 0 ? (e.clientX - p.lastX) / dt : 0;
-    p.lastX   = e.clientX;
-    p.lastT   = now;
-
-    const delta  = e.clientX - p.startX;
-    const bounds = clamp();
-    const raw    = p.startVal + delta;
-    /* Rubber-band beyond bounds */
-    const clamped = raw < bounds.min
-      ? bounds.min + (raw - bounds.min) * .12
-      : raw > bounds.max
-        ? bounds.max + (raw - bounds.max) * .12
-        : raw;
-
-    x.set(clamped);
-  }, [x, clamp]);
-
-  const onPointerUp = useCallback(() => {
-    const p = pointerRef.current;
-    if (!p.active) return;
-    p.active = false;
-
-    const bounds = clamp();
-    const cur    = x.get();
-
-    /* Momentum: project forward by velocity */
-    const momentum = p.velX * 280; /* ms look-ahead */
-    let target = cur + momentum;
-
-    /* Snap back into bounds */
-    if (target < bounds.min) target = bounds.min;
-    if (target > bounds.max) target = bounds.max;
-
-    animate(x, target, {
-      type: 'spring',
-      stiffness: 90,
-      damping: 22,
-      mass: .9,
-    });
-  }, [x, clamp]);
-
-  /* Touch events */
-  const touchRef = useRef({ startX: 0, startVal: 0 });
-
-  const onTouchStart = useCallback((e) => {
-    const t = e.touches[0];
-    touchRef.current = { startX: t.clientX, startVal: x.get() };
-    x.stop?.();
-  }, [x]);
-
-  const onTouchMove = useCallback((e) => {
-    const t = e.touches[0];
-    const delta = t.clientX - touchRef.current.startX;
-    const bounds = clamp();
-    const raw = touchRef.current.startVal + delta;
-    const clamped = Math.max(bounds.min, Math.min(bounds.max, raw));
-    x.set(clamped);
-    e.preventDefault();
-  }, [x, clamp]);
-
-  const onTouchEnd = useCallback(() => {
-    const bounds = clamp();
-    const cur = x.get();
-    if (cur < bounds.min || cur > bounds.max) {
-      animate(x, Math.max(bounds.min, Math.min(bounds.max, cur)), {
-        type: 'spring', stiffness: 100, damping: 24,
-      });
-    }
-  }, [x, clamp]);
-
-  /* Keyboard navigation */
-  const onKeyDown = useCallback((e) => {
-    const STEP = 320;
-    const bounds = clamp();
-    const cur = x.get();
-    if (e.key === 'ArrowRight') {
-      animate(x, Math.max(bounds.min, cur - STEP), { type: 'spring', stiffness: 120, damping: 26 });
-    }
-    if (e.key === 'ArrowLeft') {
-      animate(x, Math.min(bounds.max, cur + STEP), { type: 'spring', stiffness: 120, damping: 26 });
-    }
-  }, [x, clamp]);
-
-  return (
-    <div
-      ref={viewportRef}
-      className="strip-viewport"
-      tabIndex={0}
-      aria-label="Drag or use arrow keys to browse projects"
-      onPointerDown={onPointerDown}
-      onPointerMove={onPointerMove}
-      onPointerUp={onPointerUp}
-      onPointerLeave={onPointerUp}
-      onTouchStart={onTouchStart}
-      onTouchMove={onTouchMove}
-      onTouchEnd={onTouchEnd}
-      onKeyDown={onKeyDown}
-      style={{ touchAction: 'pan-y' }}
-    >
-      <motion.div
-        ref={trackRef}
-        className="strip-track"
-        style={{ x }}
-      >
-        {children}
-      </motion.div>
-    </div>
-  );
+/* ────────────────────────────────────────────────────────────
+   Category accent colours
+──────────────────────────────────────────────────────────── */
+const ACCENT = {
+  'MERN Website':         '#b8d63a',
+  'Professional Website': '#3b82f6',
+  'AI SaaS Platform':     '#a855f7',
 };
+const accent = (cat) => ACCENT[cat] || '#b8d63a';
 
-/* ── Single film frame card ──────────────────────────────── */
-const FrameCard = ({ project, index }) => {
-  const [hovered, setHovered] = useState(false);
-  const isExternal = project.isExternal;
-  const paddedNum  = String(index + 1).padStart(2, '0');
+/* ────────────────────────────────────────────────────────────
+   Single Project Card
+──────────────────────────────────────────────────────────── */
+const ProjectCard = ({ project, index }) => {
+  const [hov, setHov] = useState(false);
+  const ac = accent(project.category);
 
-  const cardProps = isExternal
-    ? { href: project.link, target: '_blank', rel: 'noopener noreferrer', role: 'link' }
+  const CardTag = project.isExternal ? 'a' : Link;
+  const cardProps = project.isExternal
+    ? { href: project.link, target: '_blank', rel: 'noopener noreferrer' }
     : { to: project.link };
-
-  const CardTag = isExternal ? 'a' : Link;
 
   return (
     <motion.div
-      className="frame-wrap"
-      initial={{ opacity: 0, y: 26 }}
+      className="wc-card-wrap"
+      initial={{ opacity: 0, y: 32 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.15 }}
-      transition={{ duration: .6, delay: Math.min(index * .055, .5), ease: [.22,1,.36,1] }}
-      itemProp="itemListElement"
-      itemScope
-      itemType="https://schema.org/ListItem"
+      viewport={{ once: true, amount: 0.12 }}
+      transition={{ duration: 0.65, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
     >
-      <meta itemProp="position" content={String(index + 1)} />
-
       <CardTag
         {...cardProps}
-        className={`frame-card${hovered ? ' is-hovered' : ''}`}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-        onFocus={() => setHovered(true)}
-        onBlur={() => setHovered(false)}
+        className={`wc-card${hov ? ' wc-card--hov' : ''}`}
+        onMouseEnter={() => setHov(true)}
+        onMouseLeave={() => setHov(false)}
+        style={{ '--ac': ac, '--ac-dim': ac + '18' }}
         draggable={false}
-        aria-label={`${project.title} — ${project.category}${isExternal ? ' (opens in new tab)' : ''}`}
-        itemScope
-        itemType="https://schema.org/CreativeWork"
-        itemProp="item"
+        aria-label={`${project.title} — ${project.category} case study`}
       >
-        <meta itemProp="name"        content={project.title}       />
-        <meta itemProp="description" content={project.description} />
-        <meta itemProp="genre"       content={project.category}    />
-
-        {/* ── Top sprockets ── */}
-        <div className="sprockets top" aria-hidden="true">
-          {Array.from({ length: 8 }).map((_, i) => <span key={i} className="hole"/>)}
+        {/* ── Top label row ── */}
+        <div className="wc-card__top">
+          <span className="wc-card__cat">
+            <span className="wc-card__dot" aria-hidden="true" />
+            {project.category}
+          </span>
+          {project.year && (
+            <span className="wc-card__year">{project.year}</span>
+          )}
         </div>
 
-        {/* ── Exposure number ── */}
-        <div className="frame-number" aria-hidden="true">
-          <span className="fn-label">EXP</span>
-          <span className="fn-num">{paddedNum}</span>
-        </div>
-
-        {/* ── Image box ── */}
-        <div className="frame-image-box">
+        {/* ── Thumbnail ── */}
+        <div className="wc-card__img-wrap">
           {project.thumbnail ? (
             <img
               src={project.thumbnail}
-              alt={`${project.title} — project preview`}
-              className="frame-img"
+              alt={`${project.title} preview`}
+              className="wc-card__img"
               loading="lazy"
               draggable={false}
-              itemProp="image"
             />
           ) : (
-            <div className="frame-img-placeholder" aria-hidden="true"/>
+            <div className="wc-card__img-placeholder" aria-hidden="true">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <polyline points="16 18 22 12 16 6" /><polyline points="8 6 2 12 8 18" />
+              </svg>
+            </div>
           )}
 
-          <div className="grain"    aria-hidden="true"/>
-          <div className="vignette" aria-hidden="true"/>
-
-          {/* Hover CTA */}
-          <div className="frame-hover-cta" aria-hidden="true">
-            <div className="cta-circle">↗</div>
-            <span className="cta-text">View Project</span>
-          </div>
-
-          {/* Category badge */}
-          <span className="frame-badge">{project.category}</span>
-
-          {/* External flag */}
-          {isExternal && (
-            <span className="frame-ext-flag" aria-label="External project">
-              ↗ ext
+          {/* Hover overlay arrow */}
+          <div className="wc-card__overlay" aria-hidden="true">
+            <div className="wc-card__arrow-circle">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+                <path d="M4 9h10M9.5 4.5L14 9l-4.5 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </div>
+            <span className="wc-card__overlay-text">
+              {project.isExternal ? 'View Live' : 'Case Study'}
             </span>
-          )}
-        </div>
-
-        {/* ── Caption ── */}
-        <div className="frame-caption">
-          <div className="caption-main">
-            <h3 className="caption-title" itemProp="name">{project.title}</h3>
-            <p className="caption-desc" itemProp="description">{project.description}</p>
           </div>
-          {project.stats && (
-            <span className="caption-stat">{project.stats}</span>
-          )}
         </div>
 
-        {/* ── Bottom sprockets ── */}
-        <div className="sprockets bottom" aria-hidden="true">
-          {Array.from({ length: 8 }).map((_, i) => <span key={i} className="hole"/>)}
+        {/* ── Body ── */}
+        <div className="wc-card__body">
+          <h3 className="wc-card__title">{project.title}</h3>
+          <p className="wc-card__desc">{project.description}</p>
+
+          <div className="wc-card__footer">
+            {project.stats && (
+              <span className="wc-card__stat">{project.stats}</span>
+            )}
+            <span className="wc-card__cta" aria-hidden="true">
+              {project.isExternal ? 'View live ↗' : 'Read case study →'}
+            </span>
+          </div>
         </div>
       </CardTag>
     </motion.div>
   );
 };
 
-/* ── Animated hint arrows ────────────────────────────────── */
-const HintArrows = () => (
-  <div className="ws-hint" aria-hidden="true">
-    <motion.span
-      className="hint-arrow"
-      animate={{ x: [-3,0,-3] }}
-      transition={{ duration: 1.9, repeat: Infinity, ease: 'easeInOut' }}
-    >←</motion.span>
-    <span className="hint-label">drag to explore</span>
-    <motion.span
-      className="hint-arrow"
-      animate={{ x: [0,3,0] }}
-      transition={{ duration: 1.9, repeat: Infinity, ease: 'easeInOut' }}
-    >→</motion.span>
-  </div>
-);
-
-/* ════════════════════════════════════════════════════════════
+/* ────────────────────────────────────────────────────────────
    MAIN COMPONENT
-════════════════════════════════════════════════════════════ */
+──────────────────────────────────────────────────────────── */
 const WorkShowcase = () => {
-  const schemas = buildSchemas(projectsData);
+  const schema = buildSchema(projectsData);
 
   return (
     <section
-      className="work-section"
+      className="wc-section"
       id="work"
-      aria-label={`Work showcase — ${projectsData.length} projects by Minderfly`}
+      aria-label={`Selected work — ${projectsData.length} projects by Minderfly`}
       itemScope
       itemType="https://schema.org/ItemList"
     >
-      {/* SEO structured data */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemas.itemList) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
       />
 
-      <meta itemProp="name"         content="Minderfly Portfolio — The Archive" />
-      <meta itemProp="numberOfItems" content={String(projectsData.length)} />
-
-      {/* Global film-grain noise overlay */}
-      <div className="noise-layer" aria-hidden="true"/>
-
-      <div className="ws-container">
+      <div className="wc-container">
 
         {/* ── Header ── */}
-        <motion.div
-          className="ws-header"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, margin: '-60px' }}
-          transition={{ duration: .6 }}
-        >
+        <div className="wc-header">
           <motion.div
-            className="ws-eyebrow"
+            className="wc-eyebrow"
             initial={{ opacity: 0, y: 14 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: .6, ease: [.22,1,.36,1] }}
+            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
           >
-            <span className="ey-tag">Selected Works</span>
-            <span className="ey-rule" aria-hidden="true"/>
-            <span className="ey-count">{projectsData.length} Projects</span>
+            <span className="wc-eyebrow__dot" aria-hidden="true" />
+            Selected Work
           </motion.div>
 
-          <motion.h2
-            className="ws-title"
-            initial={{ opacity: 0, y: 28 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: .75, delay: .08, ease: [.22,1,.36,1] }}
-          >
-            The<br/>
-            <em className="ws-title-em">Archive</em>
-          </motion.h2>
+          <div className="wc-header__row">
+            <motion.h2
+              className="wc-title"
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.65, delay: 0.06, ease: [0.22, 1, 0.36, 1] }}
+            >
+              Projects that<br />
+              <em className="wc-title__em">made impact.</em>
+            </motion.h2>
 
-          <motion.p
-            className="ws-sub"
-            initial={{ opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: .65, delay: .18, ease: [.22,1,.36,1] }}
-          >
-            A curated collection of digital work spanning Chrome extensions,
-            VS Code tools, mobile apps, and full-stack web platforms.
-            Drag to browse.
-          </motion.p>
-        </motion.div>
-
-        {/* ── Filmstrip ── */}
-        <div className="filmstrip-wrapper">
-          <div className="edge-fade left"  aria-hidden="true"/>
-          <div className="edge-fade right" aria-hidden="true"/>
-
-          <DragStrip>
-            {/* Leading gap */}
-            <div className="strip-spacer" aria-hidden="true"/>
-
-            {/* All projects */}
-            {projectsData.map((project, i) => (
-              <FrameCard key={project.id ?? i} project={project} index={i} />
-            ))}
-
-            {/* Closing "fin." */}
-            <div className="strip-end" aria-hidden="true">
-              <span>fin.</span>
-            </div>
-          </DragStrip>
+            <motion.p
+              className="wc-subtitle"
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.14, ease: [0.22, 1, 0.36, 1] }}
+            >
+              A curated selection of client work and internal products —
+              from AI platforms to professional websites. Click any project to read the full case study.
+            </motion.p>
+          </div>
         </div>
 
-        {/* ── Drag hint ── */}
-        <HintArrows/>
+        {/* ── Cards grid ── */}
+        <div className="wc-grid">
+          {projectsData.map((project, i) => (
+            <ProjectCard key={project.id} project={project} index={i} />
+          ))}
+        </div>
 
-        {/* ── Bottom CTA row ── */}
+        {/* ── Bottom CTA ── */}
         <motion.div
-          className="ws-cta-row"
+          className="wc-bottom"
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: .6, ease: [.22,1,.36,1] }}
+          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
         >
-          <span className="ws-cta-count">
+          <span className="wc-bottom__count">
             {projectsData.length} projects — all disciplines
           </span>
-          <Link
-            to="/work"
-            className="ws-cta-link"
-            aria-label="Browse the complete Minderfly project archive"
-          >
-            Full Archive
-            <span aria-hidden="true">↗</span>
+          <Link to="/contact" className="wc-bottom__cta">
+            Start a Project
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true">
+              <path d="M2 6.5h9M6.5 2l4.5 4.5L6.5 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
           </Link>
         </motion.div>
 
