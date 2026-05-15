@@ -11,7 +11,7 @@ const __dirname = path.dirname(__filename);
 
 const PORT = 3333;
 const DIST_PATH = path.join(__dirname, '..', 'dist');
-const CONCURRENCY = 5; // Prerender 5 pages at a time
+const CONCURRENCY = 3; // Reduced to avoid memory pressure on VPS
 
 import { articlesData } from '../src/data/articles.js';
 import { projectsData } from '../src/data/projects.js';
@@ -48,29 +48,46 @@ const PROJECT_ROUTES = projectsData
 
 const ROUTES = [...new Set([...STATIC_ROUTES, ...ARTICLE_ROUTES, ...PROJECT_ROUTES])];
 
+// Resource types to block — block everything except scripts needed for React to render
+const BLOCKED_TYPES = new Set(['image', 'media', 'font', 'websocket', 'eventsource', 'manifest']);
+
 async function prerenderRoute(browser, route) {
     const url = `http://localhost:${PORT}${route}`;
     const page = await browser.newPage();
-    
-    // Optimize performance by blocking unnecessary resources
+
+    // Block heavy resources that don't affect HTML output
     await page.setRequestInterception(true);
     page.on('request', (req) => {
         const resourceType = req.resourceType();
-        if (['image', 'stylesheet', 'font'].includes(resourceType)) {
-            // We need stylesheets for correct HTML rendering, but images/fonts can be skipped for pure HTML structure
-            // Actually, for some React apps, stylesheets are needed to calculate dimensions if JS depends on it.
-            // Let's keep stylesheets but block images to save bandwidth/time.
-            if (resourceType === 'image') return req.abort();
+        // Block images, videos, fonts, websockets — keep JS + CSS for correct rendering
+        if (BLOCKED_TYPES.has(resourceType)) {
+            return req.abort();
+        }
+        // Also block external analytics/tracking scripts that can hang networkidle
+        const reqUrl = req.url();
+        if (
+            reqUrl.includes('googletagmanager') ||
+            reqUrl.includes('google-analytics') ||
+            reqUrl.includes('datafa.st') ||
+            reqUrl.includes('clarity.ms') ||
+            reqUrl.includes('hotjar') ||
+            reqUrl.includes('facebook.net')
+        ) {
+            return req.abort();
         }
         req.continue();
     });
 
     try {
         console.log(`🌐 Prerendering: ${route}`);
-        await page.goto(url, { waitUntil: 'networkidle0', timeout: 30000 });
-        
-        // Short wait for any client-side JS/animations to settle
-        await new Promise(r => setTimeout(r, 500));
+
+        // Use networkidle2 (allows 2 pending requests) instead of networkidle0
+        // networkidle0 waits for ALL requests — risky with analytics scripts
+        // Also increased timeout to 60s for heavy pages like cinemafly
+        await page.goto(url, { waitUntil: 'networkidle2', timeout: 60000 });
+
+        // Wait for React to fully hydrate and render content
+        await new Promise(r => setTimeout(r, 800));
 
         const html = await page.content();
 
@@ -84,6 +101,7 @@ async function prerenderRoute(browser, route) {
         console.log(`✅ Saved: ${route}`);
     } catch (err) {
         console.error(`❌ Failed ${route}:`, err.message);
+        // Don't crash the whole process — continue with other routes
     } finally {
         await page.close();
     }
@@ -111,21 +129,41 @@ async function prerender() {
             ];
             executablePath = localPaths.find(p => fs.existsSync(p));
         } else {
-            try {
-                executablePath = await chromium.executablePath();
-            } catch (err) {
-                console.log('⚠️ @sparticuz/chromium failed.');
+            // Linux/VPS — try system Chromium first, then @sparticuz/chromium
+            const linuxPaths = [
+                '/usr/bin/chromium-browser',
+                '/usr/bin/chromium',
+                '/usr/bin/google-chrome',
+                '/usr/bin/google-chrome-stable',
+            ];
+            executablePath = linuxPaths.find(p => fs.existsSync(p));
+
+            if (!executablePath) {
+                try {
+                    executablePath = await chromium.executablePath();
+                } catch (err) {
+                    console.log('⚠️ @sparticuz/chromium failed, trying system chromium...');
+                }
             }
         }
 
         if (!executablePath) {
-            console.error('❌ No browser executable found.');
+            console.error('❌ No browser executable found. Install chromium: sudo apt install chromium-browser');
             process.exit(1);
         }
 
+        console.log(`🌍 Using browser: ${executablePath}`);
+
         const browser = await puppeteer.launch({
-            args: process.platform === 'win32' ? [] : (chromium.args || []),
-            defaultViewport: process.platform === 'win32' ? null : (chromium.defaultViewport || null),
+            args: [
+                '--no-sandbox',
+                '--disable-setuid-sandbox',
+                '--disable-dev-shm-usage',   // Prevents crashes on low-RAM VPS
+                '--disable-gpu',
+                '--no-first-run',
+                '--no-zygote',
+                '--single-process',          // Better for VPS environments
+            ],
             executablePath: executablePath,
             headless: true,
         });
