@@ -2,7 +2,6 @@ User-agent: *
 Allow: /
 
 # Block non-content paths
-Disallow: /assets/
 Disallow: /src/
 
 # Sitemap location
