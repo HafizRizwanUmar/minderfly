@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -29,5 +30,5 @@ jobs:
             # Build the project and run the prerender script
             npm run build
             
-            # Reload Nginx (Optional, but good if nginx conf changes)
-            sudo systemctl reload nginx
+            # Reload Nginx (Optional, commented out for non-root users)
+            # sudo systemctl reload nginx
