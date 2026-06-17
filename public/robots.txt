@@ -3,6 +3,9 @@ Allow: /
 
 # Block non-content paths
 Disallow: /src/
+Disallow: /.git/
+Disallow: /node_modules/
+Disallow: /dist/
 
-# Sitemap location
+# Canonical sitemap
 Sitemap: https://minderfly.com/sitemap.xml

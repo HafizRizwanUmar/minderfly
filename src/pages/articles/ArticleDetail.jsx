@@ -276,9 +276,14 @@ const ArticleDetail = () => {
                                     img: ({ node, ...props }) => (
                                         <img {...props} className="article-content-image" style={{ borderRadius: 12, border: '1px solid rgba(255,255,255,.08)' }} />
                                     ),
-                                    a: ({ node, ...props }) => (
-                                        <a {...props} target="_blank" rel="noopener noreferrer" />
-                                    ),
+                                    a: ({ node, href, children, ...props }) => {
+                                        const isInternal = href && (href.startsWith('/') || href.startsWith('https://minderfly.com'));
+                                        const cleanHref = href?.startsWith('https://minderfly.com') ? href.replace('https://minderfly.com', '') : href;
+                                        if (isInternal) {
+                                            return <Link to={cleanHref} {...props}>{children}</Link>;
+                                        }
+                                        return <a href={href} {...props} target="_blank" rel="noopener noreferrer">{children}</a>;
+                                    },
                                     table: ({ node, ...props }) => (
                                         <div className="table-container"><table {...props} /></div>
                                     ),
