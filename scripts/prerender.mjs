@@ -39,7 +39,10 @@ const STATIC_ROUTES = [
     '/work',
     '/team',
     '/contact',
-    '/affiliates'
+    '/affiliates',
+    '/privacy',
+    '/terms',
+    '/services/vscode-extension-development'
 ];
 
 const ARTICLE_ROUTES = articlesData.map(article => `/articles/${article.slug}`);
