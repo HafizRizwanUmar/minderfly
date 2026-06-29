@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import {
-  FaGithub, FaLinkedin, FaTwitter, FaEnvelope,
+  FaLinkedin, FaTwitter, FaEnvelope,
   FaDribbble, FaArrowRight,
 } from 'react-icons/fa';
 import './Footer.css';
@@ -28,7 +28,6 @@ const orgSchema = {
     availableLanguage: 'English',
   },
   sameAs: [
-    'https://github.com/minderfly',
     'https://linkedin.com/company/minderfly',
     'https://twitter.com/minderfly',
   ],
@@ -69,7 +68,6 @@ const NAV = [
 ];
 
 const SOCIALS = [
-  { Icon: FaGithub,   href: 'https://github.com/minderfly',           label: 'GitHub'   },
   { Icon: FaLinkedin, href: 'https://linkedin.com/company/minderfly', label: 'LinkedIn' },
   { Icon: FaTwitter,  href: 'https://twitter.com/minderfly',          label: 'Twitter'  },
   { Icon: FaEnvelope, href: 'mailto:hello@minderfly.com',             label: 'Email'    },
@@ -190,7 +188,7 @@ const Footer = ({ onContactClick }) => {
                     href={href}
                     className="footer-social-link"
                     target={href.startsWith('mailto') ? undefined : '_blank'}
-                    rel={href.startsWith('mailto') ? undefined : 'noopener noreferrer'}
+                    rel={href.startsWith('mailto') ? undefined : 'nofollow noopener noreferrer'}
                     aria-label={label}
                     role="listitem"
                   >

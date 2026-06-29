@@ -1317,7 +1317,7 @@ The sustainable path: build a site with genuine content depth, acquire organic t
     date: '2025-05-22',
     readTime: '7 min read',
     category: 'Monetisation',
-    image: 'https://images.unsplash.com/photo-1554224155-6cdc242f4371?w=1200&auto=format&fit=crop&q=80',
+    image: 'https://images.unsplash.com/photo-1579621970795-87facc2f976d?w=1200&auto=format&fit=crop&q=80',
     tags: ['Google AdSense', 'Website Monetisation', 'Blogging Revenue', 'Content Marketing', 'RPM Optimisation']
   },
 
@@ -2056,7 +2056,7 @@ For branded QR code design integrated into print collateral, brochures, or packa
     date: '2025-08-28',
     readTime: '6 min read',
     category: 'Marketing',
-    image: 'https://images.unsplash.com/photo-1595079676339-1534801fafde?w=1200&auto=format&fit=crop&q=80',
+    image: 'https://images.unsplash.com/photo-1523206489230-c012c64b2b48?w=1200&auto=format&fit=crop&q=80',
     tags: ['QR Codes for Business', 'QR Code Marketing', 'Business Card Design', 'Print Marketing', 'Digital Marketing']
   },
 
@@ -2134,7 +2134,7 @@ The safest rule: **never put a dynamic code on anything you cannot easily reprin
     date: '2025-09-10',
     readTime: '7 min read',
     category: 'Tools',
-    image: 'https://images.unsplash.com/photo-1622675363311-ac97f3b97b0a?w=1200&auto=format&fit=crop&q=80',
+    image: 'https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=1200&auto=format&fit=crop&q=80',
     tags: ['QR Code Generator', 'Static vs Dynamic QR', 'QR Code for Business', 'Nishan QR', 'Print Marketing Tools']
   },
 
@@ -4178,7 +4178,7 @@ Experience the difference of a media player built for the future. **Try Cinemafl
     date: '2026-04-29',
     readTime: '6 min read',
     category: 'Products',
-    image: 'https://images.unsplash.com/photo-1485846234645-a62644ef7467?w=1200&auto=format&fit=crop&q=80',
+    image: 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=1200&auto=format&fit=crop&q=80',
     tags: ['Cinemafly Pro', 'HEVC Player', '4K Video Player', 'Windows 11', 'Dolby Atmos', 'Video Converter', 'Minderfly']
   },
 ];

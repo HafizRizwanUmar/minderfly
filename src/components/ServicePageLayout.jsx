@@ -313,7 +313,6 @@ const ServicePageLayout = ({
             url: 'https://minderfly.com',
             logo: 'https://minderfly.com/logo.png',
             sameAs: [
-                'https://github.com/minderfly',
                 'https://twitter.com/minderfly',
                 'https://linkedin.com/company/minderfly',
             ],

@@ -122,13 +122,13 @@ const TeamMemberPage = () => {
                 {/* Social badge */}
                 <div className="tmp-social-row">
                   {member.linkedin && (
-                    <a href={member.linkedin} target="_blank" rel="noopener noreferrer"
+                    <a href={member.linkedin} target="_blank" rel="nofollow noopener noreferrer"
                       className="tmp-social-btn" aria-label={`${member.name} on LinkedIn`}>
                       <LinkedInIcon />
                     </a>
                   )}
                   {member.github && (
-                    <a href={member.github} target="_blank" rel="noopener noreferrer"
+                    <a href={member.github} target="_blank" rel="nofollow noopener noreferrer"
                       className="tmp-social-btn" aria-label={`${member.name} on GitHub`}>
                       <GithubIcon />
                     </a>

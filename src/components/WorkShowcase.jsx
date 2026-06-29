@@ -53,7 +53,7 @@ const FeaturedCard = ({ project }) => {
           <div className="wc-featured__bg-wrap" aria-hidden="true">
             <img
               src={project.thumbnail}
-              alt=""
+              alt={`${project.title} project preview`}
               className={`wc-featured__bg-img${hov ? ' is-hov' : ''}`}
               loading="lazy"
               draggable={false}

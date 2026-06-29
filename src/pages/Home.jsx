@@ -62,7 +62,8 @@ const Home = () => {
                     "availableLanguage": "English"
                 },
                 "sameAs": [
-                    "https://github.com/minderfly"
+                    "https://linkedin.com/company/minderfly",
+                    "https://twitter.com/minderfly"
                 ]
             },
             {

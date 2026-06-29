@@ -61,7 +61,7 @@ export const projectsData = [
         stats: 'BBC 2026 Semi-Finalist',
         thumbnail: 'https://images.unsplash.com/photo-1501504905252-473c47e087f8?auto=format&fit=crop&q=80&w=800',
         link: '/work/inkless-lms',
-        externalUrl: 'https://inkless.minderfly.com',
+        externalUrl: null,
         isExternal: false,
         year: '2026',
         technologies: ['React', 'Flask', 'SQLite', 'OpenAI API', 'Python', 'REST API'],
