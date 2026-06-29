@@ -3226,7 +3226,7 @@ Cinemafly is available now on the Microsoft Store. If you have 4K footage sittin
     date: '2026-02-12',
     readTime: '6 min read',
     category: 'Product Launch',
-    image: 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=1200&auto=format&fit=crop&q=80',
+    image: 'https://images.unsplash.com/photo-1480694313141-fce5e697ee25?w=1200&auto=format&fit=crop&q=80',
     tags: ['Cinemafly', 'Windows Media Player', 'HEVC Player', 'Windows App', 'Minderfly Products']
   },
 
@@ -4178,7 +4178,7 @@ Experience the difference of a media player built for the future. **Try Cinemafl
     date: '2026-04-29',
     readTime: '6 min read',
     category: 'Products',
-    image: 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=1200&auto=format&fit=crop&q=80',
+    image: 'https://images.unsplash.com/photo-1480694313141-fce5e697ee25?w=1200&auto=format&fit=crop&q=80',
     tags: ['Cinemafly Pro', 'HEVC Player', '4K Video Player', 'Windows 11', 'Dolby Atmos', 'Video Converter', 'Minderfly']
   },
 ];

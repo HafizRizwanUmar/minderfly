@@ -100,7 +100,7 @@ const VSCodeExtensionDev = () => {
             processSteps={processSteps}
             faqs={faqs}
             relatedArticles={relatedArticles}
-            image="https://images.unsplash.com/photo-1607799279861-4ddf950c4369?auto=format&fit=crop&q=80&w=1200"
+            image="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=1200"
             badgeText="TypeScript · Webviews"
             ctaText="Discuss Your Extension"
             ctaLink="/contact"
