@@ -24,7 +24,7 @@ He specialises in scalable MERN stack platforms, Flutter cross-platform applicat
 
 Beyond client work, Rizwan created several of Minderfly's own products including Debt Settler (10,000+ downloads), Sanad PDF Editor, and Cinemafly — all shipped with the same rigour he applies to client projects.
 
-In 2026 he led the engineering behind Inkless LMS, Minderfly's flagship AI-powered learning platform, which reached the BBC 2026 Top 20 Semi-Finals and is now piloting with institutional clients. His approach is direct: understand the problem deeply, architect for the long term, and ship on time.`,
+His approach is direct: understand the problem deeply, architect for the long term, and ship on time.`,
     highlights: [
       { value: '5+',     label: 'Years Building' },
       { value: '120+',   label: 'Projects Shipped' },

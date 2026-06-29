@@ -51,30 +51,5 @@ export const projectsData = [
         solution: 'We crafted a bespoke, minimalist professional site built around trust, clarity, and ease of contact — fully mobile-responsive and SEO-optimised.',
         result: 'Launched successfully at drhammadlakhvi.com, significantly improving patient outreach and professional credibility online.'
     },
-    {
-        id: 'inkless-lms',
-        title: 'Inkless LMS',
-        category: 'AI SaaS Platform',
-        serviceLink: '/services/web-development',
-        serviceName: 'AI & Full-Stack Development',
-        description: "Minderfly's flagship AI-powered LMS — BBC 2026 Top 20 Semi-Finalist.",
-        stats: 'BBC 2026 Semi-Finalist',
-        thumbnail: 'https://images.unsplash.com/photo-1501504905252-473c47e087f8?auto=format&fit=crop&q=80&w=800',
-        link: '/work/inkless-lms',
-        externalUrl: null,
-        isExternal: false,
-        year: '2026',
-        technologies: ['React', 'Flask', 'SQLite', 'OpenAI API', 'Python', 'REST API'],
-        features: [
-            'AI Content Generation',
-            'Automated Grading',
-            'Personalised Learning Paths',
-            'Progress Analytics',
-            'Institutional SaaS & API Tier'
-        ],
-        details: 'Inkless is an AI-powered Learning Management System built by Minderfly — an affordable alternative to Canvas and Blackboard, designed for universities and corporations in emerging markets. It delivers smart content generation, automated grading, personalised learning paths, and deep analytics.',
-        problem: 'Universities and corporations in emerging markets are priced out of enterprise LMS platforms like Canvas and Blackboard, leaving them reliant on outdated, fragmented tools.',
-        solution: 'A full-stack LMS (React + Flask + SQLite) with AI at its core — delivering smart content generation, automated grading, personalised learning paths, and deep analytics at a fraction of enterprise LMS cost.',
-        result: "Selected as a BBC 2026 Top 20 Semi-Finalist. Currently piloting with three revenue tracks: per-seat institutional SaaS, a course content marketplace, and an enterprise API tier."
-    },
+
 ];
