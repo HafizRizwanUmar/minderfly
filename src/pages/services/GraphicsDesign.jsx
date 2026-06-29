@@ -132,9 +132,9 @@ const GraphicsDesign = () => {
             badgeText="Logo · UI · Branding"
             ctaText="Start a Design Project"
             ctaLink="/contact"
-            seoTitle="Graphic Design Services — Logo, Brand Identity & UI Design | Minderfly"
-            seoDescription="Professional graphic design services: logo design, brand identity, UI/UX design, social media creatives, and pitch decks. Fast turnaround, unlimited revisions. Get your first concept in 48 hours."
-            seoKeywords="graphic design service, logo design agency, brand identity designer, UI UX design service, social media design, pitch deck design, professional graphic designer for hire, branding agency, custom logo design, Figma UI design"
+            seoTitle="Graphic Design Agency Pakistan | Logo, Brand Identity & UI Design | Minderfly"
+            seoDescription="Professional graphic design services in Pakistan: logo design, brand identity, UI/UX design, social media creatives, and pitch decks. Based in Lahore, serving global clients. Fast turnaround, unlimited revisions. Get your first concept in 48 hours."
+            seoKeywords="graphic design agency Pakistan, logo design agency Lahore, brand identity designer Pakistan, UI UX design service Pakistan, social media design agency Lahore, pitch deck design Pakistan, professional graphic designer Pakistan, branding agency Lahore, custom logo design Pakistan, Figma UI design Pakistan, brand design for startups Pakistan, graphic designer for hire Lahore, affordable design agency Pakistan"
             canonicalUrl="/services/graphics-design"
         />
     );

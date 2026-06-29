@@ -59,10 +59,8 @@ const NAV = [
     label: 'Services',
     links: [
       { text: 'Chrome Extensions',    href: '/services/chrome-extension-development' },
-      { text: 'VS Code Extensions',   href: '/services/vscode-extension-development' },
       { text: 'Mobile Apps',          href: '/services/mobile-app-development' },
       { text: 'Web Development',      href: '/services/web-development' },
-      { text: 'Antigravity Masterclass', href: '/antigravity-masterclass', badge: 'New' },
     ],
   },
 ];

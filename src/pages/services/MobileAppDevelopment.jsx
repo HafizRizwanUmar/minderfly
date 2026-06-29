@@ -132,7 +132,7 @@ const MobileAppDevelopment = () => {
             badgeText="Flutter & React Native"
             ctaText="Get an App Quote"
             ctaLink="/contact"
-            seoTitle="Mobile App Development Agency in Pakistan | Flutter & React Native | Minderfly"
+            seoTitle="Mobile App Agency Pakistan | Flutter & React Native"
             seoDescription="Hire the best mobile app developers in Pakistan. Specialists in Flutter and React Native for iOS & Android. Based in Lahore, providing full-cycle app development and Store submission services."
             seoKeywords="mobile app development Pakistan, Flutter developer Lahore, React Native agency Pakistan, hire mobile app developers Lahore, iOS Android app development Pakistan, custom mobile apps Lahore, software house in Pakistan for apps"
             canonicalUrl="/services/mobile-app-development"

@@ -137,7 +137,7 @@ const WebDevelopment = () => {
             badgeText="MERN & Next.js Experts"
             ctaText="Start Your Project"
             ctaLink="/contact"
-            seoTitle="Web Development Agency in Pakistan | MERN & Next.js Experts | Minderfly"
+            seoTitle="Web Development Agency Pakistan | MERN & Next.js"
             seoDescription="Hire the best web development agency in Pakistan. Specialists in MERN stack, Next.js, and custom SaaS platforms. Based in Lahore, serving international clients with high-performance React and Node.js solutions."
             seoKeywords="web development agency Pakistan, MERN stack developers Lahore, software company in Pakistan, Next.js developer Pakistan, hire web developers Lahore, full stack web development Pakistan, SaaS development company Lahore"
             canonicalUrl="/services/web-development"

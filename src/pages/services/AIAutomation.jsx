@@ -134,9 +134,9 @@ const AIAutomation = () => {
             badgeText="n8n · GPT-4 · Make.com"
             ctaText="Get a Free Automation Audit"
             ctaLink="/contact"
-            seoTitle="n8n Automation Service & AI Workflow Automation | Minderfly"
-            seoDescription="Expert workflow automation using n8n, Make.com, and AI APIs. Replace manual processes, migrate from Zapier, and integrate GPT-4 into your business. Free automation audit — see ROI before you commit."
-            seoKeywords="n8n automation service, n8n developer for hire, workflow automation service, Zapier alternative service, Make.com automation, AI workflow automation, business process automation, ChatGPT workflow integration, automate business processes, n8n vs Zapier"
+            seoTitle="AI Automation Agency Pakistan | n8n & Workflow Automation Services | Minderfly"
+            seoDescription="Expert AI workflow automation in Pakistan — n8n, Make.com, and GPT-4 integration. Replace manual processes, migrate from Zapier, and automate your business from Lahore. Free automation audit — see ROI before you commit."
+            seoKeywords="AI automation agency Pakistan, n8n automation service Pakistan, n8n developer for hire Lahore, workflow automation service Pakistan, Zapier alternative Pakistan, Make.com automation Pakistan, AI workflow automation Pakistan, business process automation Lahore, ChatGPT workflow integration Pakistan, automate business processes Pakistan, n8n vs Zapier, n8n developer Pakistan, AI automation for small business Pakistan, CRM automation Pakistan, hire n8n developer Pakistan"
             canonicalUrl="/services/ai-automation"
         />
     );

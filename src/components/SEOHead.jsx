@@ -1,4 +1,5 @@
 import { Helmet } from 'react-helmet-async';
+import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 /**
@@ -19,8 +20,9 @@ const SEOHead = ({
     ogImage = 'https://minderfly.com/og-image.png',
     schema = null,
 }) => {
+    const location = useLocation();
     const fullTitle = title.includes('Minderfly') ? title : `${title} | Minderfly`;
-    const url = canonical;
+    const url = canonical || `https://minderfly.com${location.pathname === '/' ? '' : location.pathname}`;
 
     if (!url) {
         console.warn(`SEOHead: Missing canonical URL for "${title}". This may hurt SEO.`);

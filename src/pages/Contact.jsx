@@ -304,7 +304,7 @@ const ContactPage = () => {
   return (
     <>
       <SEOHead
-        title="Contact Minderfly — Custom Websites, Apps & Extensions | Get a Free Quote"
+        title="Contact Minderfly | Get a Free Quote"
         description="Need a website, mobile app, Chrome extension, or VS Code tool built? Contact Minderfly. We help businesses in retail, education, healthcare, hospitality, restaurants, and more. Fixed prices, real deliverables."
         keywords="contact Minderfly, custom website development, mobile app development Pakistan, Chrome extension developer, VS Code extension development, web development free quote, online academy website, POS system development, e-commerce website Pakistan"
         canonical="https://minderfly.com/contact"

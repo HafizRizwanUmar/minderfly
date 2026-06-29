@@ -132,7 +132,7 @@ const ChromeExtensionDev = () => {
             badgeText="MV3 · React · Web Store"
             ctaText="Build My Extension"
             ctaLink="/contact"
-            seoTitle="Chrome Extension Development Agency in Pakistan | Manifest V3 | Minderfly"
+            seoTitle="Chrome Extension Agency Pakistan | Minderfly"
             seoDescription="Hire the best Chrome extension developers in Pakistan. Specialists in Manifest V3 (MV3), React-powered browser UI, and Web Store automation. Based in Lahore, serving international SaaS companies and local businesses."
             seoKeywords="chrome extension development Pakistan, chrome extension developer Lahore, manifest v3 developer Pakistan, browser extension agency Lahore, hire extension developers Pakistan, custom chrome extensions Lahore, software house for browser tools Pakistan"
             canonicalUrl="/services/chrome-extension-development"

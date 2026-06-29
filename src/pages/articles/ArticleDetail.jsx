@@ -155,7 +155,7 @@ const ArticleDetail = () => {
     return (
         <>
             <SEOHead
-                title={`${article.title} — Minderfly Blog`}
+                title={article.title}
                 description={article.excerpt}
                 keywords={article.tags?.join(', ')}
                 canonical={`https://minderfly.com/articles/${article.slug}`}
@@ -286,6 +286,9 @@ const ArticleDetail = () => {
                                     },
                                     table: ({ node, ...props }) => (
                                         <div className="table-container"><table {...props} /></div>
+                                    ),
+                                    h1: ({ node, children, ...props }) => (
+                                        <h2 {...props} id={`h-${String(children).toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')}`}>{children}</h2>
                                     ),
                                     h2: ({ node, children, ...props }) => (
                                         <h2 {...props} id={`h-${String(children).toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')}`}>{children}</h2>

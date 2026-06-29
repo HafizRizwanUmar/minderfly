@@ -1472,7 +1472,7 @@ The extension is particularly valuable during:
 
 The Flutter Web Emulator was built by our team at Minderfly — it started as an internal tool and was published because it solved a genuine problem. Our Flutter development practice builds cross-platform applications (mobile, desktop, web) for clients globally.
 
-[See our Flutter development services](/services/flutter-desktop-development) or [contact us](/contact) about your next project.
+[See our Flutter development services](/services/mobile-app-development) or [contact us](/contact) about your next project.
     `,
     author: 'Hafiz Rizwan Umar',
     date: '2025-06-20',
@@ -3028,7 +3028,7 @@ Inline Git blame annotations, commit history by file and line, and a visual Git 
 
 ---
 
-Minderfly's Flutter practice builds production applications for iOS, Android, and Desktop. If you need Flutter development capacity or a specialist team for your next project, [contact us](/contact) or [view our Flutter services](/services/flutter-desktop-development).
+Minderfly's Flutter practice builds production applications for iOS, Android, and Desktop. If you need Flutter development capacity or a specialist team for your next project, [contact us](/contact) or [view our Flutter services](/services/mobile-app-development).
     `,
     author: 'Hafiz Rizwan Umar',
     date: '2026-01-08',
@@ -3214,7 +3214,7 @@ Windows software development has been underserved by the indie developer communi
 
 For developers and agencies willing to invest in the Windows ecosystem — building with WinUI, MSIX packaging, Windows 11 design conventions, and proper Store optimisation — the competitive landscape is favourable.
 
-At Minderfly, we develop Windows desktop applications as one of our specialist service lines. [See our desktop development services](/services/flutter-desktop-development) or [contact us](/contact) to discuss a Windows application project.
+At Minderfly, we develop Windows desktop applications as one of our specialist service lines. [See our desktop development services](/services/mobile-app-development) or [contact us](/contact) to discuss a Windows application project.
 
 ---
 

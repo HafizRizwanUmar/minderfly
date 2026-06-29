@@ -10,6 +10,8 @@ import TeamPage from './pages/TeamPage';
 import TeamMemberPage from './pages/TeamMemberPage';
 import Contact from './pages/Contact';
 import AffiliatePage from './pages/AffiliatePage';
+import Privacy from './pages/Privacy';
+import Terms from './pages/Terms';
 
 // Services
 import ServicesHub from './pages/services/ServicesHub';
@@ -107,6 +109,8 @@ function AppContent() {
           <Route path="/team/:id" element={<TeamMemberPage />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/affiliates" element={<AffiliatePage />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/terms" element={<Terms />} />
 
         </Routes>
       </main>

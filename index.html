@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Primary Meta Tags -->
-  <title>Minderfly — Top Software Development Agency in Pakistan | Web, Mobile & AI</title>
+  <title>Minderfly | Top Software Agency in Pakistan</title>
   <meta name="description" content="Minderfly is a leading software development agency in Pakistan specialising in MERN stack web development, Flutter mobile apps, AI automation, and Chrome extensions. Based in Lahore, serving global clients.">
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#050505">
@@ -44,6 +44,7 @@
   <link rel="apple-touch-icon" href="/logo.png">
 
   <!-- Google Search Console Verification -->
+  <!-- TODO: Replace the content below with your actual GSC verification code from https://search.google.com/search-console -->
   <meta name="google-site-verification" content="INSERT_YOUR_GSC_VERIFICATION_CODE_HERE" />
 
   <!-- Google Analytics (GA4) -->
@@ -55,19 +56,49 @@
     gtag('config', 'G-H65TL9D74F');
   </script>
 
-  <!-- Organization Structured Data -->
+  <!-- Organization + LocalBusiness Structured Data -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Organization",
+    "@type": ["Organization", "LocalBusiness"],
     "name": "Minderfly",
     "url": "https://minderfly.com",
     "logo": "https://minderfly.com/logo.png",
-    "description": "Digital services agency specialising in web development, Flutter mobile apps, AI workflow automation, Chrome extensions, and brand design.",
+    "image": "https://minderfly.com/og-image.png",
+    "description": "Minderfly is a software development agency in Lahore, Pakistan, specialising in MERN stack web development, Flutter mobile apps, AI workflow automation, Chrome extensions, and brand design. Serving global clients across 80+ countries.",
     "email": "hello@minderfly.com",
-    "sameAs": [],
-    "areaServed": "Worldwide",
-    "serviceArea": { "@type": "Place", "name": "Worldwide" }
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Lahore",
+      "addressRegion": "Punjab",
+      "addressCountry": "PK"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "31.5204",
+      "longitude": "74.3587"
+    },
+    "areaServed": {
+      "@type": "Place",
+      "name": "Worldwide"
+    },
+    "serviceArea": { "@type": "Place", "name": "Worldwide" },
+    "sameAs": [
+      "https://www.linkedin.com/company/minderfly",
+      "https://github.com/minderfly",
+      "https://clutch.co/profile/minderfly"
+    ],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Software Development Services",
+      "itemListElement": [
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "MERN Stack Web Development" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Flutter Mobile App Development" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "AI Workflow Automation" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Chrome Extension Development" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Brand & Graphic Design" } }
+      ]
+    }
   }
   </script>
 
