@@ -48,7 +48,7 @@ His approach is direct: understand the problem deeply, architect for the long te
     accentBg: 'rgba(100,180,255,0.1)',
     accentBorder: 'rgba(100,180,255,0.22)',
     linkedin: 'https://linkedin.com/in/',
-    github: 'https://github.com/',
+    github: null,
     skills: ['Figma', 'React', 'CSS Systems', 'UX Research', 'Design Systems', 'Framer'],
     bio: 'Ammara bridges the gap between how software looks and how it works — designing and implementing interfaces that are both visually compelling and functionally precise.',
     longBio: `Ammara joined Minderfly with a clear philosophy: design is not decoration, it is communication. Every layout decision, every colour choice, every micro-interaction is a deliberate signal to the user about what matters and what to do next.
@@ -81,7 +81,7 @@ Ammara is a strong advocate for accessibility-first design. In her view, a beaut
     accentBg: 'rgba(249,115,22,0.1)',
     accentBorder: 'rgba(249,115,22,0.25)',
     linkedin: 'https://linkedin.com/in/',
-    github: 'https://github.com/',
+    github: null,
     skills: ['Content Strategy', 'SEO Writing', 'Brand Voice', 'Social Media', 'Copywriting', 'Analytics'],
     bio: 'Eisha shapes how Minderfly talks to the world — from product copy and SEO content to social strategy and brand messaging that drives real business outcomes.',
     longBio: `Eisha joined Minderfly to solve a problem she noticed across many software studios: exceptional engineering teams who couldn't explain what they built in a way that resonated with the people who needed it most.

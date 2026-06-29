@@ -22,7 +22,9 @@ const SEOHead = ({
 }) => {
     const location = useLocation();
     const fullTitle = title.includes('Minderfly') ? title : `${title} | Minderfly`;
-    const url = canonical || `https://minderfly.com${location.pathname === '/' ? '' : location.pathname}`;
+    // Use explicit canonical verbatim, or derive from current path.
+    // Homepage path '/' → 'https://minderfly.com/' (trailing slash kept for consistency).
+    const url = canonical || `https://minderfly.com${location.pathname}`;
 
     if (!url) {
         console.warn(`SEOHead: Missing canonical URL for "${title}". This may hurt SEO.`);
