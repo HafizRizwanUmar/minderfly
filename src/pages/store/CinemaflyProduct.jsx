@@ -33,16 +33,16 @@ const product = {
     applicationCategory: 'MultimediaApplication',
     operatingSystem: 'Windows',
     description: 'Cinemafly is a free Windows media player with cinema mode, playlist management, subtitle support, and hardware-accelerated playback.',
-    url: 'https://minderfly.com/store/cinemafly',
+    url: 'https://www.minderfly.com/store/cinemafly',
     offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
     aggregateRating: { '@type': 'AggregateRating', ratingValue: '4.7', reviewCount: '224' },
-    author: { '@type': 'Organization', name: 'Minderfly', url: 'https://minderfly.com' },
+    author: { '@type': 'Organization', name: 'Minderfly', url: 'https://www.minderfly.com' },
   },
   seo: {
     title: 'Cinemafly — Free Windows Media Player | Minderfly Store',
     description: 'Cinemafly is a beautiful free Windows media player with cinema mode, playlist management, and subtitle support. Download free from the Microsoft Store.',
     keywords: 'Windows media player, free video player, cinema mode, subtitle support, Cinemafly, Minderfly player',
-    canonical: 'https://minderfly.com/store/cinemafly',
+    canonical: 'https://www.minderfly.com/store/cinemafly',
   },
 };
 

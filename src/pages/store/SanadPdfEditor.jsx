@@ -33,16 +33,16 @@ const product = {
     applicationCategory: 'ProductivityApplication',
     operatingSystem: 'Windows',
     description: 'Sanad PDF Editor is a free, offline Windows app for merging, splitting, annotating, and signing PDF documents. No cloud uploads required.',
-    url: 'https://minderfly.com/store/sanad-pdf-editor',
+    url: 'https://www.minderfly.com/store/sanad-pdf-editor',
     offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
     aggregateRating: { '@type': 'AggregateRating', ratingValue: '4.6', reviewCount: '73' },
-    author: { '@type': 'Organization', name: 'Minderfly', url: 'https://minderfly.com' },
+    author: { '@type': 'Organization', name: 'Minderfly', url: 'https://www.minderfly.com' },
   },
   seo: {
     title: 'Sanad PDF Editor — Free Offline PDF Tool for Windows | Minderfly',
     description: 'Edit, merge, split, annotate, and sign PDFs offline on Windows. No cloud uploads, no subscriptions. Free on the Microsoft Store.',
     keywords: 'PDF editor Windows, merge PDF, split PDF, sign PDF, offline PDF tool, Sanad PDF, free PDF editor',
-    canonical: 'https://minderfly.com/store/sanad-pdf-editor',
+    canonical: 'https://www.minderfly.com/store/sanad-pdf-editor',
   },
 };
 

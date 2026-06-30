@@ -59,9 +59,9 @@ const ProjectDetail = () => {
     '@type': 'Article',
     headline: `${project.title} — Case Study`,
     description: project.details || project.description,
-    author: { '@type': 'Organization', name: 'Minderfly', url: 'https://minderfly.com' },
+    author: { '@type': 'Organization', name: 'Minderfly', url: 'https://www.minderfly.com' },
     publisher: { '@type': 'Organization', name: 'Minderfly' },
-    url: `https://minderfly.com/work/${id}`,
+    url: `https://www.minderfly.com/work/${id}`,
     ...(project.thumbnail ? { image: project.thumbnail } : {}),
   };
 
@@ -69,9 +69,9 @@ const ProjectDetail = () => {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://minderfly.com/' },
-      { '@type': 'ListItem', position: 2, name: 'Work', item: 'https://minderfly.com/work' },
-      { '@type': 'ListItem', position: 3, name: project.title, item: `https://minderfly.com/work/${id}` },
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.minderfly.com/' },
+      { '@type': 'ListItem', position: 2, name: 'Work', item: 'https://www.minderfly.com/work' },
+      { '@type': 'ListItem', position: 3, name: project.title, item: `https://www.minderfly.com/work/${id}` },
     ],
   };
 
@@ -81,7 +81,7 @@ const ProjectDetail = () => {
         title={`${project.title} Case Study | Minderfly`}
         description={`${project.title}: ${project.description} Read the full case study — challenge, solution, and results.`}
         keywords={`${project.title}, ${project.category}, Minderfly portfolio, case study, ${technologies.slice(0, 4).join(', ')}`}
-        canonical={`https://minderfly.com/work/${id}`}
+        canonical={`https://www.minderfly.com/work/${id}`}
         ogImage={project.thumbnail}
         ogType="article"
         schema={[schema, breadcrumb]}

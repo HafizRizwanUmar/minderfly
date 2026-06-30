@@ -52,8 +52,8 @@ const Home = () => {
             {
                 "@type": "Organization",
                 "name": "Minderfly",
-                "url": "https://minderfly.com",
-                "logo": "https://minderfly.com/logo.png",
+                "url": "https://www.minderfly.com",
+                "logo": "https://www.minderfly.com/logo.png",
                 "description": "Digital agency that builds innovative solutions and provides professional services for MERN stack development, Flutter apps, VS Code extensions, and Chrome themes & extensions.",
                 "foundingDate": "2020",
                 "contactPoint": {
@@ -69,7 +69,7 @@ const Home = () => {
             {
                 "@type": "WebSite",
                 "name": "Minderfly",
-                "url": "https://minderfly.com",
+                "url": "https://www.minderfly.com",
                 "description": "Digital agency specializing in custom software development and web solutions",
                 "publisher": {
                     "@type": "Organization",
@@ -79,7 +79,7 @@ const Home = () => {
             {
                 "@type": "ProfessionalService",
                 "name": "Minderfly Digital Agency",
-                "image": "https://minderfly.com/logo.png",
+                "image": "https://www.minderfly.com/logo.png",
                 "description": "Full-service digital agency offering MERN stack development, Flutter mobile apps, VS Code extensions, and Chrome development services.",
                 "address": {
                     "@type": "PostalAddress",
@@ -103,7 +103,7 @@ const Home = () => {
                 title="Minderfly | Web & Mobile App Development, Graphics & Chrome Extensions"
                 description="Expert Web & Mobile App Development, Graphics Designing, and Chrome Extension creation. Home of Sanad PDF Editor, Debt Settler, and Nishan QR."
                 keywords="web development, mobile app development, graphics design, chrome extension development, chrome theme building, Sanad PDF editor, Debt Settler, Nishan QR, Flutter Web Emulator, custom software solutions, software studio Pakistan"
-                canonical="https://minderfly.com/"
+                canonical="https://www.minderfly.com/"
                 schema={structuredData}
             />
 

@@ -70,7 +70,7 @@ const itemListSchema = {
   '@type': 'ItemList',
   name: 'Featured Minderfly Apps',
   description: 'A selection of free productivity and developer tools built by Minderfly — available for Windows, Android, and VS Code.',
-  url: 'https://minderfly.com/store',
+  url: 'https://www.minderfly.com/store',
   numberOfItems: PRODUCTS.length,
   itemListElement: PRODUCTS.map((p, i) => ({
     '@type': 'ListItem',
@@ -79,7 +79,7 @@ const itemListSchema = {
       '@type': 'SoftwareApplication',
       name: p.name,
       description: p.desc,
-      url: `https://minderfly.com${p.link}`,
+      url: `https://www.minderfly.com${p.link}`,
       applicationCategory: p.tagline,
       operatingSystem: p.platform,
       offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },

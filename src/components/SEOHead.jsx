@@ -17,14 +17,14 @@ const SEOHead = ({
     description,
     keywords = '',
     canonical,
-    ogImage = 'https://minderfly.com/og-image.png',
+    ogImage = 'https://www.minderfly.com/og-image.png',
     schema = null,
 }) => {
     const location = useLocation();
     const fullTitle = title.includes('Minderfly') ? title : `${title} | Minderfly`;
     // Use explicit canonical verbatim, or derive from current path.
-    // Homepage path '/' → 'https://minderfly.com/' (trailing slash kept for consistency).
-    const url = canonical || `https://minderfly.com${location.pathname}`;
+    // Homepage path '/' → 'https://www.minderfly.com/' (trailing slash kept for consistency).
+    const url = canonical || `https://www.minderfly.com${location.pathname}`;
 
     if (!url) {
         console.warn(`SEOHead: Missing canonical URL for "${title}". This may hurt SEO.`);

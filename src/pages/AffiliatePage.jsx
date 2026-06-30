@@ -13,7 +13,7 @@ const structuredData = {
     '@type': 'WebPage',
     name: 'Minderfly Affiliate Program',
     description: 'Join the Minderfly Affiliate Program and earn up to 40% commission by referring clients for web and mobile development services.',
-    publisher: { '@type': 'Organization', name: 'Minderfly', logo: 'https://minderfly.com/logo.png' }
+    publisher: { '@type': 'Organization', name: 'Minderfly', logo: 'https://www.minderfly.com/logo.png' }
 };
 
 const features = [
@@ -108,7 +108,7 @@ const AffiliatePage = () => {
                 title="Affiliate Program | Earn with Minderfly Partner Program"
                 description="Join Minderfly's affiliate program and earn up to 40% commission by referring clients for web development, mobile apps, and digital services."
                 keywords="affiliate program, earn money, minderfly partner, web development referral, mobile app affiliate, gumroad affiliates, passive income"
-                canonical="https://minderfly.com/affiliates"
+                canonical="https://www.minderfly.com/affiliates"
                 schema={structuredData}
             />
 

@@ -11,7 +11,7 @@ const Terms = () => {
             <SEOHead
                 title="Terms of Service"
                 description="Terms of Service for Minderfly. Read our terms and conditions."
-                canonical="https://minderfly.com/terms"
+                canonical="https://www.minderfly.com/terms"
             />
             <Navbar />
             <main style={{ padding: '120px 5%', maxWidth: '800px', margin: '0 auto', color: '#fff' }}>

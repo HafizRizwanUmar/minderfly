@@ -69,7 +69,7 @@ const reviewSchema = {
   '@context': 'https://schema.org',
   '@type': 'LocalBusiness',
   name: 'Minderfly',
-  url: 'https://minderfly.com',
+  url: 'https://www.minderfly.com',
   aggregateRating: {
     '@type': 'AggregateRating',
     ratingValue: '5.0',

@@ -50,21 +50,21 @@ const buildSchema = (articles) => ({
     '@type': 'Blog',
     name: 'Minderfly Blog',
     description: 'Deep dives into web development, Flutter, Chrome extensions, and software engineering — by the Minderfly team.',
-    url: 'https://minderfly.com/articles',
+    url: 'https://www.minderfly.com/articles',
     publisher: {
         '@type': 'Organization',
         name: 'Minderfly',
-        url: 'https://minderfly.com',
-        logo: { '@type': 'ImageObject', url: 'https://minderfly.com/logo.png' },
+        url: 'https://www.minderfly.com',
+        logo: { '@type': 'ImageObject', url: 'https://www.minderfly.com/logo.png' },
     },
     blogPost: articles.slice(0, 10).map(a => ({
         '@type': 'BlogPosting',
         headline: a.title,
         description: a.excerpt,
-        url: `https://minderfly.com/articles/${a.slug}`,
+        url: `https://www.minderfly.com/articles/${a.slug}`,
         datePublished: a.date,
         author: { '@type': 'Person', name: a.author },
-        image: a.image ? `https://minderfly.com${a.image}` : undefined,
+        image: a.image ? `https://www.minderfly.com${a.image}` : undefined,
         keywords: a.tags?.join(', '),
     })),
 });
@@ -73,8 +73,8 @@ const breadcrumbSchema = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home',     item: 'https://minderfly.com/' },
-        { '@type': 'ListItem', position: 2, name: 'Articles', item: 'https://minderfly.com/articles' },
+        { '@type': 'ListItem', position: 1, name: 'Home',     item: 'https://www.minderfly.com/' },
+        { '@type': 'ListItem', position: 2, name: 'Articles', item: 'https://www.minderfly.com/articles' },
     ],
 };
 
@@ -240,7 +240,7 @@ const ArticlesIndex = () => {
                 title="Blog & Resources — Web Dev, Flutter, Chrome Extensions | Minderfly"
                 description="In-depth articles on MERN stack development, Flutter mobile apps, Chrome extension development, VS Code tooling, and modern software engineering — by the Minderfly team."
                 keywords="web development blog, Flutter tutorials, Chrome extension development guide, MERN stack articles, software engineering blog, React tutorials, Node.js articles, mobile app development blog, developer resources"
-                canonical="https://minderfly.com/articles"
+                canonical="https://www.minderfly.com/articles"
                 ogType="website"
                 schema={[schema, breadcrumbSchema]}
             />

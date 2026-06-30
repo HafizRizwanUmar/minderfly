@@ -203,7 +203,7 @@ const itemListSchema = {
   '@type': 'ItemList',
   name: 'Minderfly Software Products',
   description: 'Free and premium productivity tools, developer utilities, and Windows apps built by Minderfly',
-  url: 'https://minderfly.com/store',
+  url: 'https://www.minderfly.com/store',
   numberOfItems: PRODUCTS.length,
   itemListElement: PRODUCTS.map((p, i) => ({
     '@type': 'ListItem',
@@ -212,7 +212,7 @@ const itemListSchema = {
       '@type': 'SoftwareApplication',
       name: p.name,
       description: p.desc,
-      url: `https://minderfly.com${p.link}`,
+      url: `https://www.minderfly.com${p.link}`,
       applicationCategory: p.category,
       operatingSystem: p.platform,
       offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
@@ -225,17 +225,17 @@ const orgSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: 'Minderfly',
-  url: 'https://minderfly.com',
+  url: 'https://www.minderfly.com',
   description: 'Minderfly builds free and premium software tools for Windows, Android, and VS Code.',
-  sameAs: ['https://minderfly.com/store'],
+  sameAs: ['https://www.minderfly.com/store'],
 };
 
 const breadcrumb = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
   itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Home',  item: 'https://minderfly.com/' },
-    { '@type': 'ListItem', position: 2, name: 'Store', item: 'https://minderfly.com/store' },
+    { '@type': 'ListItem', position: 1, name: 'Home',  item: 'https://www.minderfly.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Store', item: 'https://www.minderfly.com/store' },
   ],
 };
 
@@ -492,7 +492,7 @@ const StoreHub = () => {
         title="Minderfly Store — Free Productivity Apps & Developer Tools"
         description="Free and premium productivity tools, developer utilities, and Windows apps built by Minderfly. All products are privacy-first and work offline."
         keywords="productivity tools, developer utilities, windows apps, free software, bill splitter app, qr code generator, pdf editor, media player hevc, flutter web emulator"
-        canonical="https://minderfly.com/store"
+        canonical="https://www.minderfly.com/store"
         ogType="website"
         schema={[itemListSchema, orgSchema, breadcrumb]}
       />

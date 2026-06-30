@@ -143,8 +143,8 @@ const TeamPage = () => {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: 'Minderfly',
-    url: 'https://minderfly.com',
-    logo: 'https://minderfly.com/logo.png',
+    url: 'https://www.minderfly.com',
+    logo: 'https://www.minderfly.com/logo.png',
     description: 'Minderfly is a specialist software development studio building MERN stack platforms, Flutter apps, Chrome extensions, and VS Code tools for clients worldwide.',
     foundingLocation: { '@type': 'Place', addressLocality: 'Lahore', addressCountry: 'PK' },
     areaServed: 'Worldwide',
@@ -153,8 +153,8 @@ const TeamPage = () => {
       name: m.name,
       jobTitle: m.role,
       description: m.bio,
-      image: `https://minderfly.com${m.photo}`,
-      url: `https://minderfly.com/team/${m.id}`,
+      image: `https://www.minderfly.com${m.photo}`,
+      url: `https://www.minderfly.com/team/${m.id}`,
       worksFor: { '@type': 'Organization', name: 'Minderfly' },
     })),
   };
@@ -163,8 +163,8 @@ const TeamPage = () => {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://minderfly.com/' },
-      { '@type': 'ListItem', position: 2, name: 'Team', item: 'https://minderfly.com/team' },
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.minderfly.com/' },
+      { '@type': 'ListItem', position: 2, name: 'Team', item: 'https://www.minderfly.com/team' },
     ],
   };
 
@@ -174,7 +174,7 @@ const TeamPage = () => {
         title="Our Team — Software Engineers & Designers | Minderfly"
         description="Meet the team behind Minderfly — a specialist software studio building MERN web platforms, Flutter mobile apps, Chrome extensions, and VS Code tools for clients across the US, UK, UAE, and Australia."
         keywords="software development team, MERN stack developers Pakistan, Flutter developer, Chrome extension developer, web development agency, remote software engineers"
-        canonical="https://minderfly.com/team"
+        canonical="https://www.minderfly.com/team"
         schema={[orgSchema, breadcrumb]}
       />
 

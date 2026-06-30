@@ -35,16 +35,16 @@ const product = {
     applicationCategory: 'FinanceApplication',
     operatingSystem: 'Android, Windows',
     description: 'Debt Settler is a free expense splitting and debt tracking app for Android, Windows, and Fire OS. Split bills, track shared costs, and settle debts instantly.',
-    url: 'https://minderfly.com/store/debt-settler',
+    url: 'https://www.minderfly.com/store/debt-settler',
     offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
     aggregateRating: { '@type': 'AggregateRating', ratingValue: '4.9', reviewCount: '312' },
-    author: { '@type': 'Organization', name: 'Minderfly', url: 'https://minderfly.com' },
+    author: { '@type': 'Organization', name: 'Minderfly', url: 'https://www.minderfly.com' },
   },
   seo: {
     title: 'Debt Settler — Free Expense Splitting App | Minderfly Store',
     description: 'Debt Settler is a free expense splitting and debt tracking app. Split bills, track shared costs, and settle debts instantly. Available on Android and Windows.',
     keywords: 'expense splitting app, bill splitter, track debts, shared expenses, Debt Settler, free finance app, roommate expense tracker',
-    canonical: 'https://minderfly.com/store/debt-settler',
+    canonical: 'https://www.minderfly.com/store/debt-settler',
   },
 };
 

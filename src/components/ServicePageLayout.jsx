@@ -296,7 +296,7 @@ const ServicePageLayout = ({
     const [openFaq, setOpenFaq] = useState(null);
 
     /* Structured data */
-    const canonicalFull = canonicalUrl ? `https://minderfly.com${canonicalUrl}` : 'https://minderfly.com/services';
+    const canonicalFull = canonicalUrl ? `https://www.minderfly.com${canonicalUrl}` : 'https://www.minderfly.com/services';
 
     const schema = {
         '@context': 'https://schema.org',
@@ -304,14 +304,14 @@ const ServicePageLayout = ({
         name: title,
         description: seoDescription || description,
         url: canonicalFull,
-        image: image || 'https://minderfly.com/og-image.png',
+        image: image || 'https://www.minderfly.com/og-image.png',
         priceRange: 'Contact for Pricing',
         areaServed: 'Worldwide',
         provider: {
             '@type': 'Organization',
             name: 'Minderfly',
-            url: 'https://minderfly.com',
-            logo: 'https://minderfly.com/logo.png',
+            url: 'https://www.minderfly.com',
+            logo: 'https://www.minderfly.com/logo.png',
             sameAs: [
                 'https://twitter.com/minderfly',
                 'https://linkedin.com/company/minderfly',
@@ -328,8 +328,8 @@ const ServicePageLayout = ({
         '@context': 'https://schema.org',
         '@type': 'BreadcrumbList',
         itemListElement: [
-            { '@type': 'ListItem', position: 1, name: 'Home',     item: 'https://minderfly.com/' },
-            { '@type': 'ListItem', position: 2, name: 'Services', item: 'https://minderfly.com/services' },
+            { '@type': 'ListItem', position: 1, name: 'Home',     item: 'https://www.minderfly.com/' },
+            { '@type': 'ListItem', position: 2, name: 'Services', item: 'https://www.minderfly.com/services' },
             { '@type': 'ListItem', position: 3, name: title,      item: canonicalFull },
         ],
     };
@@ -359,7 +359,7 @@ const ServicePageLayout = ({
         description={seoDescription || description}
         keywords={seoKeywords}
         canonical={canonicalFull}
-        ogImage={image || 'https://minderfly.com/og-image.png'}
+        ogImage={image || 'https://www.minderfly.com/og-image.png'}
         ogType="website"
         schema={[schema, breadcrumbSchema, ...(faqSchema ? [faqSchema] : []), ...(extraSchema ? [extraSchema] : [])]}
       />

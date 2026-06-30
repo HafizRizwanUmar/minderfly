@@ -17,7 +17,7 @@ const orgSchema = {
   '@context': 'https://schema.org',
   '@type': 'ProfessionalService',
   name: 'Minderfly',
-  url: 'https://minderfly.com',
+  url: 'https://www.minderfly.com',
   description: 'Minderfly is a digital agency and product studio specialising in Chrome extensions, VS Code tools, mobile apps, and full-stack web development. 150+ projects completed, 50+ happy clients worldwide.',
   numberOfEmployees: { '@type': 'QuantitativeValue', value: 10 },
   foundingDate: '2020',
@@ -101,7 +101,7 @@ const StatsSection = () => (
     />
 
     <meta itemProp="name" content="Minderfly" />
-    <meta itemProp="url"  content="https://minderfly.com" />
+    <meta itemProp="url"  content="https://www.minderfly.com" />
 
     <div className="stats-inner">
       <div className="stats-container">

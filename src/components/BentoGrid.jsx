@@ -32,7 +32,7 @@ const workSchema = {
   '@type': 'ItemList',
   name: 'Minderfly Portfolio — Work Showcase',
   description: 'A curated selection of digital products and client projects built by Minderfly: Chrome extensions, VS Code tools, mobile apps, and web platforms.',
-  url: 'https://minderfly.com/#work',
+  url: 'https://www.minderfly.com/#work',
 };
 
 /* ── Layout config ──

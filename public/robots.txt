@@ -8,4 +8,4 @@ Disallow: /node_modules/
 Disallow: /dist/
 
 # Canonical sitemap
-Sitemap: https://minderfly.com/sitemap.xml
+Sitemap: https://www.minderfly.com/sitemap.xml

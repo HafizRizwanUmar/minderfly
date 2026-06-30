@@ -81,8 +81,8 @@ const breadcrumbSchema = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home',     item: 'https://minderfly.com/' },
-        { '@type': 'ListItem', position: 2, name: 'Services', item: 'https://minderfly.com/services' },
+        { '@type': 'ListItem', position: 1, name: 'Home',     item: 'https://www.minderfly.com/' },
+        { '@type': 'ListItem', position: 2, name: 'Services', item: 'https://www.minderfly.com/services' },
     ],
 };
 
@@ -95,7 +95,7 @@ const serviceListSchema = {
         position: i + 1,
         name: s.title,
         description: s.description,
-        url: `https://minderfly.com${s.link}`,
+        url: `https://www.minderfly.com${s.link}`,
     })),
 };
 
@@ -111,7 +111,7 @@ const ServicesHub = () => {
                 title="Tech Services — Web, Mobile, AI Automation & Browser Tools | Minderfly"
                 description="Minderfly offers professional web development (MERN, Next.js), Flutter mobile apps, AI workflow automation, graphics design, Chrome extension development, and Chrome theme design. End-to-end digital product services worldwide."
                 keywords="web development services, Flutter mobile app development, AI workflow automation, graphics design, Chrome extension development, Chrome theme design, MERN stack, Next.js, n8n automation, zapier alternative, digital agency services"
-                canonical="https://minderfly.com/services"
+                canonical="https://www.minderfly.com/services"
                 ogType="website"
                 schema={[breadcrumbSchema, serviceListSchema]}
             />

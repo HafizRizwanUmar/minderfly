@@ -127,16 +127,16 @@ const ArticleDetail = () => {
         '@type': 'BlogPosting',
         headline: article.title,
         description: article.excerpt,
-        image: article.image ? `https://minderfly.com${article.image}` : undefined,
+        image: article.image ? `https://www.minderfly.com${article.image}` : undefined,
         datePublished: article.date,
         dateModified: article.dateModified || article.date,
         author: { '@type': 'Person', name: article.author },
         publisher: {
             '@type': 'Organization',
             name: 'Minderfly',
-            logo: { '@type': 'ImageObject', url: 'https://minderfly.com/logo.png' },
+            logo: { '@type': 'ImageObject', url: 'https://www.minderfly.com/logo.png' },
         },
-        mainEntityOfPage: { '@type': 'WebPage', '@id': `https://minderfly.com/articles/${article.slug}` },
+        mainEntityOfPage: { '@type': 'WebPage', '@id': `https://www.minderfly.com/articles/${article.slug}` },
         keywords: article.tags?.join(', '),
         articleSection: article.category,
         wordCount: article.content?.split(' ').length,
@@ -146,9 +146,9 @@ const ArticleDetail = () => {
         '@context': 'https://schema.org',
         '@type': 'BreadcrumbList',
         itemListElement: [
-            { '@type': 'ListItem', position: 1, name: 'Home',     item: 'https://minderfly.com/' },
-            { '@type': 'ListItem', position: 2, name: 'Articles', item: 'https://minderfly.com/articles' },
-            { '@type': 'ListItem', position: 3, name: article.title, item: `https://minderfly.com/articles/${article.slug}` },
+            { '@type': 'ListItem', position: 1, name: 'Home',     item: 'https://www.minderfly.com/' },
+            { '@type': 'ListItem', position: 2, name: 'Articles', item: 'https://www.minderfly.com/articles' },
+            { '@type': 'ListItem', position: 3, name: article.title, item: `https://www.minderfly.com/articles/${article.slug}` },
         ],
     };
 
@@ -158,9 +158,9 @@ const ArticleDetail = () => {
                 title={article.title}
                 description={article.excerpt}
                 keywords={article.tags?.join(', ')}
-                canonical={`https://minderfly.com/articles/${article.slug}`}
+                canonical={`https://www.minderfly.com/articles/${article.slug}`}
                 ogType="article"
-                ogImage={article.image ? `https://minderfly.com${article.image}` : undefined}
+                ogImage={article.image ? `https://www.minderfly.com${article.image}` : undefined}
                 schema={[articleSchema, breadcrumbSchema]}
             />
 
@@ -277,8 +277,8 @@ const ArticleDetail = () => {
                                         <img {...props} className="article-content-image" style={{ borderRadius: 12, border: '1px solid rgba(255,255,255,.08)' }} />
                                     ),
                                     a: ({ node, href, children, ...props }) => {
-                                        const isInternal = href && (href.startsWith('/') || href.startsWith('https://minderfly.com'));
-                                        const cleanHref = href?.startsWith('https://minderfly.com') ? href.replace('https://minderfly.com', '') : href;
+                                        const isInternal = href && (href.startsWith('/') || href.startsWith('https://www.minderfly.com'));
+                                        const cleanHref = href?.startsWith('https://www.minderfly.com') ? href.replace('https://www.minderfly.com', '') : href;
                                         if (isInternal) {
                                             return <Link to={cleanHref} {...props}>{children}</Link>;
                                         }

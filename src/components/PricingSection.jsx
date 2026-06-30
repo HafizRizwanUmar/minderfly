@@ -110,7 +110,7 @@ const buildSchema = (catLabel, plans) => ({
   '@context': 'https://schema.org',
   '@type': 'Service',
   name: `Minderfly — ${catLabel}`,
-  provider: { '@type': 'Organization', name: 'Minderfly', url: 'https://minderfly.com' },
+  provider: { '@type': 'Organization', name: 'Minderfly', url: 'https://www.minderfly.com' },
   hasOfferCatalog: {
     '@type': 'OfferCatalog',
     name: `${catLabel} Pricing Plans`,

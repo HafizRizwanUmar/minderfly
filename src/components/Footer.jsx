@@ -18,8 +18,8 @@ const orgSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: 'Minderfly',
-  url: 'https://minderfly.com',
-  logo: 'https://minderfly.com/logo.png',
+  url: 'https://www.minderfly.com',
+  logo: 'https://www.minderfly.com/logo.png',
   description: 'Minderfly is a digital agency and product studio building Chrome extensions, VS Code tools, Windows apps, and full-stack web experiences.',
   contactPoint: {
     '@type': 'ContactPoint',

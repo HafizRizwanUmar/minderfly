@@ -17,12 +17,12 @@ const buildSchema = (projects) => ({
   '@context': 'https://schema.org',
   '@type': 'ItemList',
   name: 'Minderfly Portfolio',
-  url: 'https://minderfly.com/#work',
+  url: 'https://www.minderfly.com/#work',
   numberOfItems: projects.length,
   itemListElement: projects.map((p, i) => ({
     '@type': 'ListItem',
     position: i + 1,
-    item: { '@type': 'CreativeWork', name: p.title, description: p.description, url: `https://minderfly.com${p.link}` },
+    item: { '@type': 'CreativeWork', name: p.title, description: p.description, url: `https://www.minderfly.com${p.link}` },
   })),
 });
 

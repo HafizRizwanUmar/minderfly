@@ -15,7 +15,7 @@ const WorkPage = () => {
         "@type": "CollectionPage",
         "name": "Minderfly Portfolio & Work Showcase",
         "description": "Explore our portfolio of successful projects including MERN stack applications, Flutter apps, VS Code extensions, and Chrome development work.",
-        "url": "https://minderfly.com/work",
+        "url": "https://www.minderfly.com/work",
         "mainEntity": {
             "@type": "ItemList",
             "itemListElement": [
@@ -49,7 +49,7 @@ const WorkPage = () => {
                 title="Our Work & Portfolio - Innovative Digital Solutions"
                 description="Explore Minderfly's portfolio of successful projects. View our work in MERN stack development, Flutter apps, VS Code extensions, and Chrome themes & extensions. See how we turn ideas into reality."
                 keywords="web development portfolio, MERN stack projects, Flutter apps showcase, VS Code extensions, Chrome extensions, digital agency work, software development case studies, project showcase"
-                canonical="https://minderfly.com/work"
+                canonical="https://www.minderfly.com/work"
                 schema={structuredData}
             />
 

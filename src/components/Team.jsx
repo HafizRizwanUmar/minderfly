@@ -53,7 +53,7 @@ const orgSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: 'Minderfly',
-  url: 'https://minderfly.com',
+  url: 'https://www.minderfly.com',
   member: TEAM.map(m => ({
     '@type': 'Person',
     name: m.name,

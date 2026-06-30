@@ -168,7 +168,7 @@ const TrustBadges = () => (
         '@context': 'https://schema.org',
         '@type': 'Organization',
         name: 'Minderfly',
-        url: 'https://minderfly.com',
+        url: 'https://www.minderfly.com',
         availableChannel: PLATFORMS.map(p => ({
           '@type': 'ServiceChannel',
           name: p.label,

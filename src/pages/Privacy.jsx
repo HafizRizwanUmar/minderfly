@@ -11,7 +11,7 @@ const Privacy = () => {
             <SEOHead
                 title="Privacy Policy"
                 description="Privacy Policy for Minderfly. Learn how we collect, use, and protect your data."
-                canonical="https://minderfly.com/privacy"
+                canonical="https://www.minderfly.com/privacy"
             />
             <Navbar />
             <main style={{ padding: '120px 5%', maxWidth: '800px', margin: '0 auto', color: '#fff' }}>

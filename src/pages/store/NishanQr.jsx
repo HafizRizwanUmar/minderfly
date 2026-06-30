@@ -33,16 +33,16 @@ const product = {
     applicationCategory: 'UtilitiesApplication',
     operatingSystem: 'Windows',
     description: 'Nishan QR Generator is a free offline Windows app for creating unlimited custom QR codes. Export as PNG or SVG. No account required.',
-    url: 'https://minderfly.com/store/nishan-qr-generator',
+    url: 'https://www.minderfly.com/store/nishan-qr-generator',
     offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
     aggregateRating: { '@type': 'AggregateRating', ratingValue: '4.8', reviewCount: '187' },
-    author: { '@type': 'Organization', name: 'Minderfly', url: 'https://minderfly.com' },
+    author: { '@type': 'Organization', name: 'Minderfly', url: 'https://www.minderfly.com' },
   },
   seo: {
     title: 'Nishan QR Generator — Free Offline QR Code App for Windows | Minderfly',
     description: 'Generate unlimited custom QR codes offline on Windows. Full colour control, PNG & SVG export, no sign-up needed. Free on the Microsoft Store.',
     keywords: 'QR code generator, offline QR maker, Windows QR app, free QR generator, custom QR code, Nishan QR',
-    canonical: 'https://minderfly.com/store/nishan-qr-generator',
+    canonical: 'https://www.minderfly.com/store/nishan-qr-generator',
   },
 };
 

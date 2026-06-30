@@ -169,13 +169,13 @@ const schemas = [
     '@context': 'https://schema.org',
     '@type': 'ContactPage',
     name: 'Contact Minderfly — Get a Free Quote',
-    url: 'https://minderfly.com/contact',
+    url: 'https://www.minderfly.com/contact',
     description: 'Contact Minderfly for custom website development, mobile app development, Chrome extensions, VS Code extensions, and graphic design. We serve businesses in retail, education, healthcare, hospitality, and more.',
     mainEntity: {
       '@type': 'Organization',
       name: 'Minderfly',
       email: 'hello@minderfly.com',
-      url: 'https://minderfly.com',
+      url: 'https://www.minderfly.com',
       contactPoint: {
         '@type': 'ContactPoint',
         contactType: 'Sales',
@@ -307,7 +307,7 @@ const ContactPage = () => {
         title="Contact Minderfly | Get a Free Quote"
         description="Need a website, mobile app, Chrome extension, or VS Code tool built? Contact Minderfly. We help businesses in retail, education, healthcare, hospitality, restaurants, and more. Fixed prices, real deliverables."
         keywords="contact Minderfly, custom website development, mobile app development Pakistan, Chrome extension developer, VS Code extension development, web development free quote, online academy website, POS system development, e-commerce website Pakistan"
-        canonical="https://minderfly.com/contact"
+        canonical="https://www.minderfly.com/contact"
         ogType="website"
         schema={schemas}
       />

@@ -33,16 +33,16 @@ const product = {
     applicationCategory: 'DeveloperApplication',
     operatingSystem: 'Windows, macOS, Linux',
     description: 'VS Code extension for Flutter Web development — live in-editor preview, hot reload, device frames. No browser switching required.',
-    url: 'https://minderfly.com/store/flutter-web-emulator',
+    url: 'https://www.minderfly.com/store/flutter-web-emulator',
     offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
     aggregateRating: { '@type': 'AggregateRating', ratingValue: '4.7', reviewCount: '156' },
-    author: { '@type': 'Organization', name: 'Minderfly', url: 'https://minderfly.com' },
+    author: { '@type': 'Organization', name: 'Minderfly', url: 'https://www.minderfly.com' },
   },
   seo: {
     title: 'Flutter Web Emulator — VS Code Extension | Minderfly Store',
     description: 'Preview Flutter Web apps live inside VS Code. Real-time hot reload, device frames, dark/light mode. Free on the VS Code Marketplace.',
     keywords: 'Flutter Web Emulator, VS Code extension, Flutter preview, hot reload, in-editor emulator, Minderfly Flutter extension',
-    canonical: 'https://minderfly.com/store/flutter-web-emulator',
+    canonical: 'https://www.minderfly.com/store/flutter-web-emulator',
   },
 };
 

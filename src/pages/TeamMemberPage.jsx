@@ -64,9 +64,9 @@ const TeamMemberPage = () => {
     name: member.name,
     jobTitle: member.role,
     description: member.bio,
-    image: `https://minderfly.com${member.photo}`,
-    url: `https://minderfly.com/team/${member.id}`,
-    worksFor: { '@type': 'Organization', name: 'Minderfly', url: 'https://minderfly.com' },
+    image: `https://www.minderfly.com${member.photo}`,
+    url: `https://www.minderfly.com/team/${member.id}`,
+    worksFor: { '@type': 'Organization', name: 'Minderfly', url: 'https://www.minderfly.com' },
     address: { '@type': 'PostalAddress', addressLocality: 'Lahore', addressCountry: 'PK' },
     sameAs: [member.linkedin, member.github].filter(Boolean),
     knowsAbout: member.skills,
@@ -78,8 +78,8 @@ const TeamMemberPage = () => {
         title={`${member.name} — ${member.role} | Minderfly Team`}
         description={`${member.bio} Based in ${member.location}. Part of the Minderfly software development studio.`}
         keywords={`${member.name}, ${member.role}, Minderfly team, ${member.skills.slice(0, 4).join(', ')}, software developer Pakistan`}
-        canonical={`https://minderfly.com/team/${member.id}`}
-        ogImage={`https://minderfly.com${member.photo}`}
+        canonical={`https://www.minderfly.com/team/${member.id}`}
+        ogImage={`https://www.minderfly.com${member.photo}`}
         schema={[schema]}
       />
 
